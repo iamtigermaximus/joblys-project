@@ -18,28 +18,28 @@ const Navbar = () => {
       <NavbarItemsContainer>
         <MenuContainer>
           <BrandContainer>
-            <Brand>JOBLYS</Brand>
+            <Brand href="/">JOBLYS</Brand>
           </BrandContainer>
         </MenuContainer>
         <MenuContainer>
           <MenuItemContainer>
-            <MenuItem>DASHBOARD</MenuItem>
+            <MenuItem href="/dashboard">DASHBOARD</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer>
-            <MenuItem>RESUMES</MenuItem>
+            <MenuItem href="/resumes">RESUMES</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer>
-            <MenuItem>COVER LETTERS</MenuItem>
+            <MenuItem href="/cover-letters">COVER LETTERS</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer>
-            <MenuItem>JOBS</MenuItem>
+            <MenuItem href="/jobs">JOBS</MenuItem>
           </MenuItemContainer>
         </MenuContainer>
       </NavbarItemsContainer>
       <SignInItemsContainer>
         <MenuContainer>
           <SignInContainer>
-            <SignIn>SIGN IN</SignIn>
+            <SignIn href="/signin">SIGN IN</SignIn>
           </SignInContainer>
         </MenuContainer>
       </SignInItemsContainer>

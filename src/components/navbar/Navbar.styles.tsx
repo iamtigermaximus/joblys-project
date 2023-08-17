@@ -2,6 +2,7 @@
 
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../utils/layout';
+import Link from 'next/link';
 
 export const NavbarContainer = styled.div`
   display: flex;
@@ -41,9 +42,11 @@ export const BrandContainer = styled.div`
   }
 `;
 
-export const Brand = styled.div`
+export const Brand = styled(Link)`
   display: flex;
   justify-content: center;
+  text-decoration: none;
+  color: white;
 
   @media (min-width: ${bp.lg}) {
     width: 100%;
@@ -67,6 +70,7 @@ export const MenuContainer = styled.div`
 export const MenuItemContainer = styled.div`
   margin: 20px 0;
   padding: 5px;
+  white-space: nowrap;
 
   @media (min-width: ${bp.lg}) {
     width: 150px;
@@ -75,9 +79,11 @@ export const MenuItemContainer = styled.div`
   }
 `;
 
-export const MenuItem = styled.div`
+export const MenuItem = styled(Link)`
   display: flex;
   justify-content: center;
+  text-decoration: none;
+  color: white;
 
   @media (min-width: ${bp.lg}) {
     width: 100%;
@@ -101,6 +107,7 @@ export const SignInItemsContainer = styled.div`
 export const SignInContainer = styled.div`
   margin: 20px 0;
   padding: 5px;
+  white-space: nowrap;
 
   @media (min-width: ${bp.lg}) {
     width: 150px;
@@ -109,9 +116,11 @@ export const SignInContainer = styled.div`
   }
 `;
 
-export const SignIn = styled.div`
+export const SignIn = styled(Link)`
   display: flex;
   justify-content: center;
+  text-decoration: none;
+  color: white;
 
   @media (min-width: ${bp.lg}) {
     width: 100%;
