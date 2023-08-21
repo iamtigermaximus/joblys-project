@@ -10,7 +10,7 @@ import {
   SignUpContainer,
   SignUpTitle,
   SignUpTitleContainer,
-} from './SignupForm.styles';
+} from './SignUpForm.styles';
 
 const SignUpForm = () => {
   return (
@@ -24,9 +24,9 @@ const SignUpForm = () => {
             <SignUpTitleContainer>
               <SignUpTitle>Create an account</SignUpTitle>
             </SignUpTitleContainer>
-            <InputLabel>First name</InputLabel>
+            <InputLabel>Username</InputLabel>
             <Input type="text" />
-            <InputLabel>Last name</InputLabel>
+            <InputLabel>Full name</InputLabel>
             <Input type="text" />
             <InputLabel>Email</InputLabel>
             <Input type="email" />

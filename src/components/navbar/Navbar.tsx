@@ -23,23 +23,23 @@ const Navbar = () => {
         </MenuContainer>
         <MenuContainer>
           <MenuItemContainer>
-            <MenuItem href="/dashboard">DASHBOARD</MenuItem>
+            <MenuItem href="/pages/dashboard">DASHBOARD</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer>
-            <MenuItem href="/resumes">RESUMES</MenuItem>
+            <MenuItem href="/pages/resumes">RESUMES</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer>
-            <MenuItem href="/cover-letters">COVER LETTERS</MenuItem>
+            <MenuItem href="/pages/cover-letters">COVER LETTERS</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer>
-            <MenuItem href="/jobs">JOBS</MenuItem>
+            <MenuItem href="/pages/jobs">JOBS</MenuItem>
           </MenuItemContainer>
         </MenuContainer>
       </NavbarItemsContainer>
       <SignInItemsContainer>
         <MenuContainer>
           <SignInContainer>
-            <SignIn href="/signin">SIGN IN</SignIn>
+            <SignIn href="/pages/signin">SIGN IN</SignIn>
           </SignInContainer>
         </MenuContainer>
       </SignInItemsContainer>

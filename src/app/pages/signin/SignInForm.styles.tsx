@@ -1,7 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-import { breakpoints as bp } from '../../utils/layout';
+import { breakpoints as bp } from '../../../utils/layout';
 
 export const Container = styled.div`
   display: flex;
@@ -71,13 +71,13 @@ export const ForgotPasswordContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 10px;
 `;
 
 export const ForgotPasswordLink = styled.h1`
   font-size: 16px;
   border-radius: 5px;
-  padding: 20px 0;
+  padding: 10px 0;
   margin: 0 20px;
   color: #232946;
 `;
@@ -86,7 +86,7 @@ export const SignInButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 10px;
 `;
 
 export const SignInButton = styled.button`
@@ -98,6 +98,12 @@ export const SignInButton = styled.button`
   border-radius: 15px;
   font-size: 15px;
   font-weight: 500;
+
+  &:hover {
+    background: #b8c1ec;
+    border: 1px solid #b8c1ec;
+    color: #232946;
+  }
 `;
 
 export const SignOutButton = styled.button`
@@ -108,6 +114,12 @@ export const SignOutButton = styled.button`
   border-radius: 15px;
   font-size: 15px;
   font-weight: 500;
+
+  &:hover {
+    background: #b8c1ec;
+    border: 1px solid #b8c1ec;
+    color: #232946;
+  }
 `;
 
 export const CreateAccountContainer = styled.div`
@@ -136,4 +148,19 @@ export const CreateAccountButton = styled.button`
   border-radius: 15px;
   font-size: 15px;
   font-weight: 500;
+
+  &:hover {
+    background: #b8c1ec;
+    border: 1px solid #b8c1ec;
+    color: #232946;
+  }
+`;
+
+export const ErrorContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  color: red;
+  padding: 10px;
 `;

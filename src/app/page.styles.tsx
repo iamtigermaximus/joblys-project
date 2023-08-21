@@ -9,7 +9,15 @@ export const Container = styled.div`
   float: left;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   background-color: #b8c1ec;
+`;
+
+export const Box = styled.div`
+  width: 50%;
+  height: 100%;
+  /* border: 1px solid red; */
+  position: relative;
+  padding: 20px;
 `;

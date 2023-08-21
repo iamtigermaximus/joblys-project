@@ -23,7 +23,7 @@ export const NavbarContainer = styled.div`
 
 export const NavbarItemsContainer = styled.div`
   display: flex;
-  padding: 20px 0;
+  /* padding: 20px 0; */
 
   @media (min-width: ${bp.lg}) {
     height: 100vh;

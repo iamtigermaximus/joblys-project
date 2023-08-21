@@ -1,7 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-import { breakpoints as bp } from '../../utils/layout';
+import { breakpoints as bp } from '../../../utils/layout';
 
 export const Container = styled.div`
   display: flex;
@@ -73,14 +73,15 @@ export const SignUpButton = styled.button`
   color: #b8c1ec;
   padding: 10px;
   width: 100%;
-  border: 1px solid white;
+  border: 1px solid #232946;
   border-radius: 15px;
   font-size: 15px;
   font-weight: 500;
 
   &:hover {
-    background: yellow;
-    border: 1px solid blue;
+    background: #b8c1ec;
+    border: 1px solid #b8c1ec;
+    color: #232946;
   }
 `;
 export const InputForm = styled.form`

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from '../page.styles';
+import { Container } from '@/app/page.styles';
 
 const Dashboard = () => {
   return <Container>DASHBOARD</Container>;
