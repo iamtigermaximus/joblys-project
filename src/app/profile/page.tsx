@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Container } from '../page.styles';
 import { useSession } from 'next-auth/react';
+import { Container } from './Profile.styles';
 
 const Profile = () => {
   const { data: session, status } = useSession({
@@ -12,7 +12,15 @@ const Profile = () => {
   if (status === 'loading') {
     return <></>;
   }
-  return <Container>Profile PAGE This is a protected page.</Container>;
+  return (
+    <Container>
+      <div>
+        <title>HOME</title>
+      </div>
+      This is the page where user can create an account profile.(create resume
+      with resume builder or upload a resume)
+    </Container>
+  );
 };
 
 export default Profile;

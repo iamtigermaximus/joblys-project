@@ -129,3 +129,17 @@ export const SignIn = styled(Link)`
     letter-spacing: 1px;
   }
 `;
+
+export const SignOut = styled(Link)`
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+
+  @media (min-width: ${bp.lg}) {
+    width: 100%;
+    flex-direction: column;
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+`;

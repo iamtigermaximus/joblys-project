@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import {
   Brand,
@@ -10,9 +11,12 @@ import {
   SignIn,
   SignInContainer,
   SignInItemsContainer,
+  SignOut,
 } from './Navbar.styles';
+import { signOut, useSession } from 'next-auth/react';
 
 const Navbar = () => {
+  const { data: session } = useSession();
   return (
     <NavbarContainer>
       <NavbarItemsContainer>
@@ -38,9 +42,26 @@ const Navbar = () => {
       </NavbarItemsContainer>
       <SignInItemsContainer>
         <MenuContainer>
-          <SignInContainer>
-            <SignIn href="/pages/signin">SIGN IN</SignIn>
-          </SignInContainer>
+          {!session ? (
+            <SignInContainer>
+              <SignIn href="/api/auth/signin">SIGN IN</SignIn>
+            </SignInContainer>
+          ) : (
+            <SignInContainer>
+              <SignOut href="/" onClick={() => signOut()}>
+                SIGN OUT
+              </SignOut>
+            </SignInContainer>
+          )}
+        </MenuContainer>
+        <MenuContainer>
+          {!session ? (
+            <SignInContainer>
+              <SignIn href="/pages/signup">REGISTER</SignIn>
+            </SignInContainer>
+          ) : (
+            ''
+          )}
         </MenuContainer>
       </SignInItemsContainer>
     </NavbarContainer>

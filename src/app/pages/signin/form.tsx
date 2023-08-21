@@ -24,7 +24,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 const SignInForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/chatbox';
+  const callbackUrl = searchParams.get('callbackUrl') ?? '/profile';
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     username: '',
@@ -49,7 +49,6 @@ const SignInForm = () => {
 
       console.log(res);
       if (!res?.error) {
-        // Authentication successful, navigate to the "/profile" page
         router.push('/profile');
       } else {
         setError('Invalid username or password');
@@ -67,7 +66,7 @@ const SignInForm = () => {
   return (
     <Container>
       <div>
-        <title>Sign In</title>
+        <title>SIGN IN</title>
       </div>
       <LoginContainer>
         <form onSubmit={onSubmit}>
