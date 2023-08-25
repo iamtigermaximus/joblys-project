@@ -5,14 +5,26 @@ import {
   InputContainer,
   InputForm,
   InputLabel,
+  ProviderButton,
+  ProviderContainer,
+  ProviderIcon,
+  Providers,
   SignUpButton,
   SignUpButtonContainer,
   SignUpContainer,
   SignUpTitle,
   SignUpTitleContainer,
 } from './SignUpForm.styles';
+import { useRouter } from 'next/navigation';
+import { FcGoogle } from 'react-icons/fc';
+import { FaLinkedin } from 'react-icons/fa6';
 
 const SignUpForm = () => {
+  const router = useRouter();
+
+  const handleCreateUser = () => {
+    router.push('/pages/upload-resume');
+  };
   return (
     <Container>
       <div>
@@ -33,8 +45,28 @@ const SignUpForm = () => {
             <InputLabel>Password</InputLabel>
             <Input type="password" />
             <SignUpButtonContainer>
-              <SignUpButton type="submit">Create user</SignUpButton>
+              <SignUpButton type="submit" onClick={handleCreateUser}>
+                Create user
+              </SignUpButton>
             </SignUpButtonContainer>
+            <Providers>
+              <ProviderContainer>
+                <ProviderButton>
+                  <ProviderIcon>
+                    <FcGoogle />
+                  </ProviderIcon>
+                  Continue with Google
+                </ProviderButton>
+              </ProviderContainer>
+              <ProviderContainer>
+                <ProviderButton>
+                  <ProviderIcon>
+                    <FaLinkedin />
+                  </ProviderIcon>
+                  Continue with LinkedIn
+                </ProviderButton>
+              </ProviderContainer>
+            </Providers>
           </InputContainer>
         </InputForm>
       </SignUpContainer>

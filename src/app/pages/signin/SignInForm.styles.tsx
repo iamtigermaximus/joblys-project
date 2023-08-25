@@ -17,7 +17,7 @@ export const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 500px;
+  height: 600px;
   padding: 20px;
   margin: 20px;
   flex-direction: column;
@@ -163,4 +163,46 @@ export const ErrorContainer = styled.div`
   font-size: 13px;
   color: red;
   padding: 10px;
+`;
+
+export const ProviderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px;
+  width: 100%;
+`;
+
+export const Providers = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #232946;
+  padding-top: 15px;
+`;
+
+export const ProviderButton = styled.button`
+  background: #232946;
+  color: #b8c1ec;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #232946;
+  border-radius: 15px;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 5px;
+
+  &:hover {
+    background: #b8c1ec;
+    border: 1px solid #b8c1ec;
+    color: #232946;
+  }
+`;
+
+export const ProviderIcon = styled.span`
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 500;
 `;

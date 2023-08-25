@@ -42,22 +42,52 @@
 
 'use client';
 
-import { Box, Container } from './page.styles';
+import {
+  Box,
+  Box2,
+  BoxContainer,
+  BoxHeader,
+  Container,
+  GetStartedButton,
+} from './page.styles';
 import Image from 'next/image';
 import Image1 from '../assets/joblys-hero.png';
+import PageHeader from '@/components/page-header/PageHeader';
+import Head from 'next/head';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
+
+  const handleGetStartedClick = () => {
+    router.push('/pages/signup'); // Navigate to the 'register' page
+  };
   return (
     <Container>
-      <Box>1</Box>
-      <Box>
-        <Image
-          src={Image1}
-          width={550}
-          height={750}
-          alt="Picture of the author"
-        />
-      </Box>
+      <PageHeader />
+      <BoxContainer>
+        <Box>
+          <BoxHeader>Seamless. Joblys</BoxHeader>
+          <BoxHeader>
+            <p>
+              AI-powered platform that helps job seekers find suitable job
+              opportunities more efficiently. The AI could analyze a candidate's
+              skills, experience, preferences, and career goals to match them
+              with relevant job listings. The platform could also provide
+              personalized job recommendations, based on the user's profile and
+              historical job search behavior.
+            </p>
+          </BoxHeader>
+          <BoxHeader>
+            <GetStartedButton onClick={handleGetStartedClick}>
+              GET STARTED
+            </GetStartedButton>
+          </BoxHeader>
+        </Box>
+        <Box2>
+          <Image src={Image1} width={500} height={600} alt="hero-image" />
+        </Box2>
+      </BoxContainer>
     </Container>
   );
 }

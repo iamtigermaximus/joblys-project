@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { FormEvent } from 'react';
 import {
   Brand,
   BrandContainer,
@@ -8,7 +8,6 @@ import {
   MenuItemContainer,
   NavbarContainer,
   NavbarItemsContainer,
-  SignIn,
   SignInContainer,
   SignInItemsContainer,
   SignOut,
@@ -17,6 +16,11 @@ import { signOut, useSession } from 'next-auth/react';
 
 const Navbar = () => {
   const { data: session } = useSession();
+
+  const handleSignOut = async (e: FormEvent) => {
+    e.preventDefault();
+    await signOut();
+  };
   return (
     <NavbarContainer>
       <NavbarItemsContainer>
@@ -27,40 +31,39 @@ const Navbar = () => {
         </MenuContainer>
         <MenuContainer>
           <MenuItemContainer>
-            <MenuItem href="/pages/dashboard">DASHBOARD</MenuItem>
+            <MenuItem href="/pages/navbar-links/dashboard">DASHBOARD</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer>
-            <MenuItem href="/pages/resumes">RESUMES</MenuItem>
+            <MenuItem href="/pages/navbar-links/jobs">SEARCH JOBS</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer>
-            <MenuItem href="/pages/cover-letters">COVER LETTERS</MenuItem>
+            <MenuItem href="/pages/navbar-links/resumes">RESUMES</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer>
-            <MenuItem href="/pages/jobs">JOBS</MenuItem>
+            <MenuItem href="/pages/navbar-links/cover-letters">
+              COVER LETTERS
+            </MenuItem>
           </MenuItemContainer>
+
+          {!session ? (
+            ''
+          ) : (
+            <MenuItemContainer>
+              <MenuItem href="/pages/navbar-links/profile">ACCOUNT</MenuItem>
+            </MenuItemContainer>
+          )}
         </MenuContainer>
       </NavbarItemsContainer>
       <SignInItemsContainer>
         <MenuContainer>
           {!session ? (
-            <SignInContainer>
-              <SignIn href="/api/auth/signin">SIGN IN</SignIn>
-            </SignInContainer>
+            ''
           ) : (
             <SignInContainer>
-              <SignOut href="/" onClick={() => signOut()}>
+              <SignOut href="/" onClick={handleSignOut}>
                 SIGN OUT
               </SignOut>
             </SignInContainer>
-          )}
-        </MenuContainer>
-        <MenuContainer>
-          {!session ? (
-            <SignInContainer>
-              <SignIn href="/pages/signup">REGISTER</SignIn>
-            </SignInContainer>
-          ) : (
-            ''
           )}
         </MenuContainer>
       </SignInItemsContainer>

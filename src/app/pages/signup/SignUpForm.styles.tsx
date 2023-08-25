@@ -7,7 +7,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  height: 750px;
   padding: 50px 0;
   background: transparent;
 `;
@@ -17,7 +17,7 @@ export const SignUpContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 500px;
+  height: 100%;
   padding: 20px;
   margin: 20px;
   /* box-shadow: 0 0 10px green; */
@@ -108,5 +108,47 @@ export const LoginLinkButton = styled.button`
   border: 1px solid black;
   border-radius: 15px;
   font-size: 15px;
+  font-weight: 500;
+`;
+
+export const ProviderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px;
+  width: 100%;
+`;
+
+export const Providers = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #232946;
+  padding-top: 15px;
+`;
+
+export const ProviderButton = styled.button`
+  background: #232946;
+  color: #b8c1ec;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #232946;
+  border-radius: 15px;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 5px;
+
+  &:hover {
+    background: #b8c1ec;
+    border: 1px solid #b8c1ec;
+    color: #232946;
+  }
+`;
+
+export const ProviderIcon = styled.span`
+  padding: 10px;
+  font-size: 18px;
   font-weight: 500;
 `;

@@ -18,8 +18,14 @@ import {
   CreateAccountTitle,
   CreateAccountButton,
   ErrorContainer,
+  ProviderContainer,
+  Providers,
+  ProviderButton,
+  ProviderIcon,
 } from './SignInForm.styles';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { FcGoogle } from 'react-icons/fc';
+import { FaLinkedin } from 'react-icons/fa6';
 
 interface Credentials {
   username: string;
@@ -29,7 +35,6 @@ interface Credentials {
 const SignInForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') ?? '/profile';
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState<Credentials>({
     username: '',
@@ -52,7 +57,7 @@ const SignInForm = () => {
 
       console.log(res);
       if (!res?.error) {
-        router.push('/profile');
+        router.push('/pages/navbar-links/profile');
       } else {
         setError('Invalid username or password');
       }
@@ -104,6 +109,24 @@ const SignInForm = () => {
                 {loading ? 'loading...' : 'Sign In'}
               </SignInButton>
             </SignInButtonContainer>
+            <Providers>
+              <ProviderContainer>
+                <ProviderButton>
+                  <ProviderIcon>
+                    <FcGoogle />
+                  </ProviderIcon>
+                  Continue with Google
+                </ProviderButton>
+              </ProviderContainer>
+              <ProviderContainer>
+                <ProviderButton>
+                  <ProviderIcon>
+                    <FaLinkedin />
+                  </ProviderIcon>
+                  Continue with LinkedIn
+                </ProviderButton>
+              </ProviderContainer>
+            </Providers>
             <CreateAccountContainer>
               <CreateAccountTitle>
                 Don&apos;t have an account yet?
@@ -121,71 +144,3 @@ const SignInForm = () => {
   );
 };
 export default SignInForm;
-// 'use client';
-// import { useState, FormEvent } from 'react';
-// import { signIn } from 'next-auth/react';
-// import { ErrorContainer } from './SignInForm.styles';
-// import { useRouter } from 'next/navigation';
-
-// interface Credentials {
-//   username: string;
-//   password: string;
-// }
-
-// export default function SignIn() {
-//   const [credentials, setCredentials] = useState<Credentials>({
-//     username: '',
-//     password: '',
-//   });
-//   const [error, setError] = useState('');
-//   const router = useRouter();
-
-//   const handleSubmit = async (e: FormEvent) => {
-//     e.preventDefault();
-
-//     const response = await signIn('credentials', {
-//       redirect: false,
-//       ...credentials,
-//     });
-
-//     if (!response?.error) {
-//       router.push('/profile');
-//     } else {
-//       setError('Invalid username or password');
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h2>Sign In</h2>
-//       <form onSubmit={handleSubmit}>
-//         <div>
-//           <label htmlFor="username">Username</label>
-//           <input
-//             type="text"
-//             id="username"
-//             name="username"
-//             value={credentials.username}
-//             onChange={(e) =>
-//               setCredentials({ ...credentials, username: e.target.value })
-//             }
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="password">Password</label>
-//           <input
-//             type="password"
-//             id="password"
-//             name="password"
-//             value={credentials.password}
-//             onChange={(e) =>
-//               setCredentials({ ...credentials, password: e.target.value })
-//             }
-//           />
-//         </div>
-//         <ErrorContainer>{error && <p>{error}</p>}</ErrorContainer>
-//         <button type="submit">Sign In</button>
-//       </form>
-//     </div>
-//   );
-// }

@@ -107,3 +107,32 @@ const ArrowIcon = styled.span`
   right: 10px;
   transform: translateY(-50%);
 `;
+
+export const ResultsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid red;
+  margin: 30px 0;
+`;
+
+export const ResultsListContainer = styled.div`
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid green;
+`;
+export const ResultContainer = styled.div`
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid yellow;
+`;

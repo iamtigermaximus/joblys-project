@@ -4,13 +4,16 @@ import {
   Container,
   FilterContainer,
   FilterSelect,
-  Header,
   Icon,
   Input,
   InputContainer,
+  ResultContainer,
+  ResultsContainer,
+  ResultsListContainer,
   SearchButton,
   SearchContainer,
 } from './Jobs.styles';
+import PageHeader from '@/components/page-header/PageHeader';
 
 const Jobs = () => {
   const [selectedOption, setSelectedOption] = useState('');
@@ -20,7 +23,7 @@ const Jobs = () => {
   };
   return (
     <Container>
-      <Header></Header>
+      <PageHeader />
       <SearchContainer>
         <InputContainer>
           <Icon></Icon>
@@ -95,6 +98,10 @@ const Jobs = () => {
         </FilterSelect>
         {/* <ArrowIcon>&#9660;</ArrowIcon> */}
       </FilterContainer>
+      <ResultsContainer>
+        <ResultsListContainer>List of Jobs</ResultsListContainer>
+        <ResultContainer>Single Job Description</ResultContainer>
+      </ResultsContainer>
     </Container>
   );
 };
