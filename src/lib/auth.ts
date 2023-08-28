@@ -96,6 +96,7 @@
 //   },
 // };
 
+import axios from 'axios';
 import { NextAuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 
@@ -124,6 +125,23 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
       },
+      //   try {
+      //     const response = await axios.post(
+      //       'http://localhost:3001/users/login',
+      //       credentials
+      //     );
+
+      //     if (response.status === 200) {
+      //       const user = response.data;
+      //       return user;
+      //     } else {
+      //       return null; // Login failed
+      //     }
+      //   } catch (error) {
+      //     console.error('Error logging in:', error);
+      //     return null;
+      //   }
+      // },
     }),
   ],
   pages: {

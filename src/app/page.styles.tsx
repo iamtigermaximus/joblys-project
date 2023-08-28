@@ -44,6 +44,7 @@ export const Box2 = styled.div`
   /* background-size: cover; */
   background-repeat: no-repeat;
   background-position: center;
+  /* object-fit: fill; */
 `;
 
 export const BoxHeader = styled.div`

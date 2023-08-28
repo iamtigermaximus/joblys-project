@@ -4,6 +4,7 @@ import React from 'react';
 import { useSession } from 'next-auth/react';
 import { Container } from './Profile.styles';
 import { useRouter } from 'next/navigation';
+import 'transition-style';
 
 const Profile = () => {
   const { data: session, status } = useSession({
@@ -16,7 +17,7 @@ const Profile = () => {
     return null;
   }
   return (
-    <Container>
+    <Container transition-style="in:circle:bottom-right">
       <div>
         <title>HOME</title>
       </div>

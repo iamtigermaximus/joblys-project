@@ -23,7 +23,7 @@ const SignUpForm = () => {
   const router = useRouter();
 
   const handleCreateUser = () => {
-    router.push('/pages/upload-resume');
+    router.push('/pages/create-profile');
   };
   return (
     <Container>
