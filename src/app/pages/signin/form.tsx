@@ -35,7 +35,6 @@ interface Credentials {
 const SignInForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState<Credentials>({
     username: '',
     password: '',
@@ -45,15 +44,12 @@ const SignInForm = () => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      setLoading(true);
       setFormValues({ username: '', password: '' });
 
       const res = await signIn('credentials', {
         redirect: false,
         ...formValues,
       });
-
-      setLoading(false);
 
       console.log(res);
       if (!res?.error) {
@@ -62,7 +58,6 @@ const SignInForm = () => {
         setError('Invalid username or password');
       }
     } catch (error: any) {
-      setLoading(false);
       setError(error);
     }
   };
@@ -70,6 +65,17 @@ const SignInForm = () => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signIn('google', { callbackUrl: '/callback' });
+      if (!result?.error) {
+        router.push('/pages/navbar-links/profile');
+      }
+    } catch (error) {
+      console.error('Google login error:', error);
+    }
   };
   return (
     <Container>
@@ -105,13 +111,11 @@ const SignInForm = () => {
               </Link>
             </ForgotPasswordContainer>
             <SignInButtonContainer>
-              <SignInButton type="submit" disabled={loading}>
-                {loading ? 'loading...' : 'Sign In'}
-              </SignInButton>
+              <SignInButton type="submit">Sign In</SignInButton>
             </SignInButtonContainer>
             <Providers>
               <ProviderContainer>
-                <ProviderButton>
+                <ProviderButton onClick={handleGoogleSignIn}>
                   <ProviderIcon>
                     <FcGoogle />
                   </ProviderIcon>

@@ -17,14 +17,16 @@ const Profile = () => {
     return null;
   }
   return (
-    <Container transition-style="in:circle:bottom-right">
-      <div>
-        <title>HOME</title>
-      </div>
-      <h1>ACCOUNT PROFILE</h1>
-      This is the page where user can edit and see your account profile.(create
-      resume with resume builder or upload a resume)
-    </Container>
+    <div transition-style="in:circle:bottom-right">
+      <Container>
+        <div>
+          <title>HOME</title>
+        </div>
+        <h1>ACCOUNT PROFILE</h1>
+        This is the page where user can edit and see your account
+        profile.(create resume with resume builder or upload a resume)
+      </Container>
+    </div>
   );
 };
 

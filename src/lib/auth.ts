@@ -1,107 +1,14 @@
-// import axios from 'axios';
-// import { compare } from 'bcryptjs';
-// import type { NextAuthOptions } from 'next-auth';
-// import CredentialsProvider from 'next-auth/providers/credentials';
-
-// interface User {
-//   id: string;
-//   username: string;
-//   password: string;
-//   full_name: string;
-// }
-
-// export const authOptions: NextAuthOptions = {
-//   session: {
-//     strategy: 'jwt',
-//   },
-//   providers: [
-//     CredentialsProvider({
-//       name: 'Sign in',
-//       credentials: {
-//         username: {
-//           label: 'Username',
-//           type: 'text',
-//           placeholder: 'Enter username',
-//         },
-//         password: {
-//           label: 'Password',
-//           type: 'password',
-//           placeholder: 'Enter password',
-//         },
-//       },
-//       async authorize(credentials) {
-//         try {
-//           const response = await axios.post(
-//             'http://localhost:8000/login',
-//             credentials,
-//             {
-//               headers: { 'Content-Type': 'application/json' },
-//             }
-//           );
-
-//           const users = response.data;
-
-//           if (!credentials?.username || !credentials.password) {
-//             return null;
-//           }
-
-//           const user = users.find(
-//             (userData: User) => userData.username === credentials.username
-//           );
-
-//           if (!user || !(await compare(credentials.password, user.password))) {
-//             return null;
-//           }
-
-//           return {
-//             id: user.id,
-//             username: user.username,
-//             full_name: user.full_name,
-//             randomKey: 'Hey cool',
-//           };
-//         } catch (error) {
-//           console.error('Error loading response data:', error);
-//           return null;
-//         }
-//       },
-//     }),
-//   ],
-//   pages: {
-//     signIn: '/pages/signin',
-//   },
-//   callbacks: {
-//     session: ({ session, token }) => {
-//       console.log('Session Callback', { session, token });
-//       return {
-//         ...session,
-//         user: {
-//           ...session.user,
-//           id: token.id,
-//           randomKey: token.randomKey,
-//         },
-//       };
-//     },
-//     jwt: ({ token, user }) => {
-//       console.log('JWT Callback', { token, user });
-//       if (user) {
-//         const u = user as unknown as any;
-//         return {
-//           ...token,
-//           id: u.id,
-//           randomKey: u.randomKey,
-//         };
-//       }
-//       return token;
-//     },
-//   },
-// };
-
 import axios from 'axios';
 import { NextAuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
 
 export const authOptions: NextAuthOptions = {
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+    }),
     Credentials({
       name: 'Credentials',
       credentials: {
@@ -117,31 +24,34 @@ export const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials, req) {
-        const user = { id: '1', username: 'siegfred', password: 'siegfred' };
+        try {
+          const users = [
+            { id: '1', username: 'siegfred', password: 'siegfred' },
+            // Add more user objects if needed
+          ];
 
-        if (user) {
-          return user;
-        } else {
-          return null;
+          // if (!credentials || !credentials.username || !credentials.password) {
+          //   throw new Error('Invalid credentials format');
+          // }
+
+          // const user = await loginUser(credentials);
+
+          const user = users.find(
+            (u) =>
+              u.username === credentials?.username &&
+              u.password === credentials.password
+          );
+
+          if (user) {
+            return user;
+          } else {
+            throw new Error('Invalid credentials');
+          }
+        } catch (error: any) {
+          // Specify 'any' as the error type
+          throw new Error(error.message);
         }
       },
-      //   try {
-      //     const response = await axios.post(
-      //       'http://localhost:3001/users/login',
-      //       credentials
-      //     );
-
-      //     if (response.status === 200) {
-      //       const user = response.data;
-      //       return user;
-      //     } else {
-      //       return null; // Login failed
-      //     }
-      //   } catch (error) {
-      //     console.error('Error logging in:', error);
-      //     return null;
-      //   }
-      // },
     }),
   ],
   pages: {

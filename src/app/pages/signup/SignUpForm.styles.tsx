@@ -20,7 +20,6 @@ export const SignUpContainer = styled.div`
   height: 100%;
   padding: 20px;
   margin: 20px;
-  /* box-shadow: 0 0 10px green; */
   flex-direction: column;
   border-radius: 20px;
 

@@ -85,7 +85,13 @@ export default function Home() {
           </BoxHeader>
         </Box>
         <Box2>
-          <Image src={Image1} width={500} height={600} alt="hero-image" />
+          <Image
+            src={Image1}
+            width={500}
+            height={600}
+            alt="hero-image"
+            priority
+          />
         </Box2>
       </BoxContainer>
     </Container>
