@@ -1,4 +1,5 @@
 'use client';
+
 import React, { ChangeEvent, FormEventHandler, useState } from 'react';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
@@ -46,15 +47,23 @@ const SignInForm = () => {
     try {
       setFormValues({ username: '', password: '' });
 
+      // Sign in using custom credentials (username and password)
       const res = await signIn('credentials', {
         redirect: false,
         ...formValues,
       });
 
       console.log(res);
+
       if (!res?.error) {
+        /**
+         * * REDIRECTS TO PROFILE PAGE UPON SUCCESSFUL SIGN IN
+         */
         router.push('/pages/navbar-links/profile');
       } else {
+        /**
+         * TODO :CREATE ERROR MESSAGE FOR INVALID CREDENTIALS
+         */
         setError('Invalid username or password');
       }
     } catch (error: any) {
@@ -67,9 +76,16 @@ const SignInForm = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  /**
+   * ! NOT WORKING PROPERLY
+   * TODO : CONFIGURE HOW TO USE GOOGLE AND LINKEDIN AS PROVIDERS IN NEXT AUTH
+   * TODO : WHEN GOOGLE SIGN IN, REDIRECT TO PROFILE PAGE WHICH IS PRIVATE ROUTE
+   */
+
   const handleGoogleSignIn = async () => {
     try {
       const result = await signIn('google', { callbackUrl: '/callback' });
+
       if (!result?.error) {
         router.push('/pages/navbar-links/profile');
       }
@@ -77,6 +93,7 @@ const SignInForm = () => {
       console.error('Google login error:', error);
     }
   };
+
   return (
     <Container>
       <div>
@@ -147,4 +164,5 @@ const SignInForm = () => {
     </Container>
   );
 };
+
 export default SignInForm;

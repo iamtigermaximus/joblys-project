@@ -20,7 +20,6 @@ import { useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
 import axios from 'axios';
-
 const SignUpForm = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -38,15 +37,22 @@ const SignUpForm = () => {
     });
   };
 
+  /**
+   * ! DOES NOT AUTOMATICALLY SIGN IN YET
+   * TODO: SIGN IN UPON SUCCESSFUL SIGN UP
+   * TODO: SET SIGNED IN STATUS TO TRUE UPON SUCCESSFUL SIGN UP AND SIGN IN
+   * TODO: ADD SIGN UP USING NEXT AUTH PROVIDERS (GOOGLE AND LINKEDIN)
+   */
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted');
 
     try {
-      const response = await axios.post(
-        'http://localhost:8000/register',
-        formData
-      );
+      const { username, password, full_name, email } = formData;
+      const url = `http://localhost:8000/register?username=${username}&password=${password}&full_name=${full_name}&email=${email}`;
+
+      const response = await axios.post(url);
 
       if (response.status === 200) {
         router.push('/pages/create-profile');

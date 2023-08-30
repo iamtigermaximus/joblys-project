@@ -23,32 +23,37 @@ export const authOptions: NextAuthOptions = {
           placeholder: 'Enter password',
         },
       },
+      //     const user = users.find(
+      //       (u: { username: string; password: string }) =>
+      //         u.username === credentials?.username &&
+      //         u.password === credentials?.password
+      //     );
+
+      //     if (user) {
+      //       return user;
+      //     } else {
+      //       throw new Error('Invalid credentials');
+      //     }
+      //   } catch (error: any) {
+      //     throw new Error(error.message);
+      //   }
+      // },
       async authorize(credentials, req) {
         try {
-          const users = [
-            { id: '1', username: 'siegfred', password: 'siegfred' },
-            // Add more user objects if needed
-          ];
-
-          // if (!credentials || !credentials.username || !credentials.password) {
-          //   throw new Error('Invalid credentials format');
-          // }
-
-          // const user = await loginUser(credentials);
-
-          const user = users.find(
-            (u) =>
-              u.username === credentials?.username &&
-              u.password === credentials.password
+          const response = await axios.post(
+            'http://localhost:8000/login',
+            credentials
           );
 
-          if (user) {
-            return user;
+          const tokenData = response.data;
+
+          if (tokenData.access_token) {
+            // Authentication was successful; return the token data
+            return tokenData;
           } else {
             throw new Error('Invalid credentials');
           }
         } catch (error: any) {
-          // Specify 'any' as the error type
           throw new Error(error.message);
         }
       },
@@ -56,5 +61,30 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: '/pages/signin',
+  },
+  callbacks: {
+    session: ({ session, token }) => {
+      console.log('Session Callback', { session, token });
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          randomKey: token.randomKey,
+        },
+      };
+    },
+    jwt: ({ token, user }) => {
+      console.log('JWT Callback', { token, user });
+      if (user) {
+        const u = user as unknown as any;
+        return {
+          ...token,
+          id: u.id,
+          randomKey: u.randomKey,
+        };
+      }
+      return token;
+    },
   },
 };
