@@ -35,7 +35,7 @@ interface Credentials {
 
 const SignInForm = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const [formValues, setFormValues] = useState<Credentials>({
     username: '',
     password: '',
@@ -49,8 +49,8 @@ const SignInForm = () => {
 
       // Sign in using custom credentials (username and password)
       const res = await signIn('credentials', {
-        redirect: false,
-        ...formValues,
+        username: formValues.username,
+        password: formValues.password,
       });
 
       console.log(res);

@@ -23,33 +23,16 @@ export const authOptions: NextAuthOptions = {
           placeholder: 'Enter password',
         },
       },
-      //     const user = users.find(
-      //       (u: { username: string; password: string }) =>
-      //         u.username === credentials?.username &&
-      //         u.password === credentials?.password
-      //     );
-
-      //     if (user) {
-      //       return user;
-      //     } else {
-      //       throw new Error('Invalid credentials');
-      //     }
-      //   } catch (error: any) {
-      //     throw new Error(error.message);
-      //   }
-      // },
       async authorize(credentials, req) {
         try {
           const response = await axios.post(
             'http://localhost:8000/login',
             credentials
           );
+          const userData = response.data;
 
-          const tokenData = response.data;
-
-          if (tokenData.access_token) {
-            // Authentication was successful; return the token data
-            return tokenData;
+          if (userData) {
+            return userData;
           } else {
             throw new Error('Invalid credentials');
           }
@@ -69,8 +52,6 @@ export const authOptions: NextAuthOptions = {
         ...session,
         user: {
           ...session.user,
-          id: token.id,
-          randomKey: token.randomKey,
         },
       };
     },
@@ -80,8 +61,6 @@ export const authOptions: NextAuthOptions = {
         const u = user as unknown as any;
         return {
           ...token,
-          id: u.id,
-          randomKey: u.randomKey,
         };
       }
       return token;
