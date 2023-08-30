@@ -12,12 +12,13 @@ Frontend stack:
 - NextJS
 - Typescript
 - styled-components
+- Next-Auth
 
 ### Clone the Repository
 
 Run the following command:
 1. git clone https://github.com/iamtigermaximus/joblys-project.git
-2. cd project-joblys
+2. cd joblys-project
 3. npm install
 4. npm run dev
 
