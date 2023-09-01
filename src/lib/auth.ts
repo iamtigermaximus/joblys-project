@@ -1,14 +1,12 @@
 import axios from 'axios';
 import { NextAuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import GoogleProvider from 'next-auth/providers/google';
 
 export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: 'jwt',
+  },
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
-    }),
     Credentials({
       name: 'Credentials',
       credentials: {
@@ -23,44 +21,45 @@ export const authOptions: NextAuthOptions = {
           placeholder: 'Enter password',
         },
       },
-      async authorize(credentials, req) {
+      authorize: async (credentials) => {
         try {
           const response = await axios.post(
             'http://localhost:8000/login',
             credentials
           );
-          const userData = response.data;
 
-          if (userData) {
-            return userData;
+          // Check if the login was successful
+          if (response.status === 200) {
+            const user = response.data;
+            return Promise.resolve(user);
           } else {
-            throw new Error('Invalid credentials');
+            return Promise.resolve(null);
           }
-        } catch (error: any) {
-          throw new Error(error.message);
+        } catch (error) {
+          console.error('Login error:', error);
+          return Promise.resolve(null);
         }
       },
     }),
   ],
-  pages: {
-    signIn: '/pages/signin',
-  },
   callbacks: {
     session: ({ session, token }) => {
-      console.log('Session Callback', { session, token });
       return {
         ...session,
         user: {
           ...session.user,
+          id: token.id,
+          randomKey: token.randomKey,
         },
       };
     },
     jwt: ({ token, user }) => {
-      console.log('JWT Callback', { token, user });
       if (user) {
         const u = user as unknown as any;
         return {
           ...token,
+          id: u.id,
+          randomKey: u.randomKey,
         };
       }
       return token;

@@ -27,6 +27,7 @@ import {
 import { useSearchParams, useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
+import axios from 'axios';
 
 interface Credentials {
   username: string;
@@ -35,36 +36,34 @@ interface Credentials {
 
 const SignInForm = () => {
   const router = useRouter();
-  // const searchParams = useSearchParams();
   const [formValues, setFormValues] = useState<Credentials>({
     username: '',
     password: '',
   });
   const [error, setError] = useState('');
 
+  const searchParams = useSearchParams();
+  const callbackUrl =
+    searchParams.get('callbackUrl') ?? '/pages/navbar-links/profile';
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
       setFormValues({ username: '', password: '' });
 
-      // Sign in using custom credentials (username and password)
-      const res = await signIn('credentials', {
+      const response = await signIn('credentials', {
+        redirect: false,
         username: formValues.username,
         password: formValues.password,
+        callbackUrl,
       });
 
-      console.log(res);
-
-      if (!res?.error) {
-        /**
-         * * REDIRECTS TO PROFILE PAGE UPON SUCCESSFUL SIGN IN
-         */
-        router.push('/pages/navbar-links/profile');
+      console.log(response);
+      if (!response?.error) {
+        router.push(callbackUrl);
       } else {
-        /**
-         * TODO :CREATE ERROR MESSAGE FOR INVALID CREDENTIALS
-         */
-        setError('Invalid username or password');
+        setError('invalid email or password');
       }
     } catch (error: any) {
       setError(error);
