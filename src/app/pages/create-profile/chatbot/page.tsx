@@ -3,6 +3,7 @@
 import React from 'react';
 import { Container } from './ChatbotPage.styles';
 import PageHeader from '@/components/page-header/PageHeader';
+import Chat from '@/components/chat/Chat';
 
 const ChatbotPage = () => {
   return (
@@ -11,7 +12,9 @@ const ChatbotPage = () => {
         <title>CHATBOT PROFILE BUILDER</title>
       </div>
       <PageHeader />
-      <h1>CHATBOT PAGE</h1>
+      <div>
+        <Chat />
+      </div>
     </Container>
   );
 };

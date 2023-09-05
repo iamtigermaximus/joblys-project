@@ -36,32 +36,32 @@ interface Credentials {
 
 const SignInForm = () => {
   const router = useRouter();
-  const [formValues, setFormValues] = useState<Credentials>({
+  const [credentials, setCredentials] = useState<Credentials>({
     username: '',
     password: '',
   });
   const [error, setError] = useState('');
 
   const searchParams = useSearchParams();
-  const callbackUrl =
-    searchParams.get('callbackUrl') ?? '/pages/navbar-links/profile';
+  // const callbackUrl =
+  //   searchParams.get('callbackUrl') ?? '/pages/navbar-links/profile';
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      setFormValues({ username: '', password: '' });
+      setCredentials({ username: '', password: '' });
 
       const response = await signIn('credentials', {
         redirect: false,
-        username: formValues.username,
-        password: formValues.password,
-        callbackUrl,
+        username: credentials.username,
+        password: credentials.password,
+        // callbackUrl,
       });
 
       console.log(response);
       if (!response?.error) {
-        router.push(callbackUrl);
+        router.push('/pages/navbar-links/profile');
       } else {
         setError('invalid email or password');
       }
@@ -72,7 +72,7 @@ const SignInForm = () => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormValues({ ...formValues, [name]: value });
+    setCredentials({ ...credentials, [name]: value });
   };
 
   /**
@@ -106,7 +106,7 @@ const SignInForm = () => {
             </LoginTitleContainer>
             <InputLabel>Username</InputLabel>
             <Input
-              value={formValues?.username}
+              value={credentials?.username}
               onChange={handleChange}
               type="text"
               name="username"
@@ -114,7 +114,7 @@ const SignInForm = () => {
             />
             <InputLabel>Password</InputLabel>
             <Input
-              value={formValues?.password}
+              value={credentials?.password}
               onChange={handleChange}
               name="password"
               type="password"
