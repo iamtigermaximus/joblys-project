@@ -5,14 +5,15 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 80vw;
-  height: 100vh;
   float: left;
-
   display: flex;
+
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   flex-direction: column;
   background-color: #b8c1ec;
+  /* padding: 0 100px; */
 `;
 
 export const Header = styled.div`

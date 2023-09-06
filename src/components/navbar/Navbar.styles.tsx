@@ -13,9 +13,9 @@ export const NavbarContainer = styled.div`
   color: white;
   float: left;
   padding: 20px;
+  height: 100%;
 
   @media (min-width: ${bp.lg}) {
-    height: 100vh;
     width: 20vw;
     flex-direction: column;
   }
