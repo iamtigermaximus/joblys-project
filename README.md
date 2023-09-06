@@ -1,4 +1,7 @@
+## JOBLYS
 
+AI-powered platform that helps job seekers find suitable job opportunities more efficiently. The AI could analyze a candidate's skills, experience, preferences, and career goals to match them with relevant job listings. The platform could also provide personalized job recommendations, based on the user's profile and historical job search behavior.It will create customized cover letters and resume based on the job description.
+    
 ## Getting Started
 
 These instructions will help you clone and set up the project on your local machine.
