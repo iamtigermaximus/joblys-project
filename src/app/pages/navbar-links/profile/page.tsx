@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { Container } from './Profile.styles';
 import { useRouter } from 'next/navigation';
@@ -14,10 +14,16 @@ const Profile = () => {
   });
   const router = useRouter();
 
+  useEffect(() => {
+    if (!session) {
+      router.push('/');
+    }
+  }, [session, router]);
+
   if (!session) {
-    router.push('/');
-    return null;
+    return null; // You can return null here, or render a loading message, etc.
   }
+
   return (
     <div>
       <Container>

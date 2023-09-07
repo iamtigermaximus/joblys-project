@@ -5,10 +5,11 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  height: 100%;
   border-radius: 20px;
   /* border: 1px solid red; */
   padding: 30px 100px;
+  height: 100vh;
+  overflow: auto;
 `;
 
 export const ProfileContainer = styled.div`
@@ -144,7 +145,7 @@ export const SectionHeading = styled.div`
   padding: 3px;
 `;
 
-export const SectionHeadingText = styled.h1`
+export const SectionHeadingText = styled.div`
   font-size: 13px;
   color: #232946;
 `;

@@ -33,7 +33,6 @@ import {
   HiTrash,
   HiDocumentArrowDown,
   HiCalendarDays,
-  HiOutlineLocationMarker,
 } from 'react-icons/hi2';
 
 const Account = () => {

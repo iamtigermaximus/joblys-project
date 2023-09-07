@@ -1,18 +1,18 @@
 import React from 'react';
 import { Container } from '@/app/page.styles';
 import PageHeader from '@/components/page-header/PageHeader';
-import Dashboard from '@/components/dashboard/Dashboard';
+import JobSearchResults from '@/components/job-search-results/JobSearchResults';
 
-const DashboardPage = () => {
+const JobResultsPage = () => {
   return (
     <Container>
       <div>
-        <title>DASHBOARD</title>
+        <title>JOB SEARCH RESULTS</title>
       </div>
       <PageHeader />
-      <Dashboard />
+      <JobSearchResults />
     </Container>
   );
 };
 
-export default DashboardPage;
+export default JobResultsPage;

@@ -13,7 +13,7 @@ export const NavbarContainer = styled.div`
   color: white;
   float: left;
   padding: 20px;
-  height: 100%;
+  height: 100vh;
 
   @media (min-width: ${bp.lg}) {
     width: 20vw;

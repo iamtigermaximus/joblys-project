@@ -8,10 +8,8 @@ export const Container = styled.div`
   width: 80vw;
   height: 100vh;
   float: left;
-
   display: flex;
   flex-direction: column;
-  background-color: #b8c1ec;
 `;
 
 export const BoxContainer = styled.div`
