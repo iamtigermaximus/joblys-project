@@ -63,7 +63,7 @@ const SignInForm = () => {
       if (!response?.error) {
         router.push('/pages/navbar-links/profile');
       } else {
-        setError('invalid email or password');
+        setError('invalid username or password');
       }
     } catch (error: any) {
       setError(error);
@@ -81,17 +81,17 @@ const SignInForm = () => {
    * TODO : WHEN GOOGLE SIGN IN, REDIRECT TO PROFILE PAGE WHICH IS PRIVATE ROUTE
    */
 
-  const handleGoogleSignIn = async () => {
-    try {
-      const result = await signIn('google', { callbackUrl: '/callback' });
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     const result = await signIn('google', { callbackUrl: '/callback' });
 
-      if (!result?.error) {
-        router.push('/pages/navbar-links/profile');
-      }
-    } catch (error) {
-      console.error('Google login error:', error);
-    }
-  };
+  //     if (!result?.error) {
+  //       router.push('/pages/navbar-links/profile');
+  //     }
+  //   } catch (error) {
+  //     console.error('Google login error:', error);
+  //   }
+  // };
 
   return (
     <Container>
@@ -131,7 +131,7 @@ const SignInForm = () => {
             </SignInButtonContainer>
             <Providers>
               <ProviderContainer>
-                <ProviderButton onClick={handleGoogleSignIn}>
+                <ProviderButton>
                   <ProviderIcon>
                     <FcGoogle />
                   </ProviderIcon>
