@@ -19,20 +19,20 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        const response = await axios.post(
-          'http://localhost:8000/login',
-          credentials
-        );
+        // const response = await axios.post(
+        //   'http://localhost:8000/login',
+        //   credentials
+        // );
 
-        const user = response.data;
-        console.log('USER', user);
-        // const user = {
-        //   id: '42',
-        //   full_name: 'Siegfred Gamboa',
-        //   email: 'siegy@mail.com',
-        //   username: 'siegfred',
-        //   password: 'siegfred',
-        // };
+        // const user = response.data;
+        // console.log('USER', user);
+        const user = {
+          id: '42',
+          full_name: 'Siegfred Gamboa',
+          email: 'siegy@mail.com',
+          username: 'siegfred',
+          password: 'siegfred',
+        };
 
         if (
           credentials?.username === user.username &&

@@ -28,7 +28,7 @@ const Profile = () => {
     <div>
       <Container>
         <div>
-          <title>HOME</title>
+          <title>PROFILE</title>
         </div>
         <PageHeader />
         <Account />

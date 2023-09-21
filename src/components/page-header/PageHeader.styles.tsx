@@ -27,19 +27,20 @@ export const HeaderMenuContainer = styled.div`
 `;
 
 export const SignInButton = styled.button`
-  margin: 0 2px;
-  padding: 5px;
-  white-space: nowrap;
-  background-color: transparent;
-  border-radius: 10px;
-  border: none;
-  border-radius: 65px;
-  background: linear-gradient(225deg, #a6aed4, #c5cffd);
-  box-shadow: -28px 28px 56px #4a4d5e, 28px -28px 56px, #a6aed4;
-
+  display: none;
   @media (min-width: ${bp.lg}) {
+    display: flex;
     width: 100px;
     letter-spacing: 1px;
+    margin: 0 2px;
+    padding: 5px;
+    white-space: nowrap;
+    background-color: transparent;
+    border-radius: 10px;
+    border: none;
+    border-radius: 65px;
+    background: linear-gradient(225deg, #a6aed4, #c5cffd);
+    box-shadow: -28px 28px 56px #4a4d5e, 28px -28px 56px, #a6aed4;
   }
 `;
 
@@ -59,16 +60,18 @@ export const SignInLink = styled(Link)`
 `;
 
 export const RegisterButton = styled.button`
-  margin: 0 2px;
-  padding: 5px;
-  white-space: nowrap;
-  background-color: #232946;
-  border-radius: 10px;
-  border: none;
+  display: none;
 
   @media (min-width: ${bp.lg}) {
+    display: flex;
     width: 150px;
     letter-spacing: 1px;
+    margin: 0 2px;
+    padding: 5px;
+    white-space: nowrap;
+    background-color: #232946;
+    border-radius: 10px;
+    border: none;
   }
 `;
 

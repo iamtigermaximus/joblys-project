@@ -25,7 +25,7 @@ const Jobs = () => {
   return (
     <Container>
       <div>
-        <title>Search Jobs</title>
+        <title>SEARCH JOBS</title>
       </div>
       <PageHeader />
       <JobSearch />

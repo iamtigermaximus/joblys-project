@@ -1,28 +1,39 @@
 'use client';
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import {
   Brand,
   BrandContainer,
+  BurgerMenu,
   MenuContainer,
   MenuItem,
   MenuItemContainer,
-  NavbarContainer,
+  MobileMenuContainer,
+  MobileMenuItem,
+  MobileSignIn,
+  MobileSignInContainer,
+  MobileSignInItemsContainer,
+  MobileSignOut,
+  NavbarContainer2,
   NavbarItemsContainer,
   SignInContainer,
   SignInItemsContainer,
   SignOut,
 } from './Navbar.styles';
 import { signOut, useSession } from 'next-auth/react';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Navbar = () => {
   const { data: session } = useSession();
+
+  const [click, setClick] = useState(true);
+  const categoryMenu = () => setClick(!click);
 
   const handleSignOut = async (e: FormEvent) => {
     e.preventDefault();
     await signOut();
   };
   return (
-    <NavbarContainer>
+    <NavbarContainer2>
       <NavbarItemsContainer>
         <MenuContainer>
           <BrandContainer>
@@ -67,7 +78,50 @@ const Navbar = () => {
           )}
         </MenuContainer>
       </SignInItemsContainer>
-    </NavbarContainer>
+      <BurgerMenu onClick={categoryMenu}>
+        {click ? <FaBars /> : <FaTimes />}
+        <MobileMenuContainer
+          className={click ? 'category active' : 'category'}
+          onClick={categoryMenu}
+        >
+          <MenuItemContainer>
+            <MobileMenuItem href="/pages/navbar-links/dashboard">
+              DASHBOARD
+            </MobileMenuItem>
+          </MenuItemContainer>
+          <MenuItemContainer>
+            <MobileMenuItem href="/pages/navbar-links/jobs">
+              SEARCH JOBS
+            </MobileMenuItem>
+          </MenuItemContainer>
+          <MenuItemContainer>
+            <MobileMenuItem href="/pages/navbar-links/resumes">
+              RESUMES
+            </MobileMenuItem>
+          </MenuItemContainer>
+          <MenuItemContainer>
+            <MobileMenuItem href="/pages/navbar-links/cover-letters">
+              COVER LETTERS
+            </MobileMenuItem>
+          </MenuItemContainer>
+          <MobileSignInItemsContainer>
+            <MenuContainer>
+              {!session ? (
+                <MobileSignInContainer>
+                  <MobileSignIn href="/pages/signin"> SIGN IN</MobileSignIn>
+                </MobileSignInContainer>
+              ) : (
+                <MobileSignInContainer>
+                  <MobileSignOut href="/" onClick={handleSignOut}>
+                    SIGN OUT
+                  </MobileSignOut>
+                </MobileSignInContainer>
+              )}
+            </MenuContainer>
+          </MobileSignInItemsContainer>
+        </MobileMenuContainer>
+      </BurgerMenu>
+    </NavbarContainer2>
   );
 };
 

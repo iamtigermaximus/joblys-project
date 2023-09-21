@@ -53,7 +53,6 @@ import {
 import Image from 'next/image';
 import Image1 from '../assets/joblys-hero.png';
 import PageHeader from '@/components/page-header/PageHeader';
-import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
