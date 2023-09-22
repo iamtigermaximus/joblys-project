@@ -59,8 +59,13 @@ export default function Home() {
   const router = useRouter();
 
   const handleGetStartedClick = () => {
-    router.push('/pages/signup'); // Navigate to the 'register' page
+    router.push('/pages/signup');
   };
+
+  const isSmallScreen = window.innerWidth <= 480;
+
+  const imageWidth = isSmallScreen ? 300 : 500;
+  const imageHeight = isSmallScreen ? 350 : 600;
   return (
     <Container>
       <PageHeader />
@@ -86,8 +91,8 @@ export default function Home() {
         <Box2>
           <Image
             src={Image1}
-            width={500}
-            height={600}
+            width={imageWidth}
+            height={imageHeight}
             alt="hero-image"
             priority
           />
