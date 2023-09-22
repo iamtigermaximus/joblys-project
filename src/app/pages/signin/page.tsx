@@ -7,6 +7,9 @@ import SignInForm from './form';
 const SignIn = () => {
   return (
     <Container>
+      <div>
+        <title>SIGN IN</title>
+      </div>
       <PageHeader />
       <SignInForm />
     </Container>

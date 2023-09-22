@@ -8,6 +8,9 @@ import PageHeader from '@/components/page-header/PageHeader';
 const SignUp = () => {
   return (
     <Container>
+      <div>
+        <title>REGISTER</title>
+      </div>
       <PageHeader />
       <SignUpForm />
     </Container>

@@ -66,10 +66,6 @@ const SignUpForm = () => {
 
   return (
     <Container>
-      
-      <div>
-        <title>PROFILE</title>
-      </div>
       <SignUpContainer>
         <InputForm onSubmit={handleSubmit}>
           <InputContainer>

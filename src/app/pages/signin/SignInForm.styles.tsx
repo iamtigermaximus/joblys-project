@@ -6,10 +6,14 @@ import { breakpoints as bp } from '../../../utils/layout';
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-  width: 100%;
-  height: 100vh;
-  padding: 50px 0;
   background: transparent;
+  width: 100vw;
+
+  @media (min-width: ${bp.lg}) {
+    width: 100%;
+    height: 100vh;
+    padding: 50px 0;
+  }
 `;
 
 export const LoginContainer = styled.div`

@@ -95,9 +95,6 @@ const SignInForm = () => {
 
   return (
     <Container>
-      <div>
-        <title>SIGN IN</title>
-      </div>
       <LoginContainer>
         <form onSubmit={onSubmit}>
           <InputContainer>
