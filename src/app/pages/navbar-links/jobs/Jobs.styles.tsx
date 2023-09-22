@@ -1,10 +1,10 @@
 'use client';
 
-//import { breakpoints as bp } from '../utils/layout';
+import { breakpoints as bp } from '../../../../utils/layout';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 80vw;
+  width: 100vw;
   height: 100vh;
   float: left;
 
@@ -13,6 +13,10 @@ export const Container = styled.div`
   align-items: center; */
   flex-direction: column;
   background-color: #b8c1ec;
+
+  @media (min-width: ${bp.lg}) {
+    width: 80vw;
+  }
 `;
 
 export const Header = styled.div`

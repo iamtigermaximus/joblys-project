@@ -1,6 +1,6 @@
 'use client';
 
-//import { breakpoints as bp } from '../utils/layout';
+import { breakpoints as bp } from '../../utils/layout';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -8,8 +8,11 @@ export const Container = styled.div`
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
-  padding: 30px;
   height: 100%;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 30px;
+  }
 `;
 
 export const Header = styled.div`
@@ -23,13 +26,17 @@ export const Header = styled.div`
 
 export const InputContainer = styled.div`
   position: relative;
-  width: 100%;
   /* border: 1px solid green; */
   margin: 10px;
-  height: 70px;
+  height: 200px;
   padding: 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+
+  @media (min-width: ${bp.lg}) {
+    flex-direction: row;
+    height: 70px;
+  }
 `;
 
 export const Icon = styled.i`
@@ -44,12 +51,12 @@ export const Icon = styled.i`
 export const Input = styled.input`
   width: 100%;
   height: 50px;
-  padding: 10px 35px 10px 30px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 13px;
   border-radius: 10px;
-  margin: 0 10px;
+  margin: 5px 0;
 
   &::placeholder {
     color: #232946;
@@ -59,6 +66,11 @@ export const Input = styled.input`
   &:focus {
     outline: none;
     border: none;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    padding: 10px 35px 10px 30px;
+    margin: 0 10px;
   }
 `;
 
@@ -73,7 +85,7 @@ export const SearchContainer = styled.div`
 
 export const SearchButton = styled.button`
   height: 50px;
-  padding: 10px 35px 10px 30px;
+  padding: 5px 0;
   border-radius: 10px;
   border: none;
   background: #232946;
@@ -81,6 +93,13 @@ export const SearchButton = styled.button`
   font-size: 13px;
   /* width: 250px; */
   white-space: nowrap;
+  width: 100%;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 10px 35px 10px 30px;
+    margin: 0 10px;
+    width: 300px;
+  }
 `;
 
 export const FilterContainer = styled.div`
@@ -133,7 +152,7 @@ export const ResultsListContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 `;
 export const ResultContainer = styled.div`
   width: 60%;
@@ -142,7 +161,7 @@ export const ResultContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
 `;
 
 export const PopularSearchesContainer = styled.div`
@@ -153,22 +172,26 @@ export const PopularSearchesContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px;
+
+  @media (min-width: ${bp.lg}) {
+  }
 `;
 
 export const PopularSearches = styled.div`
   /* border: 1px solid green; */
-  height: 70px;
+  margin: 10px 0;
+  height: 100%;
   display: flex;
   flex-direction: row;
-  margin: 10px 0;
   flex-wrap: wrap;
+  width: 100%;
 `;
 
 export const Button = styled.button`
   background: #232946;
   color: #b8c1ec;
   border-radius: 10px;
-  margin-right: 10px;
+  margin: 5px;
   width: 150px;
   border: none;
   height: 30px;
