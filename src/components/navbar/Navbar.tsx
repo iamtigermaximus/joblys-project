@@ -104,6 +104,16 @@ const Navbar = () => {
               COVER LETTERS
             </MobileMenuItem>
           </MenuItemContainer>
+          {!session ? (
+            ''
+          ) : (
+            <MenuItemContainer>
+              <MobileMenuItem href="/pages/navbar-links/profile">
+                ACCOUNT
+              </MobileMenuItem>
+            </MenuItemContainer>
+          )}
+
           <MobileSignInItemsContainer>
             <MenuContainer>
               {!session ? (

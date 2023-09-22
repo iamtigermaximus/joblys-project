@@ -223,6 +223,9 @@ export const MobileSignInItemsContainer = styled.div`
   display: flex;
   justify-content: center;
   font-size: 16px;
+  margin: 20px 0;
+  padding: 5px;
+  white-space: nowrap;
 
   @media (min-width: ${bp.lg}) {
     display: none;

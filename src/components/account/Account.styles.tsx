@@ -1,15 +1,19 @@
 'use client';
 
-//import { breakpoints as bp } from '../utils/layout';
+import { breakpoints as bp } from '../../utils/layout';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 100%;
+  width: 100vw;
   border-radius: 20px;
   /* border: 1px solid red; */
   padding: 30px 100px;
   height: 100vh;
   overflow: auto;
+
+  @media (min-width: ${bp.lg}) {
+    width: 100%;
+  }
 `;
 
 export const ProfileContainer = styled.div`
