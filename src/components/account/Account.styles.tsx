@@ -5,14 +5,15 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100vw;
-  border-radius: 20px;
-  /* border: 1px solid red; */
-  padding: 30px 100px;
-  height: 100vh;
-  overflow: auto;
+  padding: 20px;
 
   @media (min-width: ${bp.lg}) {
     width: 100%;
+    border-radius: 20px;
+    /* border: 1px solid red; */
+    padding: 30px 100px;
+    height: 100vh;
+    overflow: auto;
   }
 `;
 
@@ -30,27 +31,40 @@ export const ProfileContainer = styled.div`
 export const ProfileSection = styled.div`
   display: flex;
   /* border: 1px solid red; */
+  flex-direction: column;
   width: 100%;
   height: 100%;
   box-shadow: 0 0 10px white;
+
+  @media (min-width: ${bp.lg}) {
+    flex-direction: row;
+  }
 `;
 
 export const ContactInformation = styled.div`
   /* border: 1px solid green; */
-  width: 50%;
+  width: 100%;
   margin: 0 5px 0 0;
   border: 1px solid #e0e0e0;
   background-color: #ffffff;
   box-shadow: 0 0 10px white;
+
+  @media (min-width: ${bp.lg}) {
+    width: 50%;
+  }
 `;
 
 export const LocationInformation = styled.div`
   /* border: 1px solid green; */
-  width: 50%;
-  margin: 0 0 0 5px;
+  width: 100%;
   border: 1px solid #e0e0e0;
   background-color: #ffffff;
   box-shadow: 0 0 10px white;
+
+  @media (min-width: ${bp.lg}) {
+    width: 50%;
+    margin: 0 0 0 5px;
+  }
 `;
 
 export const ResumeDocumentSection = styled.div`

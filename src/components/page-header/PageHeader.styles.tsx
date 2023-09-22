@@ -18,12 +18,16 @@ export const Header = styled.div`
 
 export const HeaderMenuContainer = styled.div`
   display: flex;
-  padding: 0 20px;
+  /* padding: 0 20px; */
   flex-direction: row;
   align-items: center;
   justify-content: center;
   line-height: 3em;
   font-style: italic;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 0 20px;
+  }
 `;
 
 export const SignInButton = styled.button`
@@ -115,6 +119,7 @@ export const MenuLink = styled(Link)`
   text-decoration: none;
   color: #232946;
   font-weight: 700;
+  font-size: 11px;
 
   &:hover {
     color: white;
