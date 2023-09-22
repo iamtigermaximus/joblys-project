@@ -1,32 +1,36 @@
 'use client';
 
-//import { breakpoints as bp } from '../utils/layout';
+import { breakpoints as bp } from '../../utils/layout';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 100%;
   border-radius: 20px;
-  margin: 20px;
   /* border: 1px solid red; */
   display: flex;
   justify-content: center;
-  padding: 30px;
+  padding: 10px;
 `;
 
 export const ChatbotContainer = styled.div`
-  width: 600px;
+  width: 100%;
   height: 600px;
   background-color: white;
   border-radius: 20px;
-  padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 10px;
+
+  @media (min-width: ${bp.md}) {
+    width: 600px;
+    height: 600px;
+    padding: 30px;
+  }
 `;
 
 export const ConversationContainer = styled.div`
-  width: 500px;
+  width: 100%;
   height: 400px;
   border-radius: 20px;
   border: 1px solid #232946;
@@ -54,7 +58,7 @@ export const AnswerContainer = styled.div`
 `;
 
 export const InputContainer = styled.div`
-  width: 500px;
+  width: 100%;
   height: 100px;
   border-radius: 20px;
   border: 1px solid#232946;

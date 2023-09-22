@@ -5,7 +5,7 @@ import { breakpoints as bp } from '../../../utils/layout';
 import Link from 'next/link';
 
 export const Container = styled.div`
-  width: 80vw;
+  width: 100vw;
   height: 100vh;
   float: left;
 
@@ -14,6 +14,11 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: #b8c1ec;
+  padding: 10px;
+
+  @media (min-width: ${bp.md}) {
+    width: 80vw;
+  }
 `;
 
 export const CreateProfileContainer = styled.div`
@@ -22,11 +27,12 @@ export const CreateProfileContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 40px;
+  padding: 20px;
   border-radius: 20px;
 
   @media (min-width: ${bp.md}) {
     max-width: 500px;
+    padding: 40px;
   }
 `;
 
