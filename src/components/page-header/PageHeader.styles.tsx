@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { breakpoints as bp } from '../../utils/layout';
 import styled from 'styled-components';
+import colors from '../../utils/colors';
 
 export const Header = styled.div`
   width: 100%;
@@ -10,6 +11,7 @@ export const Header = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: ${colors.white};
   /* background-image: url('/header.svg');
   background-size: cover;
   background-repeat: no-repeat;

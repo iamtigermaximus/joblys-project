@@ -3,14 +3,15 @@
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../utils/layout';
 import Link from 'next/link';
+import colors from '../../utils/colors';
 
 export const NavbarContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background: #232946;
-  color: white;
+  background-color: ${colors.purple};
+  color: ${colors.white};
   float: left;
   padding: 20px;
   height: 100vh;
@@ -25,7 +26,7 @@ export const NavbarContainer2 = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background: #232946;
+  background: #520668;
   color: white;
   padding: 20px;
   height: 10vh;

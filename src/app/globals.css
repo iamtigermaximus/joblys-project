@@ -1,3 +1,19 @@
+/* Variable font */
+@font-face {
+  font-family: 'Onest-Variable';
+  src: url('../../public/fonts/Onest-VariableFont_wght.ttf') format('truetype');
+  font-weight: 1 1000; /* Adjust the weight values if needed */
+}
+
+/* Static fonts */
+@font-face {
+  font-family: 'Onest-Thin';
+  src: url('../../public/fonts/Onest-Thin.ttf') format('truetype');
+  font-weight: normal;
+}
+
+/* additional styles for other font weights/styles*/
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -8,8 +24,9 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  border-top: 0.3vh solid #fb5d20;
 }
-
+/* 
 body {
-  background-color: #b8c1ec;
-}
+  background-color: white;
+} */

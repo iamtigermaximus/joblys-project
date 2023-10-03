@@ -62,7 +62,8 @@ export default function Home() {
     router.push('/pages/signup');
   };
 
-  const isSmallScreen = window.innerWidth <= 480;
+  const isSmallScreen =
+    typeof window !== 'undefined' && window.innerWidth <= 480;
 
   const imageWidth = isSmallScreen ? 300 : 500;
   const imageHeight = isSmallScreen ? 350 : 600;

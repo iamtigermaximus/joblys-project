@@ -45,10 +45,20 @@ const Navbar = () => {
             <MenuItem href="/pages/navbar-links/dashboard">DASHBOARD</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer>
-            <MenuItem href="/pages/navbar-links/jobs">SEARCH JOBS</MenuItem>
+            <MenuItem href="/pages/navbar-links/profile">PROFILE</MenuItem>
           </MenuItemContainer>
+          {/* <MenuItemContainer>
+            <MenuItem href="/pages/navbar-links/jobs">PROFILE</MenuItem>
+          </MenuItemContainer> */}
+          {!session ? (
+            ''
+          ) : (
+            <MenuItemContainer>
+              <MenuItem href="/pages/navbar-links/profile">PROFILE</MenuItem>
+            </MenuItemContainer>
+          )}
           <MenuItemContainer>
-            <MenuItem href="/pages/navbar-links/resumes">RESUMES</MenuItem>
+            <MenuItem href="/pages/navbar-links/resumes">CV/RESUMES</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer>
             <MenuItem href="/pages/navbar-links/cover-letters">
@@ -56,13 +66,13 @@ const Navbar = () => {
             </MenuItem>
           </MenuItemContainer>
 
-          {!session ? (
+          {/* {!session ? (
             ''
           ) : (
             <MenuItemContainer>
-              <MenuItem href="/pages/navbar-links/profile">ACCOUNT</MenuItem>
+              <MenuItem href="/pages/navbar-links/profile">PROFILE</MenuItem>
             </MenuItemContainer>
-          )}
+          )} */}
         </MenuContainer>
       </NavbarItemsContainer>
       <SignInItemsContainer>
