@@ -9,18 +9,12 @@ import {
   MenuItemContainer,
   MobileMenuContainer,
   MobileMenuItem,
-  MobileSignIn,
-  MobileSignInContainer,
-  MobileSignInItemsContainer,
-  MobileSignOut,
-  NavbarContainer2,
+  MobileMenuItemContainer,
+  NavbarContainer,
   NavbarItemsContainer,
-  SignInContainer,
-  SignInItemsContainer,
-  SignOut,
 } from './Navbar.styles';
 import { signOut, useSession } from 'next-auth/react';
-import { FaBars, FaTimes, FaChevronCircleDown } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
 import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
 
@@ -37,7 +31,7 @@ const Navbar = () => {
   };
 
   return (
-    <NavbarContainer2>
+    <NavbarContainer>
       <NavbarItemsContainer>
         <MenuContainer>
           <BrandContainer>
@@ -57,119 +51,59 @@ const Navbar = () => {
             onClick={() => setActiveMenuItem('dashboard')}
             className={activeMenuItem === 'dashboard' ? 'active' : ''}
           >
-            {/* <FaChevronCircleDown /> */}
-            <MenuItem href="/pages/navbar-links/dashboard">DASHBOARD</MenuItem>
+            <MenuItem href="/pages/navbar-links/dashboard">Dashboard</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer
             onClick={() => setActiveMenuItem('profile')}
             className={activeMenuItem === 'profile' ? 'active' : ''}
           >
-            {/* <FaChevronCircleDown /> */}
-            <MenuItem href="/pages/navbar-links/profile">PROFILE</MenuItem>
+            <MenuItem href="/pages/navbar-links/profile">Profile</MenuItem>
           </MenuItemContainer>
-          {/* <MenuItemContainer>
-            <MenuItem href="/pages/navbar-links/jobs">PROFILE</MenuItem>
-          </MenuItemContainer> */}
-          {/* {!session ? (
-            ''
-          ) : (
-            <MenuItemContainer>
-              <MenuItem href="/pages/navbar-links/profile">PROFILE</MenuItem>
-            </MenuItemContainer>
-          )} */}
           <MenuItemContainer
             onClick={() => setActiveMenuItem('resumes')}
             className={activeMenuItem === 'resumes' ? 'active' : ''}
           >
-            {/* <FaChevronCircleDown /> */}
-            <MenuItem href="/pages/navbar-links/resumes">CV/RESUMES</MenuItem>
+            <MenuItem href="/pages/navbar-links/resumes">CV/Resume</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer
             onClick={() => setActiveMenuItem('cover-letters')}
             className={activeMenuItem === 'cover-letters' ? 'active' : ''}
           >
-            {/* <FaChevronCircleDown /> */}
             <MenuItem href="/pages/navbar-links/cover-letters">
-              COVER LETTERS
+              Cover Letters
             </MenuItem>
           </MenuItemContainer>
-
-          {/* {!session ? (
-            ''
-          ) : (
-            <MenuItemContainer>
-              <MenuItem href="/pages/navbar-links/profile">PROFILE</MenuItem>
-            </MenuItemContainer>
-          )} */}
         </MenuContainer>
       </NavbarItemsContainer>
-      <SignInItemsContainer>
-        <MenuContainer>
-          {!session ? (
-            ''
-          ) : (
-            <SignInContainer>
-              <SignOut href="/" onClick={handleSignOut}>
-                SIGN OUT
-              </SignOut>
-            </SignInContainer>
-          )}
-        </MenuContainer>
-      </SignInItemsContainer>
       <BurgerMenu onClick={categoryMenu}>
         {click ? <FaBars /> : <FaTimes />}
         <MobileMenuContainer
           className={click ? 'category active' : 'category'}
           onClick={categoryMenu}
         >
-          <MenuItemContainer>
+          <MobileMenuItemContainer>
             <MobileMenuItem href="/pages/navbar-links/dashboard">
-              DASHBOARD
+              Dashboard
             </MobileMenuItem>
-          </MenuItemContainer>
-          <MenuItemContainer>
-            <MobileMenuItem href="/pages/navbar-links/jobs">
-              SEARCH JOBS
+          </MobileMenuItemContainer>
+          <MobileMenuItemContainer>
+            <MobileMenuItem href="/pages/navbar-links/profile">
+              Profile
             </MobileMenuItem>
-          </MenuItemContainer>
-          <MenuItemContainer>
+          </MobileMenuItemContainer>
+          <MobileMenuItemContainer>
             <MobileMenuItem href="/pages/navbar-links/resumes">
-              RESUMES
+              CV/Resume
             </MobileMenuItem>
-          </MenuItemContainer>
-          <MenuItemContainer>
+          </MobileMenuItemContainer>
+          <MobileMenuItemContainer>
             <MobileMenuItem href="/pages/navbar-links/cover-letters">
-              COVER LETTERS
+              Cover Letters
             </MobileMenuItem>
-          </MenuItemContainer>
-          {!session ? (
-            ''
-          ) : (
-            <MenuItemContainer>
-              <MobileMenuItem href="/pages/navbar-links/profile">
-                ACCOUNT
-              </MobileMenuItem>
-            </MenuItemContainer>
-          )}
-
-          <MobileSignInItemsContainer>
-            <MenuContainer>
-              {!session ? (
-                <MobileSignInContainer>
-                  <MobileSignIn href="/pages/signin"> SIGN IN</MobileSignIn>
-                </MobileSignInContainer>
-              ) : (
-                <MobileSignInContainer>
-                  <MobileSignOut href="/" onClick={handleSignOut}>
-                    SIGN OUT
-                  </MobileSignOut>
-                </MobileSignInContainer>
-              )}
-            </MenuContainer>
-          </MobileSignInItemsContainer>
+          </MobileMenuItemContainer>
         </MobileMenuContainer>
       </BurgerMenu>
-    </NavbarContainer2>
+    </NavbarContainer>
   );
 };
 

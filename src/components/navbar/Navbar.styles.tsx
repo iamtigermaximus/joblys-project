@@ -9,26 +9,8 @@ export const NavbarContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
   background-color: ${colors.purple};
   color: ${colors.white};
-  float: left;
-  padding: 20px;
-  height: 100vh;
-
-  @media (min-width: ${bp.lg}) {
-    width: 20vw;
-    flex-direction: column;
-  }
-`;
-
-export const NavbarContainer2 = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background: #520668;
-  color: white;
-  /* padding: 20px 0; */
   height: 10vh;
   width: 100%;
 
@@ -37,14 +19,12 @@ export const NavbarContainer2 = styled.div`
     height: 100vh;
     flex-direction: column;
     align-items: center;
-
     float: left;
   }
 `;
 
 export const NavbarItemsContainer = styled.div`
   display: flex;
-  /* padding: 20px 0; */
 
   @media (min-width: ${bp.lg}) {
     height: 100vh;
@@ -67,9 +47,8 @@ export const Brand = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-
   text-decoration: none;
-  color: white;
+  color: ${colors.white};
   font-size: 30px;
 
   @media (min-width: ${bp.lg}) {
@@ -101,12 +80,11 @@ export const MenuItemContainer = styled.div`
 
   &.active {
     background-color: ${colors.darkPurple};
-    color: white; /* Change to your desired text color */
+    color: ${colors.white};
   }
 
   @media (min-width: ${bp.lg}) {
     display: flex;
-
     width: 100%;
     font-size: 20px;
     letter-spacing: 1px;
@@ -117,7 +95,7 @@ export const MenuItem = styled(Link)`
   display: none;
   justify-content: center;
   text-decoration: none;
-  color: white;
+  color: ${colors.white};
   padding-left: 10px;
 
   @media (min-width: ${bp.lg}) {
@@ -157,7 +135,7 @@ export const SignIn = styled(Link)`
   display: flex;
   justify-content: center;
   text-decoration: none;
-  color: white;
+  color: ${colors.white};
 
   @media (min-width: ${bp.lg}) {
     width: 100%;
@@ -171,7 +149,7 @@ export const SignOut = styled(Link)`
   display: flex;
   justify-content: center;
   text-decoration: none;
-  color: white;
+  color: ${colors.white};
 
   @media (min-width: ${bp.lg}) {
     width: 100%;
@@ -193,7 +171,7 @@ export const MobileMenuContainer = styled.ul`
   top: 10vh;
   width: 100%;
   height: 100vh;
-  background: #232946;
+  background-color: ${colors.purple};
   transform: translateX(0%);
   transition: transform 0.3s ease-out;
   z-index: 1;
@@ -213,7 +191,7 @@ export const BurgerMenu = styled.div`
   justify-content: center;
   align-items: center;
   padding: 5px;
-  color: white;
+  color: ${colors.white};
   font-size: 30px;
 
   @media (min-width: ${bp.lg}) {
@@ -225,7 +203,7 @@ export const MobileMenuItem = styled(Link)`
   display: flex;
   justify-content: center;
   text-decoration: none;
-  color: white;
+  color: ${colors.white};
   font-size: 16px;
 
   @media (min-width: ${bp.lg}) {
@@ -255,7 +233,7 @@ export const MobileSignIn = styled(Link)`
   display: flex;
   justify-content: center;
   text-decoration: none;
-  color: white;
+  color: ${colors.white};
   flex-direction: column;
   font-size: 15px;
   letter-spacing: 1px;
@@ -265,7 +243,7 @@ export const MobileSignOut = styled(Link)`
   display: flex;
   justify-content: center;
   text-decoration: none;
-  color: white;
+  color: ${colors.white};
 
   @media (min-width: ${bp.lg}) {
     width: 100%;
@@ -276,12 +254,15 @@ export const MobileSignOut = styled(Link)`
 `;
 
 export const MobileMenuItemContainer = styled.div`
-  margin: 20px 0;
-  padding: 5px;
+  padding: 20px;
+  display: flex;
   white-space: nowrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 
   @media (min-width: ${bp.lg}) {
-    width: 150px;
+    width: 100%;
     font-size: 20px;
     letter-spacing: 1px;
   }
