@@ -20,10 +20,13 @@ import {
   SignOut,
 } from './Navbar.styles';
 import { signOut, useSession } from 'next-auth/react';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronCircleDown } from 'react-icons/fa';
+import Image from 'next/image';
+import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
 
 const Navbar = () => {
   const { data: session } = useSession();
+  const [activeMenuItem, setActiveMenuItem] = useState('');
 
   const [click, setClick] = useState(true);
   const categoryMenu = () => setClick(!click);
@@ -32,35 +35,60 @@ const Navbar = () => {
     e.preventDefault();
     await signOut();
   };
+
   return (
     <NavbarContainer2>
       <NavbarItemsContainer>
         <MenuContainer>
           <BrandContainer>
-            <Brand href="/">JOBLYS</Brand>
+            <Brand href="/">
+              <Image
+                src={NavLogo}
+                width={150}
+                height={50}
+                alt="hero-image"
+                priority
+              />
+            </Brand>
           </BrandContainer>
         </MenuContainer>
         <MenuContainer>
-          <MenuItemContainer>
+          <MenuItemContainer
+            onClick={() => setActiveMenuItem('dashboard')}
+            className={activeMenuItem === 'dashboard' ? 'active' : ''}
+          >
+            {/* <FaChevronCircleDown /> */}
             <MenuItem href="/pages/navbar-links/dashboard">DASHBOARD</MenuItem>
           </MenuItemContainer>
-          <MenuItemContainer>
+          <MenuItemContainer
+            onClick={() => setActiveMenuItem('profile')}
+            className={activeMenuItem === 'profile' ? 'active' : ''}
+          >
+            {/* <FaChevronCircleDown /> */}
             <MenuItem href="/pages/navbar-links/profile">PROFILE</MenuItem>
           </MenuItemContainer>
           {/* <MenuItemContainer>
             <MenuItem href="/pages/navbar-links/jobs">PROFILE</MenuItem>
           </MenuItemContainer> */}
-          {!session ? (
+          {/* {!session ? (
             ''
           ) : (
             <MenuItemContainer>
               <MenuItem href="/pages/navbar-links/profile">PROFILE</MenuItem>
             </MenuItemContainer>
-          )}
-          <MenuItemContainer>
+          )} */}
+          <MenuItemContainer
+            onClick={() => setActiveMenuItem('resumes')}
+            className={activeMenuItem === 'resumes' ? 'active' : ''}
+          >
+            {/* <FaChevronCircleDown /> */}
             <MenuItem href="/pages/navbar-links/resumes">CV/RESUMES</MenuItem>
           </MenuItemContainer>
-          <MenuItemContainer>
+          <MenuItemContainer
+            onClick={() => setActiveMenuItem('cover-letters')}
+            className={activeMenuItem === 'cover-letters' ? 'active' : ''}
+          >
+            {/* <FaChevronCircleDown /> */}
             <MenuItem href="/pages/navbar-links/cover-letters">
               COVER LETTERS
             </MenuItem>

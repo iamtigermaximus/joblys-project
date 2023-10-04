@@ -8,13 +8,13 @@ export const Container = styled.div`
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  /* padding: 30px; */
   height: 100%;
 `;
 
 export const HeaderContainer = styled.div`
   width: 100%;
-  height: 100px;
+  /* height: 100px; */
   /* border: 1px solid red; */
   display: flex;
 `;

@@ -1,11 +1,13 @@
 'use client';
 
 import { breakpoints as bp } from '../../utils/layout';
+import colors from '../../utils/colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100vw;
   padding: 20px;
+
 
   @media (min-width: ${bp.lg}) {
     width: 100%;

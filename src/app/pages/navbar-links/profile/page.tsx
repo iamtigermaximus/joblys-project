@@ -9,20 +9,20 @@ import PageHeader from '@/components/page-header/PageHeader';
 import Account from '@/components/account/Account';
 
 const Profile = () => {
-  const { data: session, status } = useSession({
-    required: true,
-  });
-  const router = useRouter();
+  // const { data: session, status } = useSession({
+  //   required: true,
+  // });
+  // const router = useRouter();
 
-  useEffect(() => {
-    if (!session) {
-      router.push('/');
-    }
-  }, [session, router]);
+  // useEffect(() => {
+  //   if (!session) {
+  //     router.push('/');
+  //   }
+  // }, [session, router]);
 
-  if (!session) {
-    return null; // You can return null here, or render a loading message, etc.
-  }
+  // if (!session) {
+  //   return null; // You can return null here, or render a loading message, etc.
+  // }
 
   return (
     <div>

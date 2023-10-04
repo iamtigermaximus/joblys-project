@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Onest
+- Font Author: Copyright 2021 The Onest Project Authors (https://github.com/simpals/onest)
+- Font Source: http://fonts.gstatic.com/s/onest/v2/gNMZW3F-SZuj7zOT0IfSjTS16cPh9R-ZshFMQWXgSQ.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))

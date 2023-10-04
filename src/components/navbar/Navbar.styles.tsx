@@ -28,7 +28,7 @@ export const NavbarContainer2 = styled.div`
   justify-content: space-between;
   background: #520668;
   color: white;
-  padding: 20px;
+  /* padding: 20px 0; */
   height: 10vh;
   width: 100%;
 
@@ -66,6 +66,8 @@ export const BrandContainer = styled.div`
 export const Brand = styled(Link)`
   display: flex;
   justify-content: center;
+  align-items: center;
+
   text-decoration: none;
   color: white;
   font-size: 30px;
@@ -89,12 +91,23 @@ export const MenuContainer = styled.div`
 `;
 
 export const MenuItemContainer = styled.div`
-  margin: 20px 0;
-  padding: 5px;
+  /* margin: 20px 0; */
+  padding: 20px;
   white-space: nowrap;
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  &.active {
+    background-color: ${colors.darkPurple};
+    color: white; /* Change to your desired text color */
+  }
 
   @media (min-width: ${bp.lg}) {
-    width: 150px;
+    display: flex;
+
+    width: 100%;
     font-size: 20px;
     letter-spacing: 1px;
   }
@@ -105,11 +118,11 @@ export const MenuItem = styled(Link)`
   justify-content: center;
   text-decoration: none;
   color: white;
+  padding-left: 10px;
 
   @media (min-width: ${bp.lg}) {
     display: flex;
-
-    width: 100%;
+    width: 150px;
     flex-direction: column;
     font-size: 15px;
     letter-spacing: 1px;
