@@ -12,86 +12,17 @@ export const Header = styled.div`
   flex-direction: row;
   justify-content: space-between;
   background-color: ${colors.white};
-  /* background-image: url('/header.svg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center; */
 `;
 
 export const HeaderMenuContainer = styled.div`
+  width: 100%;
   display: flex;
-  /* padding: 0 20px; */
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  line-height: 3em;
-  font-style: italic;
+  justify-content: flex-end;
 
   @media (min-width: ${bp.lg}) {
     padding: 0 20px;
-  }
-`;
-
-export const SignInButton = styled.button`
-  display: none;
-  @media (min-width: ${bp.lg}) {
-    display: flex;
-    width: 100px;
-    letter-spacing: 1px;
-    margin: 0 2px;
-    padding: 5px;
-    white-space: nowrap;
-    background-color: transparent;
-    border-radius: 10px;
-    border: none;
-    border-radius: 65px;
-    background: linear-gradient(225deg, #a6aed4, #c5cffd);
-    box-shadow: -28px 28px 56px #4a4d5e, 28px -28px 56px, #a6aed4;
-  }
-`;
-
-export const SignInLink = styled(Link)`
-  display: flex;
-  justify-content: center;
-  text-decoration: none;
-  color: #232946;
-  font-weight: 700;
-
-  @media (min-width: ${bp.lg}) {
-    width: 100%;
-    flex-direction: column;
-    font-size: 13px;
-    letter-spacing: 1px;
-  }
-`;
-
-export const RegisterButton = styled.button`
-  display: none;
-
-  @media (min-width: ${bp.lg}) {
-    display: flex;
-    width: 150px;
-    letter-spacing: 1px;
-    margin: 0 2px;
-    padding: 5px;
-    white-space: nowrap;
-    background-color: #232946;
-    border-radius: 10px;
-    border: none;
-  }
-`;
-
-export const RegisterLink = styled(Link)`
-  display: flex;
-  justify-content: center;
-  text-decoration: none;
-  color: white;
-
-  @media (min-width: ${bp.lg}) {
-    width: 100%;
-    flex-direction: column;
-    font-size: 13px;
-    letter-spacing: 1px;
   }
 `;
 
@@ -133,4 +64,72 @@ export const MenuLink = styled(Link)`
     font-size: 13px;
     letter-spacing: 1px;
   }
+`;
+
+export const WelcomeTextContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  width: 150px;
+  margin: 0 5px;
+  font-weight: 700;
+  height: 50px;
+
+  @media (min-width: ${bp.lg}) {
+    flex-direction: column;
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+`;
+
+export const LogoutButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background-color: ${colors.blueGray};
+  color: ${colors.offWhite};
+  border-radius: 5px;
+  padding: 0 10px;
+  width: 100px;
+  font-weight: 700;
+  height: 40px;
+
+  @media (min-width: ${bp.lg}) {
+    flex-direction: column;
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+`;
+
+export const HeaderLinksContainer = styled.div`
+  color: black;
+  /* border: 1px solid red; */
+  font-weight: 700;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 3px;
+
+  @media (min-width: ${bp.lg}) {
+    flex-direction: row;
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+`;
+
+export const IconContainer = styled.div`
+  background-color: ${colors.orange};
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  text-decoration: none;
+  border-radius: 50%;
 `;
