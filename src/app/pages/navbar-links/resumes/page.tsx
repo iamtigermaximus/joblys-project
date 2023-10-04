@@ -1,17 +1,18 @@
 import React from 'react';
 import { Container } from '@/app/page.styles';
 import PageHeader from '@/components/page-header/PageHeader';
+import Resumes from '@/components/resumes/Resumes';
 
-const Resumes = () => {
+const ResumesPage = () => {
   return (
     <Container>
       <div>
-        <title>RESUMES</title>
+        <title>CV/RESUME</title>
       </div>
       <PageHeader />
-      RESUMES
+      <Resumes />
     </Container>
   );
 };
 
-export default Resumes;
+export default ResumesPage;
