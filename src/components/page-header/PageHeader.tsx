@@ -55,7 +55,7 @@ const PageHeader = () => {
           ''
         )} */}
 
-        <WelcomeTextContainer>Hello, Siegfred!</WelcomeTextContainer>
+        <WelcomeTextContainer>Welcome, Siegfred!</WelcomeTextContainer>
         <LogoutButton>Log out</LogoutButton>
         <HeaderLinksContainer>
           <IconContainer>

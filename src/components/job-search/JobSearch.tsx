@@ -4,11 +4,10 @@ import {
   InputContainer,
   Input,
   SearchButton,
-  PopularSearchesContainer,
-  PopularSearches,
-  Button,
+  SearchSectionTitle,
 } from './JobSearch.styles';
 import { useRouter } from 'next/navigation';
+import { FaChevronRight } from 'react-icons/fa';
 
 const JobSearch = () => {
   const router = useRouter();
@@ -23,28 +22,13 @@ const JobSearch = () => {
   };
   return (
     <Container>
+      <SearchSectionTitle>Find a new job</SearchSectionTitle>
       <InputContainer>
-        <Input type="text" placeholder="Search job, keywords, companies" />
-        <Input type="text" placeholder='Enter location or "remote"' />
-        <SearchButton onClick={handleSearch}>FIND JOBS</SearchButton>
+        <Input type="text" placeholder="Search open positions" />
+        <SearchButton onClick={handleSearch}>
+          <FaChevronRight />
+        </SearchButton>
       </InputContainer>
-      <PopularSearchesContainer>
-        <h4> Popular Searches</h4>
-        <PopularSearches>
-          <Button>Work From Home</Button>
-          <Button>Work From Home</Button>
-          <Button>Work From Home</Button>
-          <Button>Work From Home</Button>
-          <Button>Work From Home</Button>
-          <Button>Work From Home</Button>
-          <Button>Work From Home</Button>
-          <Button>Work From Home</Button>
-          <Button>Work From Home</Button>
-          <Button>Work From Home</Button>
-          <Button>Work From Home</Button>
-          <Button>Work From Home</Button>
-        </PopularSearches>
-      </PopularSearchesContainer>
     </Container>
   );
 };

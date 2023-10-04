@@ -71,10 +71,11 @@ export const WelcomeTextContainer = styled.div`
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  width: 150px;
+  max-width: 300px;
   margin: 0 5px;
   font-weight: 700;
   height: 50px;
+  white-space: nowrap;
 
   @media (min-width: ${bp.lg}) {
     flex-direction: column;

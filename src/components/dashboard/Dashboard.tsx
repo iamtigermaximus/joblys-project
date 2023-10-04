@@ -1,62 +1,63 @@
-// 'use client';
-// import React from 'react';
-// import {
-//   ActivitiesContainer,
-//   Button,
-//   Container,
-//   HeaderContainer,
-//   RecentActivitySection,
-//   RecentSearchContainer,
-//   RecentSearchesSection,
-//   UserInfo,
-// } from './Dashboard.styles';
-// import { useSession } from 'next-auth/react';
-
-// const Dashboard = () => {
-//   const { data: session } = useSession();
-
-//   return (
-//     <Container>
-//       <HeaderContainer>
-//         {session ? (
-//           <UserInfo>
-//             <h3>Hi, USERNAME</h3>
-//             <h4>Frontend Developer</h4>
-//             <h4>Helsinki</h4>
-//           </UserInfo>
-//         ) : null}
-//       </HeaderContainer>
-//       <RecentActivitySection>
-//         <h3>Recent Activity</h3>
-//         <ActivitiesContainer>
-//           <Button>Saved</Button>
-//           <Button>Applied</Button>
-//           <Button>Dislike</Button>
-//         </ActivitiesContainer>
-//       </RecentActivitySection>
-//       <RecentSearchesSection>
-//         <h3>Recent Searches</h3>
-//         <RecentSearchContainer>
-//           <h4>Most Popular Jobs in Helsinki </h4>
-//           <Button>Search</Button>
-//         </RecentSearchContainer>
-//         <RecentSearchContainer>
-//           <h4>Most Popular Jobs in Turku </h4>
-//           <Button>Search</Button>
-//         </RecentSearchContainer>
-//       </RecentSearchesSection>
-//     </Container>
-//   );
-// };
-
-// export default Dashboard;
-
 'use client';
-
 import React from 'react';
+import {
+  ActivitiesContainer,
+  ActivityContainer,
+  ActivitySection,
+  Button,
+  ButtonsContainer,
+  Container,
+  HeaderContainer,
+  HeaderTextContainer,
+  HeadingSubTexts,
+  HeadingTexts,
+  JobSearchSection,
+  RecentActivitySection,
+  RecentActivityTitle,
+  ReviewButton,
+} from './Dashboard.styles';
+import { useSession } from 'next-auth/react';
+import JobSearch from '../job-search/JobSearch';
 
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  const { data: session } = useSession();
+
+  return (
+    <Container>
+      <HeaderContainer>
+        <HeaderTextContainer>
+          <HeadingTexts>Hello!</HeadingTexts>
+          <HeadingSubTexts>
+            <strong>Welcome to Joblys!</strong> Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit. Sed et urna nec libero gravida
+            tincidunt. Nullam non.
+          </HeadingSubTexts>
+        </HeaderTextContainer>
+      </HeaderContainer>
+      <ActivitySection>
+        <JobSearchSection>
+          <JobSearch />
+        </JobSearchSection>
+        <RecentActivitySection>
+          <RecentActivityTitle>Your recent activity</RecentActivityTitle>
+          <ButtonsContainer>
+            <Button>Saved</Button>
+            <Button>Applied</Button>
+            <Button>Disliked</Button>
+          </ButtonsContainer>
+          <ActivitiesContainer>
+            <ActivityContainer>
+              <div>Software developer Helsinki</div>
+              <ReviewButton>Review</ReviewButton>
+            </ActivityContainer>
+            <ActivityContainer>
+              <div>Developer Tampere</div> <ReviewButton>Review</ReviewButton>
+            </ActivityContainer>
+          </ActivitiesContainer>
+        </RecentActivitySection>
+      </ActivitySection>
+    </Container>
+  );
 };
 
 export default Dashboard;

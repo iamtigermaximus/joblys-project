@@ -2,6 +2,7 @@
 
 import { breakpoints as bp } from '../../utils/layout';
 import styled from 'styled-components';
+import colors from '../../utils/colors';
 
 export const Container = styled.div`
   width: 100%;
@@ -9,10 +10,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-
-  @media (min-width: ${bp.lg}) {
-    padding: 30px;
-  }
 `;
 
 export const Header = styled.div`
@@ -24,18 +21,21 @@ export const Header = styled.div`
   font-size: 30px;
 `;
 
+export const SearchSectionTitle = styled.h2`
+  color: ${colors.purple};
+  margin: 0 0 20px;
+`;
 export const InputContainer = styled.div`
   position: relative;
-  /* border: 1px solid green; */
-  margin: 10px;
-  height: 200px;
-  padding: 10px;
+  border: 1px solid ${colors.ashGray};
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
+  border-radius: 3px;
 
   @media (min-width: ${bp.lg}) {
     flex-direction: row;
-    height: 70px;
   }
 `;
 
@@ -51,12 +51,10 @@ export const Icon = styled.i`
 export const Input = styled.input`
   width: 100%;
   height: 50px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 3px 0 0 3px;
   font-size: 13px;
-  border-radius: 10px;
-  margin: 5px 0;
+  background-color: ${colors.ashGray};
+  border: 1px solid ${colors.ashGray};
 
   &::placeholder {
     color: #232946;
@@ -70,7 +68,7 @@ export const Input = styled.input`
 
   @media (min-width: ${bp.lg}) {
     padding: 10px 35px 10px 30px;
-    margin: 0 10px;
+    /* margin: 0 10px; */
   }
 `;
 
@@ -80,25 +78,24 @@ export const SearchContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid red; */
+  border: 1px solid red;
 `;
 
 export const SearchButton = styled.button`
   height: 50px;
   padding: 5px 0;
-  border-radius: 10px;
+  border-radius: 5px;
   border: none;
-  background: #232946;
-  color: #b8c1ec;
-  font-size: 13px;
-  /* width: 250px; */
+  background-color: ${colors.orange};
+  color: ${colors.white};
+  font-size: 25px;
   white-space: nowrap;
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media (min-width: ${bp.lg}) {
     padding: 10px 35px 10px 30px;
-    margin: 0 10px;
-    width: 300px;
   }
 `;
 

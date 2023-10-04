@@ -7,4 +7,5 @@ export default {
   blueGray: '#494A66',
   darkPurple: '#3E0450',
   offWhite: '#FBFFFC',
+  ashGray: '#F2F1EF',
 };
