@@ -1,11 +1,14 @@
 import StyledComponentsRegistry from '@/lib/registry';
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import Navbar from '@/components/navbar/Navbar';
 import { NextAuthProvider } from './providers/sessionProviders';
+import { Roboto } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({
+  weight: ['400'],
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: 'JOBLYS',
@@ -19,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={roboto.className}>
         <NextAuthProvider>
           <StyledComponentsRegistry>
             <Navbar />
