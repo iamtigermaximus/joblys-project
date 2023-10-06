@@ -86,16 +86,6 @@ const Chat: React.FC = () => {
           <AnswerContainer>
             <h4>Software Developer</h4>
           </AnswerContainer>
-          {/* <AnswerContainer>
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`message ${message.isUser ? 'user' : 'bot'}`}
-              >
-                <h4>{message.text}</h4>
-              </div>
-            ))}
-          </AnswerContainer> */}
         </ConversationContainer>
 
         {/* <InputContainer>

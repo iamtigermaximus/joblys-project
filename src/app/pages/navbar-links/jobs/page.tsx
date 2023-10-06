@@ -1,18 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import {
-  Container,
-  FilterContainer,
-  FilterSelect,
-  Icon,
-  Input,
-  InputContainer,
-  ResultContainer,
-  ResultsContainer,
-  ResultsListContainer,
-  SearchButton,
-  SearchContainer,
-} from './Jobs.styles';
+import { Container } from './Jobs.styles';
 import PageHeader from '@/components/page-header/PageHeader';
 import JobSearch from '@/components/job-search/JobSearch';
 

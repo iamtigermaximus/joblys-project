@@ -63,18 +63,6 @@ export const JobSearchSection = styled.div`
   padding: 40px;
 `;
 
-// export const RecentSearchesSection = styled.div`
-//   width: 100%;
-//   height: 200px;
-//   /* border: 1px solid red; */
-//   display: flex;
-//   flex-direction: column;
-//   margin-top: 10px;
-//   background-color: white;
-//   border-radius: 10px;
-//   padding: 20px;
-// `;
-
 export const RecentActivitySection = styled.div`
   /* border: 1px solid red; */
   display: flex;
