@@ -5,13 +5,11 @@ import colors from '../../utils/colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 100%;
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
-  padding: 50px;
+  width: 100%;
   height: 100%;
-
+  padding: 50px;
   overflow-y: scroll;
 
   @media (min-width: ${bp.lg}) {
@@ -21,18 +19,16 @@ export const Container = styled.div`
 
 export const HeaderContainer = styled.div`
   width: 100%;
-  /* border: 1px solid red; */
-  display: flex;
 `;
 
 export const HeaderTextContainer = styled.div`
-  width: 50%;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  width: 50%;
+  height: 100%;
   padding: 40px;
-  background-color: ${colors.white};
   border-radius: 8px;
+  background-color: ${colors.white};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
@@ -55,16 +51,13 @@ export const ActivitySection = styled.div`
   border-radius: 8px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   margin: 30px 0 30px;
-  /* border: 2px solid green; */
 `;
 
 export const JobSearchSection = styled.div`
-  /* border: 1px solid green; */
   padding: 40px;
 `;
 
 export const RecentActivitySection = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   padding: 0 40px 40px;
@@ -75,24 +68,22 @@ export const RecentActivityTitle = styled.h4`
 `;
 
 export const ButtonsContainer = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: row;
   margin: 0 0 20px;
 `;
 
 export const ActivitiesContainer = styled.div`
-  /* border: 1px solid green; */
   display: flex;
   flex-direction: column;
 `;
 
 export const ActivityContainer = styled.div`
-  border: 2px solid ${colors.ashGray};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  border: 2px solid ${colors.ashGray};
   padding: 10px;
   margin: 5px 0;
   font-size: 18px;
@@ -109,19 +100,6 @@ export const Button = styled.button`
   height: 40px;
   border: none;
   letter-spacing: 1px;
-`;
-
-export const RecentSearchContainer = styled.div`
-  border: 1px solid #d3d3d3;
-  margin-right: 10px;
-  width: 100%;
-  border-radius: 10px;
-  padding: 10px 20px;
-  margin: 5px 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 export const ReviewButton = styled.button`

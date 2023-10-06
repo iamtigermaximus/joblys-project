@@ -17,7 +17,7 @@ import {
   ReviewButton,
 } from './Dashboard.styles';
 import { useSession } from 'next-auth/react';
-import JobSearch from '../job-search/JobSearch';
+import JobSearch from './job-search/JobSearch';
 
 const Dashboard = () => {
   const { data: session } = useSession();
