@@ -4,27 +4,26 @@ import { breakpoints as bp } from '../utils/layout';
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  display: flex;
   width: 100%;
+  height: 100vh;
   background-color: #b4ecf9;
+  flex-direction: column;
 
   @media (min-width: ${bp.lg}) {
-    display: flex;
     width: 80vw;
-    height: 100vh;
     float: left;
-    flex-direction: column;
   }
 `;
 
 export const BoxContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
 
   @media (min-width: ${bp.lg}) {
-    width: 100%;
-    height: 100%;
     flex-direction: row;
-    /* background-color: #b8c1ec; */
   }
 `;
 

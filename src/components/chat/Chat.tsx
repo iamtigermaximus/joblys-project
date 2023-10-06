@@ -1,15 +1,13 @@
-// pages/chat.tsx
 import React, { useState } from 'react';
-//import useClient from '../../utils/useClient'; // Adjust the import path
 import {
-  AnswerContainer,
   Button,
+  Input,
+  InputContainer,
   ChatbotContainer,
   Container,
   ConversationContainer,
-  Input,
-  InputContainer,
   QuestionContainer,
+  AnswerContainer,
 } from './Chat.styles';
 
 const Chat: React.FC = () => {
