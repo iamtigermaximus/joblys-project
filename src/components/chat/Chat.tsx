@@ -98,7 +98,7 @@ const Chat: React.FC = () => {
           </AnswerContainer> */}
         </ConversationContainer>
 
-        <InputContainer>
+        {/* <InputContainer>
           <Input
             type="text"
             // value={input}
@@ -106,7 +106,7 @@ const Chat: React.FC = () => {
             placeholder="Type your message..."
           />
           <Button>Send</Button>
-        </InputContainer>
+        </InputContainer> */}
       </ChatbotContainer>
     </Container>
   );

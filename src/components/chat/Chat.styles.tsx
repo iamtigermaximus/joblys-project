@@ -2,13 +2,13 @@
 
 import { breakpoints as bp } from '../../utils/layout';
 import styled from 'styled-components';
+import colors from '../../utils/colors';
 
 export const Container = styled.div`
-  border-radius: 20px;
+  /* border-radius: 20px; */
   /* border: 1px solid red; */
   display: flex;
   justify-content: center;
-  padding: 10px;
 `;
 
 export const ChatbotContainer = styled.div`
@@ -20,40 +20,38 @@ export const ChatbotContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px;
 
   @media (min-width: ${bp.md}) {
-    width: 600px;
-    height: 600px;
-    padding: 30px;
+    width: 100%;
+    height: 100%;
   }
 `;
 
 export const ConversationContainer = styled.div`
   width: 100%;
   height: 400px;
-  border-radius: 20px;
-  border: 1px solid #232946;
+  /* border-radius: 20px; */
+  /* border: 1px solid #232946; */
   overflow: auto;
 `;
 
 export const QuestionContainer = styled.div`
-  border-radius: 20px;
-  border: 1px solid #232946;
-  margin: 10px;
+  border-radius: 3px;
+  border: none;
+  margin: 10px 0;
   padding: 20px;
   text-align: left;
-  background: #232946;
+  background-color: ${colors.purple};
   color: white;
 `;
 
 export const AnswerContainer = styled.div`
-  border-radius: 20px;
-  border: 1px solid #b8c1ec;
-  margin: 10px;
+  border-radius: 3px;
+  border: none;
+  margin: 10px 0;
   padding: 20px;
   text-align: right;
-  background: #b8c1ec;
+  background-color: ${colors.ashGray};
   color: #232946;
 `;
 

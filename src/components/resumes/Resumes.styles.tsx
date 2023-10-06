@@ -14,7 +14,7 @@ export const Container = styled.div`
   overflow-y: scroll;
 
   @media (min-width: ${bp.lg}) {
-    padding: 50px 100px;
+    padding: 50px 200px;
   }
 `;
 
@@ -62,12 +62,12 @@ export const BuildProfileSection = styled.div`
 export const SectionTitleContainer = styled.div`
   /* border: 1px solid red; */
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  /* flex-direction: column;
+  align-items: center; */
   justify-content: center;
 `;
 
-export const SectionTitle = styled.h1`
+export const SectionTitle = styled.h2`
   color: ${colors.purple};
 `;
 

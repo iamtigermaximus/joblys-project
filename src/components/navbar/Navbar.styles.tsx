@@ -97,6 +97,7 @@ export const MenuItem = styled(Link)`
   text-decoration: none;
   color: ${colors.white};
   padding-left: 10px;
+  font-weight: 700;
 
   @media (min-width: ${bp.lg}) {
     display: flex;
