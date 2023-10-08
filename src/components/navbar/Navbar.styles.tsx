@@ -63,6 +63,7 @@ export const MenuContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding: 0 20px;
 
   @media (min-width: ${bp.lg}) {
     flex-direction: column;
@@ -193,6 +194,7 @@ export const BurgerMenu = styled.div`
   padding: 5px;
   color: ${colors.white};
   font-size: 30px;
+  padding: 0 20px;
 
   @media (min-width: ${bp.lg}) {
     display: none;
