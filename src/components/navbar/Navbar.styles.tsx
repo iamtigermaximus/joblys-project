@@ -2,8 +2,8 @@
 
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../utils/layout';
-import Link from 'next/link';
 import colors from '../../utils/colors';
+import Link from 'next/link';
 
 export const NavbarContainer = styled.div`
   display: flex;
@@ -15,31 +15,31 @@ export const NavbarContainer = styled.div`
   width: 100%;
 
   @media (min-width: ${bp.lg}) {
-    width: 20vw;
-    height: 100vh;
     flex-direction: column;
     align-items: center;
+    width: 20vw;
+    height: 100vh;
     float: left;
   }
 `;
 
 export const NavbarItemsContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
 
   @media (min-width: ${bp.lg}) {
-    height: 100vh;
-    width: 100%;
-    flex-direction: column;
   }
 `;
 
 export const BrandContainer = styled.div`
   margin: 20px 0;
   padding: 5px;
+  letter-spacing: 1px;
 
   @media (min-width: ${bp.lg}) {
     width: 150px;
-    letter-spacing: 1px;
   }
 `;
 
@@ -62,21 +62,20 @@ export const MenuContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 
   @media (min-width: ${bp.lg}) {
-    width: 100%;
     flex-direction: column;
   }
 `;
 
 export const MenuItemContainer = styled.div`
-  /* margin: 20px 0; */
-  padding: 20px;
-  white-space: nowrap;
   display: none;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+  white-space: nowrap;
 
   &.active {
     background-color: ${colors.darkPurple};
@@ -255,12 +254,12 @@ export const MobileSignOut = styled(Link)`
 `;
 
 export const MobileMenuItemContainer = styled.div`
-  padding: 20px;
   display: flex;
-  white-space: nowrap;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+  white-space: nowrap;
 
   @media (min-width: ${bp.lg}) {
     width: 100%;
