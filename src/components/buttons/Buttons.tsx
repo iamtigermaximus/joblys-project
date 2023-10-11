@@ -3,10 +3,11 @@
 import { signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import {
+  LogOutButton,
   ProfButton,
   RegButton,
   SignInButton,
-  SignOutButton,
+  // SignOutButton,
 } from './Buttons.styles';
 
 export const LoginButton = () => {
@@ -22,7 +23,7 @@ export const RegisterButton = () => {
 };
 
 export const LogoutButton = () => {
-  return <SignOutButton onClick={() => signOut()}>Sign Out</SignOutButton>;
+  return <LogOutButton onClick={() => signOut()}>Sign Out</LogOutButton>;
 };
 
 export const ProfileButton = () => {

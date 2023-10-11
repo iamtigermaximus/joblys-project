@@ -104,6 +104,26 @@ export const LogoutButton = styled.div`
   }
 `;
 
+export const SignInButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background-color: ${colors.blueGray};
+  color: ${colors.offWhite};
+  border-radius: 5px;
+  padding: 0 10px;
+  width: 100px;
+  font-weight: 700;
+  height: 40px;
+
+  @media (min-width: ${bp.lg}) {
+    flex-direction: column;
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+`;
+
 export const HeaderLinksContainer = styled.div`
   color: black;
   /* border: 1px solid red; */

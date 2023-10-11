@@ -1,11 +1,12 @@
 'use client';
-import React from 'react';
+import React, { FormEvent } from 'react';
 import {
   Header,
   HeaderLinksContainer,
   HeaderMenuContainer,
   IconContainer,
   LogoutButton,
+  SignInButton,
   // MenuLink,
   // MenuLinkButton,
   // RegisterButton,
@@ -14,11 +15,17 @@ import {
   // SignInLink,
   WelcomeTextContainer,
 } from './PageHeader.styles';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { FaBell, FaUser } from 'react-icons/fa';
 
 const PageHeader = () => {
   const { data: session } = useSession();
+
+  const handleSignOut = async (e: FormEvent) => {
+    e.preventDefault();
+    await signOut();
+    window.alert('You have been signed out.');
+  };
 
   return (
     <Header>
@@ -40,33 +47,36 @@ const PageHeader = () => {
         </MenuLinkButton>
       </HeaderMenuContainer> */}
       <HeaderMenuContainer>
-        {/* {!session ? (
-          <SignInButton>
-            <SignInLink href="/pages/signin">SIGN IN</SignInLink>
-          </SignInButton>
+        {session ? (
+          <>
+            <SignInButton>Sign In</SignInButton>
+            <HeaderLinksContainer>
+              <IconContainer>
+                <FaBell />
+              </IconContainer>
+            </HeaderLinksContainer>
+            <HeaderLinksContainer>
+              <IconContainer>
+                <FaUser />
+              </IconContainer>
+            </HeaderLinksContainer>
+          </>
         ) : (
-          ''
+          <>
+            <WelcomeTextContainer>Welcome, Siegfred!</WelcomeTextContainer>
+            <LogoutButton onClick={handleSignOut}>Log out</LogoutButton>
+            <HeaderLinksContainer>
+              <IconContainer>
+                <FaBell />
+              </IconContainer>
+            </HeaderLinksContainer>
+            <HeaderLinksContainer>
+              <IconContainer>
+                <FaUser />
+              </IconContainer>
+            </HeaderLinksContainer>
+          </>
         )}
-        {!session ? (
-          <RegisterButton>
-            <RegisterLink href="/pages/signup">REGISTER</RegisterLink>
-          </RegisterButton>
-        ) : (
-          ''
-        )} */}
-
-        <WelcomeTextContainer>Welcome, Siegfred!</WelcomeTextContainer>
-        <LogoutButton>Log out</LogoutButton>
-        <HeaderLinksContainer>
-          <IconContainer>
-            <FaBell />
-          </IconContainer>
-        </HeaderLinksContainer>
-        <HeaderLinksContainer>
-          <IconContainer>
-            <FaUser />
-          </IconContainer>
-        </HeaderLinksContainer>
       </HeaderMenuContainer>
     </Header>
   );

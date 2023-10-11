@@ -13,7 +13,7 @@ import {
   NavbarContainer,
   NavbarItemsContainer,
 } from './Navbar.styles';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
 import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
@@ -24,11 +24,6 @@ const Navbar = () => {
 
   const [click, setClick] = useState(true);
   const categoryMenu = () => setClick(!click);
-
-  const handleSignOut = async (e: FormEvent) => {
-    e.preventDefault();
-    await signOut();
-  };
 
   return (
     <NavbarContainer>

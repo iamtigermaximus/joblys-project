@@ -9,7 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 50px;
+  padding: 30px;
   overflow-y: scroll;
 
   @media (min-width: ${bp.lg}) {
@@ -24,12 +24,17 @@ export const HeaderContainer = styled.div`
 export const HeaderTextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
   height: 100%;
-  padding: 40px;
+  padding: 20px;
   border-radius: 8px;
   background-color: ${colors.white};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+  @media (min-width: ${bp.lg}) {
+    width: 50%;
+    padding: 40px;
+  }
 `;
 
 export const HeadingTexts = styled.h1`
@@ -54,13 +59,21 @@ export const ActivitySection = styled.div`
 `;
 
 export const JobSearchSection = styled.div`
-  padding: 40px;
+  padding: 20px;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 40px;
+  }
 `;
 
 export const RecentActivitySection = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 40px 40px;
+  padding: 0 20px 20px;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 0 40px 40px;
+  }
 `;
 
 export const RecentActivityTitle = styled.h4`
