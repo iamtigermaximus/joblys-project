@@ -3,18 +3,18 @@
 import React from 'react';
 import PageHeader from '@/components/page-header/PageHeader';
 import { Container } from '@/app/page.styles';
-import CreateProfile from '@/components/create-profile/CreateProfile';
+import BuildProfile from '@/components/build-profile/BuildProfile';
 
-const ProfilePage = () => {
+const BuildProfilePage = () => {
   return (
     <Container>
       <div>
-        <title>CREATE PROFILE</title>
+        <title>BUILD PROFILE</title>
       </div>
       <PageHeader />
-      <CreateProfile />
+      <BuildProfile />
     </Container>
   );
 };
 
-export default ProfilePage;
+export default BuildProfilePage;

@@ -5,7 +5,7 @@ import {
   BuildProfileSection,
   UploadButton,
   Container,
-  CreateProfile,
+  CreateProfileContainer,
   CreateProfileSection,
   FileType,
   FileTypeContainer,
@@ -16,12 +16,18 @@ import {
   SectionTitleContainer,
   UploadCVSection,
   BuildProfileButton,
-} from './Resumes.styles';
+} from './CreateProfile.style';
+import { useRouter } from 'next/navigation';
 
-const Resumes = () => {
+const CreateProfile = () => {
+  const router = useRouter();
+
+  const handleBuildProfile = () => {
+    router.push('/pages/navbar-links/profile/build-profile');
+  };
   return (
     <Container>
-      {/* <CreateProfile>
+      <CreateProfileContainer>
         <CreateProfileSection>
           <SectionTitleContainer>
             <SectionTitle>Upload CV</SectionTitle>
@@ -46,13 +52,15 @@ const Resumes = () => {
           <BuildProfileSection>
             <SectionSubTitle>Create your profile in Joblys</SectionSubTitle>
             <InputContainer>
-              <BuildProfileButton>Build Profile</BuildProfileButton>
+              <BuildProfileButton onClick={handleBuildProfile}>
+                Build Profile
+              </BuildProfileButton>
             </InputContainer>
           </BuildProfileSection>
         </CreateProfileSection>
-      </CreateProfile> */}
+      </CreateProfileContainer>
     </Container>
   );
 };
 
-export default Resumes;
+export default CreateProfile;
