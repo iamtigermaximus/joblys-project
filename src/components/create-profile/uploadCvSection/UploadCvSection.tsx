@@ -10,8 +10,14 @@ import {
   UploadButton,
   UploadCVSection,
 } from './UploadCvSection.styles';
+import { useRouter } from 'next/navigation';
 
 const UploadCvSection = () => {
+  const router = useRouter();
+
+  const handleUpload = () => {
+    router.push('/pages/navbar-links/profile/upload-cv');
+  };
   return (
     <CreateProfileSection>
       <SectionTitleContainer>
@@ -20,7 +26,7 @@ const UploadCvSection = () => {
       <UploadCVSection>
         <SectionSubTitle>Drop your file to upload</SectionSubTitle>{' '}
         <InputContainer>
-          <UploadButton>Choose file</UploadButton>
+          <UploadButton onClick={handleUpload}>Choose file</UploadButton>
         </InputContainer>
         <FileTypeContainer>
           <FileType>

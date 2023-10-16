@@ -12,18 +12,18 @@ import {
   Trash,
   TrashIconContainer,
 } from './Profile.styles';
-import Chat from '../chat/Chat';
 import { FaTrash } from 'react-icons/fa';
+import Chatbot from '../build-profile/chatbot/Chatbot';
 
 const Profile = () => {
   return (
     <Container>
-      <CreateProfile>
+      {/* <CreateProfile>
         <SectionTitleContainer>
           <SectionTitle>Build your profile</SectionTitle>
         </SectionTitleContainer>
         <ChatbotSection>
-          <Chat />
+          <Chatbot />
         </ChatbotSection>
         <SaveInfoContainer>
           <TrashIconContainer>
@@ -37,7 +37,8 @@ const Profile = () => {
             <ContinueButton>Continue</ContinueButton>
           </ButtonsContainer>
         </SaveInfoContainer>
-      </CreateProfile>
+      </CreateProfile> */}
+      <h1>PROFILE COMPONENT</h1>
     </Container>
   );
 };

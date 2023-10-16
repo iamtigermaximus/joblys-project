@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import {
-  Button,
-  Input,
-  InputContainer,
+  // Button,
+  // Input,
+  // InputContainer,
   ChatbotContainer,
   Container,
   ConversationContainer,
   QuestionContainer,
   AnswerContainer,
-} from './Chat.styles';
+} from './Chatbot.styles';
 
-const Chat: React.FC = () => {
+const Chatbot: React.FC = () => {
   // const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>(
   //   []
   // );
@@ -100,4 +100,4 @@ const Chat: React.FC = () => {
   );
 };
 
-export default Chat;
+export default Chatbot;

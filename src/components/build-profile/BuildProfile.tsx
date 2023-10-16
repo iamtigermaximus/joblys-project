@@ -14,8 +14,9 @@ import {
 } from './BuildProfile.styles';
 import Chat from '../chat/Chat';
 import { FaTrash } from 'react-icons/fa';
+import Chatbot from './chatbot/Chatbot';
 
-const BuildProfile = () => {
+const Profile = () => {
   return (
     <Container>
       <CreateProfile>
@@ -23,7 +24,7 @@ const BuildProfile = () => {
           <SectionTitle>Build your profile</SectionTitle>
         </SectionTitleContainer>
         <ChatbotSection>
-          <Chat />
+          <Chatbot />
         </ChatbotSection>
         <SaveInfoContainer>
           <TrashIconContainer>
@@ -42,4 +43,4 @@ const BuildProfile = () => {
   );
 };
 
-export default BuildProfile;
+export default Profile;
