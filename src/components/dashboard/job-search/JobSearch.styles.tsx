@@ -11,6 +11,14 @@ export const Container = styled.div`
   height: 100%;
 `;
 
+export const JobSearchSection = styled.div`
+  padding: 20px;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 40px;
+  }
+`;
+
 export const Header = styled.div`
   display: flex;
   align-items: center;

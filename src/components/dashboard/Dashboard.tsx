@@ -1,23 +1,17 @@
 'use client';
 import React from 'react';
 import {
-  ActivitiesContainer,
-  ActivityContainer,
   ActivitySection,
-  Button,
-  ButtonsContainer,
   Container,
   HeaderContainer,
   HeaderTextContainer,
   HeadingSubTexts,
   HeadingTexts,
-  JobSearchSection,
-  RecentActivitySection,
-  RecentActivityTitle,
-  ReviewButton,
+  // JobSearchSection,
 } from './Dashboard.styles';
 import { useSession } from 'next-auth/react';
 import JobSearch from './job-search/JobSearch';
+import RecentActivity from './recent-activity/RecentActivity';
 
 const Dashboard = () => {
   const { data: session } = useSession();
@@ -35,26 +29,8 @@ const Dashboard = () => {
         </HeaderTextContainer>
       </HeaderContainer>
       <ActivitySection>
-        <JobSearchSection>
-          <JobSearch />
-        </JobSearchSection>
-        <RecentActivitySection>
-          <RecentActivityTitle>Your recent activity</RecentActivityTitle>
-          <ButtonsContainer>
-            <Button>Saved</Button>
-            <Button>Applied</Button>
-            <Button>Disliked</Button>
-          </ButtonsContainer>
-          <ActivitiesContainer>
-            <ActivityContainer>
-              <div>Software developer Helsinki</div>
-              <ReviewButton>Review</ReviewButton>
-            </ActivityContainer>
-            <ActivityContainer>
-              <div>Developer Tampere</div> <ReviewButton>Review</ReviewButton>
-            </ActivityContainer>
-          </ActivitiesContainer>
-        </RecentActivitySection>
+        <JobSearch />
+        <RecentActivity />
       </ActivitySection>
     </Container>
   );

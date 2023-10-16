@@ -5,6 +5,7 @@ import {
   Input,
   SearchButton,
   SearchSectionTitle,
+  JobSearchSection,
 } from './JobSearch.styles';
 import { useRouter } from 'next/navigation';
 import { FaChevronRight } from 'react-icons/fa';
@@ -22,13 +23,15 @@ const JobSearch = () => {
   };
   return (
     <Container>
-      <SearchSectionTitle>Find a new job</SearchSectionTitle>
-      <InputContainer>
-        <Input type="text" placeholder="Search open positions" />
-        <SearchButton onClick={handleSearch}>
-          <FaChevronRight />
-        </SearchButton>
-      </InputContainer>
+      <JobSearchSection>
+        <SearchSectionTitle>Find a new job</SearchSectionTitle>
+        <InputContainer>
+          <Input type="text" placeholder="Search open positions" />
+          <SearchButton onClick={handleSearch}>
+            <FaChevronRight />
+          </SearchButton>
+        </InputContainer>
+      </JobSearchSection>
     </Container>
   );
 };
