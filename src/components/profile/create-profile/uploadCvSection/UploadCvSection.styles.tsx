@@ -1,8 +1,13 @@
 'use client';
 
-import { breakpoints as bp } from '../../../utils/layout';
-import colors from '../../../utils/colors';
+import { breakpoints as bp } from '../../../../utils/layout';
+import colors from '../../../../utils/colors';
 import styled from 'styled-components';
+
+export const CreateProfileSection = styled.div`
+  padding: 40px;
+  width: 50%;
+`;
 
 export const SectionTitleContainer = styled.div`
   display: flex;
@@ -17,12 +22,7 @@ export const SectionSubTitle = styled.h4`
   color: black;
 `;
 
-export const CreateProfileSection = styled.div`
-  padding: 40px;
-  width: 50%;
-`;
-
-export const ProfileBuildSection = styled.div`
+export const UploadCVSection = styled.div`
   border: 1px dashed ${colors.blueGray};
   padding: 40px;
   width: 100%;
@@ -34,6 +34,21 @@ export const ProfileBuildSection = styled.div`
   height: 200px;
 `;
 
+export const FileTypeContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  /* margin: 10px 0; */
+  /* padding: 0 15px; */
+`;
+
+export const FileType = styled.h1`
+  font-size: 10px;
+  font-weight: 300;
+`;
+
 export const InputContainer = styled.div`
   width: 100%;
   display: flex;
@@ -42,10 +57,15 @@ export const InputContainer = styled.div`
   padding: 20px;
 `;
 
-export const BuildProfileButton = styled.button`
+export const Input = styled.input`
+  width: 300px;
+  padding: 10px 40px;
+`;
+
+export const UploadButton = styled.button`
   width: 150px;
   height: 40px;
-  background-color: ${colors.orange};
+  background-color: ${colors.blueGray};
   color: ${colors.white};
   border-radius: 5px;
   border: none;

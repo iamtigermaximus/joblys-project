@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import PageHeader from '@/components/page-header/PageHeader';
+import PageHeader from '@/components/common/page-header/PageHeader';
 import { Container } from '@/app/page.styles';
-import BuildProfile from '@/components/build-profile/BuildProfile';
+import BuildProfile from '@/components/profile/build-profile/BuildProfile';
 
 const BuildProfilePage = () => {
   return (

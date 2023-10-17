@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { breakpoints as bp } from '../../utils/layout';
+import { breakpoints as bp } from '../../../utils/layout';
 import styled from 'styled-components';
-import colors from '../../utils/colors';
+import colors from '../../../utils/colors';
 
 export const Header = styled.div`
   width: 100%;

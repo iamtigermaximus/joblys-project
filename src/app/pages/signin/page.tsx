@@ -1,5 +1,5 @@
 'use client';
-import PageHeader from '@/components/page-header/PageHeader';
+import PageHeader from '@/components/common/page-header/PageHeader';
 import { Container } from '../../page.styles';
 import SignInForm from './form';
 // import 'transition-style'; transition-style="in:circle:top-right"

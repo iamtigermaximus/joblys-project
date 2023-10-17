@@ -12,7 +12,6 @@ import {
   Trash,
   TrashIconContainer,
 } from './BuildProfile.styles';
-import Chat from '../chat/Chat';
 import { FaTrash } from 'react-icons/fa';
 import Chatbot from './chatbot/Chatbot';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from '@/app/page.styles';
-import PageHeader from '@/components/page-header/PageHeader';
-import JobSearchResults from '@/components/job-search-results/JobSearchResults';
+import PageHeader from '@/components/common/page-header/PageHeader';
+import JobSearchResults from '@/components/dashboard/job-search-results/JobSearchResults';
 
 const JobResultsPage = () => {
   return (

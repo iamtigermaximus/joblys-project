@@ -3,7 +3,7 @@
 import React from 'react';
 import { Container } from '../../page.styles';
 import SignUpForm from './form';
-import PageHeader from '@/components/page-header/PageHeader';
+import PageHeader from '@/components/common/page-header/PageHeader';
 
 const SignUp = () => {
   return (
