@@ -76,11 +76,11 @@ export default function Home() {
           <BoxHeader>
             <p>
               AI-powered platform that helps job seekers find suitable job
-              opportunities more efficiently. The AI could analyze a candidate's
-              skills, experience, preferences, and career goals to match them
-              with relevant job listings. The platform could also provide
-              personalized job recommendations, based on the user's profile and
-              historical job search behavior.
+              opportunities more efficiently. The AI could analyze a
+              candidate&apos;s skills, experience, preferences, and career goals
+              to match them with relevant job listings. The platform could also
+              provide personalized job recommendations, based on the user&apos;s
+              profile and historical job search behavior.
             </p>
           </BoxHeader>
           <BoxHeader>

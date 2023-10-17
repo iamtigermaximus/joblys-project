@@ -1,19 +1,18 @@
 import React from 'react';
 import {
-  ButtonsContainer,
-  ChatbotSection,
+  // ButtonsContainer,
+  // ChatbotSection,
   Container,
-  ContinueButton,
-  CreateProfile,
-  SaveButton,
-  SaveInfoContainer,
-  SectionTitle,
-  SectionTitleContainer,
-  Trash,
-  TrashIconContainer,
+  // ContinueButton,
+  // CreateProfile,
+  // SaveButton,
+  // SaveInfoContainer,
+  // SectionTitle,
+  // SectionTitleContainer,
+  // Trash,
+  // TrashIconContainer,
 } from './Profile.styles';
-import { FaTrash } from 'react-icons/fa';
-import Chatbot from '../build-profile/chatbot/Chatbot';
+// import { FaTrash } from 'react-icons/fa';
 
 const Profile = () => {
   return (
