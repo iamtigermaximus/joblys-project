@@ -18,21 +18,19 @@ const BuildProfileSection = () => {
     router.push('/pages/navbar-links/profile/build-profile');
   };
   return (
-    <Container>
-      <CreateProfileSection>
-        <SectionTitleContainer>
-          <SectionTitle>Build your profile</SectionTitle>
-        </SectionTitleContainer>
-        <ProfileBuildSection>
-          <SectionSubTitle>Create your profile in Joblys</SectionSubTitle>
-          <InputContainer>
-            <BuildProfileButton onClick={handleBuildProfile}>
-              Build Profile
-            </BuildProfileButton>
-          </InputContainer>
-        </ProfileBuildSection>
-      </CreateProfileSection>
-    </Container>
+    <CreateProfileSection>
+      <SectionTitleContainer>
+        <SectionTitle>Build your profile</SectionTitle>
+      </SectionTitleContainer>
+      <ProfileBuildSection>
+        <SectionSubTitle>Create your profile in Joblys</SectionSubTitle>
+        <InputContainer>
+          <BuildProfileButton onClick={handleBuildProfile}>
+            Build Profile
+          </BuildProfileButton>
+        </InputContainer>
+      </ProfileBuildSection>
+    </CreateProfileSection>
   );
 };
 

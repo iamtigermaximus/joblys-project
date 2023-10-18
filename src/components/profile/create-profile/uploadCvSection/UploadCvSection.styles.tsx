@@ -9,7 +9,7 @@ export const CreateProfileSection = styled.div`
   width: 100%;
 
   @media (min-width: ${bp.lg}) {
-    padding: 40px;
+    /* padding: 40px; */
   }
 `;
 

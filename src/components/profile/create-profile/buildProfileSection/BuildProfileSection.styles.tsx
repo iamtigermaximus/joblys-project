@@ -35,9 +35,9 @@ export const CreateProfileSection = styled.div`
   padding: 10px;
   width: 100%;
 
-  @media (min-width: ${bp.lg}) {
+  /* @media (min-width: ${bp.lg}) {
     padding: 40px;
-  }
+  } */
 `;
 
 export const ProfileBuildSection = styled.div`
