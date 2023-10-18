@@ -69,3 +69,4 @@ const UploadCV = () => {
 };
 
 export default UploadCV;
+

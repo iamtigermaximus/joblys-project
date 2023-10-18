@@ -80,11 +80,8 @@ export const Button = styled.button`
 `;
 
 export const SectionTitleContainer = styled.div`
-  /* border: 1px solid red; */
   display: flex;
-  /* flex-direction: column;
-  align-items: center; */
-  /* justify-content: center; */
+  padding: 20px 0;
 `;
 
 export const SectionTitle = styled.h1`

@@ -4,30 +4,46 @@ import { breakpoints as bp } from '../../../utils/layout';
 import colors from '../../../utils/colors';
 import styled from 'styled-components';
 
+// export const Container = styled.div`
+//   width: 100%;
+//   /* border: 1px solid red; */
+//   display: flex;
+//   flex-direction: column;
+//   padding: 50px;
+
+//   overflow-y: scroll;
+
+//   @media (min-width: ${bp.lg}) {
+//     padding: 50px 200px;
+//   }
+// `;
 export const Container = styled.div`
-  width: 100%;
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
-  padding: 50px;
-
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
   overflow-y: scroll;
 
   @media (min-width: ${bp.lg}) {
-    padding: 50px 200px;
+    padding: 50px 100px;
   }
 `;
 
 export const CreateProfile = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: ${colors.white};
   border-radius: 8px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  margin: 30px 0 30px;
   width: 100%;
-  border-radius: 5px;
-  padding: 40px;
+  padding: 30px;
+  margin: 20px;
+
+  @media (min-width: ${bp.md}) {
+    max-width: 500px;
+  }
 `;
 
 export const ChatbotSection = styled.div`
@@ -49,6 +65,13 @@ export const SectionTitleContainer = styled.div`
 
 export const SectionTitle = styled.h1`
   color: ${colors.purple};
+  padding: 5px;
+  letter-spacing: 1px;
+  font-size: 20px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 25px;
+  }
 `;
 
 export const SaveInfoContainer = styled.div`
