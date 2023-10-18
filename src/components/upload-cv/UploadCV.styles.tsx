@@ -6,14 +6,15 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  justify-content: center;
-  background: transparent;
-  width: 100vw;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  overflow-y: scroll;
 
   @media (min-width: ${bp.lg}) {
-    width: 100%;
-    height: 100vh;
-    padding: 50px 0;
+    padding: 50px 100px;
   }
 `;
 
@@ -44,30 +45,55 @@ export const SectionTitle = styled.h2`
   color: ${colors.purple};
   padding: 5px;
   letter-spacing: 1px;
+  font-size: 20px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 25px;
+  }
 `;
 
 export const SectionSubTitle = styled.h5`
   color: black;
   padding: 10px;
   letter-spacing: 1px;
+  font-size: 13px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 15px;
+  }
 `;
 
 export const FileNameContainer = styled.div`
   border: 2px solid ${colors.ashGray};
   border-radius: 5px;
-  padding: 20px;
-  margin: 10px;
+  padding: 10px;
+  margin: 5px;
+  font-size: 12px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 15px;
+    padding: 20px;
+    margin: 10px;
+  }
 `;
 
 export const FileUpload = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px 20px;
-  margin: 10px;
   background-color: ${colors.purple};
   color: ${colors.white};
   border-radius: 5px;
+  font-size: 12px;
+  margin: 5px;
+  padding: 20px 6px;
+  margin: 10px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 15px;
+    padding: 30px 20px;
+    margin: 10px;
+  }
 `;
 
 export const CancelButton = styled.div`
@@ -77,18 +103,32 @@ export const CancelButton = styled.div`
   border: 2px solid ${colors.ashGray};
   border-radius: 5px;
   padding: 10px;
-  margin: 10px;
   background-color: ${colors.orange};
   color: ${colors.white};
+  margin: 5px;
+  font-size: 12px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 15px;
+    padding: 20px;
+    margin: 10px;
+  }
 `;
 
 export const UploadButton = styled.div`
   border: 2px solid ${colors.ashGray};
   border-radius: 5px;
-  padding: 20px;
-  margin: 10px;
   background-color: ${colors.ashGray};
   color: ${colors.purple};
+  margin: 5px;
+  padding: 10px;
+  font-size: 12px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 15px;
+    padding: 20px;
+    margin: 10px;
+  }
 `;
 
 export const UploadSourceContainer = styled.div`
@@ -96,5 +136,9 @@ export const UploadSourceContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  font-size: 16px;
+  font-size: 12px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 15px;
+  }
 `;

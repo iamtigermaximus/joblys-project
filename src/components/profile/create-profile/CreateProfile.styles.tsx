@@ -7,13 +7,16 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-
   width: 100%;
-  padding: 50px;
+  padding: 50px 10px;
   overflow-y: scroll;
 
+  @media (min-width: ${bp.md}) {
+    padding: 50px;
+  }
+
   @media (min-width: ${bp.lg}) {
-    padding: 50px 200px;
+    padding: 50px 100px;
   }
 `;
 
@@ -24,19 +27,34 @@ export const TitleContainer = styled.div`
 `;
 
 export const PageTitle = styled.div`
-  font-size: 25px;
+  font-size: 20px;
   color: ${colors.blueGray};
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 25px;
+  }
 `;
 
 export const CreateProfileContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: ${colors.white};
   border-radius: 8px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  margin: 30px 0 30px;
   width: 100%;
   border-radius: 5px;
+  /* margin: 30px 0 30px; */
+  padding: 30px 20px;
+
+  @media (min-width: ${bp.md}) {
+    flex-direction: row;
+    margin: 30px 0 30px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    flex-direction: row;
+    margin: 30px 0 30px;
+  }
 `;

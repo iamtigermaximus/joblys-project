@@ -7,20 +7,19 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
 `;
 
 export const ChatbotContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 600px;
   background-color: ${colors.white};
-  border-radius: 20px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  width: 100%;
 
   @media (min-width: ${bp.md}) {
-    height: 100%;
+    max-width: 500px;
   }
 `;
 
@@ -78,4 +77,23 @@ export const Button = styled.button`
   margin: 10px;
   background-color: ${colors.blueGray};
   color: ${colors.white};
+`;
+
+export const SectionTitleContainer = styled.div`
+  /* border: 1px solid red; */
+  display: flex;
+  /* flex-direction: column;
+  align-items: center; */
+  /* justify-content: center; */
+`;
+
+export const SectionTitle = styled.h1`
+  color: ${colors.purple};
+  padding: 5px;
+  letter-spacing: 1px;
+  font-size: 20px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 25px;
+  }
 `;

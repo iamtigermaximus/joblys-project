@@ -8,6 +8,8 @@ import {
   ConversationContainer,
   QuestionContainer,
   AnswerContainer,
+  SectionTitleContainer,
+  SectionTitle,
 } from './Chatbot.styles';
 
 const Chatbot: React.FC = () => {
@@ -58,6 +60,9 @@ const Chatbot: React.FC = () => {
 
   return (
     <Container>
+      <SectionTitleContainer>
+        <SectionTitle>Build your profile</SectionTitle>
+      </SectionTitleContainer>
       <ChatbotContainer>
         <ConversationContainer>
           <QuestionContainer>

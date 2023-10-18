@@ -5,8 +5,12 @@ import colors from '../../../../utils/colors';
 import styled from 'styled-components';
 
 export const CreateProfileSection = styled.div`
-  padding: 40px;
-  width: 50%;
+  padding: 10px;
+  width: 100%;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 40px;
+  }
 `;
 
 export const SectionTitleContainer = styled.div`
@@ -23,15 +27,20 @@ export const SectionSubTitle = styled.h4`
 `;
 
 export const UploadCVSection = styled.div`
-  border: 1px dashed ${colors.blueGray};
-  padding: 40px;
-  width: 100%;
-  margin: 20px 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  border: 1px dashed ${colors.blueGray};
+  padding: 10px;
+  width: 100%;
   border-radius: 10px;
   height: 200px;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 40px;
+    margin: 20px 0;
+  }
 `;
 
 export const FileTypeContainer = styled.div`

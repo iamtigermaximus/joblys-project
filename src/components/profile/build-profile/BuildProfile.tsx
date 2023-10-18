@@ -7,8 +7,6 @@ import {
   CreateProfile,
   SaveButton,
   SaveInfoContainer,
-  SectionTitle,
-  SectionTitleContainer,
   Trash,
   TrashIconContainer,
 } from './BuildProfile.styles';
@@ -19,9 +17,6 @@ const Profile = () => {
   return (
     <Container>
       <CreateProfile>
-        <SectionTitleContainer>
-          <SectionTitle>Build your profile</SectionTitle>
-        </SectionTitleContainer>
         <ChatbotSection>
           <Chatbot />
         </ChatbotSection>
