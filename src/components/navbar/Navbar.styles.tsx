@@ -26,20 +26,21 @@ export const NavbarContainer = styled.div`
 export const NavbarItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
   width: 100%;
-
-  @media (min-width: ${bp.lg}) {
-  }
+  align-items: center;
+  justify-content: center;
 `;
 
 export const BrandContainer = styled.div`
-  margin: 20px 0;
   padding: 5px;
   letter-spacing: 1px;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media (min-width: ${bp.lg}) {
-    width: 150px;
+    margin: 20px 0;
   }
 `;
 
@@ -50,9 +51,9 @@ export const Brand = styled(Link)`
   text-decoration: none;
   color: ${colors.white};
   font-size: 30px;
+  width: 100%;
 
   @media (min-width: ${bp.lg}) {
-    width: 100%;
     flex-direction: column;
     letter-spacing: 1px;
   }

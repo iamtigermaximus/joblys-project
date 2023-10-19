@@ -12,6 +12,7 @@ import {
 import Image from 'next/image';
 import NavLogo from '../../../assets/Joblys-logo-RGB-purple.png';
 import { useRouter } from 'next/navigation';
+// import NavLogow from '../../../assets/Joblys-logo-RGB-white.png';
 
 const LandingNavbar = () => {
   const router = useRouter();

@@ -11,7 +11,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: ${colors.ashGray};
+  background-color: ${colors.offWhite};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
@@ -28,13 +28,12 @@ export const MenuContainer = styled.div`
 `;
 
 export const BrandContainer = styled.div`
-  padding: 5px;
   letter-spacing: 1px;
-
-  @media (min-width: ${bp.lg}) {
-    width: 150px;
-    margin: 20px 0;
-  }
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
 `;
 
 export const Brand = styled(Link)`
@@ -43,11 +42,11 @@ export const Brand = styled(Link)`
   align-items: center;
   text-decoration: none;
   color: ${colors.white};
-  font-size: 30px;
+  /* font-size: 30px; */
   padding: 0 10px;
+  width: 100%;
 
   @media (min-width: ${bp.lg}) {
-    width: 100%;
     flex-direction: column;
     letter-spacing: 1px;
   }

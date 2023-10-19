@@ -37,6 +37,7 @@ const Navbar = () => {
                 height={50}
                 alt="hero-image"
                 priority
+                rel="preload"
               />
             </Brand>
           </BrandContainer>
