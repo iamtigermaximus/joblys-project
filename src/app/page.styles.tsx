@@ -10,10 +10,10 @@ export const Container = styled.div`
   background-color: #b4ecf9;
   flex-direction: column;
 
-  @media (min-width: ${bp.lg}) {
+  /* @media (min-width: ${bp.lg}) {
     width: 80vw;
     float: left;
-  }
+  } */
 `;
 
 export const BoxContainer = styled.div`

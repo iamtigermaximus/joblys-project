@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from '@/app/page.styles';
+import { Container } from '../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
 // import Resumes from '@/components/resumes/CreateProfile';
 

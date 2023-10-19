@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PageHeader from '@/components/common/page-header/PageHeader';
-import { Container } from '@/app/page.styles';
+import { Container } from '../../page.styles';
 import CreateProfile from '@/components/profile/create-profile/CreateProfile';
 
 const ProfilePage = () => {

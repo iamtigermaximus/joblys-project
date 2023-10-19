@@ -24,10 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <NextAuthProvider>
-          <StyledComponentsRegistry>
-            {/* <Navbar /> */}
-            {children}
-          </StyledComponentsRegistry>
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
         </NextAuthProvider>
       </body>
     </html>

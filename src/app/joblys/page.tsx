@@ -1,7 +1,8 @@
 import React from 'react';
+import { Container } from '../page.styles';
 
 const Joblys = () => {
-  return <div>Joblys page</div>;
+  return <Container>Joblys page</Container>;
 };
 
 export default Joblys;
