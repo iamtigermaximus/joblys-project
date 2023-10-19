@@ -27,7 +27,6 @@ export default function Home() {
   const imageHeight = isSmallScreen ? 350 : 600;
   return (
     <Container>
-      <PageHeader />
       <BoxContainer>
         <Box>
           <BoxHeader>Seamless. Joblys</BoxHeader>

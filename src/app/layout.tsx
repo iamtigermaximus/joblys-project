@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import Navbar from '@/components/navbar/Navbar';
 import { NextAuthProvider } from './providers/sessionProviders';
 import { Roboto } from 'next/font/google';
+import LandingNavbar from '@/components/navbar/landing-navbar/LandingNavbar';
 
 const roboto = Roboto({
   weight: ['400'],
@@ -24,7 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <NextAuthProvider>
-          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+          <StyledComponentsRegistry>
+            <LandingNavbar />
+            {children}
+          </StyledComponentsRegistry>
         </NextAuthProvider>
       </body>
     </html>

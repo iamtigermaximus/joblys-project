@@ -1,5 +1,4 @@
 import StyledComponentsRegistry from '@/lib/registry';
-// import './globals.css';
 import type { Metadata } from 'next';
 import Navbar from '@/components/navbar/Navbar';
 import { NextAuthProvider } from '../providers/sessionProviders';
