@@ -16,7 +16,8 @@ const UploadCvSection = () => {
   const router = useRouter();
 
   const handleUpload = () => {
-    router.push('/pages/navbar-links/profile/upload-cv');
+    // router.push('/pages/navbar-links/profile/upload-cv');
+    router.push('/joblys/profile/upload-cv');
   };
   return (
     <CreateProfileSection>

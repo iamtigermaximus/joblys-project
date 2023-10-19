@@ -1,5 +1,5 @@
-import { breakpoints as bp } from '../../../../utils/layout';
-import colors from '../../../../utils/colors';
+import { breakpoints as bp } from '../../../utils/layout';
+import colors from '../../../utils/colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`

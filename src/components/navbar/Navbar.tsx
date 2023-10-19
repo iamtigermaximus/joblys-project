@@ -30,7 +30,7 @@ const Navbar = () => {
       <NavbarItemsContainer>
         <MenuContainer>
           <BrandContainer>
-            <Brand href="/">
+            <Brand href="/joblys/dashboard">
               <Image
                 src={NavLogo}
                 width={150}
@@ -46,27 +46,25 @@ const Navbar = () => {
             onClick={() => setActiveMenuItem('dashboard')}
             className={activeMenuItem === 'dashboard' ? 'active' : ''}
           >
-            <MenuItem href="/pages/navbar-links/dashboard">Dashboard</MenuItem>
+            <MenuItem href="/joblys/dashboard">Dashboard</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer
             onClick={() => setActiveMenuItem('profile')}
             className={activeMenuItem === 'profile' ? 'active' : ''}
           >
-            <MenuItem href="/pages/navbar-links/profile">Profile</MenuItem>
+            <MenuItem href="/joblys/profile">Profile</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer
             onClick={() => setActiveMenuItem('resumes')}
             className={activeMenuItem === 'resumes' ? 'active' : ''}
           >
-            <MenuItem href="/pages/navbar-links/resumes">CV/Resume</MenuItem>
+            <MenuItem href="/joblys/resumes">CV/Resume</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer
             onClick={() => setActiveMenuItem('cover-letters')}
             className={activeMenuItem === 'cover-letters' ? 'active' : ''}
           >
-            <MenuItem href="/pages/navbar-links/cover-letters">
-              Cover Letters
-            </MenuItem>
+            <MenuItem href="/joblys/cover-letters">Cover Letters</MenuItem>
           </MenuItemContainer>
         </MenuContainer>
       </NavbarItemsContainer>
@@ -77,22 +75,16 @@ const Navbar = () => {
           onClick={categoryMenu}
         >
           <MobileMenuItemContainer>
-            <MobileMenuItem href="/pages/navbar-links/dashboard">
-              Dashboard
-            </MobileMenuItem>
+            <MobileMenuItem href="/joblys/dashboard">Dashboard</MobileMenuItem>
           </MobileMenuItemContainer>
           <MobileMenuItemContainer>
-            <MobileMenuItem href="/pages/navbar-links/profile">
-              Profile
-            </MobileMenuItem>
+            <MobileMenuItem href="/joblys/profile">Profile</MobileMenuItem>
           </MobileMenuItemContainer>
           <MobileMenuItemContainer>
-            <MobileMenuItem href="/pages/navbar-links/resumes">
-              CV/Resume
-            </MobileMenuItem>
+            <MobileMenuItem href="/joblys/resumes">CV/Resume</MobileMenuItem>
           </MobileMenuItemContainer>
           <MobileMenuItemContainer>
-            <MobileMenuItem href="/pages/navbar-links/cover-letters">
+            <MobileMenuItem href="/joblys/cover-letters">
               Cover Letters
             </MobileMenuItem>
           </MobileMenuItemContainer>

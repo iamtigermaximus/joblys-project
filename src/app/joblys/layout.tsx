@@ -1,8 +1,8 @@
 import StyledComponentsRegistry from '@/lib/registry';
-import './globals.css';
+// import './globals.css';
 import type { Metadata } from 'next';
 import Navbar from '@/components/navbar/Navbar';
-import { NextAuthProvider } from './providers/sessionProviders';
+import { NextAuthProvider } from '../providers/sessionProviders';
 import { Roboto } from 'next/font/google';
 
 const roboto = Roboto({
@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={roboto.className}>
         <NextAuthProvider>
           <StyledComponentsRegistry>
-            {/* <Navbar /> */}
+            <Navbar />
             {children}
           </StyledComponentsRegistry>
         </NextAuthProvider>
