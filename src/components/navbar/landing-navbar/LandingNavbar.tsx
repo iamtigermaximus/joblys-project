@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import {
   Brand,
@@ -10,8 +11,15 @@ import {
 } from './LandingNavbar.styles';
 import Image from 'next/image';
 import NavLogo from '../../../assets/Joblys-logo-RGB-purple.png';
+import { useRouter } from 'next/navigation';
 
 const LandingNavbar = () => {
+  const router = useRouter();
+
+  const handlelogin = () => {
+    router.push('/login');
+  };
+  
   return (
     <Container>
       <MenuContainer>
@@ -28,7 +36,7 @@ const LandingNavbar = () => {
         </BrandContainer>
         <ButtonsContainer>
           <SignupButton>Sign up</SignupButton>
-          <LoginButton>Log in</LoginButton>
+          <LoginButton onClick={handlelogin}>Log in</LoginButton>
         </ButtonsContainer>
       </MenuContainer>
     </Container>

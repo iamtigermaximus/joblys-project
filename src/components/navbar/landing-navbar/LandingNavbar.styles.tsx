@@ -12,6 +12,7 @@ export const Container = styled.div`
   flex-direction: row;
   justify-content: space-between;
   background-color: ${colors.ashGray};
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
 export const MenuContainer = styled.div`
@@ -27,12 +28,12 @@ export const MenuContainer = styled.div`
 `;
 
 export const BrandContainer = styled.div`
-  margin: 20px 0;
   padding: 5px;
   letter-spacing: 1px;
 
   @media (min-width: ${bp.lg}) {
     width: 150px;
+    margin: 20px 0;
   }
 `;
 
@@ -68,11 +69,16 @@ export const LoginButton = styled.button`
   color: ${colors.darkPurple};
   border-radius: 5px;
   border: 1px solid ${colors.blueGray};
-  padding: 0 10px;
-  width: 100px;
+  padding: 5px;
+  width: 60px;
   font-weight: 700;
-  height: 40px;
   margin-right: 5px;
+
+  @media (min-width: ${bp.md}) {
+    width: 100px;
+    padding: 0 10px;
+    height: 40px;
+  }
 `;
 
 export const SignupButton = styled.button`
@@ -84,9 +90,15 @@ export const SignupButton = styled.button`
   color: ${colors.offWhite};
   border-radius: 5px;
   border: none;
-  padding: 0 10px;
-  width: 100px;
+  padding: 5px;
+  width: 60px;
   font-weight: 700;
-  height: 40px;
   margin-right: 5px;
+  white-space: nowrap;
+
+  @media (min-width: ${bp.md}) {
+    width: 100px;
+    padding: 0 10px;
+    height: 40px;
+  }
 `;

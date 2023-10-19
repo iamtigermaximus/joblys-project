@@ -10,7 +10,6 @@ const SignIn = () => {
       <div>
         <title>SIGN IN</title>
       </div>
-      <PageHeader />
       <SignInForm />
     </Container>
   );

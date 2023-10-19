@@ -10,8 +10,8 @@ import {
 } from './page.styles';
 import Image from 'next/image';
 import Image1 from '../assets/joblys-hero.png';
-import PageHeader from '@/components/common/page-header/PageHeader';
 import { useRouter } from 'next/navigation';
+import LandingNavbar from '@/components/navbar/landing-navbar/LandingNavbar';
 
 export default function Home() {
   const router = useRouter();
@@ -27,6 +27,7 @@ export default function Home() {
   const imageHeight = isSmallScreen ? 350 : 600;
   return (
     <Container>
+      <LandingNavbar />
       <BoxContainer>
         <Box>
           <BoxHeader>Seamless. Joblys</BoxHeader>
