@@ -3,27 +3,22 @@ import React from 'react';
 import {
   Brand,
   BrandContainer,
-  ButtonsContainer,
   Container,
-  LoginButton,
+  HeaderLinksContainer,
+  IconContainer,
   MenuContainer,
-  SignupButton,
-} from './LandingNavbar.styles';
+} from './FormHeader.styles';
 import Image from 'next/image';
 import NavLogo from '../../../assets/Joblys-logo-RGB-purple.png';
 import { useRouter } from 'next/navigation';
+import { FaUser } from 'react-icons/fa';
 
-const LandingNavbar = () => {
+const FormHeader = () => {
   const router = useRouter();
 
   const handleLogin = () => {
     router.push('/login');
   };
-
-  const handleSignup = () => {
-    router.push('/signup');
-  };
-
   return (
     <Container>
       <MenuContainer>
@@ -38,13 +33,14 @@ const LandingNavbar = () => {
             />
           </Brand>
         </BrandContainer>
-        <ButtonsContainer>
-          <SignupButton onClick={handleSignup}>Sign up</SignupButton>
-          <LoginButton onClick={handleLogin}>Log in</LoginButton>
-        </ButtonsContainer>
+        <HeaderLinksContainer>
+          <IconContainer onClick={handleLogin}>
+            <FaUser />
+          </IconContainer>
+        </HeaderLinksContainer>
       </MenuContainer>
     </Container>
   );
 };
 
-export default LandingNavbar;
+export default FormHeader;
