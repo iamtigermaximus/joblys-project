@@ -15,12 +15,12 @@ import {
   SignUpContainer,
   SignUpTitle,
   SignUpTitleContainer,
-} from './SignUpForm.styles';
+} from './SignUp.styles';
 import { useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
 import axios from 'axios';
-const SignUpForm = () => {
+const SignUp = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     username: '',
@@ -136,4 +136,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignUp;

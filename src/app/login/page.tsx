@@ -6,7 +6,7 @@ const LoginPage = () => {
   return (
     <Container>
       <div>
-        <title>SIGN IN</title>
+        <title>LOG IN</title>
       </div>
       <Login />
     </Container>

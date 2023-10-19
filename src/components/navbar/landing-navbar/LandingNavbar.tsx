@@ -16,10 +16,14 @@ import { useRouter } from 'next/navigation';
 const LandingNavbar = () => {
   const router = useRouter();
 
-  const handlelogin = () => {
+  const handleLogin = () => {
     router.push('/login');
   };
-  
+
+  const handleSignup = () => {
+    router.push('/signup');
+  };
+
   return (
     <Container>
       <MenuContainer>
@@ -35,8 +39,8 @@ const LandingNavbar = () => {
           </Brand>
         </BrandContainer>
         <ButtonsContainer>
-          <SignupButton>Sign up</SignupButton>
-          <LoginButton onClick={handlelogin}>Log in</LoginButton>
+          <SignupButton onClick={handleSignup}>Sign up</SignupButton>
+          <LoginButton onClick={handleLogin}>Log in</LoginButton>
         </ButtonsContainer>
       </MenuContainer>
     </Container>
