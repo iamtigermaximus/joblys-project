@@ -23,7 +23,7 @@ const FormHeader = () => {
     <Container>
       <MenuContainer>
         <BrandContainer>
-          <Brand href="/joblys/dashboard">
+          <Brand>
             <Image
               src={NavLogo}
               width={150}

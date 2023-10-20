@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+// import Link from 'next/link';
 import { breakpoints as bp } from '../../../utils/layout';
 import styled from 'styled-components';
 import colors from '../../../utils/colors';
@@ -36,7 +36,7 @@ export const BrandContainer = styled.div`
   margin: 20px;
 `;
 
-export const Brand = styled(Link)`
+export const Brand = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
