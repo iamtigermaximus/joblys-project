@@ -5,7 +5,7 @@ import { breakpoints as bp } from '../../../utils/layout';
 import styled from 'styled-components';
 import colors from '../../../utils/colors';
 
-export const SignInButton = styled.button`
+export const LoginButton = styled.button`
   width: 100px;
   display: flex;
   justify-content: center;
@@ -31,7 +31,7 @@ export const SignInButton = styled.button`
 //   color: white;
 // `;
 
-export const LogOutButton = styled.div`
+export const LogoutButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,7 +51,7 @@ export const LogOutButton = styled.div`
   }
 `;
 
-export const RegButton = styled.button`
+export const SignupButton = styled.button`
   width: 100px;
   display: flex;
   justify-content: center;

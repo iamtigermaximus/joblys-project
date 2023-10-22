@@ -112,6 +112,7 @@ export const HeaderLinksContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 5px 3px;
+  margin: 0 10px;
 
   @media (min-width: ${bp.lg}) {
     flex-direction: row;

@@ -3,33 +3,34 @@
 import { signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import {
-  LogOutButton,
-  ProfButton,
-  RegButton,
-  SignInButton,
+  LogoutButton,
+  // ProfButton,
+  SignupButton,
+  LoginButton,
   // SignOutButton,
 } from './Buttons.styles';
 
-export const LoginButton = () => {
-  return <SignInButton onClick={() => signIn()}>Sign in</SignInButton>;
+
+export const LogInButton = () => {
+  return <LoginButton onClick={() => signIn()}>Sign in</LoginButton>;
 };
 
-export const RegisterButton = () => {
+export const SignUpButton = () => {
   return (
-    <RegButton>
-      <Link href="/register">Register</Link>
-    </RegButton>
+    <SignupButton>
+      <Link href="/signup">Sign Up</Link>
+    </SignupButton>
   );
 };
 
-export const LogoutButton = () => {
-  return <LogOutButton onClick={() => signOut()}>Sign Out</LogOutButton>;
+export const LogOutButton = () => {
+  return <LogoutButton onClick={() => signOut()}>Sign Out</LogoutButton>;
 };
 
-export const ProfileButton = () => {
-  return (
-    <ProfButton>
-      <Link href="/profile">Profile</Link>
-    </ProfButton>
-  );
+// export const ProfileButton = () => {
+//   return (
+//     <ProfButton>
+//       <Link href="/profile">Profile</Link>
+//     </ProfButton>
+//   );
 };

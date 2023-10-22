@@ -23,6 +23,7 @@ export const BoxContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
+  margin-top: 10vh;
 
   @media (min-width: ${bp.lg}) {
     flex-direction: row;
@@ -31,6 +32,7 @@ export const BoxContainer = styled.div`
 
 export const Box = styled.div`
   width: 100%;
+  margin-top: 10vh;
 
   @media (min-width: ${bp.lg}) {
     width: 50%;
