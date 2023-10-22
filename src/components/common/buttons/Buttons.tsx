@@ -10,7 +10,6 @@ import {
   // SignOutButton,
 } from './Buttons.styles';
 
-
 export const LogInButton = () => {
   return <LoginButton onClick={() => signIn()}>Sign in</LoginButton>;
 };
@@ -33,4 +32,4 @@ export const LogOutButton = () => {
 //       <Link href="/profile">Profile</Link>
 //     </ProfButton>
 //   );
-};
+// };
