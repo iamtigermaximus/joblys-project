@@ -1,8 +1,11 @@
-import axios from 'axios';
+// import axios from 'axios';
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const options: NextAuthOptions = {
+  session: {
+    strategy: 'jwt',
+  },
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -34,14 +37,15 @@ export const options: NextAuthOptions = {
           password: 'siegfred',
         };
 
-        if (
-          credentials?.username === user.username &&
-          credentials?.password === user.password
-        ) {
-          return user;
-        } else {
-          return null;
-        }
+        // if (
+        //   credentials?.username === user.username &&
+        //   credentials?.password === user.password
+        // ) {
+        //   return user;
+        // } else {
+        //   return null;
+        // }
+        return user;
       },
     }),
   ],

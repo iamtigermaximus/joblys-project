@@ -20,15 +20,13 @@ export default function JoblysLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={roboto.className}>
-        <NextAuthProvider>
-          <StyledComponentsRegistry>
-            <Navbar />
-            {children}
-          </StyledComponentsRegistry>
-        </NextAuthProvider>
-      </body>
-    </html>
+    <div className={roboto.className}>
+      <NextAuthProvider>
+        <StyledComponentsRegistry>
+          <Navbar />
+          {children}
+        </StyledComponentsRegistry>
+      </NextAuthProvider>
+    </div>
   );
 }

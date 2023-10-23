@@ -61,7 +61,7 @@ const Login = () => {
 
       console.log(response);
       if (!response?.error) {
-        router.push('/pages/navbar-links/profile');
+        router.push('/joblys/profile');
       } else {
         setError('invalid username or password');
       }

@@ -10,6 +10,7 @@
     "json-server": "json-server --watch db.json --port 5000"
   },
   "dependencies": {
+    "@prisma/client": "^5.4.2",
     "@types/bcryptjs": "^2.4.2",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@swc/plugin-styled-components": "^1.5.71",
-    "@types/bcrypt": "^5.0.0"
+    "@types/bcrypt": "^5.0.0",
+    "prisma": "^5.4.2"
   }
 }
