@@ -25,7 +25,7 @@ Frontend stack:
 
 Run the following command:
 
-1. git clone https://github.com/iamtigermaximus/joblys-project.git
+1. git clone https://github.com/Joblys-Finland/joblys-project.git
 2. cd joblys-project
 3. npm install
 4. npm run dev
