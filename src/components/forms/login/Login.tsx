@@ -150,7 +150,7 @@ const Login = () => {
               </CreateAccountTitle>
             </CreateAccountContainer>
             <SignInButtonContainer>
-              <Link href={'/pages/signup'}>
+              <Link href={'/signup'}>
                 <CreateAccountButton>Create account</CreateAccountButton>
               </Link>
             </SignInButtonContainer>
