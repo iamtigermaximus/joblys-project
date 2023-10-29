@@ -27,7 +27,6 @@ import {
 import { useSearchParams, useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
-// import axios from 'axios';
 
 interface Credentials {
   username: string;
@@ -43,8 +42,7 @@ const Login = () => {
   const [error, setError] = useState('');
 
   const searchParams = useSearchParams();
-  // const callbackUrl =
-  //   searchParams.get('callbackUrl') ?? '/pages/navbar-links/profile';
+  const callbackUrl = searchParams.get('callbackUrl') ?? '/joblys/profile';
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,7 +54,7 @@ const Login = () => {
         redirect: false,
         username: credentials.username,
         password: credentials.password,
-        // callbackUrl,
+        callbackUrl,
       });
 
       console.log(response);

@@ -36,15 +36,14 @@ export const authOptions: NextAuthOptions = {
           password: 'siegfred',
         };
 
-        // if (
-        //   credentials?.username === user.username &&
-        //   credentials?.password === user.password
-        // ) {
-        //   return user;
-        // } else {
-        //   return null;
-        // }
-        return user;
+        if (
+          credentials?.username === user.username &&
+          credentials?.password === user.password
+        ) {
+          return user;
+        } else {
+          return null;
+        }
       },
     }),
   ],

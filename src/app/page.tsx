@@ -17,7 +17,7 @@ export default function Home() {
   const router = useRouter();
 
   const handleGetStartedClick = () => {
-    router.push('/pages/signup');
+    router.push('/signup');
   };
 
   const isSmallScreen =
