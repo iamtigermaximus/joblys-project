@@ -19,6 +19,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
+import { signIn } from 'next-auth/react';
 import axios from 'axios';
 const SignUp = () => {
   const router = useRouter();
@@ -60,6 +61,20 @@ const SignUp = () => {
       }
     } catch (error) {
       console.error('Unexpected error:', error);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signIn('google');
+      console.log(result);
+      if (!result?.error) {
+         // Forward to the correct profile creation page and check that the session is logged in
+         // also, take the user's email, full name and maybe id? from the provider and create a new user in backend
+         router.push('/pages/navbar-links/profile');
+      }
+    } catch (error) {
+      console.error('Google login error:', error);
     }
   };
 
@@ -105,7 +120,7 @@ const SignUp = () => {
         </InputForm>
         <Providers>
           <ProviderContainer>
-            <ProviderButton>
+            <ProviderButton onClick={() => handleGoogleSignIn()}>
               <ProviderIcon>
                 <FcGoogle />
               </ProviderIcon>
