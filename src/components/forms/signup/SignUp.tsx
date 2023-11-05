@@ -23,7 +23,6 @@ import axios from 'axios';
 const SignUp = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    username: '',
     full_name: '',
     email: '',
     password: '',
@@ -49,8 +48,8 @@ const SignUp = () => {
     console.log('Form submitted');
 
     try {
-      const { username, password, full_name, email } = formData;
-      const url = `http://localhost:8000/register?username=${username}&password=${password}&full_name=${full_name}&email=${email}`;
+      const { full_name, email, password } = formData;
+      const url = `http://localhost:8000/register?full_name=${full_name}&email=${email}&password=${password}`;
 
       const response = await axios.post(url);
 
@@ -72,15 +71,6 @@ const SignUp = () => {
             <SignUpTitleContainer>
               <SignUpTitle>Create an account</SignUpTitle>
             </SignUpTitleContainer>
-            <InputLabel>Username</InputLabel>
-            <Input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
             <InputLabel>Full name</InputLabel>
             <Input
               type="text"

@@ -29,14 +29,14 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
 
 interface Credentials {
-  username: string;
+  email: string;
   password: string;
 }
 
 const Login = () => {
   const router = useRouter();
   const [credentials, setCredentials] = useState<Credentials>({
-    username: '',
+    email: '',
     password: '',
   });
   const [error, setError] = useState('');
@@ -48,11 +48,11 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      setCredentials({ username: '', password: '' });
+      setCredentials({ email: '', password: '' });
 
       const response = await signIn('credentials', {
         redirect: false,
-        username: credentials.username,
+        email: credentials.email,
         password: credentials.password,
         callbackUrl,
       });
@@ -61,7 +61,7 @@ const Login = () => {
       if (!response?.error) {
         router.push('/joblys/profile');
       } else {
-        setError('invalid username or password');
+        setError('Invalid email or password');
       }
     } catch (error: any) {
       setError(error);
@@ -99,13 +99,13 @@ const Login = () => {
             <LoginTitleContainer>
               <LoginTitle>Log In</LoginTitle>
             </LoginTitleContainer>
-            <InputLabel>Username</InputLabel>
+            <InputLabel>Email</InputLabel>
             <Input
-              value={credentials?.username}
+              value={credentials?.email}
               onChange={handleChange}
-              type="text"
-              name="username"
-              placeholder="Enter username"
+              type="email"
+              name="email"
+              placeholder="Enter email"
             />
             <InputLabel>Password</InputLabel>
             <Input

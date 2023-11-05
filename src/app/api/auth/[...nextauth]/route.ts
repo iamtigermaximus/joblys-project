@@ -9,10 +9,10 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: {
-          label: 'Username',
-          type: 'text',
-          placeholder: 'Enter username',
+        email: {
+          label: 'Email',
+          type: 'email',
+          placeholder: 'Enter email',
         },
         password: {
           label: 'Password',
@@ -32,12 +32,11 @@ export const authOptions: NextAuthOptions = {
           id: '42',
           full_name: 'Siegfred Gamboa',
           email: 'siegy@mail.com',
-          username: 'siegfred',
           password: 'siegfred',
         };
 
         if (
-          credentials?.username === user.username &&
+          credentials?.email === user.email &&
           credentials?.password === user.password
         ) {
           return user;
