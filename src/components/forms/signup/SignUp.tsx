@@ -101,26 +101,26 @@ const SignUp = () => {
             <SignUpButtonContainer>
               <SignUpButton type="submit">Create user</SignUpButton>
             </SignUpButtonContainer>
-            <Providers>
-              <ProviderContainer>
-                <ProviderButton>
-                  <ProviderIcon>
-                    <FcGoogle />
-                  </ProviderIcon>
-                  Continue with Google
-                </ProviderButton>
-              </ProviderContainer>
-              <ProviderContainer>
-                <ProviderButton>
-                  <ProviderIcon>
-                    <FaLinkedin />
-                  </ProviderIcon>
-                  Continue with LinkedIn
-                </ProviderButton>
-              </ProviderContainer>
-            </Providers>
           </InputContainer>
         </InputForm>
+        <Providers>
+          <ProviderContainer>
+            <ProviderButton>
+              <ProviderIcon>
+                <FcGoogle />
+              </ProviderIcon>
+              Continue with Google
+            </ProviderButton>
+          </ProviderContainer>
+          <ProviderContainer>
+            <ProviderButton>
+              <ProviderIcon>
+                <FaLinkedin />
+              </ProviderIcon>
+              Continue with LinkedIn
+            </ProviderButton>
+          </ProviderContainer>
+        </Providers>
       </SignUpContainer>
     </Container>
   );
