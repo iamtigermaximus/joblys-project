@@ -126,6 +126,14 @@ export const ErrorMessage = styled.p`
   margin-left: 25px;
   font-size: 12px;
 `;
+
+export const ErrorContainer = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  color: red;
+  padding: 0 10px;
+`;
 export const FormSubmittedMessage = styled.p`
   color: green;
   margin: 25px;

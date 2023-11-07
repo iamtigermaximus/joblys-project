@@ -1,10 +1,11 @@
 'use client';
 
-import React, { ChangeEvent, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { z } from 'zod';
+
 import {
   Container,
   LoginContainer,
@@ -29,10 +30,14 @@ import {
 import { useSearchParams, useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const credentialsSchema = z.object({
-  email: z.string().min(5).max(255).email(),
-  password: z.string().min(8).max(50),
+  email: z.string().min(1, 'Email is required').email('Invalid email'),
+  password: z
+    .string()
+    .min(1, 'Password is required')
+    .min(8, 'Password must have more than 8 characters'),
 });
 interface Credentials {
   email: string;
@@ -46,14 +51,16 @@ const Login = () => {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<Credentials>({
-    defaultValues: { email: '', password: '' },
+  } = useForm<z.infer<typeof credentialsSchema>>({
+    resolver: zodResolver(credentialsSchema),
   });
 
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') ?? '/joblys/profile';
 
-  const onSubmit: SubmitHandler<Credentials> = async (data) => {
+  const onSubmit: SubmitHandler<Credentials> = async (
+    data: z.infer<typeof credentialsSchema>
+  ) => {
     try {
       credentialsSchema.parse(data);
 

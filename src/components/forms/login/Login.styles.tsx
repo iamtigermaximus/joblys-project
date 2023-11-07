@@ -188,11 +188,10 @@ export const CreateAccountButton = styled.button`
 
 export const ErrorContainer = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 13px;
+  font-size: 10px;
   color: red;
-  padding: 10px;
+  padding: 0 10px;
 `;
 
 export const Providers = styled.div`
