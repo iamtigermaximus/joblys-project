@@ -1,5 +1,9 @@
 'use client';
-import React, { ChangeEvent, useState } from 'react';
+
+import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
+import axios from 'axios';
 import {
   Container,
   Input,
@@ -19,39 +23,33 @@ import {
 import { useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
-import axios from 'axios';
+
+const schema = z.object({
+  full_name: z.string().min(5).max(255),
+  email: z.string().min(5).max(255).email(),
+  password: z.string().min(8).max(50),
+});
+
+interface FormData {
+  full_name: string;
+  email: string;
+  password: string;
+}
+
 const SignUp = () => {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    full_name: '',
-    email: '',
-    password: '',
-  });
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<FormData>();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  /**
-   * ! DOES NOT AUTOMATICALLY SIGN IN YET
-   * TODO: SIGN IN UPON SUCCESSFUL SIGN UP
-   * TODO: SET SIGNED IN STATUS TO TRUE UPON SUCCESSFUL SIGN UP AND SIGN IN
-   * TODO: ADD SIGN UP USING NEXT AUTH PROVIDERS (GOOGLE AND LINKEDIN)
-   */
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted');
-
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
-      const { full_name, email, password } = formData;
-      const url = `http://localhost:8000/register?full_name=${full_name}&email=${email}&password=${password}`;
+      schema.parse(data);
 
-      const response = await axios.post(url);
+      const response = await axios.post('http://localhost:8000/register', data);
 
       if (response.status === 200) {
         router.push('/joblys/login');
@@ -59,14 +57,24 @@ const SignUp = () => {
         console.error('Registration error:', response.data);
       }
     } catch (error) {
-      console.error('Unexpected error:', error);
+      if (error instanceof z.ZodError) {
+        // Handle schema validation errors here
+        error.errors.forEach((validationError) => {
+          setError(validationError.path[0] as keyof FormData, {
+            type: 'manual',
+            message: validationError.message,
+          });
+        });
+      } else {
+        console.error('Unexpected error:', error);
+      }
     }
   };
 
   return (
     <Container>
       <SignUpContainer>
-        <InputForm onSubmit={handleSubmit}>
+        <InputForm onSubmit={handleSubmit(onSubmit)}>
           <InputContainer>
             <SignUpTitleContainer>
               <SignUpTitle>Create an account</SignUpTitle>
@@ -74,30 +82,27 @@ const SignUp = () => {
             <InputLabel>Full name</InputLabel>
             <Input
               type="text"
-              name="full_name"
+              {...register('full_name')}
               placeholder="Full Name"
-              value={formData.full_name}
-              onChange={handleChange}
               required
             />
+            {errors.full_name && <p>{errors.full_name.message}</p>}
             <InputLabel>Email</InputLabel>
             <Input
               type="email"
-              name="email"
+              {...register('email')}
               placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
               required
             />
+            {errors.email && <p>{errors.email.message}</p>}
             <InputLabel>Password</InputLabel>
             <Input
               type="password"
-              name="password"
+              {...register('password')}
               placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
               required
             />
+            {errors.password && <p>{errors.password.message}</p>}
             <SignUpButtonContainer>
               <SignUpButton type="submit">Create user</SignUpButton>
             </SignUpButtonContainer>
