@@ -59,7 +59,7 @@ const Login = () => {
 
       console.log(response);
       if (!response?.error) {
-        router.push('/joblys/profile');
+        router.push('/joblys/dashboard');
       } else {
         setError('Invalid email or password');
       }

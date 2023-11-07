@@ -1,6 +1,5 @@
 import SignUp from '@/components/forms/signup/SignUp';
-import { Container } from '../page.styles';
-import FormHeader from '@/components/common/form-header/FormHeader';
+import { Container } from '../../page.styles';
 
 const SignupPage = () => {
   return (
@@ -8,7 +7,6 @@ const SignupPage = () => {
       <div>
         <title>SIGN UP</title>
       </div>
-      <FormHeader />
       <SignUp />
     </Container>
   );

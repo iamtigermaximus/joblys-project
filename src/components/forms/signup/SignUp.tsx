@@ -54,7 +54,7 @@ const SignUp = () => {
       const response = await axios.post(url);
 
       if (response.status === 200) {
-        router.push('/pages/create-profile');
+        router.push('/joblys/login');
       } else {
         console.error('Registration error:', response.data);
       }
