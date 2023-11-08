@@ -77,7 +77,7 @@ const Login = () => {
           message: response.error.toString() || 'Invalid email or password',
         });
       } else {
-        router.push('/joblys/profile');
+        router.push('https://joblys-project-six.vercel.app/joblys/profile');
       }
     } catch (error) {
       setError('email', { type: 'manual', message: 'Unexpected error' });
