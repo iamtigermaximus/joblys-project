@@ -17,15 +17,17 @@ import {
 } from './PageHeader.styles';
 import { useSession, signOut } from 'next-auth/react';
 import { FaBell, FaUser } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 const PageHeader = () => {
+  const router = useRouter();
   const { data: session } = useSession();
 
   const handleSignOut = async (e: FormEvent) => {
     e.preventDefault();
-    await signOut();
-    window.alert('You have been signed out.');
+    await signOut({ callbackUrl: '/' });
   };
+  const welcomeText = session ? `Welcome, ${session.user?.name}!` : '';
 
   return (
     <Header>
@@ -49,7 +51,8 @@ const PageHeader = () => {
       <HeaderMenuContainer>
         {session ? (
           <>
-            <SignInButton>Sign In</SignInButton>
+            <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
+            <LogoutButton onClick={handleSignOut}>Log out</LogoutButton>
             <HeaderLinksContainer>
               <IconContainer>
                 <FaBell />
@@ -63,8 +66,7 @@ const PageHeader = () => {
           </>
         ) : (
           <>
-            <WelcomeTextContainer>Welcome, Siegfred!</WelcomeTextContainer>
-            <LogoutButton onClick={handleSignOut}>Log out</LogoutButton>
+            <SignInButton>Sign In</SignInButton>
             <HeaderLinksContainer>
               <IconContainer>
                 <FaBell />

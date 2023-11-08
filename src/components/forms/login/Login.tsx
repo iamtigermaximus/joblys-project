@@ -71,13 +71,13 @@ const Login = () => {
         callbackUrl,
       });
 
-      if (!response?.error) {
-        router.push('/joblys/dashboard');
-      } else {
+      if (response?.error) {
         setError('email', {
           type: 'manual',
           message: response.error.toString() || 'Invalid email or password',
         });
+      } else {
+        router.push('/joblys/profile');
       }
     } catch (error) {
       setError('email', { type: 'manual', message: 'Unexpected error' });
@@ -102,7 +102,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   placeholder="Enter email"
-                  value={field.value}
+                  value={field.value || ''}
                   onChange={field.onChange}
                 />
               )}
@@ -119,7 +119,7 @@ const Login = () => {
                   type="password"
                   name="password"
                   placeholder="Enter password"
-                  value={field.value}
+                  value={field.value || ''}
                   onChange={field.onChange}
                 />
               )}
