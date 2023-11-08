@@ -56,7 +56,9 @@ const Login = () => {
   });
 
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') ?? '/joblys/profile';
+  const callbackUrl =
+    searchParams.get('callbackUrl') ??
+    'https://joblys-project-six.vercel.app/joblys/dashboard';
 
   const onSubmit: SubmitHandler<Credentials> = async (
     data: z.infer<typeof credentialsSchema>
