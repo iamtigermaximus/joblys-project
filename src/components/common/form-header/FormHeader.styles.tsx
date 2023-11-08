@@ -36,7 +36,7 @@ export const BrandContainer = styled.div`
   margin: 20px;
 `;
 
-export const Brand = styled.div`
+export const Brand = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;

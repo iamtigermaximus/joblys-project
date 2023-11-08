@@ -23,7 +23,7 @@ const FormHeader = () => {
     <Container>
       <MenuContainer>
         <BrandContainer>
-          <Brand>
+          <Brand href="/">
             <Image
               src={NavLogo}
               width={150}
