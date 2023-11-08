@@ -1,9 +1,8 @@
 'use client';
 
 import React from 'react';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
-// import axios from 'axios';
 import {
   Container,
   ErrorContainer,
@@ -27,7 +26,7 @@ import { FaLinkedin } from 'react-icons/fa6';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 const signupSchema = z.object({
-  full_name: z
+  fullname: z
     .string()
     .min(1, 'Full name is required')
     .min(5, 'Please enter your full name')
@@ -44,7 +43,7 @@ const signupSchema = z.object({
 });
 
 interface FormData {
-  full_name: string;
+  fullname: string;
   email: string;
   password: string;
 }
@@ -66,15 +65,26 @@ const SignUp = () => {
   ) => {
     try {
       signupSchema.parse(data);
-      console.log('Form Data:', data);
 
-      // const response = await axios.post('http://localhost:8000/register', data);
+      const response = await fetch('/api/user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullname: data.fullname,
+          email: data.email,
+          password: data.password,
+        }),
+      });
 
-      // if (response.status === 200) {
-      //   router.push('/joblys/login');
-      // } else {
-      //   console.error('Registration error:', response.data);
-      //}
+      console.log('Form Data:', response);
+
+      if (response.ok) {
+        router.push('/login');
+      } else {
+        console.error('Registration failed.');
+      }
       reset();
       router.push('/login');
     } catch (error) {
@@ -104,11 +114,11 @@ const SignUp = () => {
             <Input
               type="text"
               placeholder="Enter fullname"
-              {...register('full_name', { required: 'Full name is required' })}
+              {...register('fullname', { required: 'Full name is required' })}
               defaultValue="" // Set an initial value
             />
-            {errors.full_name && (
-              <ErrorContainer>{errors.full_name.message}</ErrorContainer>
+            {errors.fullname && (
+              <ErrorContainer>{errors.fullname.message}</ErrorContainer>
             )}
             <InputLabel>Email</InputLabel>
             <Input
