@@ -1,5 +1,5 @@
 'use client';
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import {
   Header,
   HeaderLinksContainer,
@@ -21,7 +21,17 @@ import { useRouter } from 'next/navigation';
 
 const PageHeader = () => {
   const router = useRouter();
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    // Redirect to a login page if the session is not loading and the user is not authenticated
+    if (status === 'authenticated') {
+      if (!session) {
+        router.push('/login');
+      }
+    }
+  }, [status, session, router]);
 
   const handleSignOut = async (e: FormEvent) => {
     e.preventDefault();

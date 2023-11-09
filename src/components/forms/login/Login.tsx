@@ -56,9 +56,7 @@ const Login = () => {
   });
 
   const searchParams = useSearchParams();
-  const callbackUrl =
-    searchParams.get('callbackUrl') ??
-    'https://joblys-project-six.vercel.app/joblys/dashboard';
+  const callbackUrl = searchParams.get('callbackUrl') ?? '/joblys/dashboard';
 
   const onSubmit: SubmitHandler<Credentials> = async (
     data: z.infer<typeof credentialsSchema>
@@ -79,7 +77,7 @@ const Login = () => {
           message: response.error.toString() || 'Invalid email or password',
         });
       } else {
-        router.push('https://joblys-project-six.vercel.app/joblys/profile');
+        router.push('/joblys/profile');
       }
     } catch (error) {
       setError('email', { type: 'manual', message: 'Unexpected error' });
