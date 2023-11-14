@@ -1,12 +1,13 @@
 'use client';
 
+import colors from '@/utils/colors';
 import { breakpoints as bp } from '../utils/layout';
 import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: #b4ecf9;
   flex-direction: column;
 
@@ -19,26 +20,45 @@ export const Container = styled.div`
 export const BoxContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 100%;
-  margin-top: 10vh;
+  /* margin-top: 10vh; */
+  padding: 20px;
 
-  @media (min-width: ${bp.lg}) {
+  @media (min-width: ${bp.md}) {
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
 export const Box = styled.div`
   width: 100%;
-  margin-top: 10vh;
+  order: 2;
 
-  @media (min-width: ${bp.lg}) {
+  /* margin-top: 10vh; */
+
+  @media (min-width: ${bp.md}) {
     width: 50%;
     height: 100%;
     position: relative;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    order: 1;
+  }
+`;
+
+export const Box3 = styled.div`
+  width: 100%;
+  background-color: aliceblue;
+  padding: 20px;
+  border-radius: 10px;
+
+  @media (min-width: ${bp.lg}) {
+    position: relative;
+    padding: 60px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -49,18 +69,23 @@ export const Box2 = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  background-image: url('/blobanimation.svg');
+  /* background-size: cover; */
+  background-repeat: no-repeat;
+  background-position: center;
+  /* object-fit: fill; */
+  position: relative;
+  order: 1;
+  margin-bottom: 20px;
 
-  @media (min-width: ${bp.lg}) {
+  @media (min-width: ${bp.md}) {
     width: 50%;
     height: 100%;
-    position: relative;
+    /* position: relative; */
     padding: 20px;
     flex-direction: column;
-    background-image: url('/blobanimation.svg');
-    /* background-size: cover; */
-    background-repeat: no-repeat;
-    background-position: center;
-    /* object-fit: fill; */
+    order: 2;
   }
 `;
 
@@ -68,7 +93,22 @@ export const BoxHeader = styled.div`
   width: 100%;
   padding: 20px;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
+  align-items: center;
+  font-size: 30px;
+  color: ${colors.purple};
+  font-weight: 700;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 60px;
+  }
+`;
+
+export const BoxBody = styled.div`
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  /* justify-content: center; */
   align-items: center;
 `;
 
