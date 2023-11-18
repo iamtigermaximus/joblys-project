@@ -35,7 +35,7 @@ const UploadCV = () => {
     let formData = new FormData();
     if (cvFile) {
       formData.append("cvFile", cvFile);
-      const resp = await fetch('api/cv/upload', {
+      const resp = await fetch('api/cv', {
         method: "POST",
         body: formData
       });
