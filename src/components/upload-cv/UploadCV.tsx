@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import GoogleDrive from '../../assets/googledrive.png';
 import Dropbox from '../../assets/dropbox.png';
 import OneDrive from '../../assets/one-drive.png';
@@ -20,6 +21,7 @@ import {
 } from './UploadCV.styles';
 
 const UploadCV = () => {
+  const router = useRouter();
   const [cvFile, setCVFile] = useState<File>();
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +41,12 @@ const UploadCV = () => {
         method: "POST",
         body: formData
       });
+
+      if (resp.status === 201) {
+        router.push('/joblys/resumes');
+      } else {
+        console.log('Uploading CV failed', resp.status);
+      }
     }
   }
 

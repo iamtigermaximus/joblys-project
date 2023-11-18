@@ -6,7 +6,7 @@ export async function POST(req: Request) {
       "result": "ok from post",
     },
     {
-      status: 200,
+      status: 201,
     },
   );
 }
