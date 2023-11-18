@@ -29,7 +29,6 @@ const UploadCV = () => {
 
     const file = event.target.files[0];
     setCVFile(file);
-    console.log(file);
   }
 
   const handleUploadCV = async () => {
@@ -40,9 +39,6 @@ const UploadCV = () => {
         method: "POST",
         body: formData
       });
-      console.log(resp);
-      const foo = await fetch('api/cv');
-      console.log(foo);
     }
   }
 
