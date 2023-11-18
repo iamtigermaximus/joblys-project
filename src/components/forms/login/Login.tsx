@@ -85,6 +85,9 @@ const Login = () => {
     }
   };
 
+  const loginWithGoogle = () =>
+    signIn('google', { callbackUrl: 'http://localhost:3000/joblys/dashboard' });
+
   return (
     <Container>
       <LoginContainer>
@@ -127,45 +130,44 @@ const Login = () => {
             {errors.password && (
               <ErrorContainer>{errors.password.message}</ErrorContainer>
             )}
-
-            <ForgotPasswordContainer>
-              <Link href={'/auth/forgot-password'}>
-                <ForgotPasswordLink>Forgot your password?</ForgotPasswordLink>
-              </Link>
-            </ForgotPasswordContainer>
-            <SignInButtonContainer>
-              <SignInButton type="submit">Sign In</SignInButton>
-            </SignInButtonContainer>
-            <Providers>
-              <ProviderContainer>
-                <ProviderButton>
-                  <ProviderIcon>
-                    <FcGoogle />
-                  </ProviderIcon>
-                  Continue with Google
-                </ProviderButton>
-              </ProviderContainer>
-              <ProviderContainer>
-                <ProviderButton>
-                  <ProviderIcon>
-                    <FaLinkedin />
-                  </ProviderIcon>
-                  Continue with LinkedIn
-                </ProviderButton>
-              </ProviderContainer>
-            </Providers>
-            <CreateAccountContainer>
-              <CreateAccountTitle>
-                Don&apos;t have an account yet?
-              </CreateAccountTitle>
-            </CreateAccountContainer>
-            <SignInButtonContainer>
-              <Link href={'/signup'}>
-                <CreateAccountButton>Create account</CreateAccountButton>
-              </Link>
-            </SignInButtonContainer>
           </InputContainer>
         </form>
+        <ForgotPasswordContainer>
+          <Link href={'/auth/forgot-password'}>
+            <ForgotPasswordLink>Forgot your password?</ForgotPasswordLink>
+          </Link>
+        </ForgotPasswordContainer>
+        <SignInButtonContainer>
+          <SignInButton type="submit">Sign In</SignInButton>
+        </SignInButtonContainer>
+        <Providers>
+          <ProviderContainer>
+            <ProviderButton onClick={loginWithGoogle}>
+              <ProviderIcon>
+                <FcGoogle />
+              </ProviderIcon>
+              Continue with Google
+            </ProviderButton>
+          </ProviderContainer>
+          <ProviderContainer>
+            <ProviderButton>
+              <ProviderIcon>
+                <FaLinkedin />
+              </ProviderIcon>
+              Continue with LinkedIn
+            </ProviderButton>
+          </ProviderContainer>
+        </Providers>
+        <CreateAccountContainer>
+          <CreateAccountTitle>
+            Don&apos;t have an account yet?
+          </CreateAccountTitle>
+        </CreateAccountContainer>
+        <SignInButtonContainer>
+          <Link href={'/signup'}>
+            <CreateAccountButton>Create account</CreateAccountButton>
+          </Link>
+        </SignInButtonContainer>
       </LoginContainer>
     </Container>
   );
