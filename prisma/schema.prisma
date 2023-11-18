@@ -11,11 +11,12 @@ datasource db {
 }
 
 model User {
-  id            String   @default(cuid()) @id
-  fullname      String   @unique
-  email         String   @unique
-  password      String
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  id        String   @id @default(cuid())
+  fullname  String   @unique
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
   @@map(name: "users")
 }
