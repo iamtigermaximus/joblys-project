@@ -77,7 +77,7 @@ export const FileNameContainer = styled.div`
   }
 `;
 
-export const FileUpload = styled.div`
+export const FileUpload = styled.input`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -115,7 +115,7 @@ export const CancelButton = styled.div`
   }
 `;
 
-export const UploadButton = styled.div`
+export const UploadButton = styled.button`
   border: 2px solid ${colors.ashGray};
   border-radius: 5px;
   background-color: ${colors.ashGray};
