@@ -133,7 +133,7 @@ const Login = () => {
           </InputContainer>
         </form>
         <ForgotPasswordContainer>
-          <Link href={'/auth/forgot-password'}>
+          <Link href={'/'}>
             <ForgotPasswordLink>Forgot your password?</ForgotPasswordLink>
           </Link>
         </ForgotPasswordContainer>

@@ -179,6 +179,7 @@ export const ProviderButton = styled.button`
   font-size: 12px;
   width: 100%;
   letter-spacing: 1px;
+  cursor: pointer;
 
   &:hover {
     background: ${colors.darkPurple};
