@@ -7,10 +7,9 @@ import GoogleDrive from '../../assets/googledrive.png';
 import Dropbox from '../../assets/dropbox.png';
 import OneDrive from '../../assets/one-drive.png';
 import { useState, ChangeEvent } from 'react';
+import { getSession } from 'next-auth/react';
 import {
-  CancelButton,
   Container,
-  FileNameContainer,
   FileUpload,
   SectionSubTitle,
   SectionTitle,
@@ -23,7 +22,12 @@ import {
 const UploadCV = () => {
   const router = useRouter();
   const [cvFile, setCVFile] = useState<File>();
-
+  getSession().then(session => {
+    console.log(session);
+  }).catch(err => {
+    console.log('error', err);
+  });
+  
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.length) {
       return;
@@ -42,8 +46,9 @@ const UploadCV = () => {
         body: formData
       });
 
-      if (resp.status === 201) {
-        router.push('/joblys/resumes');
+      if (resp.status === 200) {
+        console.log(await resp.json());
+        router.push({'/joblys/resumes'});
       } else {
         console.log('Uploading CV failed', resp.status);
       }
@@ -59,7 +64,7 @@ const UploadCV = () => {
         </SectionTitleContainer>
         <FileUpload
           type="file"
-          accept=".pdf"
+          accept=".docx"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {handleFileChange(e)}} />
         <UploadButton onClick={handleUploadCV}>
           Upload
