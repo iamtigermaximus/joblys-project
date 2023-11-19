@@ -86,7 +86,7 @@ const Login = () => {
   };
 
   const loginWithGoogle = () =>
-    signIn('google', { callbackUrl: 'http://localhost:3000/joblys/dashboard' });
+    signIn('google', { callbackUrl: '/joblys/dashboard' });
 
   return (
     <Container>
