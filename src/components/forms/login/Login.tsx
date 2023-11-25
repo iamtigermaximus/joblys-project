@@ -143,35 +143,35 @@ const Login = () => {
           <SignInButtonContainer>
             <SignInButton type="submit">Sign In</SignInButton>
           </SignInButtonContainer>
-          <Providers>
-            <ProviderContainer>
-              <ProviderButton onClick={loginWithGoogle}>
-                <ProviderIcon>
-                  <FcGoogle />
-                </ProviderIcon>
-                Continue with Google
-              </ProviderButton>
-            </ProviderContainer>
-            <ProviderContainer>
-              <ProviderButton onClick={loginWithLinkedIn}>
-                <ProviderIcon>
-                  <FaLinkedin />
-                </ProviderIcon>
-                Continue with LinkedIn
-              </ProviderButton>
-            </ProviderContainer>
-          </Providers>
-          <CreateAccountContainer>
-            <CreateAccountTitle>
-              Don&apos;t have an account yet?
-            </CreateAccountTitle>
-          </CreateAccountContainer>
-          <SignInButtonContainer>
-            <Link href={'/signup'}>
-              <CreateAccountButton>Create account</CreateAccountButton>
-            </Link>
-          </SignInButtonContainer>
         </form>
+        <Providers>
+          <ProviderContainer>
+            <ProviderButton onClick={loginWithGoogle}>
+              <ProviderIcon>
+                <FcGoogle />
+              </ProviderIcon>
+              Continue with Google
+            </ProviderButton>
+          </ProviderContainer>
+          <ProviderContainer>
+            <ProviderButton onClick={loginWithLinkedIn}>
+              <ProviderIcon>
+                <FaLinkedin />
+              </ProviderIcon>
+              Continue with LinkedIn
+            </ProviderButton>
+          </ProviderContainer>
+        </Providers>
+        <CreateAccountContainer>
+          <CreateAccountTitle>
+            Don&apos;t have an account yet?
+          </CreateAccountTitle>
+        </CreateAccountContainer>
+        <SignInButtonContainer>
+          <Link href={'/signup'}>
+            <CreateAccountButton>Create account</CreateAccountButton>
+          </Link>
+        </SignInButtonContainer>
       </LoginContainer>
     </Container>
   );
