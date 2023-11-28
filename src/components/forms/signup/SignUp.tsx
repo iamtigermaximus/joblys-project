@@ -24,6 +24,7 @@ import { useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
 
 const signupSchema = z.object({
   fullname: z
@@ -102,6 +103,12 @@ const SignUp = () => {
     }
   };
 
+  const loginWithGoogle = () =>
+    signIn('google', { callbackUrl: '/joblys/profile' });
+
+  const loginWithLinkedIn = () =>
+    signIn('linkedin', { callbackUrl: '/joblys/profile' });
+
   return (
     <Container>
       <SignUpContainer>
@@ -162,26 +169,26 @@ const SignUp = () => {
             <SignUpButtonContainer>
               <SignUpButton type="submit">Create user</SignUpButton>
             </SignUpButtonContainer>
-            <Providers>
-              <ProviderContainer>
-                <ProviderButton>
-                  <ProviderIcon>
-                    <FcGoogle />
-                  </ProviderIcon>
-                  Continue with Google
-                </ProviderButton>
-              </ProviderContainer>
-              <ProviderContainer>
-                <ProviderButton>
-                  <ProviderIcon>
-                    <FaLinkedin />
-                  </ProviderIcon>
-                  Continue with LinkedIn
-                </ProviderButton>
-              </ProviderContainer>
-            </Providers>
           </InputContainer>
         </InputForm>
+        <Providers>
+          <ProviderContainer>
+            <ProviderButton onClick={loginWithGoogle}>
+              <ProviderIcon>
+                <FcGoogle />
+              </ProviderIcon>
+              Continue with Google
+            </ProviderButton>
+          </ProviderContainer>
+          <ProviderContainer>
+            <ProviderButton onClick={loginWithLinkedIn}>
+              <ProviderIcon>
+                <FaLinkedin />
+              </ProviderIcon>
+              Continue with LinkedIn
+            </ProviderButton>
+          </ProviderContainer>
+        </Providers>
       </SignUpContainer>
     </Container>
   );

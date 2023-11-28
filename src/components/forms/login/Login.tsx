@@ -50,6 +50,7 @@ const Login = () => {
     control,
     handleSubmit,
     setError,
+    reset,
     formState: { errors },
   } = useForm<z.infer<typeof credentialsSchema>>({
     resolver: zodResolver(credentialsSchema),
@@ -84,6 +85,12 @@ const Login = () => {
       console.error('Unexpected error:', error);
     }
   };
+
+  const loginWithGoogle = () =>
+    signIn('google', { callbackUrl: '/joblys/dashboard' });
+
+  const loginWithLinkedIn = () =>
+    signIn('linkedin', { callbackUrl: '/joblys/dashboard' });
 
   return (
     <Container>
@@ -127,45 +134,44 @@ const Login = () => {
             {errors.password && (
               <ErrorContainer>{errors.password.message}</ErrorContainer>
             )}
-
-            <ForgotPasswordContainer>
-              <Link href={'/auth/forgot-password'}>
-                <ForgotPasswordLink>Forgot your password?</ForgotPasswordLink>
-              </Link>
-            </ForgotPasswordContainer>
-            <SignInButtonContainer>
-              <SignInButton type="submit">Sign In</SignInButton>
-            </SignInButtonContainer>
-            <Providers>
-              <ProviderContainer>
-                <ProviderButton>
-                  <ProviderIcon>
-                    <FcGoogle />
-                  </ProviderIcon>
-                  Continue with Google
-                </ProviderButton>
-              </ProviderContainer>
-              <ProviderContainer>
-                <ProviderButton>
-                  <ProviderIcon>
-                    <FaLinkedin />
-                  </ProviderIcon>
-                  Continue with LinkedIn
-                </ProviderButton>
-              </ProviderContainer>
-            </Providers>
-            <CreateAccountContainer>
-              <CreateAccountTitle>
-                Don&apos;t have an account yet?
-              </CreateAccountTitle>
-            </CreateAccountContainer>
-            <SignInButtonContainer>
-              <Link href={'/signup'}>
-                <CreateAccountButton>Create account</CreateAccountButton>
-              </Link>
-            </SignInButtonContainer>
           </InputContainer>
+          <ForgotPasswordContainer>
+            <Link href={'/'}>
+              <ForgotPasswordLink>Forgot your password?</ForgotPasswordLink>
+            </Link>
+          </ForgotPasswordContainer>
+          <SignInButtonContainer>
+            <SignInButton type="submit">Sign In</SignInButton>
+          </SignInButtonContainer>
         </form>
+        <Providers>
+          <ProviderContainer>
+            <ProviderButton onClick={loginWithGoogle}>
+              <ProviderIcon>
+                <FcGoogle />
+              </ProviderIcon>
+              Continue with Google
+            </ProviderButton>
+          </ProviderContainer>
+          <ProviderContainer>
+            <ProviderButton onClick={loginWithLinkedIn}>
+              <ProviderIcon>
+                <FaLinkedin />
+              </ProviderIcon>
+              Continue with LinkedIn
+            </ProviderButton>
+          </ProviderContainer>
+        </Providers>
+        <CreateAccountContainer>
+          <CreateAccountTitle>
+            Don&apos;t have an account yet?
+          </CreateAccountTitle>
+        </CreateAccountContainer>
+        <SignInButtonContainer>
+          <Link href={'/signup'}>
+            <CreateAccountButton>Create account</CreateAccountButton>
+          </Link>
+        </SignInButtonContainer>
       </LoginContainer>
     </Container>
   );

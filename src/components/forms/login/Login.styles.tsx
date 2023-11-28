@@ -179,6 +179,7 @@ export const CreateAccountButton = styled.button`
   border-radius: 5px;
   font-size: 15px;
   font-weight: 500;
+  cursor: pointer;
 
   &:hover {
     background: ${colors.darkPurple};
@@ -224,6 +225,7 @@ export const ProviderButton = styled.button`
   font-size: 12px;
   width: 100%;
   letter-spacing: 1px;
+  cursor: pointer;
 
   &:hover {
     background: ${colors.darkPurple};

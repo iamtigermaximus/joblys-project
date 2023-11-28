@@ -1,5 +1,7 @@
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
+import LinkedInProvider from 'next-auth/providers/linkedin';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from './prisma';
 import { compare } from 'bcrypt';
@@ -14,6 +16,30 @@ export const authOptions: NextAuthOptions = {
     signIn: '/login',
   },
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    LinkedInProvider({
+      clientId: String(process.env.LINKEDIN_CLIENT_ID),
+      clientSecret: String(process.env.LINKEDIN_CLIENT_SECRET),
+      authorization: {
+        params: { scope: 'openid profile email' },
+      },
+      issuer: 'https://www.linkedin.com',
+      jwks_endpoint: 'https://www.linkedin.com/oauth/openid/jwks',
+      profile(profile, tokens) {
+        const defaultImage =
+          'https://cdn-icons-png.flaticon.com/512/174/174857.png';
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture ?? defaultImage,
+          fullname: profile.fullname,
+        };
+      },
+    }),
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -41,37 +67,48 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const passwordMatch = await compare(
-          credentials.password,
-          existingUser.password
-        );
+        if (existingUser.password) {
+          const passwordMatch = await compare(
+            credentials.password,
+            existingUser.password
+          );
 
-        if (!passwordMatch) {
-          return null;
+          if (!passwordMatch) {
+            return null;
+          }
         }
 
         return {
           id: existingUser.id,
           name: existingUser.fullname,
           email: existingUser.email,
+          fullname: existingUser.fullname,
         };
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, account, profile }) {
-      if (account) {
-        //token = Object.assign({}, token, { access_token: account.access_token });
-        token.accessToken = account.access_token;
+    async jwt({ token, user }) {
+      // console.log(token, user);
+      if (user) {
+        return {
+          ...token,
+          fullname: user.fullname,
+        };
       }
-      return token
+      return token;
     },
     async session({ session, token }) {
-      if (session) {
-        session = Object.assign({}, session, { access_token: token.accessToken })
-        console.log(session);
-      }
-      return session
-    }
-  }
+      // console.log(session, token);
+
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          fullname: token.fullname,
+        },
+      };
+      return session;
+    },
+  },
 };
