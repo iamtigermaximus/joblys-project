@@ -18,9 +18,11 @@ import {
   UploadCvContainer,
   UploadSourceContainer,
 } from './UploadCV.styles';
+import { useCv } from '@/app/joblys/context';
 
 const UploadCV = () => {
   const router = useRouter();
+  const { cv, setCv } = useCv();
   const [cvFile, setCVFile] = useState<File>();
   getSession().then(session => {
     console.log(session);
@@ -47,8 +49,10 @@ const UploadCV = () => {
       });
 
       if (resp.status === 200) {
-        console.log(await resp.json());
-        router.push({'/joblys/resumes'});
+        const parsedCv = await resp.json();
+        console.log(parsedCv);
+        setCv(parsedCv);
+        router.push('/joblys/resumes');
       } else {
         console.log('Uploading CV failed', resp.status);
       }

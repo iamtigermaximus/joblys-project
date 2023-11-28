@@ -5,7 +5,7 @@ import OpenAI from 'openai';
 const openAI = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'],
 });
-const parserPromt = 'You will be provided with extracted text from a .docx CV, and your task is to parse it and organize the text. Remove unrealted text regarding the CV. Use the same structure from top to down. Output the data in JSON format. Have the following fields in the JSON: workExperience, company, job title, start date, end date, education with school name, program, start and end dates.';
+const parserPromt = 'You will be provided with extracted text from a .docx CV, and your task is to parse it and organize the text. Remove unrealted text regarding the CV. Use the same structure from top to down. Output the data in JSON format. Have the following fields in the JSON: workExperience, company, job title, start date, end date, education with school name, program, start and end dates. If some field or data is missing or you cannot parse it, mark the field with n/a.';
 
 export async function POST(req: NextRequest) {
   console.log('Processing...');

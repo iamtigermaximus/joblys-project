@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import { createContext, useContext, useState } from 'react';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import { Container } from '../page.styles';
 import CreateProfile from '@/components/profile/create-profile/CreateProfile';
