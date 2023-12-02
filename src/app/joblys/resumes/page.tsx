@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { Container } from '../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
