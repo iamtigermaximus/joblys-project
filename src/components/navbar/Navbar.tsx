@@ -1,5 +1,5 @@
 'use client';
-import React, { FormEvent, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Brand,
   BrandContainer,
@@ -17,13 +17,27 @@ import { useSession } from 'next-auth/react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
 import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
   const { data: session } = useSession();
   const [activeMenuItem, setActiveMenuItem] = useState('');
+  const pathname = usePathname();
 
   const [click, setClick] = useState(true);
   const categoryMenu = () => setClick(!click);
+
+  useEffect(() => {
+    if (pathname.startsWith('/joblys/dashboard')) {
+      setActiveMenuItem('dashboard');
+    } else if (pathname.startsWith('/joblys/profile')) {
+      setActiveMenuItem('profile');
+    } else if (pathname.startsWith('/joblys/resumes')) {
+      setActiveMenuItem('resumes');
+    } else if (pathname.startsWith('/joblys/cover-letters')) {
+      setActiveMenuItem('cover-letters');
+    }
+  }, [pathname]);
 
   return (
     <NavbarContainer>
