@@ -7,7 +7,6 @@ import GoogleDrive from '../../assets/googledrive.png';
 import Dropbox from '../../assets/dropbox.png';
 import OneDrive from '../../assets/one-drive.png';
 import { useState, ChangeEvent } from 'react';
-import { getSession } from 'next-auth/react';
 import {
   Container,
   FileUpload,
@@ -18,17 +17,10 @@ import {
   UploadCvContainer,
   UploadSourceContainer,
 } from './UploadCV.styles';
-import { useCv } from '@/app/joblys/context';
 
 const UploadCV = () => {
   const router = useRouter();
-  const { cv, setCv } = useCv();
   const [cvFile, setCVFile] = useState<File>();
-  getSession().then(session => {
-    console.log(session);
-  }).catch(err => {
-    console.log('error', err);
-  });
   
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.length) {
@@ -49,9 +41,7 @@ const UploadCV = () => {
       });
 
       if (resp.status === 200) {
-        const parsedCv = await resp.json();
-        console.log(parsedCv);
-        setCv(parsedCv);
+        await resp.json();
         router.push('/joblys/resumes');
       } else {
         console.log('Uploading CV failed', resp.status);
