@@ -42,7 +42,6 @@
   "devDependencies": {
     "@swc/plugin-styled-components": "^1.5.71",
     "@types/bcrypt": "^5.0.0",
-    "@types/jsonwebtoken": "^9.0.5",
     "prisma": "^5.6.0"
   }
 }

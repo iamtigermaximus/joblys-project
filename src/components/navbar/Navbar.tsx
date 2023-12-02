@@ -1,5 +1,5 @@
 'use client';
-import React, { FormEvent, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Brand,
   BrandContainer,
@@ -17,13 +17,27 @@ import { useSession } from 'next-auth/react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
 import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
   const { data: session } = useSession();
   const [activeMenuItem, setActiveMenuItem] = useState('');
+  const pathname = usePathname();
 
   const [click, setClick] = useState(true);
   const categoryMenu = () => setClick(!click);
+
+  useEffect(() => {
+    if (pathname.startsWith('/joblys/dashboard')) {
+      setActiveMenuItem('dashboard');
+    } else if (pathname.startsWith('/joblys/profile')) {
+      setActiveMenuItem('profile');
+    } else if (pathname.startsWith('/joblys/resumes')) {
+      setActiveMenuItem('resumes');
+    } else if (pathname.startsWith('/joblys/cover-letters')) {
+      setActiveMenuItem('cover-letters');
+    }
+  }, [pathname]);
 
   return (
     <NavbarContainer>
@@ -46,26 +60,30 @@ const Navbar = () => {
           <MenuItemContainer
             onClick={() => setActiveMenuItem('dashboard')}
             className={activeMenuItem === 'dashboard' ? 'active' : ''}
+            href="/joblys/dashboard"
           >
-            <MenuItem href="/joblys/dashboard">Dashboard</MenuItem>
+            <MenuItem>Dashboard</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer
             onClick={() => setActiveMenuItem('profile')}
             className={activeMenuItem === 'profile' ? 'active' : ''}
+            href="/joblys/profile"
           >
-            <MenuItem href="/joblys/profile">Profile</MenuItem>
+            <MenuItem>Profile</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer
             onClick={() => setActiveMenuItem('resumes')}
             className={activeMenuItem === 'resumes' ? 'active' : ''}
+            href="/joblys/resumes"
           >
-            <MenuItem href="/joblys/resumes">CV/Resume</MenuItem>
+            <MenuItem>CV/Resume</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer
             onClick={() => setActiveMenuItem('cover-letters')}
             className={activeMenuItem === 'cover-letters' ? 'active' : ''}
+            href="/joblys/cover-letters"
           >
-            <MenuItem href="/joblys/cover-letters">Cover Letters</MenuItem>
+            <MenuItem>Cover Letters</MenuItem>
           </MenuItemContainer>
         </MenuContainer>
       </NavbarItemsContainer>

@@ -26,7 +26,6 @@ export const HeaderMenuContainer = styled.div`
   }
 `;
 
-
 export const MenuLinkButton = styled.button`
   /* margin: 0 5px; */
   padding: 5px 10px;
@@ -97,6 +96,12 @@ export const LogoutButton = styled.div`
   width: 100px;
   font-weight: 700;
   height: 40px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+    color: ${colors.white};
+  }
 
   @media (min-width: ${bp.lg}) {
     flex-direction: column;
@@ -154,4 +159,10 @@ export const IconContainer = styled.div`
 
   text-decoration: none;
   border-radius: 50%;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${colors.purple};
+    color: ${colors.white};
+  }
 `;

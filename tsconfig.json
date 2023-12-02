@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["next", "@types/node"],
+    "types": ["next", "@types/node", "react", "node"],
 
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

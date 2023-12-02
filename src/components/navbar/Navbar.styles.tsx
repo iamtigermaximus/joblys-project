@@ -71,13 +71,20 @@ export const MenuContainer = styled.div`
   }
 `;
 
-export const MenuItemContainer = styled.div`
+export const MenuItemContainer = styled(Link)`
   display: none;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   padding: 20px;
   white-space: nowrap;
+  background-color: ${colors.purple};
+  text-decoration: none;
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+    color: ${colors.white};
+  }
 
   &.active {
     background-color: ${colors.darkPurple};
@@ -92,10 +99,9 @@ export const MenuItemContainer = styled.div`
   }
 `;
 
-export const MenuItem = styled(Link)`
+export const MenuItem = styled.div`
   display: none;
   justify-content: center;
-  text-decoration: none;
   color: ${colors.white};
   padding-left: 10px;
   font-weight: 700;
