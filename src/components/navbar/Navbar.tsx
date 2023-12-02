@@ -60,26 +60,30 @@ const Navbar = () => {
           <MenuItemContainer
             onClick={() => setActiveMenuItem('dashboard')}
             className={activeMenuItem === 'dashboard' ? 'active' : ''}
+            href="/joblys/dashboard"
           >
-            <MenuItem href="/joblys/dashboard">Dashboard</MenuItem>
+            <MenuItem>Dashboard</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer
             onClick={() => setActiveMenuItem('profile')}
             className={activeMenuItem === 'profile' ? 'active' : ''}
+            href="/joblys/profile"
           >
-            <MenuItem href="/joblys/profile">Profile</MenuItem>
+            <MenuItem>Profile</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer
             onClick={() => setActiveMenuItem('resumes')}
             className={activeMenuItem === 'resumes' ? 'active' : ''}
+            href="/joblys/resumes"
           >
-            <MenuItem href="/joblys/resumes">CV/Resume</MenuItem>
+            <MenuItem>CV/Resume</MenuItem>
           </MenuItemContainer>
           <MenuItemContainer
             onClick={() => setActiveMenuItem('cover-letters')}
             className={activeMenuItem === 'cover-letters' ? 'active' : ''}
+            href="/joblys/cover-letters"
           >
-            <MenuItem href="/joblys/cover-letters">Cover Letters</MenuItem>
+            <MenuItem>Cover Letters</MenuItem>
           </MenuItemContainer>
         </MenuContainer>
       </NavbarItemsContainer>
