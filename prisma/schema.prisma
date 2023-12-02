@@ -47,7 +47,6 @@ model User {
   emailVerified DateTime?
   password      String?
   image         String?
-  password      String
 
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
@@ -55,7 +54,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  parsedPDFCVs  ParsedPDFCVs[]
+  parsedCVs     ParsedCVs[]
   @@map(name: "users")
 }
 
@@ -67,12 +66,13 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model ParsedPDFCVs {
+model ParsedCVs {
   id            String   @default(cuid()) @id
   owner         User     @relation(fields: [ownerId], references: [id])
   ownerId       String
   content       String
+  source        String
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  @@map(name: "parsed_pdf_cvs")
+  @@map(name: "parsed_cvs")
 }
