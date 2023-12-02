@@ -2,13 +2,33 @@ import { NextResponse, NextRequest } from 'next/server';
 import mammoth from 'mammoth';
 import OpenAI from 'openai';
 
+import { getServerSession } from "next-auth/next"
+import { authOptions } from '../../../../../lib/auth';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { getToken } from "next-auth/jwt"
+
+
 const openAI = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'],
 });
-const parserPromt = 'You will be provided with extracted text from a .docx CV, and your task is to parse it and organize the text. Remove unrealted text regarding the CV. Use the same structure from top to down. Output the data in JSON format. Have the following fields in the JSON: workExperience, company, job title, start date, end date, education with school name, program, start and end dates. If some field or data is missing or you cannot parse it, mark the field with n/a.';
 
-export async function POST(req: NextRequest) {
-  console.log('Processing...');
+const parserPromt = 'You will be provided with extracted text from a .docx CV, and your task is to parse it and organize the text. Remove unrealted text regarding the CV. Use the same structure from top to down. Output the data in JSON format. Have the following fields in the top level JSON: name, personal_information, technical_skills, languages, work_experience, personal_projects, education, interest. In the work_experiense, list with different companies and roles as json array with company_name, start_date, end_date, location, and resposibilites, job title, start date, end date. In the education list  school name, location, degree or program, start and end dates. If some field or data is missing or you cannot parse it, mark the field with n/a.';
+
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
+  const token = await getToken({ req })
+  if (!token) {
+    return NextResponse.json(
+      {
+        'reason': 'invalid token',
+      },
+      {
+        status: 401,
+      },
+    );
+  }
+
+  console.log("Use has signed in. Parsing the CV...");
+
   let text;
   const readData = await req.body?.getReader().read();
   if (readData && readData.value) {
@@ -17,6 +37,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (text) {
+    console.log("Parsed the CV, structuring it...");
     const chatResp = openAI.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
@@ -36,31 +57,20 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       {
-        'parsed': 'foo', //chatResp.choices[0].message.content,
+        'message': 'parsing succeeded',
       },
       {
         status: 200,
       },
     );
   }
-  
-  return NextResponse.json(
-    {
-      'reason': 'bad content in request',
-    },
-    {
-      status: 400,
-    },
-  );
-}
 
-export async function GET(req: Request) {
   return NextResponse.json(
     {
-      "result": "ok from app/joblys/profile/api/cv",
+      'message': 'unable to parse cv',
     },
     {
-      status: 200,
+      status: 500,
     },
   );
 }
