@@ -13,7 +13,7 @@ datasource db {
 
 
 model Account {
-  id                 String  @id @default(cuid())
+  id                 String   @id @default(cuid())
   userId             String
   type               String
   provider           String
@@ -47,14 +47,13 @@ model User {
   emailVerified DateTime?
   password      String?
   image         String?
-
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-
   accounts      Account[]
   sessions      Session[]
 
   parsedCVs     ParsedCVs[]
+
   @@map(name: "users")
 }
 
