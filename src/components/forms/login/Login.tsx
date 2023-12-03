@@ -26,6 +26,7 @@ import {
   Providers,
   ProviderButton,
   ProviderIcon,
+  CreateAccountButtonContainer,
 } from './Login.styles';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
@@ -167,11 +168,11 @@ const Login = () => {
             Don&apos;t have an account yet?
           </CreateAccountTitle>
         </CreateAccountContainer>
-        <SignInButtonContainer>
+        <CreateAccountButtonContainer>
           <Link href={'/signup'}>
             <CreateAccountButton>Create account</CreateAccountButton>
           </Link>
-        </SignInButtonContainer>
+        </CreateAccountButtonContainer>
       </LoginContainer>
     </Container>
   );

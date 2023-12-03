@@ -9,8 +9,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
-  padding: 30px;
+  height: 100vh;
+  padding: 20px 30px;
   overflow-y: scroll;
 
   @media (min-width: ${bp.lg}) {
@@ -29,6 +29,11 @@ export const LoginContainer = styled.div`
   margin: 20px;
   flex-direction: column;
 
+  @media (min-width: ${bp.sm}) {
+    max-width: 400px;
+    padding: 30px 40px;
+  }
+
   @media (min-width: ${bp.md}) {
     max-width: 500px;
   }
@@ -39,14 +44,13 @@ export const LoginTitleContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
 `;
 
 export const LoginTitle = styled.h1`
   color: ${colors.purple};
   padding: 5px;
   letter-spacing: 1px;
-  font-size: 20px;
+  font-size: 16px;
 
   @media (min-width: ${bp.md}) {
     font-size: 25px;
@@ -56,29 +60,36 @@ export const LoginTitle = styled.h1`
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding-bottom: 10px;
+
+  @media (min-width: ${bp.md}) {
+    padding-bottom: 15px;
+  }
 `;
 
 export const Input = styled.input`
   border: 2px solid ${colors.blueGray};
   border-radius: 5px;
-  padding: 15px;
-  margin: 5px 0;
-  font-size: 12px;
+  padding: 10px;
+  /* margin: 5px 0; */
+  font-size: 10px;
 
   @media (min-width: ${bp.md}) {
     font-size: 15px;
     padding: 20px;
-    margin: 5px;
+    /* margin: 5px; */
   }
 `;
 
 export const InputLabel = styled.label`
-  font-size: 10px;
+  font-size: 8px;
   color: ${colors.blueGray};
   letter-spacing: 1px;
+  margin: 5px 0;
 
   @media (min-width: ${bp.md}) {
     font-size: 15px;
+    margin: 5px;
   }
 `;
 
@@ -95,10 +106,10 @@ export const ForgotPasswordContainer = styled.div`
 export const ForgotPasswordLink = styled.h1`
   font-size: 12px;
   border-radius: 5px;
-  padding: 10px 0;
+  /* padding: 10px 0; */
   margin: 0 20px;
   color: ${colors.blueGray};
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 
   @media (min-width: ${bp.md}) {
     font-size: 15px;
@@ -119,10 +130,10 @@ export const SignInButton = styled.button`
   align-items: center;
   border: 2px solid ${colors.ashGray};
   border-radius: 5px;
-  padding: 20px;
+  padding: 10px;
   background-color: ${colors.orange};
   color: ${colors.white};
-  font-size: 12px;
+  font-size: 10px;
   width: 100%;
   letter-spacing: 1px;
   cursor: pointer;
@@ -133,6 +144,7 @@ export const SignInButton = styled.button`
 
   @media (min-width: ${bp.md}) {
     font-size: 15px;
+    padding: 20px;
   }
 `;
 
@@ -156,34 +168,52 @@ export const CreateAccountContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  /* padding: 10px; */
+
+  @media (min-width: ${bp.md}) {
+    padding: 15px;
+  }
 `;
 
 export const CreateAccountTitle = styled.h1`
-  text-shadow: 0.6px 0 0;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 10px 0;
+  margin: 0 20px;
   color: ${colors.blueGray};
+  /* letter-spacing: 1px; */
 
   @media (min-width: ${bp.md}) {
-    font-size: 20px;
+    font-size: 15px;
   }
+`;
+
+export const CreateAccountButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 `;
 
 export const CreateAccountButton = styled.button`
   background: ${colors.blueGray};
   color: ${colors.white};
-  padding: 15px;
+  padding: 10px;
   width: 100%;
   border: #232946;
   border-radius: 5px;
-  font-size: 15px;
+  font-size: 10px;
   font-weight: 500;
   cursor: pointer;
 
   &:hover {
     background: ${colors.darkPurple};
     color: ${colors.white};
+  }
+
+  @media (min-width: ${bp.md}) {
+    font-size: 15px;
+    padding: 20px;
   }
 `;
 
@@ -201,14 +231,13 @@ export const Providers = styled.div`
   justify-content: center;
   align-items: center;
   border-top: 1px solid #232946;
-  padding-top: 15px;
 `;
 
 export const ProviderContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 0;
+  padding-top: 10px;
   width: 100%;
 `;
 
@@ -218,14 +247,14 @@ export const ProviderButton = styled.button`
   align-items: center;
   border: 2px solid ${colors.ashGray};
   border-radius: 5px;
-  padding: 10px;
   background-color: ${colors.purple};
   color: ${colors.white};
   /* margin: 5px; */
-  font-size: 12px;
+  font-size: 10px;
   width: 100%;
   letter-spacing: 1px;
   cursor: pointer;
+  padding: 10px;
 
   &:hover {
     background: ${colors.darkPurple};
@@ -233,11 +262,19 @@ export const ProviderButton = styled.button`
 
   @media (min-width: ${bp.md}) {
     font-size: 15px;
+    padding: 20px;
   }
 `;
 
 export const ProviderIcon = styled.span`
-  padding: 10px;
-  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
   font-weight: 500;
+  padding: 0 10px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 15px;
+  }
 `;
