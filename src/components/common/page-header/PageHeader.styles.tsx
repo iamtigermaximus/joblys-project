@@ -12,6 +12,7 @@ export const Header = styled.div`
   flex-direction: row;
   justify-content: space-between;
   background-color: ${colors.white};
+  z-index: 1;
 `;
 
 export const HeaderMenuContainer = styled.div`

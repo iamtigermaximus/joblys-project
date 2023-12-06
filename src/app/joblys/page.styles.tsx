@@ -6,13 +6,16 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: #b4ecf9;
   flex-direction: column;
+  padding-bottom: 20px;
+  overflow-y: scroll;
 
   @media (min-width: ${bp.lg}) {
     width: 80vw;
     float: left;
+    height: 100vh;
   }
 `;
 
