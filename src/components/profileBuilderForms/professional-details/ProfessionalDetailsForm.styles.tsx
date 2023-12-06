@@ -35,7 +35,7 @@ export const ProfessionalDetailsContainer = styled.div`
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: 500px;
+    max-width: 800px;
   }
 `;
 
@@ -57,9 +57,20 @@ export const ProfessionalDetailsTitle = styled.h1`
   }
 `;
 
+export const InputRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @media (min-width: ${bp.md}) {
+    flex-direction: row;
+    gap: 20px; /* Adjust the gap between input fields as needed */
+  }
+`;
+
 export const InputContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
 `;
 
@@ -104,7 +115,7 @@ export const SaveDetailsButton = styled.button`
   align-items: center;
   border: 2px solid ${colors.ashGray};
   border-radius: 5px;
-  background-color: ${colors.purple};
+  background-color: ${colors.blueGray};
   color: ${colors.white};
   /* margin: 5px; */
   font-size: 10px;
@@ -120,16 +131,17 @@ export const SaveDetailsButton = styled.button`
   @media (min-width: ${bp.md}) {
     font-size: 15px;
     padding: 20px;
+    margin-left: 5px;
   }
 `;
 export const BackButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid ${colors.ashGray};
+  /* border: 2px solid ${colors.ashGray}; */
   border-radius: 5px;
-  background-color: ${colors.purple};
-  color: ${colors.white};
+  background-color: ${colors.white};
+  color: ${colors.blueGray};
   /* margin: 5px; */
   font-size: 10px;
   width: 100%;
@@ -191,6 +203,7 @@ export const AddButton = styled.button`
   @media (min-width: ${bp.md}) {
     font-size: 15px;
     padding: 20px;
+    width: 50%;
   }
 `;
 
@@ -221,6 +234,10 @@ export const AddWorkExperienceContainer = styled.div`
   align-items: center;
   padding-top: 10px;
   width: 100%;
+
+  @media (min-width: ${bp.md}) {
+    justify-content: flex-start;
+  }
 `;
 
 export const AddWorkExperienceButton = styled.button`
@@ -245,5 +262,7 @@ export const AddWorkExperienceButton = styled.button`
   @media (min-width: ${bp.md}) {
     font-size: 15px;
     padding: 20px;
+    width: 50%;
+    margin-right: 5px;
   }
 `;

@@ -33,7 +33,8 @@ export const BasicDetailsContainer = styled.div`
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: 500px;
+    /* max-width: 500px; */
+    max-width: 800px;
   }
 `;
 
@@ -55,9 +56,26 @@ export const BasicDetailsTitle = styled.h1`
   }
 `;
 
+// export const InputContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+// `;
+
+export const InputRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @media (min-width: ${bp.md}) {
+    flex-direction: row;
+    gap: 20px; /* Adjust the gap between input fields as needed */
+  }
+`;
+
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 export const Input = styled.input`
@@ -100,7 +118,7 @@ export const SaveDetailsButton = styled.button`
   align-items: center;
   border: 2px solid ${colors.ashGray};
   border-radius: 5px;
-  background-color: ${colors.purple};
+  background-color: ${colors.blueGray};
   color: ${colors.white};
   /* margin: 5px; */
   font-size: 10px;
@@ -116,5 +134,6 @@ export const SaveDetailsButton = styled.button`
   @media (min-width: ${bp.md}) {
     font-size: 15px;
     padding: 20px;
+    width: 50%;
   }
 `;

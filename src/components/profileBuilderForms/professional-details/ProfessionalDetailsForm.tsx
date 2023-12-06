@@ -10,6 +10,7 @@ import {
   Input,
   InputContainer,
   InputLabel,
+  InputRow,
   ProfessionalDetailsContainer,
   ProfessionalDetailsTitle,
   ProfessionalDetailsTitleContainer,
@@ -32,10 +33,35 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = () => {
             Professional Experience
           </ProfessionalDetailsTitle>
         </ProfessionalDetailsTitleContainer>
-        <InputLabel>Summary:</InputLabel>
-        <TextArea placeholder="Introduce yourself by pitching your skills & explaining how they can be of value to a company" />
-        <InputLabel>Skills:</InputLabel>
-        <SkillsContainer>
+        <InputContainer>
+          <InputLabel>Summary:</InputLabel>
+          <TextArea placeholder="Introduce yourself by pitching your skills & explaining how they can be of value to a company" />
+        </InputContainer>
+        <InputRow>
+          <InputContainer>
+            {' '}
+            <InputLabel>Skills:</InputLabel>
+            <Input
+              type="text"
+              placeholder="ex. Technical skills, Communication skills"
+            />
+            <AddButton>Add</AddButton>
+            <SkillsBox>SKILLS</SkillsBox>
+          </InputContainer>
+          <InputContainer>
+            {' '}
+            <InputLabel>Languages:</InputLabel>
+            <Input type="text" placeholder="ex. English, Finnish" />
+            <AddButton>Add</AddButton>
+            <SkillsBox>SKILLS</SkillsBox>
+          </InputContainer>
+        </InputRow>
+        <InputRow>
+          <InputContainer></InputContainer>
+          <InputContainer></InputContainer>
+        </InputRow>
+
+        {/* <SkillsContainer>
           <InputContainer>
             <Input
               type="text"
@@ -44,25 +70,38 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = () => {
             <AddButton>Add</AddButton>
           </InputContainer>
           <SkillsBox>SKILLS</SkillsBox>
-        </SkillsContainer>
-        <InputLabel>Languages:</InputLabel>
-        <SkillsContainer>
+        </SkillsContainer> */}
+        {/* <SkillsContainer>
           <InputContainer>
             <Input type="text" placeholder="ex. English, Finnish" />
             <AddButton>Add</AddButton>
           </InputContainer>
           <SkillsBox>SKILLS</SkillsBox>
-        </SkillsContainer>
+        </SkillsContainer> */}
         <InputLabel>Work Experience:</InputLabel>
         <WorkExperienceContainer>
-          <InputLabel>Job title:</InputLabel>
-          <Input type="text" placeholder="ex. Software developer" />
-          <InputLabel>Company:</InputLabel>
-          <Input type="text" placeholder="Company name" />
-          <InputLabel>Start date:</InputLabel>
-          <Input type="text" placeholder="Enter start date Jan 2022" />
-          <InputLabel>End date:</InputLabel>
-          <Input type="text" placeholder="Enter end date Jan 2023" />
+          <InputRow>
+            <InputContainer>
+              {' '}
+              <InputLabel>Job title:</InputLabel>
+              <Input type="text" placeholder="ex. Software developer" />
+            </InputContainer>
+            <InputContainer>
+              {' '}
+              <InputLabel>Company:</InputLabel>
+              <Input type="text" placeholder="Company name" />
+            </InputContainer>
+          </InputRow>
+          <InputRow>
+            <InputContainer>
+              <InputLabel>Start date:</InputLabel>
+              <Input type="text" placeholder="Enter start date Jan 2022" />
+            </InputContainer>
+            <InputContainer>
+              <InputLabel>End date:</InputLabel>
+              <Input type="text" placeholder="Enter end date Jan 2023" />
+            </InputContainer>
+          </InputRow>
           <InputLabel>Job details:</InputLabel>
           <TextArea placeholder="Describe your role and achievements" />
         </WorkExperienceContainer>

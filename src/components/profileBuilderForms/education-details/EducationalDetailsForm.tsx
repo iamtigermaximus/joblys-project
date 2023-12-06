@@ -10,7 +10,9 @@ import {
   EducationalDetailsTitle,
   EducationalDetailsTitleContainer,
   Input,
+  InputContainer,
   InputLabel,
+  InputRow,
   SaveDetailsButton,
   SaveDetailsContainer,
 } from './EducationaDetailsForm.styles';
@@ -24,14 +26,29 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = () => {
         <EducationalDetailsTitleContainer>
           <EducationalDetailsTitle>Educational Details</EducationalDetailsTitle>
         </EducationalDetailsTitleContainer>
-        <InputLabel>School:</InputLabel>
-        <Input type="text" placeholder="ex. College, University, school" />
-        <InputLabel>Course/Degree:</InputLabel>
-        <Input type="text" placeholder="ex. Bachelors, Masters" />
-        <InputLabel>Start date:</InputLabel>
-        <Input type="text" placeholder="Enter start date or year Jan 2022" />
-        <InputLabel>End date:</InputLabel>
-        <Input type="text" placeholder="Enter end date or year Jan 2023" />
+        <InputRow>
+          <InputContainer>
+            <InputLabel>School:</InputLabel>
+            <Input type="text" placeholder="ex. College, University, school" />
+          </InputContainer>
+          <InputContainer>
+            <InputLabel>Course/Degree:</InputLabel>
+            <Input type="text" placeholder="ex. Bachelors, Masters" />
+          </InputContainer>
+        </InputRow>
+        <InputRow>
+          <InputContainer>
+            <InputLabel>Start date:</InputLabel>
+            <Input
+              type="text"
+              placeholder="Enter start date or year Jan 2022"
+            />
+          </InputContainer>
+          <InputContainer>
+            <InputLabel>End date:</InputLabel>
+            <Input type="text" placeholder="Enter end date or year Jan 2023" />
+          </InputContainer>
+        </InputRow>
         <AddEducationContainer>
           <AddEducationButton>Add work experience +</AddEducationButton>
         </AddEducationContainer>
