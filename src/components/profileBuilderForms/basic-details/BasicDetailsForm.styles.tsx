@@ -137,3 +137,42 @@ export const SaveDetailsButton = styled.button`
     width: 50%;
   }
 `;
+
+export const AddMoreLinksContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  width: 100%;
+
+  @media (min-width: ${bp.md}) {
+    justify-content: flex-start;
+  }
+`;
+
+export const AddMoreLinksButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid ${colors.ashGray};
+  border-radius: 5px;
+  background-color: ${colors.purple};
+  color: ${colors.white};
+  /* margin: 5px; */
+  font-size: 10px;
+  width: 100%;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 10px;
+
+  &:hover {
+    background: ${colors.darkPurple};
+  }
+
+  @media (min-width: ${bp.md}) {
+    font-size: 15px;
+    padding: 20px;
+    width: 50%;
+    margin-right: 5px;
+  }
+`;

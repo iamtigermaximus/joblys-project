@@ -2,6 +2,8 @@
 
 import React, { FC } from 'react';
 import {
+  AddMoreLinksButton,
+  AddMoreLinksContainer,
   BasicDetailsContainer,
   BasicDetailsTitle,
   BasicDetailsTitleContainer,
@@ -45,11 +47,13 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = () => {
         </InputRow>
         <InputRow>
           <InputContainer>
-            <InputLabel>LinkedIn:</InputLabel>
-            <Input type="url" placeholder="https://example.com" />
+            <InputLabel>Address:</InputLabel>
+            <Input type="text" placeholder="address" />
           </InputContainer>
+        </InputRow>
+        <InputRow>
           <InputContainer>
-            <InputLabel>Github:</InputLabel>
+            <InputLabel>LinkedIn:</InputLabel>
             <Input type="url" placeholder="https://example.com" />
           </InputContainer>
         </InputRow>
@@ -58,12 +62,10 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = () => {
             <InputLabel>Portfolio or Website:</InputLabel>
             <Input type="url" placeholder="https://example.com" />
           </InputContainer>
-          <InputContainer>
-            <InputLabel>Address:</InputLabel>
-            <Input type="text" placeholder="address" />
-          </InputContainer>
         </InputRow>
-
+        <AddMoreLinksContainer>
+          <AddMoreLinksButton>Add more links +</AddMoreLinksButton>
+        </AddMoreLinksContainer>
         <SaveDetailsContainer>
           <SaveDetailsButton>Save</SaveDetailsButton>
         </SaveDetailsContainer>
