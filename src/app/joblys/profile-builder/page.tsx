@@ -16,8 +16,8 @@ const ProfileBuilderPage = () => {
       {/* <Resumes /> */}
       <div>
         <BasicDetailsForm />
-        <ProfessionalDetailsForm />
-        <EducationalDetailsForm />
+        {/* <ProfessionalDetailsForm />
+        <EducationalDetailsForm /> */}
       </div>
     </Container>
   );
