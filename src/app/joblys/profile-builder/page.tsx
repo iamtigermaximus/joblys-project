@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from '../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import BasicDetailsForm from '@/components/profileBuilderForms/basic-details/BasicDetailsForm';
-// import ProfessionalDetailsForm from '@/components/profileBuilderForms/professional-details/ProfessionalDetails';
+import ProfessionalDetailsForm from '@/components/profileBuilderForms/professional-details/ProfessionalDetailsForm';
 // import EducationalDetailsForm from '@/components/profileBuilderForms/education-details/EducationalDetails';
 // import Resumes from '@/components/resumes/CreateProfile';
 
@@ -16,8 +16,8 @@ const ProfileBuilderPage = () => {
       {/* <Resumes /> */}
       <div>
         <BasicDetailsForm />
-        {/* <ProfessionalDetailsForm />
-        <EducationalDetailsForm /> */}
+        <ProfessionalDetailsForm />
+        {/* <EducationalDetailsForm /> */}
       </div>
     </Container>
   );
