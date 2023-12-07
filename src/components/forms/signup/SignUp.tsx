@@ -110,7 +110,7 @@ const SignUp = () => {
     signIn('linkedin', { callbackUrl: '/joblys/profile' });
 
   return (
-    <>
+    <Container>
       <SignUpContainer>
         <InputForm onSubmit={handleSubmit(onSubmit)}>
           <InputContainer>
@@ -190,7 +190,7 @@ const SignUp = () => {
           </ProviderContainer>
         </Providers>
       </SignUpContainer>
-    </>
+    </Container>
   );
 };
 
