@@ -9,9 +9,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding: 30px;
-  overflow-y: scroll;
 
   @media (min-width: ${bp.lg}) {
     padding: 50px 100px;
@@ -28,6 +27,11 @@ export const UploadCvContainer = styled.div`
   padding: 30px 20px;
   margin: 20px;
   flex-direction: column;
+
+  @media (min-width: ${bp.sm}) {
+    max-width: 400px;
+    padding: 30px 40px;
+  }
 
   @media (min-width: ${bp.md}) {
     max-width: 500px;

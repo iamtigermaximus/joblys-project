@@ -11,7 +11,6 @@ export const Container = styled.div`
   width: 100%;
   height: 100vh;
   padding: 20px 30px;
-  overflow-y: scroll;
 
   @media (min-width: ${bp.lg}) {
     padding: 50px 100px;
