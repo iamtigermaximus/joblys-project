@@ -1,5 +1,5 @@
-import { NextResponse, NextRequest } from 'next/server';
-import { getToken } from "next-auth/jwt"
+import { NextRequest, NextResponse } from 'next/server';
+import { getToken } from 'next-auth/jwt'
 import mammoth from 'mammoth';
 import OpenAI from 'openai';
 
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     );
   }
 
-  console.log("Use has signed in. Parsing the CV...");
+  console.log('Use has signed in. Parsing the CV...');
 
   let text;
   const readData = await req.body?.getReader().read();
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   if (text) {
-    console.log("Parsed the CV, structuring it...");
+    console.log('Parsed the CV, structuring it...');
     const chatResp = openAI.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
