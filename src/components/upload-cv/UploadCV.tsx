@@ -1,12 +1,14 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import GoogleDrive from '../../assets/googledrive.png';
 import Dropbox from '../../assets/dropbox.png';
 import OneDrive from '../../assets/one-drive.png';
+import { useState, ChangeEvent } from 'react';
 import {
-  CancelButton,
   Container,
-  FileNameContainer,
   FileUpload,
   SectionSubTitle,
   SectionTitle,
@@ -17,6 +19,36 @@ import {
 } from './UploadCV.styles';
 
 const UploadCV = () => {
+  const router = useRouter();
+  const [cvFile, setCVFile] = useState<File>();
+  
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files?.length) {
+      return;
+    }
+
+    const file = event.target.files[0];
+    setCVFile(file);
+  }
+
+  const handleUploadCV = async () => {
+    let formData = new FormData();
+    if (cvFile) {
+      formData.append('cvFile', cvFile);
+      const resp = await fetch('/api/cv', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (resp.status === 200) {
+        await resp.json();
+        router.push('/joblys/resumes');
+      } else {
+        console.log('Uploading CV failed', resp.status);
+      }
+    }
+  }
+
   return (
     <Container>
       <UploadCvContainer>
@@ -24,9 +56,13 @@ const UploadCV = () => {
           <SectionTitle>Your CV</SectionTitle>
           <SectionSubTitle>Your uploaded CV is listed below.</SectionSubTitle>
         </SectionTitleContainer>
-        <FileNameContainer>SMG_CV.pdf</FileNameContainer>
-        <FileUpload>Upload My CV or drop files here</FileUpload>
-        <CancelButton>Cancel</CancelButton>
+        <FileUpload
+          type="file"
+          accept=".docx"
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {handleFileChange(e)}} />
+        <UploadButton onClick={handleUploadCV}>
+          Upload
+        </UploadButton>
         <UploadButton>
           <UploadSourceContainer>
             <h4> Upload from Google Drive</h4>
@@ -69,4 +105,3 @@ const UploadCV = () => {
 };
 
 export default UploadCV;
-

@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // use connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 
@@ -51,6 +52,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
+  parsedCVs     ParsedCVs[]
+
   @@map(name: "users")
 }
 
@@ -62,4 +65,13 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-
+model ParsedCVs {
+  id            String   @default(cuid()) @id
+  owner         User     @relation(fields: [ownerId], references: [id])
+  ownerId       String
+  content       String
+  source        String
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  @@map(name: "parsed_cvs")
+}
