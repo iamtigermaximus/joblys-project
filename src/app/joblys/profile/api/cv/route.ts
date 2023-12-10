@@ -1,11 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
+import { getToken } from "next-auth/jwt"
 import mammoth from 'mammoth';
 import OpenAI from 'openai';
-
-import { getServerSession } from "next-auth/next"
-import { authOptions } from '../../../../../lib/auth';
-import { getToken } from "next-auth/jwt"
-
 
 const openAI = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'],
