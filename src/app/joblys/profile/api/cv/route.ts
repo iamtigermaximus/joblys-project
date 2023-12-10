@@ -4,7 +4,6 @@ import OpenAI from 'openai';
 
 import { getServerSession } from "next-auth/next"
 import { authOptions } from '../../../../../lib/auth';
-import { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from "next-auth/jwt"
 
 
@@ -14,7 +13,7 @@ const openAI = new OpenAI({
 
 const parserPromt = 'You will be provided with extracted text from a .docx CV, and your task is to parse it and organize the text. Remove unrealted text regarding the CV. Use the same structure from top to down. Output the data in JSON format. Have the following fields in the top level JSON: name, personal_information, technical_skills, languages, work_experience, personal_projects, education, interest. In the work_experiense, list with different companies and roles as json array with company_name, start_date, end_date, location, and resposibilites, job title, start date, end date. In the education list  school name, location, degree or program, start and end dates. If some field or data is missing or you cannot parse it, mark the field with n/a.';
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest, res: NextResponse) {
   const token = await getToken({ req })
   if (!token) {
     return NextResponse.json(
