@@ -11,7 +11,7 @@ const parserPromt = 'You will be provided with extracted text from a .docx CV, a
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const token = await getToken({ req })
-  if (!token) {
+  if (!!token) {
     return NextResponse.json(
       {
         'reason': 'invalid token',
