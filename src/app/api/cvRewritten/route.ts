@@ -87,7 +87,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       openaiResponse.data.choices[0].message.content
         .trim()
         .split("\n")
-        .map((line) => line.trim());
+        .map((line: string) => line.trim());
     let index = 0;
 
     for (const companyName in workExperience) {
