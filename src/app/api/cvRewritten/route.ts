@@ -3,18 +3,16 @@ import { getServerSession } from "next-auth/next";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import { Prisma, PrismaClient } from "@prisma/client";
-import OpenAI from "openai";
 import { Content } from "next/font/google";
+
+const { OpenAIApi, ChatCompletionRequest } = require("openai");
 
 const prisma = new PrismaClient();
 const original_responsibilities = String;
-const openAI = new OpenAI({
-  apiKey: process.env["OPENAI_API_KEY"],
-});
+
 const parserPromt = `Rewrite the following job responsibilities to enhance their professional appeal for a CV, while preserving their original meaning. 
 Please list your responsibilities in a bullet or numbered format. Ensure that the essence of each task remains the same, without introducing new facts or figures. 
 Each rewritten responsibility should correspond directly to the original ones provided, and try to maintain a concise length suitable for a CV.
-        
 Original Responsibilities:
 ${original_responsibilities}
 Focus on using a variety of dynamic action verbs and professional terminology, especially if your experience is in a specific industry (please mention if so). For clarity, see the examples below:
@@ -44,7 +42,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { cvId } = req.body;
 
-    const result = await prisma.rewrittenCVs.findUnique({
+    const result = await prisma.parsedCVs.findUnique({
       where: { id: cvId },
       select: { content: true },
     });
@@ -52,11 +50,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     if (result && typeof result.content === "string") {
       resumeData = { content: JSON.parse(result.content) };
     } else {
-      resumeData = { content: { "Work Experience": {} } };
-    }
-
-    if (!resumeData || !resumeData.content["Work Experience"]) {
-      return res
+        return res
         .status(404)
         .json({ message: "CV not found or missing Work Experience" });
     }
@@ -79,20 +73,15 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     const formattedResponsibilities = allResponsibilities
       .map((responsibility) => `- ${responsibility}`)
       .join("\n");
-    const prompt = `Your prompt here with ${formattedResponsibilities}`;
-
-    const openaiResponse = openAI.chat.completions.create(
-      {
-        model: "text-davinci-003",
-        prompt: prompt,
+    const modifiedPrompt = parserPromt.replace('{original_responsibilities}', formattedResponsibilities);
+    const openAI = new OpenAIApi({
+        apiKey: process.env.OPENAI_API_KEY, 
+    });
+    const openaiResponse = await openAI.createChatCompletion({
+        model: "text-davinci-003", 
+        messages: [{role: "system", content: modifiedPrompt}],
         max_tokens: allResponsibilities.length * 30,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        },
-      },
-    );
+    });
 
     const rewrittenResponsibilities =
       openaiResponse.data.choices[0].message.content
