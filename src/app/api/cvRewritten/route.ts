@@ -4,8 +4,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import { Prisma, PrismaClient } from "@prisma/client";
 import { Content } from "next/font/google";
+import OpenAI from 'openai';
 
-const { OpenAIApi, ChatCompletionRequest } = require("openai");
+// const { OpenAIApi, ChatCompletionRequest } = require("openai");
 
 const prisma = new PrismaClient();
 const original_responsibilities = String;
@@ -74,49 +75,53 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       .map((responsibility) => `- ${responsibility}`)
       .join("\n");
     const modifiedPrompt = parserPromt.replace('{original_responsibilities}', formattedResponsibilities);
-    const openAI = new OpenAIApi({
+    const openAI = new OpenAI({
         apiKey: process.env.OPENAI_API_KEY, 
     });
-    const openaiResponse = await openAI.createChatCompletion({
+    const openaiResponse = await openAI.chat.completions.create({
         model: "text-davinci-003", 
         messages: [{role: "system", content: modifiedPrompt}],
         max_tokens: allResponsibilities.length * 30,
     });
+    const responseContent = openaiResponse?.choices?.[0]?.message?.content;
 
-    const rewrittenResponsibilities =
-      openaiResponse.data.choices[0].message.content
+    if (responseContent !== undefined && responseContent !== null) {
+      const rewrittenResponsibilities = responseContent
         .trim()
         .split("\n")
         .map((line: string) => line.trim());
-    let index = 0;
+      let index = 0;
+      for (const companyName in workExperience) {
+        workExperience[companyName].forEach((position: any) => {
+          const originalResponsibilitiesCount = position.Responsibilities.length;
+          const updatedResponsibilities = rewrittenResponsibilities.slice(
+            index,
+            index + originalResponsibilitiesCount,
+          );
+          position.Responsibilities = updatedResponsibilities;
+          index += originalResponsibilitiesCount;
+        });
+      }
 
-    for (const companyName in workExperience) {
-      workExperience[companyName].forEach((position: any) => {
-        const originalResponsibilitiesCount = position.Responsibilities.length;
-        const updatedResponsibilities = rewrittenResponsibilities.slice(
-          index,
-          index + originalResponsibilitiesCount,
-        );
-        position.Responsibilities = updatedResponsibilities;
-        index += originalResponsibilitiesCount;
+      const combinedData = {
+        ...resumeData.content,
+        "Work Experience": workExperience,
+      };
+
+      const combinedDataConvertedJSON = JSON.parse(JSON.stringify(combinedData));
+
+      const updatedData = await prisma.rewrittenCVs.update({
+        where: { id: cvId },
+        data: {
+          content: combinedDataConvertedJSON,
+        },
       });
+
+      return res.status(200).json({ message: "Successful rewrite of CV" });
+    } else {
+      return res.status(500).json({ message: "Unable to rewrite CV" });
     }
 
-    const combinedData = {
-      ...resumeData.content,
-      "Work Experience": workExperience,
-    };
-
-    const combinedDataConvertedJSON = JSON.parse(JSON.stringify(combinedData));
-
-    const updatedData = await prisma.rewrittenCVs.update({
-      where: { id: cvId },
-      data: {
-        content: combinedDataConvertedJSON,
-      },
-    });
-
-    return res.status(200).json({ message: "Successful rewrite of CV" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Unable to rewrite CV" });
