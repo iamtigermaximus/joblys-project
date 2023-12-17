@@ -53,7 +53,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     );
   }
 
-  console.log('Use has signed in. Parsing the CV...');
+  console.log('Parsing the CV...');
 
   let text;
   const readData = await req.body?.getReader().read();
