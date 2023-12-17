@@ -64,13 +64,25 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   if (text) {
     console.log('Parsed the CV, persisting it...');
-    prisma.parsedCVs.create({
-      data: {
-        owner: user.id,
-        content: text,
-        source: 'docx',
-      }
-    });
+    try {
+      await prisma.parsedCVs.create({
+        data: {
+          ownerId: user.id,
+          content: text,
+          source: 'docx',
+        }
+      });
+    } catch(err) {
+      console.log('Create parsedCV: ' + err);
+      return NextResponse.json(
+        {
+          'message': 'internal server error',
+        },
+        {
+          status: 500,
+        },
+      );
+    }
     
     console.log('Parsed the CV, structuring it...');
     const chatResp = await openAI.chat.completions.create({
