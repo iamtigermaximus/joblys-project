@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt'
 import mammoth from 'mammoth';
 import OpenAI from 'openai';
+import prisma from '../../../lib/prisma';
 
 const openAI = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'],
@@ -20,10 +21,29 @@ If some field or data is missing or you cannot parse it, mark the field with n/a
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const token = await getToken({ req })
-  if (!!token) {
+  console.log('token: ' + JSON.stringify(token));
+  console.log('token2: ' + token.sub)
+  if (!!token && token != null) {
     return NextResponse.json(
       {
         'reason': 'invalid token',
+      },
+      {
+        status: 401,
+      },
+    );
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: token?.sub,
+    },
+  });
+
+  if (!!user) {
+    return NextResponse.json(
+      {
+        'reason': 'user not found',
       },
       {
         status: 401,
@@ -41,8 +61,17 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   if (text) {
+    console.log('Parsed the CV, persisting it...');
+    prisma.parsedCVs.create({
+      data: {
+        owner: user.id,
+        content: text,
+        source: 'docx',
+      }
+    });
+    
     console.log('Parsed the CV, structuring it...');
-    const chatResp = openAI.chat.completions.create({
+    const chatResp = await openAI.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
         {
@@ -58,6 +87,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       temperature: 0,
       max_tokens: 2048,
     });
+
+    console.log('Parsed CV:');
 
     return NextResponse.json(
       {
