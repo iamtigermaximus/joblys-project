@@ -41,16 +41,18 @@ interface Position {
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { cvId } = req.body;
+    const { id } = req.body;
 
-    const result = await prisma.parsedCVs.findUnique({
-      where: { id: cvId },
+    const result = await prisma.rewrittenCVs.findUnique({
+      where: { id: id },
       select: { content: true },
     });
+    console.log('Mock Result:', result);
     let resumeData: ResumeData;
     if (result && typeof result.content === "string") {
       resumeData = { content: JSON.parse(result.content) };
     } else {
+        console.log("Hello, TypeScript!", result, id);
         return res
         .status(404)
         .json({ message: "CV not found or missing Work Experience" });
@@ -111,7 +113,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       const combinedDataConvertedJSON = JSON.parse(JSON.stringify(combinedData));
 
       const updatedData = await prisma.rewrittenCVs.update({
-        where: { id: cvId },
+        where: { id: id },
         data: {
           content: combinedDataConvertedJSON,
         },

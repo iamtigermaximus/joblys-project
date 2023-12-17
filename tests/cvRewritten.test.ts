@@ -14,24 +14,41 @@ describe('POST API', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     req = {
-      body: { cvId: 'valid_cv_id' },
+      body: { id: '1' },
     };
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
   });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  
 
   it('should respond with 200 OK on successful rewrite', async () => {
     // Mock Prisma response
-    const prismaFindUniqueMock = jest.spyOn(prisma.parsedCVs, 'findUnique');
+    const prismaFindUniqueMock = jest.spyOn(prisma.rewrittenCVs, 'findUnique');
     prismaFindUniqueMock.mockResolvedValue({
-        id: 'someId',
+        id: '1',
         ownerId: 'someOwnerId',
-        content: '{"Work Experience": {}}',
+        content: {
+          "Work Experience": {
+            "Company XYZ": [
+              {
+                Position: "Software Developer",
+                Location: "City ABC",
+                StartDate: "2022-01-01",
+                EndDate: "2023-01-01",
+                Responsibilities: ["Develop new features", "Fix bugs", "Collaborate with team"],
+              },
+            ],
+          },
+        },
         source: 'someSource',
         createdAt: new Date(),
         updatedAt: new Date(),
+        cVId: 0
       });
 
     // Mock OpenAI response
@@ -39,19 +56,33 @@ describe('POST API', () => {
     
     const openAIChatCompletionMock = jest.spyOn(OpenAI.prototype, 'request');
     openAIChatCompletionMock.mockResolvedValue({
-      data: { choices: [{ message: { content: 'Rewritten content' } }] },
+      data: { choices: [{ message: { content: "Developing new features/n Fixing bugs  /n Collaborating with team" } }] },
     });
 
     // Mock Prisma update function
     const prismaUpdateMock = jest.spyOn(prisma.rewrittenCVs, 'update');
     prismaFindUniqueMock.mockResolvedValue({
-        id: 'someId',
-        ownerId: 'someOwnerId',
-        content: '{"Work Experience": {}}',
-        source: 'someSource',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+      id: 'someId',
+      ownerId: 'someOwnerId',
+      content: {
+        "Work Experience": {
+          "Company XYZ": [
+            {
+              Position: "Software Developer",
+              Location: "City ABC",
+              StartDate: "2022-01-01",
+              EndDate: "2023-01-01",
+              Responsibilities: ["Developing new features", "Fixing bugs", "Collaborating with team"],
+            },
+          ],
+        },
+      },
+      source: 'someSource',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      cVId: 0
+    });
+
 
     // Call the API function
     await POST(req as NextApiRequest, res as NextApiResponse);
