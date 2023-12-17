@@ -41,7 +41,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     },
   });
 
-  if (!!user) {
+  if (!user) {
+    console.log('User not found');
     return NextResponse.json(
       {
         'reason': 'user not found',
