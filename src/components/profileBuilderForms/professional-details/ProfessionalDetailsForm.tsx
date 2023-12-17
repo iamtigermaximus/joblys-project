@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC } from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import {
   AddButton,
   AddWorkExperienceButton,
@@ -21,10 +21,72 @@ import {
   TextArea,
   WorkExperienceContainer,
 } from './ProfessionalDetailsForm.styles';
+import { ProfessionalExperienceType, ResumeInfoType } from '@/types/profile';
 
-interface ProfessionalDetailsFormProps {}
+interface ProfessionalDetailsFormProps {
+  resumeInfo: { professional: { work: ProfessionalExperienceType[] } };
+  setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
+  setPage: Dispatch<SetStateAction<number>>;
+}
 
-const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = () => {
+const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
+  resumeInfo,
+  setResumeInfo,
+  setPage,
+}) => {
+  const [workExperience, setWorkExperience] = useState<
+    ProfessionalExperienceType[]
+  >([
+    {
+      jobTitle: '',
+      company: '',
+      startDate: '',
+      endDate: '',
+      jobDetails: '',
+    },
+  ]);
+
+  const [skills, setSkills] = useState<string[]>(['']);
+  const [languages, setLanguages] = useState<string[]>(['']);
+
+  const [currentSkill, setCurrentSkill] = useState<string>('');
+
+  const handleAddSkillClick = () => {
+    if (currentSkill.trim() !== '') {
+      setSkills((prevSkills) => [...prevSkills, currentSkill]);
+      setCurrentSkill(''); // Clear the input field after adding the skill
+    }
+  };
+
+  const [currentLanguage, setCurrentLanguage] = useState<string>('');
+
+  const handleAddLanguageClick = () => {
+    if (currentLanguage.trim() !== '') {
+      setLanguages((prevLanguages) => [...prevLanguages, currentLanguage]);
+      setCurrentLanguage(''); // Clear the input field after adding the language
+    }
+  };
+
+  const handleFieldChange = (
+    index: number,
+    field: 'skills' | 'languages',
+    value: string
+  ) => {
+    if (field === 'skills') {
+      setSkills((prevSkills) => {
+        const updatedSkills = [...prevSkills];
+        updatedSkills[index] = value;
+        return updatedSkills;
+      });
+    } else if (field === 'languages') {
+      setLanguages((prevLanguages) => {
+        const updatedLanguages = [...prevLanguages];
+        updatedLanguages[index] = value;
+        return updatedLanguages;
+      });
+    }
+  };
+
   return (
     <Container>
       <ProfessionalDetailsContainer>
@@ -39,21 +101,34 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = () => {
         </InputContainer>
         <InputRow>
           <InputContainer>
-            {' '}
             <InputLabel>Skills:</InputLabel>
             <Input
               type="text"
               placeholder="ex. Technical skills, Communication skills"
+              value={currentSkill}
+              onChange={(e) => setCurrentSkill(e.target.value)}
             />
-            <AddButton>Add</AddButton>
-            <SkillsBox>SKILLS</SkillsBox>
+            <AddButton onClick={handleAddSkillClick}>Add</AddButton>
+            <SkillsBox>
+              {skills.map((skill, index) => (
+                <span key={index}>{skill}</span>
+              ))}
+            </SkillsBox>
           </InputContainer>
           <InputContainer>
-            {' '}
             <InputLabel>Languages:</InputLabel>
-            <Input type="text" placeholder="ex. English, Finnish" />
-            <AddButton>Add</AddButton>
-            <SkillsBox>SKILLS</SkillsBox>
+            <Input
+              type="text"
+              placeholder="ex. English, Finnish"
+              value={currentLanguage}
+              onChange={(e) => setCurrentLanguage(e.target.value)}
+            />
+            <AddButton onClick={handleAddLanguageClick}>Add</AddButton>
+            <SkillsBox>
+              {languages.map((language, index) => (
+                <span key={index}>{language}</span>
+              ))}
+            </SkillsBox>
           </InputContainer>
         </InputRow>
         <InputRow>
@@ -82,12 +157,10 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = () => {
         <WorkExperienceContainer>
           <InputRow>
             <InputContainer>
-              {' '}
               <InputLabel>Job title:</InputLabel>
               <Input type="text" placeholder="ex. Software developer" />
             </InputContainer>
             <InputContainer>
-              {' '}
               <InputLabel>Company:</InputLabel>
               <Input type="text" placeholder="Company name" />
             </InputContainer>
@@ -111,8 +184,25 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = () => {
           </AddWorkExperienceButton>
         </AddWorkExperienceContainer>
         <SaveDetailsContainer>
-          <BackButton>Back</BackButton>
-          <SaveDetailsButton>Save</SaveDetailsButton>
+          <BackButton
+            onClick={() => {
+              setPage((p) => p - 1);
+            }}
+          >
+            Back
+          </BackButton>
+          <SaveDetailsButton
+            onClick={() => {
+              console.log(
+                'Resume Info before moving to next form:',
+                resumeInfo
+              );
+
+              setPage((p) => p + 1);
+            }}
+          >
+            Save
+          </SaveDetailsButton>
         </SaveDetailsContainer>
       </ProfessionalDetailsContainer>
     </Container>

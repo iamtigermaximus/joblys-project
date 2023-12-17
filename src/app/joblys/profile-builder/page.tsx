@@ -4,6 +4,7 @@ import PageHeader from '@/components/common/page-header/PageHeader';
 import BasicDetailsForm from '@/components/profileBuilderForms/basic-details/BasicDetailsForm';
 import ProfessionalDetailsForm from '@/components/profileBuilderForms/professional-details/ProfessionalDetailsForm';
 import EducationalDetailsForm from '@/components/profileBuilderForms/education-details/EducationalDetailsForm';
+import ResumeForm from '@/components/profileBuilderForms/profile-form/ResumeForm';
 // import Resumes from '@/components/resumes/CreateProfile';
 
 const ProfileBuilderPage = () => {
@@ -15,7 +16,8 @@ const ProfileBuilderPage = () => {
       <PageHeader />
       {/* <Resumes /> */}
       <div>
-        <BasicDetailsForm />
+        <ResumeForm />
+        {/* <BasicDetailsForm /> */}
         {/* <ProfessionalDetailsForm />
         <EducationalDetailsForm /> */}
       </div>

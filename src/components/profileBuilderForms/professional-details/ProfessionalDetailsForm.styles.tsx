@@ -209,13 +209,14 @@ export const AddButton = styled.button`
 
 export const SkillsBox = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px 8px;
   width: 100%;
   height: 60px;
   margin: 10px 0;
   border: 1px solid ${colors.darkPurple};
+  color: black;
+  padding: 10px;
 
   @media (min-width: ${bp.md}) {
     height: 100px;

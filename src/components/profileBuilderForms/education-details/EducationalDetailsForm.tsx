@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC } from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   AddEducationButton,
   AddEducationContainer,
@@ -16,10 +16,19 @@ import {
   SaveDetailsButton,
   SaveDetailsContainer,
 } from './EducationaDetailsForm.styles';
+import { EducationType, ResumeInfoType } from '@/types/profile';
 
-interface EducationalDetailsFormProps {}
+interface EducationalDetailsFormProps {
+  resumeInfo: { education: EducationType[] };
+  setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
+  setPage: Dispatch<SetStateAction<number>>;
+}
 
-const EducationalDetailsForm: FC<EducationalDetailsFormProps> = () => {
+const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
+  resumeInfo,
+  setResumeInfo,
+  setPage,
+}) => {
   return (
     <Container>
       <EducationalDetailsContainer>
@@ -53,7 +62,13 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = () => {
           <AddEducationButton>Add work experience +</AddEducationButton>
         </AddEducationContainer>
         <SaveDetailsContainer>
-          <BackButton>Back</BackButton>
+          <BackButton
+            onClick={() => {
+              setPage((p) => p - 1);
+            }}
+          >
+            Back
+          </BackButton>
           <SaveDetailsButton>Save & Submit</SaveDetailsButton>
         </SaveDetailsContainer>
       </EducationalDetailsContainer>
