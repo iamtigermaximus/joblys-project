@@ -3,15 +3,15 @@ import { getServerSession } from "next-auth/next";
 
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import prisma  from "../../../lib/prisma"
+import prisma from "../../../lib/prisma";
 import { Content } from "next/font/google";
-import OpenAI from 'openai';
-// import { prismaMock } from '../../../../singleton'
+import OpenAI from "openai";
+import { prismaMock } from "../../../../singleton";
 import { JsonValue } from "@prisma/client/runtime/library";
 
 import { Prisma, PrismaClient } from "@prisma/client";
 
-const prismaMock = new PrismaClient();
+// const prismaMock = new PrismaClient();
 
 const original_responsibilities = String;
 
@@ -51,14 +51,10 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       select: { content: true },
     });
     let resumeData: ResumeData;
-    if (result && typeof result.content!=null) {
-      
-
-
-      resumeData =  JSON.parse(JSON.stringify(result));
-      
+    if (result && typeof result.content != null) {
+      resumeData = JSON.parse(JSON.stringify(result));
     } else {
-        return res
+      return res
         .status(404)
         .json({ message: "CV not found or missing Work Experience" });
     }
@@ -81,17 +77,20 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     const formattedResponsibilities = allResponsibilities
       .map((responsibility) => `- ${responsibility}`)
       .join("\n");
-    const modifiedPrompt = parserPromt.replace('{original_responsibilities}', formattedResponsibilities);
+    const modifiedPrompt = parserPromt.replace(
+      "{original_responsibilities}",
+      formattedResponsibilities,
+    );
     const openAI = new OpenAI({
-        apiKey: process.env.OPENAI_API_KEY, 
+      apiKey: process.env.OPENAI_API_KEY,
     });
-    const openaiResponse = await openAI.chat.completions.create({
-        model: "text-davinci-003", 
-        messages: [{role: "system", content: modifiedPrompt}],
-        max_tokens: allResponsibilities.length * 30,
+    const openaiResponse = await openAI.completions.create({
+      model: "text-davinci-003",
+      prompt: modifiedPrompt,
+      max_tokens: allResponsibilities.length * 30,
     });
-    
-    const responseContent = openaiResponse?.choices?.[0]?.message?.content;
+
+    const responseContent = openaiResponse?.choices?.[0]?.text;
     if (responseContent !== undefined && responseContent !== null) {
       const rewrittenResponsibilities = responseContent
         .trim()
@@ -100,7 +99,8 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       let index = 0;
       for (const companyName in workExperience) {
         workExperience[companyName].forEach((position: any) => {
-          const originalResponsibilitiesCount = position.Responsibilities.length;
+          const originalResponsibilitiesCount =
+            position.Responsibilities.length;
           const updatedResponsibilities = rewrittenResponsibilities.slice(
             index,
             index + originalResponsibilitiesCount,
@@ -114,9 +114,10 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
         ...resumeData.content,
         "Work Experience": workExperience,
       };
-      
 
-      const combinedDataConvertedJSON = JSON.parse(JSON.stringify(combinedData));
+      const combinedDataConvertedJSON = JSON.parse(
+        JSON.stringify(combinedData),
+      );
 
       const updatedData = await prismaMock.rewrittenCVs.update({
         where: { id: id },
@@ -128,7 +129,6 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     } else {
       return res.status(500).json({ message: "Unable to rewrite CV" });
     }
-
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Unable to rewrite CV" });
