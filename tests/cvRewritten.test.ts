@@ -1,8 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Prisma, PrismaClient } from "@prisma/client";
 import OpenAI from 'openai';
 import POST from "../src/app/api/cvRewritten/route"
-import prisma  from "../src/lib/prisma"
 import { prismaMock } from '../singleton'
 
 

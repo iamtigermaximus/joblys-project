@@ -6,8 +6,12 @@ import { getToken } from "next-auth/jwt";
 import prisma  from "../../../lib/prisma"
 import { Content } from "next/font/google";
 import OpenAI from 'openai';
-import { prismaMock } from '../../../../singleton'
+// import { prismaMock } from '../../../../singleton'
 import { JsonValue } from "@prisma/client/runtime/library";
+
+import { Prisma, PrismaClient } from "@prisma/client";
+
+const prismaMock = new PrismaClient();
 
 const original_responsibilities = String;
 
