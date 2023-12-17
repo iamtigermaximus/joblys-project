@@ -15,7 +15,7 @@ const BuildProfileSection = () => {
   const router = useRouter();
 
   const handleBuildProfile = () => {
-    router.push('/joblys/profile/build-profile');
+    router.push('/joblys/profile-builder');
   };
   return (
     <CreateProfileSection>
