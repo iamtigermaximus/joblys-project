@@ -2,13 +2,12 @@ import { NextResponse, NextRequest } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
-import { Prisma, PrismaClient } from "@prisma/client";
+import prisma  from "../../../lib/prisma"
 import { Content } from "next/font/google";
 import OpenAI from 'openai';
 
 // const { OpenAIApi, ChatCompletionRequest } = require("openai");
 
-const prisma = new PrismaClient();
 const original_responsibilities = String;
 
 const parserPromt = `Rewrite the following job responsibilities to enhance their professional appeal for a CV, while preserving their original meaning. 
@@ -42,17 +41,15 @@ interface Position {
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { id } = req.body;
-
     const result = await prisma.rewrittenCVs.findUnique({
       where: { id: id },
       select: { content: true },
     });
-    console.log('Mock Result:', result);
+    console.log('Mock Result:', result, id);
     let resumeData: ResumeData;
     if (result && typeof result.content === "string") {
       resumeData = { content: JSON.parse(result.content) };
     } else {
-        console.log("Hello, TypeScript!", result, id);
         return res
         .status(404)
         .json({ message: "CV not found or missing Work Experience" });
