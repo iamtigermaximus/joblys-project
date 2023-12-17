@@ -103,8 +103,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       max_tokens: 2048,
     });
 
-    console.log('Parsed CV:');
-
     return NextResponse.json(
       {
         'message': 'parsing succeeded',
