@@ -23,7 +23,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const token = await getToken({ req })
   console.log('token: ' + JSON.stringify(token));
   console.log('token2: ' + token.sub)
-  if (!!token && token != null) {
+  if (!token && token != null) {
     return NextResponse.json(
       {
         'reason': 'invalid token',
