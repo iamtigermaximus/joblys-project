@@ -64,7 +64,7 @@ describe('POST API', () => {
 
     const prismaUpdateMock = jest.spyOn(prismaMock.rewrittenCVs, 'update');
     prismaFindUniqueMock.mockResolvedValue({
-      id: 'someId',
+      id: '1',
       ownerId: 'someOwnerId',
       content: {
         "Work Experience": {
@@ -103,15 +103,28 @@ describe('POST API', () => {
   });
 
   it('should respond with 500 if an error occurs during rewrite', async () => {
-    const prismaFindUniqueMock = jest.spyOn(prismaMock.parsedCVs, 'findUnique');
+    const prismaFindUniqueMock = jest.spyOn(prismaMock.rewrittenCVs, 'findUnique');
     prismaFindUniqueMock.mockResolvedValue({
-        id: 'someId',
-        ownerId: 'someOwnerId',
-        content: '{"Work Experience": {}}',
-        source: 'someSource',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+      id: '1',
+      ownerId: 'someOwnerId',
+      content: {
+        "Work Experience": {
+          "Company XYZ": [
+            {
+              Position: "Software Developer",
+              Location: "City ABC",
+              StartDate: "2022-01-01",
+              EndDate: "2023-01-01",
+              Responsibilities: ["Developing new features", "Fixing bugs", "Collaborating with team"],
+            },
+          ],
+        },
+      },
+      source: 'someSource',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      cVId: 0
+    });
 
     const openAIChatCompletionMock = jest.spyOn(OpenAI.prototype, 'request');
     openAIChatCompletionMock.mockRejectedValue(new Error('Some error'));
