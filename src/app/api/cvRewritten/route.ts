@@ -1,12 +1,13 @@
 import { NextResponse, NextRequest } from "next/server";
 import { getServerSession } from "next-auth/next";
+
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import prisma  from "../../../lib/prisma"
 import { Content } from "next/font/google";
 import OpenAI from 'openai';
-
-// const { OpenAIApi, ChatCompletionRequest } = require("openai");
+import { prismaMock } from '../../../../singleton'
+import { JsonValue } from "@prisma/client/runtime/library";
 
 const original_responsibilities = String;
 
@@ -41,14 +42,17 @@ interface Position {
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { id } = req.body;
-    const result = await prisma.rewrittenCVs.findUnique({
+    const result = await prismaMock.rewrittenCVs.findUnique({
       where: { id: id },
       select: { content: true },
     });
-    console.log('Mock Result:', result, id);
     let resumeData: ResumeData;
-    if (result && typeof result.content === "string") {
-      resumeData = { content: JSON.parse(result.content) };
+    if (result && typeof result.content!=null) {
+      
+
+
+      resumeData =  JSON.parse(JSON.stringify(result));
+      
     } else {
         return res
         .status(404)
@@ -82,8 +86,8 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
         messages: [{role: "system", content: modifiedPrompt}],
         max_tokens: allResponsibilities.length * 30,
     });
+    
     const responseContent = openaiResponse?.choices?.[0]?.message?.content;
-
     if (responseContent !== undefined && responseContent !== null) {
       const rewrittenResponsibilities = responseContent
         .trim()
@@ -106,16 +110,16 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
         ...resumeData.content,
         "Work Experience": workExperience,
       };
+      
 
       const combinedDataConvertedJSON = JSON.parse(JSON.stringify(combinedData));
 
-      const updatedData = await prisma.rewrittenCVs.update({
+      const updatedData = await prismaMock.rewrittenCVs.update({
         where: { id: id },
         data: {
           content: combinedDataConvertedJSON,
         },
       });
-
       return res.status(200).json({ message: "Successful rewrite of CV" });
     } else {
       return res.status(500).json({ message: "Unable to rewrite CV" });
