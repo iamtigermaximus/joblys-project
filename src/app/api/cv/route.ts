@@ -83,7 +83,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
     
     console.log('Parsed the CV, structuring it...');
-
     const chatResp = openAI.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
