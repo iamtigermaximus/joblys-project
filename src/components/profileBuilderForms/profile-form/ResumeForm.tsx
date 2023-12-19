@@ -25,6 +25,7 @@ const ResumeForm: React.FC = () => {
       languages: [],
       work: [
         {
+          id: '',
           jobTitle: '',
           company: '',
           startDate: '',
@@ -33,14 +34,17 @@ const ResumeForm: React.FC = () => {
         },
       ],
     },
-    education: [
-      {
-        school: '',
-        course: '',
-        startDate: '',
-        endDate: '',
-      },
-    ],
+    educational: {
+      education: [
+        {
+          id: '',
+          school: '',
+          course: '',
+          startDate: '',
+          endDate: '',
+        },
+      ],
+    },
   };
 
   const [resumeInfo, setResumeInfo] = useState(initialState);
@@ -51,6 +55,7 @@ const ResumeForm: React.FC = () => {
         return (
           <BasicDetailsForm
             resumeInfo={{ basic: resumeInfo.basic }}
+            // resumeInfo={resumeInfo}
             setResumeInfo={setResumeInfo}
             setPage={setPage}
           />
@@ -61,6 +66,7 @@ const ResumeForm: React.FC = () => {
             resumeInfo={{
               professional: resumeInfo.professional,
             }}
+            // resumeInfo={resumeInfo}
             setResumeInfo={setResumeInfo}
             setPage={setPage}
           />
@@ -68,7 +74,8 @@ const ResumeForm: React.FC = () => {
       case 2:
         return (
           <EducationalDetailsForm
-            resumeInfo={{ education: resumeInfo.education }}
+            resumeInfo={{ educational: resumeInfo.educational }}
+            // resumeInfo={resumeInfo}
             setResumeInfo={setResumeInfo}
             setPage={setPage}
           />

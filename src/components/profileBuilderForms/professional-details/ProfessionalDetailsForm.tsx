@@ -22,6 +22,7 @@ import {
   WorkExperienceContainer,
 } from './ProfessionalDetailsForm.styles';
 import { ProfessionalExperienceType, ResumeInfoType } from '@/types/profile';
+import { v4 as uuidv4 } from 'uuid';
 
 interface ProfessionalDetailsFormProps {
   resumeInfo: { professional: { work: ProfessionalExperienceType[] } };
@@ -38,6 +39,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     ProfessionalExperienceType[]
   >([
     {
+      id: '',
       jobTitle: '',
       company: '',
       startDate: '',
@@ -46,14 +48,40 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     },
   ]);
 
-  const [skills, setSkills] = useState<string[]>(['']);
-  const [languages, setLanguages] = useState<string[]>(['']);
+  const handleAddWorkExperience = () => {
+    const newId = uuidv4();
+
+    setResumeInfo((prevInfo) => ({
+      ...prevInfo,
+      professional: {
+        ...prevInfo.professional,
+        work: [
+          ...prevInfo.professional.work,
+          {
+            id: newId,
+            jobTitle: '',
+            company: '',
+            startDate: '',
+            endDate: '',
+            jobDetails: '',
+          },
+        ],
+      },
+    }));
+  };
+
+  const [skills, setSkills] = useState<{ id: string; name: string }[]>([]);
+  const [languages, setLanguages] = useState<{ id: string; name: string }[]>(
+    []
+  );
 
   const [currentSkill, setCurrentSkill] = useState<string>('');
 
   const handleAddSkillClick = () => {
+    const newSkillId = uuidv4();
+    const newSkill = { id: newSkillId, name: currentSkill };
     if (currentSkill.trim() !== '') {
-      setSkills((prevSkills) => [...prevSkills, currentSkill]);
+      setSkills((prevSkills) => [...prevSkills, newSkill]);
       setCurrentSkill(''); // Clear the input field after adding the skill
     }
   };
@@ -61,27 +89,31 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   const [currentLanguage, setCurrentLanguage] = useState<string>('');
 
   const handleAddLanguageClick = () => {
+    const newLanguageId = uuidv4();
+    const newLanguage = { id: newLanguageId, name: currentSkill };
     if (currentLanguage.trim() !== '') {
-      setLanguages((prevLanguages) => [...prevLanguages, currentLanguage]);
+      setLanguages((prevLanguages) => [...prevLanguages, newLanguage]);
       setCurrentLanguage(''); // Clear the input field after adding the language
     }
   };
 
   const handleFieldChange = (
-    index: number,
+    id: string,
     field: 'skills' | 'languages',
     value: string
   ) => {
     if (field === 'skills') {
       setSkills((prevSkills) => {
-        const updatedSkills = [...prevSkills];
-        updatedSkills[index] = value;
+        const updatedSkills = prevSkills.map((skill) =>
+          skill.id === id ? { ...skill, name: value } : skill
+        );
         return updatedSkills;
       });
     } else if (field === 'languages') {
       setLanguages((prevLanguages) => {
-        const updatedLanguages = [...prevLanguages];
-        updatedLanguages[index] = value;
+        const updatedLanguages = prevLanguages.map((language) =>
+          language.id === id ? { ...language, name: value } : language
+        );
         return updatedLanguages;
       });
     }
@@ -110,8 +142,8 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             />
             <AddButton onClick={handleAddSkillClick}>Add</AddButton>
             <SkillsBox>
-              {skills.map((skill, index) => (
-                <span key={index}>{skill}</span>
+              {skills.map((skill) => (
+                <span key={skill.id}>{skill.name}</span>
               ))}
             </SkillsBox>
           </InputContainer>
@@ -125,8 +157,8 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             />
             <AddButton onClick={handleAddLanguageClick}>Add</AddButton>
             <SkillsBox>
-              {languages.map((language, index) => (
-                <span key={index}>{language}</span>
+              {languages.map((language) => (
+                <span key={language.id}>{language.name}</span>
               ))}
             </SkillsBox>
           </InputContainer>
@@ -135,51 +167,35 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
           <InputContainer></InputContainer>
           <InputContainer></InputContainer>
         </InputRow>
-
-        {/* <SkillsContainer>
-          <InputContainer>
-            <Input
-              type="text"
-              placeholder="ex. Technical skills, Communication skills"
-            />
-            <AddButton>Add</AddButton>
-          </InputContainer>
-          <SkillsBox>SKILLS</SkillsBox>
-        </SkillsContainer> */}
-        {/* <SkillsContainer>
-          <InputContainer>
-            <Input type="text" placeholder="ex. English, Finnish" />
-            <AddButton>Add</AddButton>
-          </InputContainer>
-          <SkillsBox>SKILLS</SkillsBox>
-        </SkillsContainer> */}
         <InputLabel>Work Experience:</InputLabel>
-        <WorkExperienceContainer>
-          <InputRow>
-            <InputContainer>
-              <InputLabel>Job title:</InputLabel>
-              <Input type="text" placeholder="ex. Software developer" />
-            </InputContainer>
-            <InputContainer>
-              <InputLabel>Company:</InputLabel>
-              <Input type="text" placeholder="Company name" />
-            </InputContainer>
-          </InputRow>
-          <InputRow>
-            <InputContainer>
-              <InputLabel>Start date:</InputLabel>
-              <Input type="text" placeholder="Enter start date Jan 2022" />
-            </InputContainer>
-            <InputContainer>
-              <InputLabel>End date:</InputLabel>
-              <Input type="text" placeholder="Enter end date Jan 2023" />
-            </InputContainer>
-          </InputRow>
-          <InputLabel>Job details:</InputLabel>
-          <TextArea placeholder="Describe your role and achievements" />
-        </WorkExperienceContainer>
+        {resumeInfo.professional.work.map((experience) => (
+          <WorkExperienceContainer key={experience.id}>
+            <InputRow>
+              <InputContainer>
+                <InputLabel>Job title:</InputLabel>
+                <Input type="text" placeholder="ex. Software developer" />
+              </InputContainer>
+              <InputContainer>
+                <InputLabel>Company:</InputLabel>
+                <Input type="text" placeholder="Company name" />
+              </InputContainer>
+            </InputRow>
+            <InputRow>
+              <InputContainer>
+                <InputLabel>Start date:</InputLabel>
+                <Input type="text" placeholder="Enter start date Jan 2022" />
+              </InputContainer>
+              <InputContainer>
+                <InputLabel>End date:</InputLabel>
+                <Input type="text" placeholder="Enter end date Jan 2023" />
+              </InputContainer>
+            </InputRow>
+            <InputLabel>Job details:</InputLabel>
+            <TextArea placeholder="Describe your role and achievements" />
+          </WorkExperienceContainer>
+        ))}
         <AddWorkExperienceContainer>
-          <AddWorkExperienceButton>
+          <AddWorkExperienceButton onClick={handleAddWorkExperience}>
             Add work experience +
           </AddWorkExperienceButton>
         </AddWorkExperienceContainer>

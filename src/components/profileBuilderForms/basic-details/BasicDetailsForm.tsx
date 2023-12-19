@@ -16,6 +16,7 @@ import {
   SaveDetailsContainer,
 } from './BasicDetailsForm.styles';
 import { BasicInfoType, ResumeInfoType } from '@/types/profile';
+import { v4 as uuidv4 } from 'uuid';
 
 interface BasicDetailsFormProps {
   resumeInfo: { basic: BasicInfoType };
@@ -31,25 +32,40 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
   const [additionalLinks, setAdditionalLinks] = useState<string[]>(['']);
 
   const handleAddMoreLinks = () => {
-    setResumeInfo((prevInfo) => ({
-      ...prevInfo,
-      basic: {
-        ...prevInfo.basic,
-        additionalLinks: [...prevInfo.basic.additionalLinks, ''],
-      },
-    }));
-  };
-
-  const handleAdditionalLinkChange = (index: number, value: string) => {
+    const newId = uuidv4();
     setResumeInfo((prevInfo) => ({
       ...prevInfo,
       basic: {
         ...prevInfo.basic,
         additionalLinks: [
-          ...prevInfo.basic.additionalLinks.slice(0, index),
-          value,
-          ...prevInfo.basic.additionalLinks.slice(index + 1),
+          ...prevInfo.basic.additionalLinks,
+          { id: newId, url: '' },
         ],
+      },
+    }));
+  };
+
+  // const handleAdditionalLinkChange = (index: number, value: string) => {
+  //   setResumeInfo((prevInfo) => ({
+  //     ...prevInfo,
+  //     basic: {
+  //       ...prevInfo.basic,
+  //       additionalLinks: [
+  //         ...prevInfo.basic.additionalLinks.slice(0, index),
+  //         value,
+  //         ...prevInfo.basic.additionalLinks.slice(index + 1),
+  //       ],
+  //     },
+  //   }));
+  // };
+  const handleAdditionalLinkChange = (id: string, value: string) => {
+    setResumeInfo((prevInfo) => ({
+      ...prevInfo,
+      basic: {
+        ...prevInfo.basic,
+        additionalLinks: prevInfo.basic.additionalLinks.map((link) =>
+          link.id === id ? { ...link, url: value } : link
+        ),
       },
     }));
   };
@@ -136,16 +152,16 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
             />
           </InputContainer>
         </InputRow>
-        {resumeInfo.basic.additionalLinks.map((link, index) => (
-          <InputRow key={index}>
+        {resumeInfo.basic.additionalLinks.map((link) => (
+          <InputRow key={link.id}>
             <InputContainer>
-              <InputLabel>{`Additional Link ${index + 1}:`}</InputLabel>
+              <InputLabel>Additional Link</InputLabel>
               <Input
                 type="url"
-                placeholder={`https://additional-link-${index + 1}.com`}
-                value={link}
+                placeholder={`https://additional-link-${link.id}.com`}
+                value={link.url}
                 onChange={(e) =>
-                  handleAdditionalLinkChange(index, e.target.value)
+                  handleAdditionalLinkChange(link.id, e.target.value)
                 }
               />
             </InputContainer>
