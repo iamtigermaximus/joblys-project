@@ -6,12 +6,12 @@ import { getToken } from "next-auth/jwt";
 import prisma from "../../../lib/prisma";
 import { Content } from "next/font/google";
 import OpenAI from "openai";
-import { prismaMock } from "../../../../singleton";
+// import { prisma } from "../../../../singleton";
 import { JsonValue } from "@prisma/client/runtime/library";
 
 import { Prisma, PrismaClient } from "@prisma/client";
 
-// const prismaMock = new PrismaClient();
+// const prisma = new PrismaClient();
 
 const original_responsibilities = String;
 
@@ -46,7 +46,7 @@ interface Position {
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { id } = req.body;
-    const result = await prismaMock.rewrittenCVs.findUnique({
+    const result = await prisma.rewrittenCVs.findUnique({
       where: { id: id },
       select: { content: true },
     });
@@ -119,7 +119,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
         JSON.stringify(combinedData),
       );
 
-      const updatedData = await prismaMock.rewrittenCVs.update({
+      const updatedData = await prisma.rewrittenCVs.update({
         where: { id: id },
         data: {
           content: combinedDataConvertedJSON,

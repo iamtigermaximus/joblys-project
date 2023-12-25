@@ -1,11 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import OpenAI from "openai";
 import POST from "../src/app/api/cvRewritten/route";
-import { prismaMock } from "../singleton";
+import prisma from "../src/lib/prisma";
 
 import { MockContext, Context, createMockContext } from "../context";
 
-jest.mock("../src/lib/prisma.ts");
+// jest.mock("../src/lib/prisma.ts");
 
 describe("POST API", () => {
   let req: Partial<NextApiRequest>;
@@ -29,35 +29,35 @@ describe("POST API", () => {
     jest.clearAllMocks();
   });
 
-  test("should make a successful request to OpenAI and print the full response", async () => {
-    jest.mock("openai");
-    const openAI = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
+  // test("should make a successful request to OpenAI and print the full response", async () => {
+  //   jest.mock("openai");
+  //   const openAI = new OpenAI({
+  //     apiKey: process.env.OPENAI_API_KEY,
+  //   });
 
-    const parserPromt = `Rewrite the following job responsibilities to enhance their professional appeal for a CV, while preserving their original meaning. 
-    Please list your responsibilities in a bullet or numbered format. Ensure that the essence of each task remains the same, without introducing new facts or figures. 
-    Each rewritten responsibility should correspond directly to the original ones provided, and try to maintain a concise length suitable for a CV.
-    Original Responsibilities:
-    "Developing new features \nFixing bugs  \nCollaborating with team"
-    Focus on using a variety of dynamic action verbs and professional terminology, especially if your experience is in a specific industry (please mention if so). For clarity, see the examples below:
+  //   const parserPromt = `Rewrite the following job responsibilities to enhance their professional appeal for a CV, while preserving their original meaning. 
+  //   Please list your responsibilities in a bullet or numbered format. Ensure that the essence of each task remains the same, without introducing new facts or figures. 
+  //   Each rewritten responsibility should correspond directly to the original ones provided, and try to maintain a concise length suitable for a CV.
+  //   Original Responsibilities:
+  //   "Developing new features \nFixing bugs  \nCollaborating with team"
+  //   Focus on using a variety of dynamic action verbs and professional terminology, especially if your experience is in a specific industry (please mention if so). For clarity, see the examples below:
 
-    Developed and optimized back-end APIs for a large-scale e-commerce platform, leading to significant improvements in response time.
-    Designed and executed a comprehensive digital marketing strategy, substantially increasing online brand presence and social media engagement.
-    Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.`;
+  //   Developed and optimized back-end APIs for a large-scale e-commerce platform, leading to significant improvements in response time.
+  //   Designed and executed a comprehensive digital marketing strategy, substantially increasing online brand presence and social media engagement.
+  //   Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.`;
 
-    const result = await openAI.completions.create({
-      model: "text-davinci-003",
-      prompt: parserPromt,
-      max_tokens: 3 * 30,
-    });
-    expect(result?.choices?.[0]?.text).toBeTruthy();
-    console.log("Full OpenAI result:", result?.choices?.[0]?.text);
-  });
+  //   const result = await openAI.completions.create({
+  //     model: "text-davinci-003",
+  //     prompt: parserPromt,
+  //     max_tokens: 3 * 30,
+  //   });
+  //   expect(result?.choices?.[0]?.text).toBeTruthy();
+  //   console.log("Full OpenAI result:", result?.choices?.[0]?.text);
+  // });
 
   it("should respond with 200 OK on successful rewrite", async () => {
     const prismaFindUniqueMock = jest.spyOn(
-      prismaMock.rewrittenCVs,
+      prisma.rewrittenCVs,
       "findUnique",
     );
     prismaFindUniqueMock.mockResolvedValue({
@@ -95,7 +95,7 @@ describe("POST API", () => {
       ],
     });
 
-    const prismaUpdateMock = jest.spyOn(prismaMock.rewrittenCVs, "update");
+    const prismaUpdateMock = jest.spyOn(prisma.rewrittenCVs, "update");
     prismaFindUniqueMock.mockResolvedValue({
       id: "1",
       ownerId: "someOwnerId",
@@ -131,7 +131,7 @@ describe("POST API", () => {
   });
 
   it("should respond with 404 if CV is not found or missing work experience", async () => {
-    const prismaFindUniqueMock = jest.spyOn(prismaMock.parsedCVs, "findUnique");
+    const prismaFindUniqueMock = jest.spyOn(prisma.parsedCVs, "findUnique");
     prismaFindUniqueMock.mockResolvedValue(null);
 
     await POST(req as NextApiRequest, res as NextApiResponse);
@@ -144,7 +144,7 @@ describe("POST API", () => {
 
   it("should respond with 500 if an error occurs during rewrite", async () => {
     const prismaFindUniqueMock = jest.spyOn(
-      prismaMock.rewrittenCVs,
+      prisma.rewrittenCVs,
       "findUnique",
     );
     prismaFindUniqueMock.mockResolvedValue({
