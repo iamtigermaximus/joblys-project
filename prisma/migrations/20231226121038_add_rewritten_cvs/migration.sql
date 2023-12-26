@@ -2,7 +2,7 @@
 CREATE TABLE "rewritten_cvs" (
     "id" TEXT NOT NULL,
     "ownerId" TEXT NOT NULL,
-    "content" JSONB NOT NULL,
+    "content" TEXT NOT NULL,
     "source" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,

@@ -27,9 +27,7 @@ Designed and executed a comprehensive digital marketing strategy, substantially 
 Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.`;
 
 interface ResumeData {
-  content: {
-    "Work Experience": WorkExperience;
-  };
+  "Work Experience": WorkExperience;
 }
 
 interface WorkExperience {
@@ -52,7 +50,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     });
     let resumeData: ResumeData;
     if (result && typeof result.content != null) {
-      resumeData = JSON.parse(JSON.stringify(result));
+      resumeData = JSON.parse(result.content);
     } else {
       return res
         .status(404)
@@ -60,7 +58,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     }
 
     let allResponsibilities: string[] = [];
-    const workExperience = resumeData.content["Work Experience"];
+    const workExperience = resumeData["Work Experience"];
 
     for (const companyName in workExperience) {
       const positions = workExperience[companyName];
@@ -73,6 +71,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
         }
       });
     }
+
 
     const formattedResponsibilities = allResponsibilities
       .map((responsibility) => `- ${responsibility}`)
@@ -111,20 +110,19 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       }
 
       const combinedData = {
-        ...resumeData.content,
+        ...resumeData,
         "Work Experience": workExperience,
       };
 
-      const combinedDataConvertedJSON = JSON.parse(
-        JSON.stringify(combinedData),
-      );
+      const combinedDataConvertedJSON = JSON.stringify(combinedData);
 
-      const updatedData = await prisma.rewrittenCVs.update({
+      const result = await prisma.rewrittenCVs.update({
         where: { id: id },
         data: {
           content: combinedDataConvertedJSON,
         },
       });
+
       return res.status(200).json({ message: "Successful rewrite of CV" });
     } else {
       return res.status(500).json({ message: "Unable to rewrite CV" });
