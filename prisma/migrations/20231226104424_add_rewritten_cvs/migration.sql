@@ -6,7 +6,6 @@ CREATE TABLE "rewritten_cvs" (
     "source" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
-    "cVId" TEXT NOT NULL,
 
     CONSTRAINT "rewritten_cvs_pkey" PRIMARY KEY ("id")
 );
