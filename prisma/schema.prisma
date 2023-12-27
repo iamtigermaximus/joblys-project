@@ -52,7 +52,7 @@ model User {
   sessions      Session[]
 
   parsedCVs    ParsedCVs[]
-  RewrittenCVs RewrittenCVs[]
+  rewrittenCVs RewrittenCVs[]
 
   @@map(name: "users")
 }

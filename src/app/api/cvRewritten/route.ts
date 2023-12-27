@@ -1,17 +1,7 @@
-import { NextResponse, NextRequest } from "next/server";
-import { getServerSession } from "next-auth/next";
-
 import { NextApiRequest, NextApiResponse } from "next";
-import { getToken } from "next-auth/jwt";
 import prisma from "../../../lib/prisma";
-import { Content } from "next/font/google";
 import OpenAI from "openai";
-// import { prisma } from "../../../../singleton";
-import { JsonValue } from "@prisma/client/runtime/library";
 
-import { Prisma, PrismaClient } from "@prisma/client";
-
-// const prisma = new PrismaClient();
 
 const original_responsibilities = String;
 
@@ -49,7 +39,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       select: { content: true },
     });
     let resumeData: ResumeData;
-    if (result && typeof result.content != null) {
+    if (result?.content != null) {
       resumeData = JSON.parse(result.content);
     } else {
       return res
