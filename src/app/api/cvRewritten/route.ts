@@ -1,7 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
-import OpenAI from "openai";
-
+import { NextApiRequest, NextApiResponse } from 'next';
+import prisma from '../../../lib/prisma';
+import OpenAI from 'openai';
 
 const original_responsibilities = String;
 
@@ -17,7 +16,7 @@ Designed and executed a comprehensive digital marketing strategy, substantially 
 Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.`;
 
 interface ResumeData {
-  "Work Experience": WorkExperience;
+  'Work Experience': WorkExperience;
 }
 
 interface WorkExperience {
@@ -32,93 +31,91 @@ interface Position {
 }
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const { id } = req.body;
-    const result = await prisma.rewrittenCVs.findUnique({
-      where: { id: id },
-      select: { content: true },
-    });
-    let resumeData: ResumeData;
-    if (result?.content != null) {
-      resumeData = JSON.parse(result.content);
-    } else {
-      return res
-        .status(404)
-        .json({ message: "CV not found or missing Work Experience" });
-    }
+  const { id } = req.body;
 
-    let allResponsibilities: string[] = [];
-    const workExperience = resumeData["Work Experience"];
+  if (!id) {
+    return res.status(400).json({ message: 'ID not provided' });
+  }
 
-    for (const companyName in workExperience) {
-      const positions = workExperience[companyName];
-      positions.forEach((position: { Responsibilities: string[] }) => {
-        if (Array.isArray(position.Responsibilities)) {
-          allResponsibilities = [
-            ...allResponsibilities,
-            ...position.Responsibilities,
-          ];
-        }
-      });
-    }
+  const result = await prisma.rewrittenCVs.findUnique({
+    where: { id: id },
+    select: { content: true }
+  });
+  let resumeData: ResumeData;
+  if (result?.content != null) {
+    resumeData = JSON.parse(result.content);
+  } else {
+    return res
+      .status(404)
+      .json({ message: 'CV not found or missing Work Experience' });
+  }
 
+  let allResponsibilities: string[] = [];
+  const workExperience = resumeData['Work Experience'];
 
-    const formattedResponsibilities = allResponsibilities
-      .map((responsibility) => `- ${responsibility}`)
-      .join("\n");
-    const modifiedPrompt = parserPromt.replace(
-      "{original_responsibilities}",
-      formattedResponsibilities,
-    );
-    const openAI = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-    const openaiResponse = await openAI.completions.create({
-      model: "text-davinci-003",
-      prompt: modifiedPrompt,
-      max_tokens: allResponsibilities.length * 30,
-    });
-
-    const responseContent = openaiResponse?.choices?.[0]?.text;
-    if (responseContent !== undefined && responseContent !== null) {
-      const rewrittenResponsibilities = responseContent
-        .trim()
-        .split("\n")
-        .map((line: string) => line.trim());
-      let index = 0;
-      for (const companyName in workExperience) {
-        workExperience[companyName].forEach((position: any) => {
-          const originalResponsibilitiesCount =
-            position.Responsibilities.length;
-          const updatedResponsibilities = rewrittenResponsibilities.slice(
-            index,
-            index + originalResponsibilitiesCount,
-          );
-          position.Responsibilities = updatedResponsibilities;
-          index += originalResponsibilitiesCount;
-        });
+  for (const companyName in workExperience) {
+    const positions = workExperience[companyName];
+    positions.forEach((position: { Responsibilities: string[] }) => {
+      if (Array.isArray(position.Responsibilities)) {
+        allResponsibilities = [
+          ...allResponsibilities,
+          ...position.Responsibilities
+        ];
       }
+    });
+  }
 
-      const combinedData = {
-        ...resumeData,
-        "Work Experience": workExperience,
-      };
+  const formattedResponsibilities = allResponsibilities
+    .map(responsibility => `- ${responsibility}`)
+    .join('\n');
+  const modifiedPrompt = parserPromt.replace(
+    '{original_responsibilities}',
+    formattedResponsibilities
+  );
+  const openAI = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+  });
+  const openaiResponse = await openAI.completions.create({
+    model: 'text-davinci-003',
+    prompt: modifiedPrompt,
+    max_tokens: allResponsibilities.length * 30
+  });
 
-      const combinedDataConvertedJSON = JSON.stringify(combinedData);
-
-      const result = await prisma.rewrittenCVs.update({
-        where: { id: id },
-        data: {
-          content: combinedDataConvertedJSON,
-        },
+  const responseContent = openaiResponse?.choices?.[0]?.text;
+  if (responseContent === undefined || responseContent === null) {
+    return res.status(500).json({ message: 'Unable to rewrite CV' });
+  } else {
+    const rewrittenResponsibilities = responseContent
+      .trim()
+      .split('\n')
+      .map((line: string) => line.trim());
+    let index = 0;
+    for (const companyName in workExperience) {
+      workExperience[companyName].forEach((position: any) => {
+        const originalResponsibilitiesCount = position.Responsibilities.length;
+        const updatedResponsibilities = rewrittenResponsibilities.slice(
+          index,
+          index + originalResponsibilitiesCount
+        );
+        position.Responsibilities = updatedResponsibilities;
+        index += originalResponsibilitiesCount;
       });
-
-      return res.status(200).json({ message: "Successful rewrite of CV" });
-    } else {
-      return res.status(500).json({ message: "Unable to rewrite CV" });
     }
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Unable to rewrite CV" });
+
+    const combinedData = {
+      ...resumeData,
+      'Work Experience': workExperience
+    };
+
+    const combinedDataConvertedJSON = JSON.stringify(combinedData);
+
+    const result = await prisma.rewrittenCVs.update({
+      where: { id: id },
+      data: {
+        content: combinedDataConvertedJSON
+      }
+    });
+
+    return res.status(200).json({ message: 'Successful rewrite of CV' });
   }
 }
