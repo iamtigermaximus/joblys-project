@@ -115,29 +115,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const structuredCVContent = chatResp?.choices[0]?.message?.content;
-    if (!structuredCVContent) {
-      console.log('ChatGPT response did not contain parsed CV');
-      return NextResponse.json(
-        {
-          body: {
-            message: 'no structured CV response',
-          }
-        },
-        { status: 500 }
-      );
-    }
-
+    let structuredCVContent;
     try {
-      await prisma.structuredCVs.create({
-        data: {
-          ownerId: user.id,
-          parsedCVId: parsedCV.id,
-          content: structuredCVContent,
-        }
-      });
+      structuredCVContent = JSON.parse(chatResp?.choices[0]?.message?.content!);
+      if (!structuredCVContent) {
+        console.log('ChatGPT response did not contain parsed CV');
+        return NextResponse.json(
+          {
+            body: {
+              message: 'no structured CV response',
+            }
+          },
+          { status: 500 }
+        );
+      }
     } catch(err) {
-      console.log('Update parsedCV: ' + err);
+      console.log(`Error parsing ChatGPT response: ${err}`);
       return NextResponse.json(
         {
           body: {
@@ -147,6 +140,29 @@ export async function POST(req: NextRequest) {
         { status: 500 }
       );
     }
+
+    console.log('Stuctured the CV, persisting it...');
+    try {
+      await prisma.structuredCVs.create({
+        data: {
+          ownerId: user.id,
+          parsedCVId: parsedCV.id,
+          content: structuredCVContent,
+        }
+      });
+    } catch(err) {
+      console.log(`Update parsedCV: ${err}`);
+      return NextResponse.json(
+        {
+          body: {
+            message: 'internal server error',
+          }
+        },
+        { status: 500 }
+      );
+    }
+
+    console.log('Successfully persisted the CV');
 
     return NextResponse.json(
       {
