@@ -19,18 +19,13 @@ const parserPromt = `You will be provided with extracted text from a .docx CV, a
 - interests (array of strings).
 If some field or data is missing or you cannot parse it, mark the field with n/a.`;
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const token = await getToken({ req })
   if (!token && token != null) {
     console.log('invalid token');
-    return NextResponse.json(
-      {
-        'reason': 'invalid token',
-      },
-      {
-        status: 401,
-      },
-    );
+    return res
+      .status(401)
+      .json({ 'reason': 'invalid token' });
   }
 
   const user = await prisma.user.findUnique({
@@ -43,11 +38,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
     console.log('User not found');
     return NextResponse.json(
       {
-        'reason': 'user not found',
+        body: {
+          message: 'user not found'
+        }
       },
-      {
-        status: 401,
-      },
+      { status: 401 }
     );
   }
 
@@ -74,11 +69,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
       console.log('Create parsedCV: ' + err);
       return NextResponse.json(
         {
-          'message': 'internal server error',
+          body: {
+            message: 'internal server error'
+          }
         },
-        {
-          status: 500,
-        },
+        { status: 500 }
       );
     }
     
@@ -102,20 +97,20 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(
       {
-        'message': 'parsing succeeded',
+        body: {
+          message: 'parsing succeeded',
+        }
       },
-      {
-        status: 200,
-      },
+      { status: 200 }
     );
   }
 
   return NextResponse.json(
     {
-      'message': 'unable to parse cv',
+      body: {
+        message: 'unable to parse cv',
+      }
     },
-    {
-      status: 500,
-    },
+    { status: 500 }
   );
 }
