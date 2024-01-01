@@ -62,8 +62,9 @@ export async function POST(req: NextRequest) {
 
   if (text) {
     console.log('Parsed the CV, persisting it...');
+    let parsedCV;
     try {
-      await prisma.parsedCVs.create({
+      parsedCV = await prisma.parsedCVs.create({
         data: {
           ownerId: user.id,
           content: text,
@@ -82,23 +83,70 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    console.log('Parsed the CV, structuring it...');
-    const chatResp = openAI.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [
+    console.log('Structuring the CV...');
+    let chatResp;
+    try {
+      chatResp = await openAI.chat.completions.create({
+        model: 'gpt-3.5-turbo',
+        messages: [
+          {
+            'role': 'system',
+            'content': parserPromt,
+          },
+          {
+            'role': 'user',
+            'content': text,
+          },
+        ],
+        stream: false,
+        temperature: 0,
+        max_tokens: 2048,
+      });
+    } catch(err) {
+      console.log(`Error from OpenAI client: ${err}`);
+
+      return NextResponse.json(
         {
-          'role': 'system',
-          'content': parserPromt,
+          body: {
+            message: 'internal server error',
+          }
         },
+        { status: 500 }
+      );
+    }
+
+    const structuredCVContent = chatResp?.choices[0]?.message?.content;
+    if (!structuredCVContent) {
+      console.log('ChatGPT response did not contain parsed CV');
+      return NextResponse.json(
         {
-          'role': 'user',
-          'content': text,
+          body: {
+            message: 'no structured CV response',
+          }
         },
-      ],
-      stream: false,
-      temperature: 0,
-      max_tokens: 2048,
-    });
+        { status: 500 }
+      );
+    }
+
+    try {
+      await prisma.structuredCVs.create({
+        data: {
+          ownerId: user.id,
+          parsedCVId: parsedCV.id,
+          content: structuredCVContent,
+        }
+      });
+    } catch(err) {
+      console.log('Update parsedCV: ' + err);
+      return NextResponse.json(
+        {
+          body: {
+            message: 'internal server error',
+          }
+        },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json(
       {
