@@ -80,9 +80,10 @@ model ParsedCVs {
 
 model StructuredCVs {
   id         String    @id @default(cuid())
+  ParsedCV   ParsedCVs @relation(fields: [parsedCVId], references: [id])
+  parsedCVId String
   owner      User      @relation(fields: [ownerId], references: [id])
   ownerId    String
-  fromParsed ParsedCVs @relation(fields: [id], references: [id])
   content    String
 
   createdAt DateTime @default(now()) @map(name: "created_at")
