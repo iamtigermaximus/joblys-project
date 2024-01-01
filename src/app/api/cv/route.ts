@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         body: {
-          message: 'invalid token'
+          message: 'invalid token',
         }
       },
       { status: 401 }
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         body: {
-          message: 'user not found'
+          message: 'user not found',
         }
       },
       { status: 401 }
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           body: {
-            message: 'internal server error'
+            message: 'internal server error',
           }
         },
         { status: 500 }
