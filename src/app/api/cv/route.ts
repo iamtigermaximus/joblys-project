@@ -23,9 +23,14 @@ export async function POST(req: NextRequest) {
   const token = await getToken({ req })
   if (!token && token != null) {
     console.log('invalid token');
-    return res
-      .status(401)
-      .json({ 'reason': 'invalid token' });
+    return NextResponse.json(
+      {
+        body: {
+          message: 'invalid token'
+        }
+      },
+      { status: 401 }
+    );
   }
 
   const user = await prisma.user.findUnique({
