@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
 
-
 const parserPromt = `Rewrite the following job responsibilities to enhance their professional appeal for a CV, while preserving their original meaning. 
 Please list your responsibilities in a bullet or numbered format. Ensure that the essence of each task remains the same, without introducing new facts or figures. 
 Each rewritten responsibility should correspond directly to the original ones provided, and try to maintain a concise length suitable for a CV.
@@ -76,7 +75,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     apiKey: process.env.OPENAI_API_KEY
   });
   const openaiResponse = await openAI.completions.create({
-    model: 'text-davinci-003',
+    model: 'gpt-3.5-turbo-instruct',
     prompt: modifiedPrompt,
     max_tokens: allResponsibilities.length * 30
   });

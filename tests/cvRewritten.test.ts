@@ -152,12 +152,12 @@ describe('POST API', () => {
     Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.`;
 
     const result = await openAI.completions.create({
-      model: 'text-davinci-003',
+      model: 'gpt-3.5-turbo-instruct',
       prompt: parserPromt,
       max_tokens: 3 * 30
     });
     expect(result?.choices?.[0]?.text).toBeTruthy();
-  });
+  }, 10000);
 
   it('should respond with 200 OK on successful rewrite', async () => {
     const existingUser = await prisma.user.findUnique({
