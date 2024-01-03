@@ -2,13 +2,12 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
 
-const original_responsibilities = String;
 
 const parserPromt = `Rewrite the following job responsibilities to enhance their professional appeal for a CV, while preserving their original meaning. 
 Please list your responsibilities in a bullet or numbered format. Ensure that the essence of each task remains the same, without introducing new facts or figures. 
 Each rewritten responsibility should correspond directly to the original ones provided, and try to maintain a concise length suitable for a CV.
 Original Responsibilities:
-${original_responsibilities}
+{original_responsibilities}
 Focus on using a variety of dynamic action verbs and professional terminology, especially if your experience is in a specific industry (please mention if so). For clarity, see the examples below:
 
 Developed and optimized back-end APIs for a large-scale e-commerce platform, leading to significant improvements in response time.

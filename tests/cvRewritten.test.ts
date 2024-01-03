@@ -157,7 +157,6 @@ describe('POST API', () => {
       max_tokens: 3 * 30
     });
     expect(result?.choices?.[0]?.text).toBeTruthy();
-    console.log('Full OpenAI result:', result?.choices?.[0]?.text);
   });
 
   it('should respond with 200 OK on successful rewrite', async () => {
