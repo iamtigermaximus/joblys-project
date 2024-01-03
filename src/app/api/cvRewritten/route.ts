@@ -21,6 +21,7 @@ interface ResumeData {
 interface WorkExperience {
   [companyName: string]: Position[];
 }
+
 interface Position {
   Position: string;
   Location: string;
