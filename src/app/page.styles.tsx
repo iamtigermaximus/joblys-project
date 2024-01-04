@@ -131,8 +131,18 @@ export const GetStartedButton = styled.button`
 export const ResumeFormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center;
   /* align-items: center; */
+
+  @media (min-width: ${bp.lg}) {
+    flex-direction: row;
+    width: 50%;
+    /* border: 1px solid red; */
+  }
+`;
+
+export const FormViewerContainer = styled.div`
+  display: flex;
 
   @media (min-width: ${bp.lg}) {
     flex-direction: row;

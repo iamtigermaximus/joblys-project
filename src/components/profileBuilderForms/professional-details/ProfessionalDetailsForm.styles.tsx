@@ -30,12 +30,12 @@ export const ProfessionalDetailsContainer = styled.div`
   color: ${colors.white};
 
   @media (min-width: ${bp.sm}) {
-    max-width: 400px;
-    padding: 30px 40px;
+    /* max-width: 400px;
+    padding: 30px 40px; */
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: 800px;
+    /* max-width: 800px; */
   }
 `;
 
