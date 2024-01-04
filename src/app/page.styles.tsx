@@ -6,9 +6,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   background-color: #b4ecf9;
   flex-direction: column;
 
@@ -125,5 +125,16 @@ export const GetStartedButton = styled.button`
   @media (min-width: ${bp.lg}) {
     width: 150px;
     letter-spacing: 1px;
+  }
+`;
+
+export const ResumeFormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+
+  @media (min-width: ${bp.lg}) {
+    flex-direction: row;
   }
 `;

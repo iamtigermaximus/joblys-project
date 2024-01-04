@@ -5,10 +5,9 @@ import BasicDetailsForm from '../basic-details/BasicDetailsForm';
 import ProfessionalDetailsForm from '../professional-details/ProfessionalDetailsForm';
 import EducationalDetailsForm from '../education-details/EducationalDetailsForm';
 import { ResumeInfoType } from '@/types/profile';
+import { Container } from './ResumeForm.styles';
 
 const ResumeForm: React.FC = () => {
-  const [page, setPage] = useState(0);
-
   const initialState: ResumeInfoType = {
     basic: {
       firstName: '',
@@ -49,43 +48,24 @@ const ResumeForm: React.FC = () => {
 
   const [resumeInfo, setResumeInfo] = useState(initialState);
 
-  const renderForm = () => {
-    switch (page) {
-      case 0:
-        return (
-          <BasicDetailsForm
-            resumeInfo={{ basic: resumeInfo.basic }}
-            // resumeInfo={resumeInfo}
-            setResumeInfo={setResumeInfo}
-            setPage={setPage}
-          />
-        );
-      case 1:
-        return (
-          <ProfessionalDetailsForm
-            resumeInfo={{
-              professional: resumeInfo.professional,
-            }}
-            // resumeInfo={resumeInfo}
-            setResumeInfo={setResumeInfo}
-            setPage={setPage}
-          />
-        );
-      case 2:
-        return (
-          <EducationalDetailsForm
-            resumeInfo={{ educational: resumeInfo.educational }}
-            // resumeInfo={resumeInfo}
-            setResumeInfo={setResumeInfo}
-            setPage={setPage}
-          />
-        );
-      default:
-        return;
-    }
-  };
-
-  return <div>{renderForm()}</div>;
+  return (
+    <Container>
+      <BasicDetailsForm
+        resumeInfo={{ basic: resumeInfo.basic }}
+        setResumeInfo={setResumeInfo}
+      />
+      <ProfessionalDetailsForm
+        resumeInfo={{
+          professional: resumeInfo.professional,
+        }}
+        setResumeInfo={setResumeInfo}
+      />
+      <EducationalDetailsForm
+        resumeInfo={{ educational: resumeInfo.educational }}
+        setResumeInfo={setResumeInfo}
+      />
+    </Container>
+  );
 };
 
 export default ResumeForm;

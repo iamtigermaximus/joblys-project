@@ -7,11 +7,11 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   padding: 20px 30px;
 
   @media (min-width: ${bp.lg}) {
-    padding: 50px 100px;
+    /* padding: 50px 100px; */
   }
 `;
 
@@ -24,7 +24,6 @@ export const BasicDetailsContainer = styled.div`
   width: 100%;
   padding: 30px 20px;
   margin: 20px;
-  flex-direction: column;
   color: ${colors.white};
 
   @media (min-width: ${bp.sm}) {

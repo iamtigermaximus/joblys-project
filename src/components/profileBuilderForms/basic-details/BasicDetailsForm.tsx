@@ -21,13 +21,13 @@ import { v4 as uuidv4 } from 'uuid';
 interface BasicDetailsFormProps {
   resumeInfo: { basic: BasicInfoType };
   setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
-  setPage: Dispatch<SetStateAction<number>>;
+  // setPage: Dispatch<SetStateAction<number>>;
 }
 
 const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
   resumeInfo,
   setResumeInfo,
-  setPage,
+  // setPage,
 }) => {
   const [additionalLinks, setAdditionalLinks] = useState<string[]>(['']);
 
@@ -181,7 +181,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
                 resumeInfo
               );
 
-              setPage((p) => p + 1);
+              // setPage((p) => p + 1);
             }}
           >
             Save

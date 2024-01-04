@@ -22,13 +22,13 @@ import { v4 as uuidv4 } from 'uuid';
 interface EducationalDetailsFormProps {
   resumeInfo: { educational: { education: EducationType[] } };
   setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
-  setPage: Dispatch<SetStateAction<number>>;
+  // setPage: Dispatch<SetStateAction<number>>;
 }
 
 const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
   resumeInfo,
   setResumeInfo,
-  setPage,
+  // setPage,
 }) => {
   const addEducation = () => {
     const newId = uuidv4();
@@ -97,7 +97,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
         <SaveDetailsContainer>
           <BackButton
             onClick={() => {
-              setPage((p) => p - 1);
+              // setPage((p) => p - 1);
             }}
           >
             Back
@@ -109,7 +109,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                 resumeInfo
               );
 
-              setPage((p) => p + 1);
+              // setPage((p) => p + 1);
             }}
           >
             Save & Submit
