@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["next", "@types/node", "react", "node"],
+    "types": ["next", "@types/node", "react", "node", "jest"],
 
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -25,5 +25,6 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "strictNullChecks": true
 }
