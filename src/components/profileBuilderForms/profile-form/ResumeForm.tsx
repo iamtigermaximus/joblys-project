@@ -5,10 +5,15 @@ import BasicDetailsForm from '../basic-details/BasicDetailsForm';
 import ProfessionalDetailsForm from '../professional-details/ProfessionalDetailsForm';
 import EducationalDetailsForm from '../education-details/EducationalDetailsForm';
 import { ResumeInfoType } from '@/types/profile';
+import {
+  AccordionContainer,
+  AccordionContent,
+  AccordionHeader,
+  AccordionSection,
+  Container,
+} from './ResumeForm.styles';
 
 const ResumeForm: React.FC = () => {
-  const [page, setPage] = useState(0);
-
   const initialState: ResumeInfoType = {
     basic: {
       firstName: '',
@@ -48,44 +53,73 @@ const ResumeForm: React.FC = () => {
   };
 
   const [resumeInfo, setResumeInfo] = useState(initialState);
+  const [accordionState, setAccordionState] = useState({
+    basic: true,
+    professional: false,
+    educational: false,
+  });
 
-  const renderForm = () => {
-    switch (page) {
-      case 0:
-        return (
-          <BasicDetailsForm
-            resumeInfo={{ basic: resumeInfo.basic }}
-            // resumeInfo={resumeInfo}
-            setResumeInfo={setResumeInfo}
-            setPage={setPage}
-          />
-        );
-      case 1:
-        return (
-          <ProfessionalDetailsForm
-            resumeInfo={{
-              professional: resumeInfo.professional,
-            }}
-            // resumeInfo={resumeInfo}
-            setResumeInfo={setResumeInfo}
-            setPage={setPage}
-          />
-        );
-      case 2:
-        return (
-          <EducationalDetailsForm
-            resumeInfo={{ educational: resumeInfo.educational }}
-            // resumeInfo={resumeInfo}
-            setResumeInfo={setResumeInfo}
-            setPage={setPage}
-          />
-        );
-      default:
-        return;
-    }
+  const toggleAccordion = (section: keyof typeof accordionState) => {
+    setAccordionState((prevState) => {
+      const newState = {
+        basic: false,
+        professional: false,
+        educational: false,
+      };
+      newState[section] = true;
+      return newState;
+    });
   };
 
-  return <div>{renderForm()}</div>;
+  return (
+    <Container>
+      <AccordionContainer>
+        <AccordionSection>
+          <AccordionHeader onClick={() => toggleAccordion('basic')}>
+            Basic Details
+          </AccordionHeader>
+          {accordionState.basic && (
+            <AccordionContent>
+              <BasicDetailsForm
+                resumeInfo={{ basic: resumeInfo.basic }}
+                setResumeInfo={setResumeInfo}
+              />
+            </AccordionContent>
+          )}
+        </AccordionSection>
+
+        <AccordionSection>
+          <AccordionHeader onClick={() => toggleAccordion('professional')}>
+            Professional Details
+          </AccordionHeader>
+          {accordionState.professional && (
+            <AccordionContent>
+              <ProfessionalDetailsForm
+                resumeInfo={{
+                  professional: resumeInfo.professional,
+                }}
+                setResumeInfo={setResumeInfo}
+              />
+            </AccordionContent>
+          )}
+        </AccordionSection>
+
+        <AccordionSection>
+          <AccordionHeader onClick={() => toggleAccordion('educational')}>
+            Educational Details
+          </AccordionHeader>
+          {accordionState.educational && (
+            <AccordionContent>
+              <EducationalDetailsForm
+                resumeInfo={{ educational: resumeInfo.educational }}
+                setResumeInfo={setResumeInfo}
+              />
+            </AccordionContent>
+          )}
+        </AccordionSection>
+      </AccordionContainer>
+    </Container>
+  );
 };
 
 export default ResumeForm;

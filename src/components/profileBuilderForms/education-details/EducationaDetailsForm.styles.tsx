@@ -11,7 +11,7 @@ export const Container = styled.div`
   padding: 20px 30px;
 
   @media (min-width: ${bp.lg}) {
-    padding: 50px 100px;
+    /* padding: 50px 100px; */
   }
 `;
 
@@ -28,12 +28,12 @@ export const EducationalDetailsContainer = styled.div`
   color: ${colors.white};
 
   @media (min-width: ${bp.sm}) {
-    max-width: 400px;
-    padding: 30px 40px;
+    /* max-width: 400px;
+    padding: 30px 40px; */
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: 800px;
+    /* max-width: 800px; */
   }
 `;
 
@@ -54,11 +54,6 @@ export const EducationalDetailsTitle = styled.h1`
     font-size: 25px;
   }
 `;
-
-// export const InputContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-// `;
 
 export const InputRow = styled.div`
   display: flex;

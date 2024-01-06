@@ -7,13 +7,13 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   padding: 20px 30px;
   /* overflow-y: scroll; */
 
   @media (min-width: ${bp.lg}) {
-    padding: 50px 100px;
-    height: 100%;
+    /* padding: 50px 100px; */
+    /* height: 100%; */
   }
 `;
 
@@ -30,12 +30,12 @@ export const ProfessionalDetailsContainer = styled.div`
   color: ${colors.white};
 
   @media (min-width: ${bp.sm}) {
-    max-width: 400px;
-    padding: 30px 40px;
+    /* max-width: 400px;
+    padding: 30px 40px; */
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: 800px;
+    /* max-width: 800px; */
   }
 `;
 

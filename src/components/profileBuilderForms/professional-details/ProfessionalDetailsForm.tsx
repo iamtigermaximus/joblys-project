@@ -27,13 +27,13 @@ import { v4 as uuidv4 } from 'uuid';
 interface ProfessionalDetailsFormProps {
   resumeInfo: { professional: { work: ProfessionalExperienceType[] } };
   setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
-  setPage: Dispatch<SetStateAction<number>>;
+  // setPage: Dispatch<SetStateAction<number>>;
 }
 
 const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   resumeInfo,
   setResumeInfo,
-  setPage,
+  // setPage,
 }) => {
   const [workExperience, setWorkExperience] = useState<
     ProfessionalExperienceType[]
@@ -202,7 +202,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
         <SaveDetailsContainer>
           <BackButton
             onClick={() => {
-              setPage((p) => p - 1);
+              // setPage((p) => p - 1);
             }}
           >
             Back
@@ -214,7 +214,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                 resumeInfo
               );
 
-              setPage((p) => p + 1);
+              // setPage((p) => p + 1);
             }}
           >
             Save
