@@ -2,7 +2,18 @@
 
 import { ResumeInfoType, SkillType } from '@/types/profile';
 import React, { Dispatch, FC, SetStateAction } from 'react';
-import { Container, SkillsDetailsContainer } from './SkillForm.styles';
+import {
+  AddButton,
+  AddNewSkillContainer,
+  Container,
+  DoneButton,
+  Input,
+  InputContainer,
+  InputLabel,
+  SkillsDetailsContainer,
+  TrashIcon
+} from './SkillForm.styles';
+import { FaTrash } from 'react-icons/fa';
 
 interface SkillsFormProps {
   resumeInfo: { skills: { skill: SkillType[] } };
@@ -16,7 +27,24 @@ const SkillsForm: FC<SkillsFormProps> = ({
 }) => {
   return (
     <Container>
-      <SkillsDetailsContainer>SkillsForm</SkillsDetailsContainer>
+      <SkillsDetailsContainer>
+        <InputContainer>
+          <InputLabel>Skill:</InputLabel>
+          <Input
+            type="text"
+            placeholder="eg. Javascript"
+            // value={resumeInfo.skills.skill}
+            // onChange={e => handleInputChange('email', e.target.value)}
+          />
+          <AddNewSkillContainer>
+            <TrashIcon>
+              <FaTrash />
+            </TrashIcon>
+            <DoneButton>Done</DoneButton>
+          </AddNewSkillContainer>
+          <AddButton>Add new skill</AddButton>
+        </InputContainer>
+      </SkillsDetailsContainer>
     </Container>
   );
 };
