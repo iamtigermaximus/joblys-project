@@ -78,6 +78,8 @@ export const Input = styled.input`
   padding: 10px;
   /* margin: 5px 0; */
   font-size: 12px;
+  height: 40px;
+  margin-bottom: 10px;
 
   /* @media (min-width: ${bp.md}) {
     font-size: 15px;
@@ -85,8 +87,7 @@ export const Input = styled.input`
      margin: 5px; 
   } */
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    padding: 20px;
+    font-size: 13px;
     /* margin: 5px; */
     background-color: #f5f5f5;
     border: none;
@@ -182,9 +183,8 @@ export const AddEducationButton = styled.button`
   }
 
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    padding: 20px;
-    width: 50%;
+    font-size: 13px;
+    width: 30%;
     margin-right: 5px;
   }
 `;

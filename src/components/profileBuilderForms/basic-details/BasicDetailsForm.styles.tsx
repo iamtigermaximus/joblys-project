@@ -86,12 +86,13 @@ export const Input = styled.input`
   font-size: 12px;
 
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    padding: 20px;
+    font-size: 13px;
     /* margin: 5px; */
     background-color: #f5f5f5;
     border: none;
     color: black;
+    height: 40px;
+    margin-bottom: 10px;
 
     &:focus {
       outline: 0.5px solid gray;
@@ -177,9 +178,43 @@ export const AddMoreLinksButton = styled.button`
   }
 
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    padding: 20px;
-    width: 50%;
+    font-size: 13px;
+    width: 30%;
     margin-right: 5px;
   }
+`;
+
+export const AddNewLinksContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  /* margin: 10px 0; */
+  padding: 10px;
+`;
+
+export const DoneButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  padding: 5px;
+  border: 1px solid red;
+  background-color: purple;
+  color: white;
+  border-radius: 3px;
+  border: none;
+  border: 1px solid purple;
+`;
+
+export const TrashIcon = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  margin: 0 5px;
+  font-size: 16px;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 3px;
 `;

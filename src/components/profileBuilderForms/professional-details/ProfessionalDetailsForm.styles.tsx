@@ -80,7 +80,7 @@ export const TextArea = styled.textarea`
   padding: 10px;
   /* margin: 5px 0; */
   font-size: 12px;
-  height: 80px;
+  height: 100px;
 
   /* @media (min-width: ${bp.md}) {
     font-size: 15px;
@@ -89,8 +89,7 @@ export const TextArea = styled.textarea`
   } */
 
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    padding: 20px;
+    font-size: 13px;
     /* margin: 5px; */
     background-color: #f5f5f5;
     border: none;
@@ -186,9 +185,11 @@ export const Input = styled.input`
   /* margin: 5px 0; */
   font-size: 12px;
   width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    padding: 20px;
+    font-size: 13px;
     /* margin: 5px; */
     background-color: #f5f5f5;
     border: none;
@@ -281,9 +282,7 @@ export const AddWorkExperienceButton = styled.button`
   }
 
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    padding: 20px;
-    width: 50%;
-    margin-right: 5px;
+    font-size: 13px;
+    width: 40%;
   }
 `;
