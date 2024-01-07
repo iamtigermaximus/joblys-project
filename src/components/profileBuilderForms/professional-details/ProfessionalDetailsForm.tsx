@@ -2,24 +2,24 @@
 
 import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import {
-  AddButton,
+  // AddButton,
   AddWorkExperienceButton,
   AddWorkExperienceContainer,
-  BackButton,
+  // BackButton,
   Container,
   Input,
   InputContainer,
   InputLabel,
   InputRow,
   ProfessionalDetailsContainer,
-  ProfessionalDetailsTitle,
-  ProfessionalDetailsTitleContainer,
-  SaveDetailsButton,
-  SaveDetailsContainer,
-  SkillsBox,
-  SkillsContainer,
+  // ProfessionalDetailsTitle,
+  // ProfessionalDetailsTitleContainer,
+  // SaveDetailsButton,
+  // SaveDetailsContainer,
+  // SkillsBox,
+  // SkillsContainer,
   TextArea,
-  WorkExperienceContainer,
+  WorkExperienceContainer
 } from './ProfessionalDetailsForm.styles';
 import { ProfessionalExperienceType, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
@@ -32,7 +32,7 @@ interface ProfessionalDetailsFormProps {
 
 const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   resumeInfo,
-  setResumeInfo,
+  setResumeInfo
   // setPage,
 }) => {
   const [workExperience, setWorkExperience] = useState<
@@ -44,14 +44,14 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
       company: '',
       startDate: '',
       endDate: '',
-      jobDetails: '',
-    },
+      jobDetails: ''
+    }
   ]);
 
   const handleAddWorkExperience = () => {
     const newId = uuidv4();
 
-    setResumeInfo((prevInfo) => ({
+    setResumeInfo(prevInfo => ({
       ...prevInfo,
       professional: {
         ...prevInfo.professional,
@@ -63,10 +63,10 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             company: '',
             startDate: '',
             endDate: '',
-            jobDetails: '',
-          },
-        ],
-      },
+            jobDetails: ''
+          }
+        ]
+      }
     }));
   };
 
@@ -81,7 +81,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     const newSkillId = uuidv4();
     const newSkill = { id: newSkillId, name: currentSkill };
     if (currentSkill.trim() !== '') {
-      setSkills((prevSkills) => [...prevSkills, newSkill]);
+      setSkills(prevSkills => [...prevSkills, newSkill]);
       setCurrentSkill(''); // Clear the input field after adding the skill
     }
   };
@@ -92,7 +92,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     const newLanguageId = uuidv4();
     const newLanguage = { id: newLanguageId, name: currentSkill };
     if (currentLanguage.trim() !== '') {
-      setLanguages((prevLanguages) => [...prevLanguages, newLanguage]);
+      setLanguages(prevLanguages => [...prevLanguages, newLanguage]);
       setCurrentLanguage(''); // Clear the input field after adding the language
     }
   };
@@ -103,15 +103,15 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     value: string
   ) => {
     if (field === 'skills') {
-      setSkills((prevSkills) => {
-        const updatedSkills = prevSkills.map((skill) =>
+      setSkills(prevSkills => {
+        const updatedSkills = prevSkills.map(skill =>
           skill.id === id ? { ...skill, name: value } : skill
         );
         return updatedSkills;
       });
     } else if (field === 'languages') {
-      setLanguages((prevLanguages) => {
-        const updatedLanguages = prevLanguages.map((language) =>
+      setLanguages(prevLanguages => {
+        const updatedLanguages = prevLanguages.map(language =>
           language.id === id ? { ...language, name: value } : language
         );
         return updatedLanguages;
@@ -122,53 +122,53 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   return (
     <Container>
       <ProfessionalDetailsContainer>
-        <ProfessionalDetailsTitleContainer>
+        {/* <ProfessionalDetailsTitleContainer>
           <ProfessionalDetailsTitle>
             Professional Experience
           </ProfessionalDetailsTitle>
-        </ProfessionalDetailsTitleContainer>
+        </ProfessionalDetailsTitleContainer> */}
         <InputContainer>
           <InputLabel>Summary:</InputLabel>
           <TextArea placeholder="Introduce yourself by pitching your skills & explaining how they can be of value to a company" />
         </InputContainer>
         <InputRow>
-          <InputContainer>
+          {/* <InputContainer>
             <InputLabel>Skills:</InputLabel>
             <Input
               type="text"
               placeholder="ex. Technical skills, Communication skills"
               value={currentSkill}
-              onChange={(e) => setCurrentSkill(e.target.value)}
+              onChange={e => setCurrentSkill(e.target.value)}
             />
             <AddButton onClick={handleAddSkillClick}>Add</AddButton>
             <SkillsBox>
-              {skills.map((skill) => (
+              {skills.map(skill => (
                 <span key={skill.id}>{skill.name}</span>
               ))}
             </SkillsBox>
-          </InputContainer>
-          <InputContainer>
+          </InputContainer> */}
+          {/* <InputContainer>
             <InputLabel>Languages:</InputLabel>
             <Input
               type="text"
               placeholder="ex. English, Finnish"
               value={currentLanguage}
-              onChange={(e) => setCurrentLanguage(e.target.value)}
+              onChange={e => setCurrentLanguage(e.target.value)}
             />
             <AddButton onClick={handleAddLanguageClick}>Add</AddButton>
             <SkillsBox>
-              {languages.map((language) => (
+              {languages.map(language => (
                 <span key={language.id}>{language.name}</span>
               ))}
             </SkillsBox>
-          </InputContainer>
+          </InputContainer> */}
         </InputRow>
         <InputRow>
           <InputContainer></InputContainer>
           <InputContainer></InputContainer>
         </InputRow>
         <InputLabel>Work Experience:</InputLabel>
-        {resumeInfo.professional.work.map((experience) => (
+        {resumeInfo.professional.work.map(experience => (
           <WorkExperienceContainer key={experience.id}>
             <InputRow>
               <InputContainer>
@@ -194,12 +194,13 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             <TextArea placeholder="Describe your role and achievements" />
           </WorkExperienceContainer>
         ))}
+
         <AddWorkExperienceContainer>
           <AddWorkExperienceButton onClick={handleAddWorkExperience}>
             Add work experience +
           </AddWorkExperienceButton>
         </AddWorkExperienceContainer>
-        <SaveDetailsContainer>
+        {/* <SaveDetailsContainer>
           <BackButton
             onClick={() => {
               // setPage((p) => p - 1);
@@ -219,7 +220,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
           >
             Save
           </SaveDetailsButton>
-        </SaveDetailsContainer>
+        </SaveDetailsContainer> */}
       </ProfessionalDetailsContainer>
     </Container>
   );

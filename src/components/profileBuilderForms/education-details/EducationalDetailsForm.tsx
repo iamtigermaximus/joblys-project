@@ -14,7 +14,7 @@ import {
   InputLabel,
   InputRow,
   SaveDetailsButton,
-  SaveDetailsContainer,
+  SaveDetailsContainer
 } from './EducationaDetailsForm.styles';
 import { EducationType, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
@@ -27,12 +27,12 @@ interface EducationalDetailsFormProps {
 
 const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
   resumeInfo,
-  setResumeInfo,
+  setResumeInfo
   // setPage,
 }) => {
   const addEducation = () => {
     const newId = uuidv4();
-    setResumeInfo((prevInfo) => ({
+    setResumeInfo(prevInfo => ({
       ...prevInfo,
       educational: {
         ...prevInfo.educational,
@@ -43,20 +43,20 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
             school: '',
             course: '',
             startDate: '',
-            endDate: '',
-          },
-        ],
-      },
+            endDate: ''
+          }
+        ]
+      }
     }));
   };
 
   return (
     <Container>
       <EducationalDetailsContainer>
-        <EducationalDetailsTitleContainer>
+        {/* <EducationalDetailsTitleContainer>
           <EducationalDetailsTitle>Educational Details</EducationalDetailsTitle>
-        </EducationalDetailsTitleContainer>
-        {resumeInfo.educational.education.map((educ) => (
+        </EducationalDetailsTitleContainer> */}
+        {resumeInfo.educational.education.map(educ => (
           <div key={educ.id}>
             <InputRow>
               <InputContainer>
@@ -94,7 +94,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
             Add education +
           </AddEducationButton>
         </AddEducationContainer>
-        <SaveDetailsContainer>
+        {/* <SaveDetailsContainer>
           <BackButton
             onClick={() => {
               // setPage((p) => p - 1);
@@ -114,7 +114,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
           >
             Save & Submit
           </SaveDetailsButton>
-        </SaveDetailsContainer>
+        </SaveDetailsContainer> */}
       </EducationalDetailsContainer>
     </Container>
   );

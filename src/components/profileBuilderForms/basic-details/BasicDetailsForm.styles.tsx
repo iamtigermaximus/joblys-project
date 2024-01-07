@@ -8,7 +8,7 @@ export const Container = styled.div`
   align-items: center;
   width: 100%;
   /* height: 100vh; */
-  padding: 20px 30px;
+  /* padding: 20px 30px; */
 
   @media (min-width: ${bp.lg}) {
     /* padding: 50px 100px; */
@@ -19,21 +19,22 @@ export const BasicDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${colors.white};
-  border-radius: 8px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  /* border-radius: 8px; */
+  /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
   width: 100%;
   padding: 30px 20px;
-  margin: 20px;
+  /* margin: 20px; */
   color: ${colors.white};
+  /* border: 1px solid red; */
 
-  @media (min-width: ${bp.sm}) {
+  /* @media (min-width: ${bp.sm}) {
     max-width: 400px;
     padding: 30px 40px;
-  }
+  } */
 
   @media (min-width: ${bp.md}) {
     /* max-width: 500px; */
-    max-width: 800px;
+    /* width: 100%; */
   }
 `;
 
@@ -88,6 +89,13 @@ export const Input = styled.input`
     font-size: 15px;
     padding: 20px;
     /* margin: 5px; */
+    background-color: #f5f5f5;
+    border: none;
+    color: black;
+
+    &:focus {
+      outline: 0.5px solid gray;
+    }
   }
 `;
 

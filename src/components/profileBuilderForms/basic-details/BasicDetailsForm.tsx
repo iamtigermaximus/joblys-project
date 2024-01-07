@@ -5,15 +5,15 @@ import {
   AddMoreLinksButton,
   AddMoreLinksContainer,
   BasicDetailsContainer,
-  BasicDetailsTitle,
-  BasicDetailsTitleContainer,
+  // BasicDetailsTitle,
+  // BasicDetailsTitleContainer,
   Container,
   Input,
   InputContainer,
   InputLabel,
-  InputRow,
-  SaveDetailsButton,
-  SaveDetailsContainer,
+  InputRow
+  // SaveDetailsButton,
+  // SaveDetailsContainer
 } from './BasicDetailsForm.styles';
 import { BasicInfoType, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
@@ -26,22 +26,22 @@ interface BasicDetailsFormProps {
 
 const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
   resumeInfo,
-  setResumeInfo,
+  setResumeInfo
   // setPage,
 }) => {
   const [additionalLinks, setAdditionalLinks] = useState<string[]>(['']);
 
   const handleAddMoreLinks = () => {
     const newId = uuidv4();
-    setResumeInfo((prevInfo) => ({
+    setResumeInfo(prevInfo => ({
       ...prevInfo,
       basic: {
         ...prevInfo.basic,
         additionalLinks: [
           ...prevInfo.basic.additionalLinks,
-          { id: newId, url: '' },
-        ],
-      },
+          { id: newId, url: '' }
+        ]
+      }
     }));
   };
 
@@ -59,14 +59,14 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
   //   }));
   // };
   const handleAdditionalLinkChange = (id: string, value: string) => {
-    setResumeInfo((prevInfo) => ({
+    setResumeInfo(prevInfo => ({
       ...prevInfo,
       basic: {
         ...prevInfo.basic,
-        additionalLinks: prevInfo.basic.additionalLinks.map((link) =>
+        additionalLinks: prevInfo.basic.additionalLinks.map(link =>
           link.id === id ? { ...link, url: value } : link
-        ),
-      },
+        )
+      }
     }));
   };
 
@@ -74,12 +74,12 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
     if (field === 'additionalLinks') {
       setAdditionalLinks([value]);
     } else {
-      setResumeInfo((prevInfo) => ({
+      setResumeInfo(prevInfo => ({
         ...prevInfo,
         basic: {
           ...prevInfo.basic,
-          [field]: value,
-        },
+          [field]: value
+        }
       }));
     }
   };
@@ -87,9 +87,9 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
   return (
     <Container>
       <BasicDetailsContainer>
-        <BasicDetailsTitleContainer>
+        {/* <BasicDetailsTitleContainer>
           <BasicDetailsTitle>Profile Details</BasicDetailsTitle>
-        </BasicDetailsTitleContainer>
+        </BasicDetailsTitleContainer> */}
         <InputRow>
           <InputContainer>
             <InputLabel>First Name:</InputLabel>
@@ -97,7 +97,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
               type="text"
               placeholder="Your first name"
               value={resumeInfo.basic.firstName}
-              onChange={(e) => handleInputChange('firstName', e.target.value)}
+              onChange={e => handleInputChange('firstName', e.target.value)}
             />
           </InputContainer>
           <InputContainer>
@@ -106,7 +106,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
               type="text"
               placeholder="Your last name"
               value={resumeInfo.basic.lastName}
-              onChange={(e) => handleInputChange('lastName', e.target.value)}
+              onChange={e => handleInputChange('lastName', e.target.value)}
             />
           </InputContainer>
         </InputRow>
@@ -117,7 +117,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
               type="tel"
               placeholder="Phone number"
               value={resumeInfo.basic.phoneNumber}
-              onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+              onChange={e => handleInputChange('phoneNumber', e.target.value)}
             />
           </InputContainer>
           <InputContainer>
@@ -126,7 +126,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
               type="email"
               placeholder="Your email"
               value={resumeInfo.basic.email}
-              onChange={(e) => handleInputChange('email', e.target.value)}
+              onChange={e => handleInputChange('email', e.target.value)}
             />
           </InputContainer>
         </InputRow>
@@ -137,7 +137,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
               type="text"
               placeholder="Address"
               value={resumeInfo.basic.address}
-              onChange={(e) => handleInputChange('address', e.target.value)}
+              onChange={e => handleInputChange('address', e.target.value)}
             />
           </InputContainer>
         </InputRow>
@@ -148,19 +148,19 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
               type="url"
               placeholder="https://example.com"
               value={resumeInfo.basic.linkedin}
-              onChange={(e) => handleInputChange('linkedin', e.target.value)}
+              onChange={e => handleInputChange('linkedin', e.target.value)}
             />
           </InputContainer>
         </InputRow>
-        {resumeInfo.basic.additionalLinks.map((link) => (
+        {resumeInfo.basic.additionalLinks.map(link => (
           <InputRow key={link.id}>
             <InputContainer>
               <InputLabel>Additional Link</InputLabel>
               <Input
                 type="url"
-                placeholder={`https://additional-link-${link.id}.com`}
+                placeholder="https://example.com"
                 value={link.url}
-                onChange={(e) =>
+                onChange={e =>
                   handleAdditionalLinkChange(link.id, e.target.value)
                 }
               />
@@ -173,7 +173,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
             Add more links +
           </AddMoreLinksButton>
         </AddMoreLinksContainer>
-        <SaveDetailsContainer>
+        {/* <SaveDetailsContainer>
           <SaveDetailsButton
             onClick={() => {
               console.log(
@@ -186,7 +186,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
           >
             Save
           </SaveDetailsButton>
-        </SaveDetailsContainer>
+        </SaveDetailsContainer> */}
       </BasicDetailsContainer>
     </Container>
   );

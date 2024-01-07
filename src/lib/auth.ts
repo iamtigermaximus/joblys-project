@@ -10,21 +10,21 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(prisma),
   session: {
-    strategy: 'jwt',
+    strategy: 'jwt'
   },
   pages: {
-    signIn: '/login',
+    signIn: '/login'
   },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!
     }),
     LinkedInProvider({
       clientId: String(process.env.LINKEDIN_CLIENT_ID),
       clientSecret: String(process.env.LINKEDIN_CLIENT_SECRET),
       authorization: {
-        params: { scope: 'openid profile email' },
+        params: { scope: 'openid profile email' }
       },
       issuer: 'https://www.linkedin.com',
       jwks_endpoint: 'https://www.linkedin.com/oauth/openid/jwks',
@@ -36,9 +36,9 @@ export const authOptions: NextAuthOptions = {
           name: profile.name,
           email: profile.email,
           image: profile.picture ?? defaultImage,
-          fullname: profile.fullname,
+          fullname: profile.fullname
         };
-      },
+      }
     }),
     CredentialsProvider({
       name: 'Credentials',
@@ -46,13 +46,13 @@ export const authOptions: NextAuthOptions = {
         email: {
           label: 'Email',
           type: 'email',
-          placeholder: 'Enter email',
+          placeholder: 'Enter email'
         },
         password: {
           label: 'Password',
           type: 'password',
-          placeholder: 'Enter password',
-        },
+          placeholder: 'Enter password'
+        }
       },
       async authorize(credentials) {
         if (!credentials || !credentials.email || !credentials.password) {
@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         const existingUser = await prisma.user.findUnique({
-          where: { email: credentials?.email },
+          where: { email: credentials?.email }
         });
 
         if (!existingUser) {
@@ -82,10 +82,10 @@ export const authOptions: NextAuthOptions = {
           id: existingUser.id,
           name: existingUser.fullname,
           email: existingUser.email,
-          fullname: existingUser.fullname,
+          fullname: existingUser.fullname
         };
-      },
-    }),
+      }
+    })
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -93,7 +93,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         return {
           ...token,
-          fullname: user.fullname,
+          fullname: user.fullname
         };
       }
       return token;
@@ -105,10 +105,10 @@ export const authOptions: NextAuthOptions = {
         ...session,
         user: {
           ...session.user,
-          fullname: token.fullname,
-        },
+          fullname: token.fullname
+        }
       };
       return session;
-    },
-  },
+    }
+  }
 };

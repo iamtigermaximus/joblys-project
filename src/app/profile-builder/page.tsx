@@ -3,6 +3,7 @@ import {
   Container,
   FormViewerContainer,
   ResumeFormContainer,
+  ResumeTemplateContainer
 } from '../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import ResumeForm from '@/components/profileBuilderForms/profile-form/ResumeForm';
@@ -19,9 +20,9 @@ const ProfileBuilderPage = () => {
         <ResumeFormContainer>
           <ResumeForm />
         </ResumeFormContainer>
-        <ResumeFormContainer>
+        <ResumeTemplateContainer>
           <ResumeTemplate />
-        </ResumeFormContainer>
+        </ResumeTemplateContainer>
       </FormViewerContainer>
     </Container>
   );

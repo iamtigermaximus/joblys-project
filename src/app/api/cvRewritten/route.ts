@@ -29,7 +29,7 @@ interface Position {
   Responsibilities: string[];
 }
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+async function POST(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.body;
 
   if (!id) {
