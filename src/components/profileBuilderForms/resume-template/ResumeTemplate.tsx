@@ -45,6 +45,28 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
           </div>
         ))}
         <h2>Educational Experience:</h2>
+        {educational?.education.map(educ => (
+          <div key={educ.id}>
+            <h6>school:{educ.school}</h6>
+            <h6>course:{educ.course}</h6>
+            <h6>startdate:{educ.startDate}</h6>
+            <h6>enddate:{educ.endDate}</h6>
+          </div>
+        ))}
+
+        <h2>Skills:</h2>
+        {skills?.skill.map(enteredSkill => (
+          <div key={enteredSkill.id}>
+            <h6>skill:{enteredSkill.name}</h6>
+          </div>
+        ))}
+
+        <h2>Languages:</h2>
+        {languages?.language.map(enteredLanguage => (
+          <div key={enteredLanguage.id}>
+            <h6>language:{enteredLanguage.name}</h6>
+          </div>
+        ))}
       </Template>
     </TemplateContainer>
   );

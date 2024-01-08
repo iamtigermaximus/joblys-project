@@ -22,15 +22,13 @@ import { v4 as uuidv4 } from 'uuid';
 interface EducationalDetailsFormProps {
   resumeInfo: { educational: { education: EducationType[] } };
   setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
-  // setPage: Dispatch<SetStateAction<number>>;
 }
 
 const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
   resumeInfo,
   setResumeInfo
-  // setPage,
 }) => {
-  const addEducation = () => {
+  const handleAddEducation = () => {
     const newId = uuidv4();
     setResumeInfo(prevInfo => ({
       ...prevInfo,
@@ -50,12 +48,25 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
     }));
   };
 
+  const handleInputChange = (
+    id: string,
+    field: keyof EducationType,
+    value: string
+  ) => {
+    setResumeInfo(prevInfo => ({
+      ...prevInfo,
+      educational: {
+        ...prevInfo.educational,
+        education: prevInfo.educational.education.map(educ =>
+          educ.id === id ? { ...educ, [field]: value } : educ
+        )
+      }
+    }));
+  };
+
   return (
     <Container>
       <EducationalDetailsContainer>
-        {/* <EducationalDetailsTitleContainer>
-          <EducationalDetailsTitle>Educational Details</EducationalDetailsTitle>
-        </EducationalDetailsTitleContainer> */}
         {resumeInfo.educational.education.map(educ => (
           <div key={educ.id}>
             <InputRow>
@@ -64,11 +75,22 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                 <Input
                   type="text"
                   placeholder="ex. College, University, school"
+                  value={educ.school}
+                  onChange={e =>
+                    handleInputChange(educ.id, 'school', e.target.value)
+                  }
                 />
               </InputContainer>
               <InputContainer>
                 <InputLabel>Course/Degree:</InputLabel>
-                <Input type="text" placeholder="ex. Bachelors, Masters" />
+                <Input
+                  type="text"
+                  placeholder="ex. Bachelors, Masters"
+                  value={educ.course}
+                  onChange={e =>
+                    handleInputChange(educ.id, 'course', e.target.value)
+                  }
+                />
               </InputContainer>
             </InputRow>
             <InputRow>
@@ -77,6 +99,10 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                 <Input
                   type="text"
                   placeholder="Enter start date or year Jan 2022"
+                  value={educ.startDate}
+                  onChange={e =>
+                    handleInputChange(educ.id, 'startDate', e.target.value)
+                  }
                 />
               </InputContainer>
               <InputContainer>
@@ -84,37 +110,20 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                 <Input
                   type="text"
                   placeholder="Enter end date or year Jan 2023"
+                  value={educ.endDate}
+                  onChange={e =>
+                    handleInputChange(educ.id, 'endDate', e.target.value)
+                  }
                 />
               </InputContainer>
             </InputRow>
           </div>
         ))}
         <AddEducationContainer>
-          <AddEducationButton onClick={addEducation}>
+          <AddEducationButton onClick={handleAddEducation}>
             Add education +
           </AddEducationButton>
         </AddEducationContainer>
-        {/* <SaveDetailsContainer>
-          <BackButton
-            onClick={() => {
-              // setPage((p) => p - 1);
-            }}
-          >
-            Back
-          </BackButton>
-          <SaveDetailsButton
-            onClick={() => {
-              console.log(
-                'Resume Info before moving to next form:',
-                resumeInfo
-              );
-
-              // setPage((p) => p + 1);
-            }}
-          >
-            Save & Submit
-          </SaveDetailsButton>
-        </SaveDetailsContainer> */}
       </EducationalDetailsContainer>
     </Container>
   );
