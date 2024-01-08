@@ -17,60 +17,15 @@ import { FaCircleChevronDown, FaCircleChevronUp } from 'react-icons/fa6';
 import SkillsForm from '../skills-details/SkillsForm';
 import LanguagesForm from '../languages-details/LanguagesForm';
 
-const ResumeForm: React.FC = () => {
-  const initialState: ResumeInfoType = {
-    basic: {
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      email: '',
-      address: '',
-      linkedin: '',
-      additionalLinks: []
-    },
-    professional: {
-      summary: '',
-      work: [
-        {
-          id: '',
-          jobTitle: '',
-          company: '',
-          startDate: '',
-          endDate: '',
-          jobDetails: ''
-        }
-      ]
-    },
-    educational: {
-      education: [
-        {
-          id: '',
-          school: '',
-          course: '',
-          startDate: '',
-          endDate: ''
-        }
-      ]
-    },
-    skills: {
-      skill: [
-        {
-          id: '',
-          name: ''
-        }
-      ]
-    },
-    languages: {
-      language: [
-        {
-          id: '',
-          name: ''
-        }
-      ]
-    }
-  };
+interface ResumeFormProps {
+  resumeInfo: ResumeInfoType;
+  setResumeInfo: React.Dispatch<React.SetStateAction<ResumeInfoType>>;
+}
 
-  const [resumeInfo, setResumeInfo] = useState(initialState);
+const ResumeForm: React.FC<ResumeFormProps> = ({
+  resumeInfo,
+  setResumeInfo
+}) => {
   const [accordionState, setAccordionState] = useState({
     basic: true,
     professional: false,

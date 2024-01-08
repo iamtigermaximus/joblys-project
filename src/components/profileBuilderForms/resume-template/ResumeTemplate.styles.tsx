@@ -7,11 +7,11 @@ export const TemplateContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
   padding: 20px 0;
 
   @media (min-width: ${bp.lg}) {
     /* padding: 50px 20px; */
+    height: 100vh;
   }
 `;
 

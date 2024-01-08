@@ -12,6 +12,7 @@ export const Container = styled.div`
 export const AccordionContainer = styled.div`
   width: 100vw;
   max-width: 600px;
+  padding-bottom: 200px;
 `;
 
 export const AccordionSection = styled.div`
