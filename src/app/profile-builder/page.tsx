@@ -1,5 +1,6 @@
 'use client';
 import React, { FC, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import {
   FormViewerContainer,
   ProfileBuilderContainer,
@@ -26,7 +27,7 @@ const ProfileBuilderPage: FC = () => {
       summary: '',
       work: [
         {
-          id: '',
+          id: uuidv4(),
           jobTitle: '',
           company: '',
           startDate: '',
@@ -38,7 +39,7 @@ const ProfileBuilderPage: FC = () => {
     educational: {
       education: [
         {
-          id: '',
+          id: uuidv4(),
           school: '',
           course: '',
           startDate: '',
@@ -49,7 +50,7 @@ const ProfileBuilderPage: FC = () => {
     skills: {
       skill: [
         {
-          id: '',
+          id: uuidv4(),
           name: ''
         }
       ]
@@ -57,7 +58,7 @@ const ProfileBuilderPage: FC = () => {
     languages: {
       language: [
         {
-          id: '',
+          id: uuidv4(),
           name: ''
         }
       ]

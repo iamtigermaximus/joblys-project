@@ -126,7 +126,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
               <InputContainer>
                 <InputLabel>Start date:</InputLabel>
                 <Input
-                  type="text"
+                  type="date"
                   placeholder="Enter start date Jan 2022"
                   value={experience.startDate}
                   onChange={e =>
@@ -141,7 +141,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
               <InputContainer>
                 <InputLabel>End date:</InputLabel>
                 <Input
-                  type="text"
+                  type="date"
                   placeholder="Enter end date Jan 2023"
                   value={experience.endDate}
                   onChange={e =>

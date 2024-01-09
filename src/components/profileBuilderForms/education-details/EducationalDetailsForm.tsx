@@ -97,7 +97,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
               <InputContainer>
                 <InputLabel>Start date:</InputLabel>
                 <Input
-                  type="text"
+                  type="date"
                   placeholder="Enter start date or year Jan 2022"
                   value={educ.startDate}
                   onChange={e =>
@@ -108,7 +108,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
               <InputContainer>
                 <InputLabel>End date:</InputLabel>
                 <Input
-                  type="text"
+                  type="date"
                   placeholder="Enter end date or year Jan 2023"
                   value={educ.endDate}
                   onChange={e =>

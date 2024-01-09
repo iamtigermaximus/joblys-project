@@ -21,13 +21,11 @@ import { v4 as uuidv4 } from 'uuid';
 interface BasicDetailsFormProps {
   resumeInfo: { basic: BasicInfoType };
   setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
-  // setPage: Dispatch<SetStateAction<number>>;
 }
 
 const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
   resumeInfo,
   setResumeInfo
-  // setPage,
 }) => {
   const [additionalLinks, setAdditionalLinks] = useState<string[]>(['']);
 
@@ -45,19 +43,6 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
     }));
   };
 
-  // const handleAdditionalLinkChange = (index: number, value: string) => {
-  //   setResumeInfo((prevInfo) => ({
-  //     ...prevInfo,
-  //     basic: {
-  //       ...prevInfo.basic,
-  //       additionalLinks: [
-  //         ...prevInfo.basic.additionalLinks.slice(0, index),
-  //         value,
-  //         ...prevInfo.basic.additionalLinks.slice(index + 1),
-  //       ],
-  //     },
-  //   }));
-  // };
   const handleAdditionalLinkChange = (id: string, value: string) => {
     setResumeInfo(prevInfo => ({
       ...prevInfo,
@@ -87,9 +72,6 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
   return (
     <Container>
       <BasicDetailsContainer>
-        {/* <BasicDetailsTitleContainer>
-          <BasicDetailsTitle>Profile Details</BasicDetailsTitle>
-        </BasicDetailsTitleContainer> */}
         <InputRow>
           <InputContainer>
             <InputLabel>First Name:</InputLabel>
@@ -173,20 +155,6 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
             Add more links +
           </AddMoreLinksButton>
         </AddMoreLinksContainer>
-        {/* <SaveDetailsContainer>
-          <SaveDetailsButton
-            onClick={() => {
-              console.log(
-                'Resume Info before moving to next form:',
-                resumeInfo
-              );
-
-              // setPage((p) => p + 1);
-            }}
-          >
-            Save
-          </SaveDetailsButton>
-        </SaveDetailsContainer> */}
       </BasicDetailsContainer>
     </Container>
   );

@@ -51,6 +51,10 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     });
   };
 
+  // const handleFinalSubmit = () => {
+  //   console.log('Final Form Data:', resumeInfo);
+  //   // Add any additional logic for submitting to a server or performing final actions
+  // };
   return (
     <Container>
       <AccordionContainer>
@@ -178,6 +182,12 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </AccordionContent>
           )}
         </AccordionSection>
+        {/* <AccordionSection>
+          <AccordionHeader>
+            <AccordionHeaderTitle>Final Submit</AccordionHeaderTitle>
+            <button onClick={handleFinalSubmit}>Submit</button>
+          </AccordionHeader>
+        </AccordionSection> */}
       </AccordionContainer>
     </Container>
   );
