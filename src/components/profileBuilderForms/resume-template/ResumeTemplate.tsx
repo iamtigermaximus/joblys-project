@@ -1,8 +1,56 @@
 'use client';
 
 import React, { FC } from 'react';
-import { Template, TemplateContainer } from './ResumeTemplate.styles';
+import {
+  BasicDetail,
+  BasicNameContainer,
+  Company,
+  ContentContainerA,
+  ContentContainerB,
+  Course,
+  Date,
+  DateContainer,
+  EducationContainer,
+  EducationContainerTitle,
+  EducationDescription,
+  EducationDetail,
+  EducationDetailContainer,
+  EmploymentDescription,
+  EmploymentDetail,
+  EmploymentDetailContainer,
+  EnteredLanguage,
+  EnteredLanguagesContainer,
+  EnteredSkill,
+  EnteredSkillsContainer,
+  FirstName,
+  Header,
+  IconContainer,
+  JobName,
+  JobTitle,
+  LanguagesDetailsContent,
+  LastName,
+  NameContainer,
+  PersonalDetailsContainer,
+  PersonalDetailsContent,
+  PersonalDetailsTitle,
+  ProfessionalContainer,
+  ProfessionalContainerTitle,
+  School,
+  SkillsDetailsContent,
+  SummaryContainer,
+  Template,
+  TemplateContainer
+} from './ResumeTemplate.styles';
 import { ResumeInfoType } from '@/types/profile';
+import Minimalist from '../templates/minimalist/Minimalist';
+import {
+  FaUser,
+  FaEnvelope,
+  FaPhone,
+  FaHome,
+  FaLinkedin,
+  FaGlobe
+} from 'react-icons/fa';
 
 interface ResumeTemplateProps {
   resumeInfo: ResumeInfoType;
@@ -18,7 +66,7 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
   return (
     <TemplateContainer>
       <Template>
-        <h2>Basic Details</h2>
+        {/* <h2>Basic Details</h2>
         <h6> firstname:{basic?.firstName}</h6>
         <h6>lastname:{basic.lastName}</h6>
         <h6>phonenumber:{basic.phoneNumber}</h6>
@@ -66,7 +114,145 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
           <div key={enteredLanguage.id}>
             <h6>language:{enteredLanguage.name}</h6>
           </div>
-        ))}
+        ))} */}
+        <ContentContainerA>
+          <PersonalDetailsContainer>
+            <PersonalDetailsTitle>Personal Details</PersonalDetailsTitle>
+            <PersonalDetailsContent>
+              <IconContainer>
+                <FaUser />
+              </IconContainer>
+              <BasicNameContainer>
+                <BasicDetail>{basic.firstName}</BasicDetail>
+                <BasicDetail>{basic.lastName}</BasicDetail>
+              </BasicNameContainer>
+            </PersonalDetailsContent>
+            <PersonalDetailsContent>
+              <IconContainer>
+                <FaEnvelope />
+              </IconContainer>
+              <BasicDetail>{basic.email}</BasicDetail>
+            </PersonalDetailsContent>
+            <PersonalDetailsContent>
+              <IconContainer>
+                <FaPhone />
+              </IconContainer>
+              <BasicDetail>{basic.phoneNumber}</BasicDetail>
+            </PersonalDetailsContent>
+            <PersonalDetailsContent>
+              <IconContainer>
+                <FaHome />
+              </IconContainer>
+              <BasicDetail>{basic.address}</BasicDetail>
+            </PersonalDetailsContent>
+            <a href={basic.linkedin}>
+              <PersonalDetailsContent>
+                <IconContainer>
+                  <FaLinkedin />
+                </IconContainer>
+                <BasicDetail>{basic.linkedin}</BasicDetail>
+              </PersonalDetailsContent>
+            </a>
+
+            {basic?.additionalLinks.map(link => (
+              <div key={link.id}>
+                <a href={link.url}>
+                  <PersonalDetailsContent>
+                    <IconContainer>
+                      <FaGlobe />
+                    </IconContainer>
+                    <BasicDetail>{link.url}</BasicDetail>
+                  </PersonalDetailsContent>
+                </a>
+              </div>
+            ))}
+          </PersonalDetailsContainer>
+          <PersonalDetailsContainer>
+            <PersonalDetailsTitle>Skills</PersonalDetailsTitle>
+            <SkillsDetailsContent>
+              {skills?.skill.map(enteredSkill => (
+                <EnteredSkillsContainer key={enteredSkill.id}>
+                  <EnteredSkill>{enteredSkill.name}</EnteredSkill>
+                </EnteredSkillsContainer>
+              ))}
+            </SkillsDetailsContent>
+          </PersonalDetailsContainer>
+
+          <PersonalDetailsContainer>
+            <PersonalDetailsTitle>Languages</PersonalDetailsTitle>
+            <LanguagesDetailsContent>
+              {languages?.language.map(enteredLanguage => (
+                <EnteredLanguagesContainer key={enteredLanguage.id}>
+                  <EnteredLanguage>{enteredLanguage.name}</EnteredLanguage>
+                </EnteredLanguagesContainer>
+              ))}
+            </LanguagesDetailsContent>
+          </PersonalDetailsContainer>
+        </ContentContainerA>
+
+        <ContentContainerB>
+          <Header>
+            <NameContainer>
+              <FirstName>{basic.firstName}</FirstName>
+              <LastName>{basic.lastName}</LastName>
+            </NameContainer>
+            <JobName>Software Developer</JobName>
+          </Header>
+          <SummaryContainer>{professional.summary}</SummaryContainer>
+          {/* {professional?.work.map(experience => (
+                      <EmploymentDetailContainer
+          key={experience.id}>
+            <h6>jobtitle:{experience.jobTitle}</h6>
+            <h6>company:{experience.company}</h6>
+            <h6>startdate:{experience.startDate}</h6>
+            <h6>enddate{experience.endDate}</h6>
+            <h6>jobdetails{experience.jobDetails}</h6>
+          </EmploymentDetailContainer>
+        ))} */}
+          <ProfessionalContainer>
+            <ProfessionalContainerTitle>Employment</ProfessionalContainerTitle>
+            {professional.work.map(experience => (
+              <div key={experience.id}>
+                <EmploymentDetailContainer>
+                  <EmploymentDetail>
+                    <JobTitle>{experience.jobTitle}</JobTitle>
+                    <Company>{experience.company}</Company>
+                  </EmploymentDetail>
+                  <DateContainer>
+                    <Date>{experience.startDate} </Date>
+                    <Date>{experience.endDate}</Date>
+                  </DateContainer>
+                </EmploymentDetailContainer>
+                <EmploymentDescription>
+                  {experience.jobDetails}
+                </EmploymentDescription>
+              </div>
+            ))}
+          </ProfessionalContainer>
+
+          <EducationContainer>
+            <EducationContainerTitle>Education</EducationContainerTitle>
+            {educational.education.map(educ => (
+              <div key={educ.id}>
+                <EducationDetailContainer>
+                  <EducationDetail>
+                    <Course>{educ.course}</Course>
+                    <School>{educ.school}</School>
+                  </EducationDetail>
+                  <DateContainer>
+                    <Date>{educ.startDate}</Date>
+                    <Date>{educ.endDate}</Date>
+                  </DateContainer>
+                </EducationDetailContainer>
+                <EducationDescription>
+                  Suprotno raširenom mišljenju, Lorem Ipsum nije samo slučajni
+                  tekst, već ima korijene u klasičnoj latinskoj književnosti iz
+                  godine 45. pr.n.e., što znači da mu je preko 2000 godina.
+                </EducationDescription>
+              </div>
+            ))}
+          </EducationContainer>
+        </ContentContainerB>
       </Template>
     </TemplateContainer>
   );
