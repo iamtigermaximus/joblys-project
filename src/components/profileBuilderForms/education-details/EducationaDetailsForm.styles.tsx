@@ -7,8 +7,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
-  padding: 20px 30px;
+  /* height: 100vh;
+  padding: 20px 30px; */
 
   @media (min-width: ${bp.lg}) {
     /* padding: 50px 100px; */
@@ -19,11 +19,11 @@ export const EducationalDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${colors.white};
-  border-radius: 8px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  /* border-radius: 8px; */
+  /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
   width: 100%;
   padding: 30px 20px;
-  margin: 20px;
+  /* margin: 20px; */
   flex-direction: column;
   color: ${colors.white};
 
@@ -78,11 +78,24 @@ export const Input = styled.input`
   padding: 10px;
   /* margin: 5px 0; */
   font-size: 12px;
+  height: 40px;
+  margin-bottom: 10px;
 
-  @media (min-width: ${bp.md}) {
+  /* @media (min-width: ${bp.md}) {
     font-size: 15px;
     padding: 20px;
+     margin: 5px; 
+  } */
+  @media (min-width: ${bp.md}) {
+    font-size: 13px;
     /* margin: 5px; */
+    background-color: #f5f5f5;
+    border: none;
+    color: black;
+
+    &:focus {
+      outline: 0.5px solid gray;
+    }
   }
 `;
 
@@ -170,9 +183,8 @@ export const AddEducationButton = styled.button`
   }
 
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    padding: 20px;
-    width: 50%;
+    font-size: 13px;
+    width: 30%;
     margin-right: 5px;
   }
 `;

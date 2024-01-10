@@ -9,74 +9,72 @@ import {
   AccordionContainer,
   AccordionContent,
   AccordionHeader,
+  AccordionHeaderTitle,
   AccordionSection,
   Container,
+  IconContainer
 } from './ResumeForm.styles';
+import { FaCircleChevronDown, FaCircleChevronUp } from 'react-icons/fa6';
+import SkillsForm from '../skills-details/SkillsForm';
+import LanguagesForm from '../languages-details/LanguagesForm';
 
-const ResumeForm: React.FC = () => {
-  const initialState: ResumeInfoType = {
-    basic: {
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      email: '',
-      address: '',
-      linkedin: '',
-      additionalLinks: [],
-    },
-    professional: {
-      summary: '',
-      skills: [],
-      languages: [],
-      work: [
-        {
-          id: '',
-          jobTitle: '',
-          company: '',
-          startDate: '',
-          endDate: '',
-          jobDetails: '',
-        },
-      ],
-    },
-    educational: {
-      education: [
-        {
-          id: '',
-          school: '',
-          course: '',
-          startDate: '',
-          endDate: '',
-        },
-      ],
-    },
-  };
+interface ResumeFormProps {
+  resumeInfo: ResumeInfoType;
+  setResumeInfo: React.Dispatch<React.SetStateAction<ResumeInfoType>>;
+}
 
-  const [resumeInfo, setResumeInfo] = useState(initialState);
+const ResumeForm: React.FC<ResumeFormProps> = ({
+  resumeInfo,
+  setResumeInfo
+}) => {
   const [accordionState, setAccordionState] = useState({
     basic: true,
     professional: false,
     educational: false,
+    skills: false,
+    languages: false
   });
 
   const toggleAccordion = (section: keyof typeof accordionState) => {
-    setAccordionState((prevState) => {
+    setAccordionState(prevState => {
       const newState = {
         basic: false,
         professional: false,
         educational: false,
+        skills: false,
+        languages: false
       };
-      newState[section] = true;
+
+      const isSameSection = prevState[section];
+      newState[section] = !isSameSection;
+
       return newState;
     });
   };
 
+  // const handleFinalSubmit = () => {
+  //   console.log('Final Form Data:', resumeInfo);
+  //   // Add any additional logic for submitting to a server or performing final actions
+  // };
   return (
     <Container>
       <AccordionContainer>
         <AccordionSection>
-          <AccordionHeader onClick={() => toggleAccordion('basic')}>
-            Basic Details
+          <AccordionHeader>
+            <AccordionHeaderTitle
+              style={{ color: accordionState.basic ? '' : 'gray' }}
+            >
+              Personal Details
+            </AccordionHeaderTitle>
+            <span onClick={() => toggleAccordion('basic')}>
+              {accordionState.basic ? (
+                <IconContainer>
+                  <FaCircleChevronUp style={{ fontSize: '24px' }} />
+                </IconContainer>
+              ) : (
+                <FaCircleChevronDown style={{ fontSize: '24px' }} />
+              )}
+            </span>
           </AccordionHeader>
           {accordionState.basic && (
             <AccordionContent>
@@ -89,14 +87,25 @@ const ResumeForm: React.FC = () => {
         </AccordionSection>
 
         <AccordionSection>
-          <AccordionHeader onClick={() => toggleAccordion('professional')}>
-            Professional Details
+          <AccordionHeader>
+            <AccordionHeaderTitle
+              style={{ color: accordionState.professional ? '' : 'gray' }}
+            >
+              Professional Details
+            </AccordionHeaderTitle>
+            <span onClick={() => toggleAccordion('professional')}>
+              {accordionState.professional ? (
+                <FaCircleChevronUp />
+              ) : (
+                <FaCircleChevronDown />
+              )}
+            </span>
           </AccordionHeader>
           {accordionState.professional && (
             <AccordionContent>
               <ProfessionalDetailsForm
                 resumeInfo={{
-                  professional: resumeInfo.professional,
+                  professional: resumeInfo.professional
                 }}
                 setResumeInfo={setResumeInfo}
               />
@@ -105,8 +114,19 @@ const ResumeForm: React.FC = () => {
         </AccordionSection>
 
         <AccordionSection>
-          <AccordionHeader onClick={() => toggleAccordion('educational')}>
-            Educational Details
+          <AccordionHeader>
+            <AccordionHeaderTitle
+              style={{ color: accordionState.educational ? '' : 'gray' }}
+            >
+              Educational Details
+            </AccordionHeaderTitle>
+            <span onClick={() => toggleAccordion('educational')}>
+              {accordionState.educational ? (
+                <FaCircleChevronUp />
+              ) : (
+                <FaCircleChevronDown />
+              )}
+            </span>
           </AccordionHeader>
           {accordionState.educational && (
             <AccordionContent>
@@ -117,6 +137,60 @@ const ResumeForm: React.FC = () => {
             </AccordionContent>
           )}
         </AccordionSection>
+        <AccordionSection>
+          <AccordionHeader>
+            <AccordionHeaderTitle
+              style={{ color: accordionState.skills ? '' : 'gray' }}
+            >
+              Skills
+            </AccordionHeaderTitle>
+            <span onClick={() => toggleAccordion('skills')}>
+              {accordionState.skills ? (
+                <FaCircleChevronUp />
+              ) : (
+                <FaCircleChevronDown />
+              )}
+            </span>
+          </AccordionHeader>
+          {accordionState.skills && (
+            <AccordionContent>
+              <SkillsForm
+                resumeInfo={{ skills: resumeInfo.skills }}
+                setResumeInfo={setResumeInfo}
+              />
+            </AccordionContent>
+          )}
+        </AccordionSection>
+        <AccordionSection>
+          <AccordionHeader>
+            <AccordionHeaderTitle
+              style={{ color: accordionState.languages ? '' : 'gray' }}
+            >
+              Languages
+            </AccordionHeaderTitle>
+            <span onClick={() => toggleAccordion('languages')}>
+              {accordionState.languages ? (
+                <FaCircleChevronUp />
+              ) : (
+                <FaCircleChevronDown />
+              )}
+            </span>
+          </AccordionHeader>
+          {accordionState.languages && (
+            <AccordionContent>
+              <LanguagesForm
+                resumeInfo={{ languages: resumeInfo.languages }}
+                setResumeInfo={setResumeInfo}
+              />
+            </AccordionContent>
+          )}
+        </AccordionSection>
+        {/* <AccordionSection>
+          <AccordionHeader>
+            <AccordionHeaderTitle>Final Submit</AccordionHeaderTitle>
+            <button onClick={handleFinalSubmit}>Submit</button>
+          </AccordionHeader>
+        </AccordionSection> */}
       </AccordionContainer>
     </Container>
   );

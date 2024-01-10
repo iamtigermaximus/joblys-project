@@ -5,7 +5,12 @@ import {
   HeaderLinksContainer,
   HeaderMenuContainer,
   IconContainer,
+  LeftContainer,
   LogoutButton,
+  ResumeButton,
+  ResumeButtonIcon,
+  ResumeButtonTitle,
+  RightContainer,
   SignInButton,
   // MenuLink,
   // MenuLinkButton,
@@ -13,14 +18,16 @@ import {
   // RegisterLink,
   // SignInButton,
   // SignInLink,
-  WelcomeTextContainer,
+  WelcomeTextContainer
 } from './PageHeader.styles';
 import { useSession, signOut } from 'next-auth/react';
-import { FaBell, FaUser } from 'react-icons/fa';
-import { useRouter } from 'next/navigation';
+import { FaBell, FaUser, FaArrowLeft } from 'react-icons/fa';
+import { useRouter, usePathname } from 'next/navigation';
 
 const PageHeader = () => {
   const router = useRouter();
+  const pathname = usePathname();
+
   // const { data: session } = useSession();
   const { data: session, status } = useSession();
 
@@ -33,6 +40,26 @@ const PageHeader = () => {
     }
   }, [status, session, router]);
 
+  const navigateToResume = () => {
+    router.push('/joblys/resumes');
+  };
+
+  const getHeaderStyles = (): React.CSSProperties => {
+    switch (pathname) {
+      case '/profile-builder':
+        return {
+          backgroundColor: '#520668',
+          color: 'white'
+        };
+      default:
+        return {
+          backgroundColor: 'white'
+        };
+    }
+  };
+
+  const headerStyles = getHeaderStyles();
+
   const handleSignOut = async (e: FormEvent) => {
     e.preventDefault();
     await signOut({ callbackUrl: '/' });
@@ -40,7 +67,7 @@ const PageHeader = () => {
   const welcomeText = session ? `Welcome, ${session.user?.name}!` : '';
 
   return (
-    <Header>
+    <Header style={headerStyles}>
       {/* <HeaderMenuContainer>
         <MenuLinkButton>
           <MenuLink href="/pages/header-links/discover-companies">
@@ -59,8 +86,19 @@ const PageHeader = () => {
         </MenuLinkButton>
       </HeaderMenuContainer> */}
       <HeaderMenuContainer>
+        <LeftContainer>
+          {pathname === '/profile-builder' && (
+            <ResumeButton onClick={navigateToResume}>
+              <ResumeButtonIcon>
+                <FaArrowLeft />
+              </ResumeButtonIcon>
+              <ResumeButtonTitle> Resume</ResumeButtonTitle>
+            </ResumeButton>
+          )}
+        </LeftContainer>
+
         {session ? (
-          <>
+          <RightContainer>
             <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
             <LogoutButton onClick={handleSignOut}>Log out</LogoutButton>
             <HeaderLinksContainer>
@@ -73,9 +111,9 @@ const PageHeader = () => {
                 <FaUser />
               </IconContainer>
             </HeaderLinksContainer>
-          </>
+          </RightContainer>
         ) : (
-          <>
+          <RightContainer>
             <SignInButton>Sign In</SignInButton>
             <HeaderLinksContainer>
               <IconContainer>
@@ -87,7 +125,7 @@ const PageHeader = () => {
                 <FaUser />
               </IconContainer>
             </HeaderLinksContainer>
-          </>
+          </RightContainer>
         )}
       </HeaderMenuContainer>
     </Header>

@@ -6,16 +6,18 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  /* align-items: center; */
   width: 100%;
-  /* height: 100vh; */
   background-color: #b4ecf9;
   flex-direction: column;
+`;
 
-  /* @media (min-width: ${bp.lg}) {
-    width: 80vw;
-    float: left;
-  } */
+export const ProfileBuilderContainer = styled.div`
+  display: flex;
+  width: 100%;
+  background-color: white;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
 `;
 
 export const BoxContainer = styled.div`
@@ -23,7 +25,6 @@ export const BoxContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  /* margin-top: 10vh; */
   padding: 20px;
 
   @media (min-width: ${bp.md}) {
@@ -36,8 +37,6 @@ export const BoxContainer = styled.div`
 export const Box = styled.div`
   width: 100%;
   order: 2;
-
-  /* margin-top: 10vh; */
 
   @media (min-width: ${bp.md}) {
     width: 50%;
@@ -72,10 +71,8 @@ export const Box2 = styled.div`
   justify-content: center;
   align-items: center;
   background-image: url('/blobanimation.svg');
-  /* background-size: cover; */
   background-repeat: no-repeat;
   background-position: center;
-  /* object-fit: fill; */
   position: relative;
   order: 1;
   margin-bottom: 20px;
@@ -83,7 +80,6 @@ export const Box2 = styled.div`
   @media (min-width: ${bp.md}) {
     width: 50%;
     height: 100%;
-    /* position: relative; */
     padding: 20px;
     flex-direction: column;
     order: 2;
@@ -94,7 +90,6 @@ export const BoxHeader = styled.div`
   width: 100%;
   padding: 20px;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   font-size: 30px;
   color: ${colors.purple};
@@ -109,7 +104,6 @@ export const BoxBody = styled.div`
   width: 100%;
   padding: 0 20px;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
 `;
 
@@ -132,12 +126,24 @@ export const ResumeFormContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
+  height: 100vh;
+  overflow-y: auto;
 
   @media (min-width: ${bp.lg}) {
     flex-direction: row;
-    width: 50%;
-    /* border: 1px solid red; */
+    width: 100%;
+  }
+`;
+
+export const ResumeTemplateContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f8f8f8;
+
+  @media (min-width: ${bp.lg}) {
+    flex-direction: row;
+    width: 100%;
   }
 `;
 

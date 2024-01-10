@@ -8,7 +8,7 @@ export const Container = styled.div`
   align-items: center;
   width: 100%;
   /* height: 100vh; */
-  padding: 20px 30px;
+  /* padding: 20px 30px; */
   /* overflow-y: scroll; */
 
   @media (min-width: ${bp.lg}) {
@@ -21,8 +21,8 @@ export const ProfessionalDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${colors.white};
-  border-radius: 8px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  /* border-radius: 8px; */
+  /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
   width: 100%;
   padding: 30px 20px;
   margin-bottom: 20px;
@@ -80,12 +80,24 @@ export const TextArea = styled.textarea`
   padding: 10px;
   /* margin: 5px 0; */
   font-size: 12px;
-  height: 80px;
+  height: 100px;
 
-  @media (min-width: ${bp.md}) {
+  /* @media (min-width: ${bp.md}) {
     font-size: 15px;
     padding: 20px;
     height: 100px;
+  } */
+
+  @media (min-width: ${bp.md}) {
+    font-size: 13px;
+    /* margin: 5px; */
+    background-color: #f5f5f5;
+    border: none;
+    color: black;
+
+    &:focus {
+      outline: 0.5px solid gray;
+    }
   }
 `;
 
@@ -173,11 +185,19 @@ export const Input = styled.input`
   /* margin: 5px 0; */
   font-size: 12px;
   width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
 
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    padding: 20px;
+    font-size: 13px;
     /* margin: 5px; */
+    background-color: #f5f5f5;
+    border: none;
+    color: black;
+
+    &:focus {
+      outline: 0.5px solid gray;
+    }
   }
 `;
 
@@ -227,6 +247,7 @@ export const WorkExperienceContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-bottom: 20px;
 `;
 
 export const AddWorkExperienceContainer = styled.div`
@@ -261,9 +282,7 @@ export const AddWorkExperienceButton = styled.button`
   }
 
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    padding: 20px;
-    width: 50%;
-    margin-right: 5px;
+    font-size: 13px;
+    width: 40%;
   }
 `;

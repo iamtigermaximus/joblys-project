@@ -7,23 +7,25 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  /* height: 100vh; */
+  /* padding: 20px 30px; */
 
   @media (min-width: ${bp.lg}) {
-    padding: 20px 0;
+    /* padding: 50px 100px; */
   }
 `;
 
-export const BasicDetailsContainer = styled.div`
+export const LanguagesDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${colors.white};
   /* border-radius: 8px; */
   /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
   width: 100%;
-
+  padding: 30px 20px;
   /* margin: 20px; */
-  color: ${colors.white};
-  /* border: 1px solid red; */
+  /* color: ${colors.white}; */
+  color: black;
 
   /* @media (min-width: ${bp.sm}) {
     max-width: 400px;
@@ -33,40 +35,6 @@ export const BasicDetailsContainer = styled.div`
   @media (min-width: ${bp.md}) {
     /* max-width: 500px; */
     /* width: 100%; */
-  }
-`;
-
-export const BasicDetailsTitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const BasicDetailsTitle = styled.h1`
-  color: ${colors.darkPurple};
-  padding: 5px;
-  letter-spacing: 1px;
-  font-size: 16px;
-
-  @media (min-width: ${bp.md}) {
-    font-size: 25px;
-  }
-`;
-
-// export const InputContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-// `;
-
-export const InputRow = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-
-  @media (min-width: ${bp.md}) {
-    flex-direction: row;
-    gap: 20px; /* Adjust the gap between input fields as needed */
   }
 `;
 
@@ -84,14 +52,12 @@ export const Input = styled.input`
   font-size: 12px;
 
   @media (min-width: ${bp.md}) {
-    font-size: 14px;
+    font-size: 15px;
     /* margin: 5px; */
     background-color: #f5f5f5;
     border: none;
     color: black;
     height: 40px;
-    margin-bottom: 10px;
-    padding: 8px 12px;
 
     &:focus {
       outline: 0.5px solid gray;
@@ -103,60 +69,15 @@ export const InputLabel = styled.label`
   font-size: 10px;
   color: ${colors.darkPurple};
   letter-spacing: 1px;
-
-  @media (min-width: ${bp.md}) {
-    font-size: 14px;
-    margin: 5px 0;
-  }
-`;
-
-export const SaveDetailsContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 10px;
-  width: 100%;
-`;
-
-export const SaveDetailsButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid ${colors.ashGray};
-  border-radius: 5px;
-  background-color: ${colors.blueGray};
-  color: ${colors.white};
-  /* margin: 5px; */
-  font-size: 10px;
-  width: 160px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  padding: 10px;
-
-  &:hover {
-    background: ${colors.darkPurple};
-  }
+  margin: 5px 0;
 
   @media (min-width: ${bp.md}) {
     font-size: 15px;
-    padding: 20px;
-    width: 50%;
+    margin: 5px;
   }
 `;
 
-export const AddMoreLinksContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 10px;
-  width: 100%;
-
-  @media (min-width: ${bp.md}) {
-    justify-content: flex-start;
-  }
-`;
-
-export const AddMoreLinksButton = styled.button`
+export const AddButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -166,7 +87,7 @@ export const AddMoreLinksButton = styled.button`
   color: ${colors.white};
   /* margin: 5px; */
   font-size: 10px;
-  width: 100%;
+  width: 20%;
   letter-spacing: 1px;
   cursor: pointer;
   padding: 10px;
@@ -181,7 +102,7 @@ export const AddMoreLinksButton = styled.button`
   }
 `;
 
-export const AddNewLinksContainer = styled.div`
+export const AddNewLanguageContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -209,6 +130,7 @@ export const TrashIcon = styled.button`
   align-items: center;
   justify-content: center;
   padding: 5px;
+  border: 1px solid red;
   margin: 0 5px;
   font-size: 16px;
   background-color: white;

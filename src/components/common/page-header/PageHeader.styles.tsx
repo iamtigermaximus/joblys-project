@@ -26,6 +26,29 @@ export const HeaderMenuContainer = styled.div`
   }
 `;
 
+export const LeftContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 20px 0;
+  }
+`;
+
+export const RightContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+
+  @media (min-width: ${bp.lg}) {
+  }
+`;
+
 export const MenuLinkButton = styled.button`
   /* margin: 0 5px; */
   padding: 5px 10px;
@@ -165,4 +188,36 @@ export const IconContainer = styled.div`
     background-color: ${colors.purple};
     color: ${colors.white};
   }
+`;
+
+export const ResumeButton = styled.button`
+  /* Common button styles go here */
+  padding: 8px 16px;
+  height: 40px;
+  font-size: 16px;
+  border: 1px solid white;
+  cursor: pointer;
+  color: white;
+  background-color: transparent;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+export const ResumeButtonTitle = styled.h1`
+  font-size: 16px;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+`;
+
+export const ResumeButtonIcon = styled.span`
+  /* Common button styles go here */
+  font-size: 16px;
+  color: white;
+  display: flex;
+  align-items: center;
 `;
