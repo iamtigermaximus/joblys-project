@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {
   FormViewerContainer,
@@ -11,6 +11,7 @@ import PageHeader from '@/components/common/page-header/PageHeader';
 import ResumeForm from '@/components/profileBuilderForms/profile-form/ResumeForm';
 import ResumeTemplate from '@/components/profileBuilderForms/resume-template/ResumeTemplate';
 import { ResumeInfoType } from '@/types/profile';
+import { WorkExperience, Education } from '@/types/storedResume';
 
 const ProfileBuilderPage: FC = () => {
   const initialState: ResumeInfoType = {
@@ -66,6 +67,77 @@ const ProfileBuilderPage: FC = () => {
   };
 
   const [resumeInfo, setResumeInfo] = useState(initialState);
+
+  useEffect(() => {
+    async function handleStoredResumeUpdate() {
+      const response = await fetch('/api/cv');
+      if (response.status != 200) {
+        return;
+      }
+
+      const responseJson = await response.json();
+      const resume = responseJson.body.profile;
+
+      if (!resume) {
+        return;
+      }
+
+      const works = resume?.work_experience.map((exp: WorkExperience) => ({
+        id: uuidv4(),
+        jobTitle: exp.position,
+        company: exp.company_name || '',
+        startDate: exp.start_date || '',
+        endDate: exp.end_date || '',
+        jobDetails: exp.responsibilities.join('\n') || '',
+      }));
+
+      const educations = resume?.education.map((edu: Education) => ({
+        id: uuidv4(),
+        school: '',
+        course: '',
+        startDate: edu.start_date || '',
+        endDate: edu.end_date || '',
+      }));
+
+      const languages = resume?.languages.map((lang: string) => ({
+        id: uuidv4(),
+        name: lang,
+      }));
+
+      setResumeInfo({
+        basic: {
+          firstName: resume?.name || '',
+          lastName: '',
+          phoneNumber: resume?.personal_information?.phone_number || '',
+          email: resume?.email || '',
+          address: '',
+          linkedin: '',
+          additionalLinks: [],
+        },
+        professional: {
+          summary: '',
+          work: works || [],
+        },
+        educational: {
+          education: educations || [],
+        },
+        skills: {
+          skill: [
+            {
+              id: uuidv4(),
+              name: '',
+            }
+          ],
+        },
+        languages: {
+          language: languages
+        },
+      });
+    }
+
+    handleStoredResumeUpdate();
+  }, []);
+
   return (
     <ProfileBuilderContainer>
       <div>

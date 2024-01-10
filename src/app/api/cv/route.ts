@@ -183,3 +183,78 @@ export async function POST(req: NextRequest) {
     { status: 500 }
   );
 }
+
+export async function GET(req: NextRequest) {
+  console.log('Getting stored profile...');
+
+  const token = await getToken({ req })
+  if (!token && token != null) {
+    console.log('invalid token');
+    return NextResponse.json(
+      {
+        body: {
+          message: 'invalid token',
+        }
+      },
+      { status: 401 }
+    );
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: token?.sub,
+    },
+  });
+
+  if (!user) {
+    console.log('User not found');
+    return NextResponse.json(
+      {
+        body: {
+          message: 'user not found',
+        }
+      },
+      { status: 401 }
+    );
+  }
+
+  let structuredCV;
+  try {
+    structuredCV = await prisma.structuredCVs.findFirst({
+      where: {
+        ownerId: user.id,
+      },
+      select: {
+        content: true,
+      },
+    });
+  } catch(err) {
+    console.log(`Fetching parsed CV: ${err}`);
+    return NextResponse.json(
+      {
+        body: {
+          message: 'internal server error',
+        }
+      },
+      { status: 500 }
+    );
+  }
+
+  if (!structuredCV || !structuredCV.content) {
+    return NextResponse.json(
+      {
+        body: {
+          message: 'No stored profile',
+        },
+      },
+      { status: 404 });
+  }
+
+  return NextResponse.json(
+    {
+      body: {
+        profile: structuredCV?.content,
+      },
+    },
+    { status: 200 });
+}
