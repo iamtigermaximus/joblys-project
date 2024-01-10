@@ -11,7 +11,8 @@ import {
   AccordionHeader,
   AccordionHeaderTitle,
   AccordionSection,
-  Container
+  Container,
+  IconContainer
 } from './ResumeForm.styles';
 import { FaCircleChevronDown, FaCircleChevronUp } from 'react-icons/fa6';
 import SkillsForm from '../skills-details/SkillsForm';
@@ -63,13 +64,15 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             <AccordionHeaderTitle
               style={{ color: accordionState.basic ? '' : 'gray' }}
             >
-              Basic Details
+              Personal Details
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('basic')}>
               {accordionState.basic ? (
-                <FaCircleChevronUp />
+                <IconContainer>
+                  <FaCircleChevronUp style={{ fontSize: '24px' }} />
+                </IconContainer>
               ) : (
-                <FaCircleChevronDown />
+                <FaCircleChevronDown style={{ fontSize: '24px' }} />
               )}
             </span>
           </AccordionHeader>

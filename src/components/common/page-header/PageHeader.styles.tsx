@@ -34,7 +34,7 @@ export const LeftContainer = styled.div`
   justify-content: flex-start;
 
   @media (min-width: ${bp.lg}) {
-    padding: 0 20px;
+    padding: 20px 0;
   }
 `;
 
@@ -46,7 +46,6 @@ export const RightContainer = styled.div`
   justify-content: flex-end;
 
   @media (min-width: ${bp.lg}) {
-    padding: 0 20px;
   }
 `;
 
