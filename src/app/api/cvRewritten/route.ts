@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
 
@@ -29,11 +29,22 @@ interface Position {
   Responsibilities: string[];
 }
 
-async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const { id } = req.body;
+const openAI = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
+export async function POST(req: NextRequest) {
+  const { id } = await req.json();
 
   if (!id) {
-    return res.status(400).json({ message: 'ID not provided' });
+    return NextResponse.json(
+      {
+        body: {
+          message: 'ID not provided',
+        }
+      },
+      { status: 400 }
+    );
   }
 
   const result = await prisma.rewrittenCVs.findUnique({
@@ -44,9 +55,14 @@ async function POST(req: NextApiRequest, res: NextApiResponse) {
   if (result?.content != null) {
     resumeData = JSON.parse(result.content);
   } else {
-    return res
-      .status(404)
-      .json({ message: 'CV not found or missing Work Experience' });
+    return NextResponse.json(
+      {
+        body: {
+          message: 'CV not found or missing Work Experience',
+        }
+      },
+      { status: 404 }
+    );
   }
 
   let allResponsibilities: string[] = [];
@@ -71,9 +87,7 @@ async function POST(req: NextApiRequest, res: NextApiResponse) {
     '{original_responsibilities}',
     formattedResponsibilities
   );
-  const openAI = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
-  });
+
   const openaiResponse = await openAI.completions.create({
     model: 'gpt-3.5-turbo-instruct',
     prompt: modifiedPrompt,
@@ -82,7 +96,14 @@ async function POST(req: NextApiRequest, res: NextApiResponse) {
 
   const responseContent = openaiResponse?.choices?.[0]?.text;
   if (responseContent === undefined || responseContent === null) {
-    return res.status(500).json({ message: 'Unable to rewrite CV' });
+    return NextResponse.json(
+      {
+        body: {
+          message: 'Unable to rewrite CV',
+        }
+      },
+      { status: 500 }
+    );
   } else {
     const rewrittenResponsibilities = responseContent
       .trim()
@@ -115,6 +136,13 @@ async function POST(req: NextApiRequest, res: NextApiResponse) {
       }
     });
 
-    return res.status(200).json({ message: 'Successful rewrite of CV' });
+    return NextResponse.json(
+      {
+        body: {
+          message: 'Successful rewrite of CV',
+        }
+      },
+      { status: 200 }
+    );
   }
 }

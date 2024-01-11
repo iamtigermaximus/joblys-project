@@ -42,7 +42,7 @@ const UploadCV = () => {
 
       if (resp.status === 200) {
         await resp.json();
-        router.push('/joblys/resumes');
+        router.push('/profile-builder');
       } else {
         console.log('Uploading CV failed', resp.status);
       }
