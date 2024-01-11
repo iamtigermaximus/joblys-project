@@ -89,7 +89,7 @@ export const PersonalDetailsContent = styled.div`
   flex-direction: row;
   font-size: 17px;
   color: #bb342f;
-  padding: 5px 0;
+  padding: 10px 0;
 `;
 
 export const ContentContainerB = styled.div`
@@ -145,7 +145,7 @@ export const SummaryContainer = styled.div`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   padding-bottom: 5px;
   margin-bottom: 10px;
 `;
@@ -154,7 +154,7 @@ export const EducationContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   padding-bottom: 5px;
 `;
 
@@ -173,7 +173,7 @@ export const ProfessionalContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   padding-bottom: 5px;
 `;
 
@@ -193,14 +193,14 @@ export const EmploymentDetailContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
 `;
 
 export const EmploymentDetail = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   margin: 10px 0;
 `;
 
@@ -209,7 +209,7 @@ export const EmploymentDescription = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   padding-bottom: 10px;
 `;
 
@@ -218,7 +218,7 @@ export const JobTitle = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 700;
 `;
 
@@ -237,7 +237,7 @@ export const Company = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   color: #bb342f;
 `;
 
@@ -252,7 +252,7 @@ export const Date = styled.h1`
   display: flex;
   justify-content: left;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 700;
   color: #bb342f;
 `;
@@ -262,7 +262,7 @@ export const EducationDetailContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
 `;
 
 export const Course = styled.h1`
@@ -270,7 +270,7 @@ export const Course = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 700;
 `;
 
@@ -279,7 +279,7 @@ export const School = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   color: #bb342f;
 `;
 
@@ -287,7 +287,7 @@ export const EducationDetail = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   margin: 10px 0;
 `;
 
@@ -296,7 +296,7 @@ export const EducationDescription = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 11px;
+  font-size: 14px;
   padding-bottom: 10px;
 `;
 export const SkillsDetailsContent = styled.div`
@@ -313,7 +313,7 @@ export const EnteredSkillsContainer = styled.div`
 
 export const EnteredSkill = styled.div`
   display: flex;
-  font-size: 10px;
+  font-size: 14px;
   color: black;
   padding-right: 5px;
   max-width: 100%;
@@ -336,7 +336,7 @@ export const EnteredLanguagesContainer = styled.div`
 
 export const EnteredLanguage = styled.div`
   display: flex;
-  font-size: 10px;
+  font-size: 14px;
   color: black;
   padding-right: 5px;
   max-width: 100%;
