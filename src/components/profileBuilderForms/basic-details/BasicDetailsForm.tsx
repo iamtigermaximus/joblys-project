@@ -11,12 +11,15 @@ import {
   Input,
   InputContainer,
   InputLabel,
-  InputRow
+  InputRow,
+  NewLinkContainer,
+  TrashIcon
   // SaveDetailsButton,
   // SaveDetailsContainer
 } from './BasicDetailsForm.styles';
 import { BasicInfoType, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
+import { FaTrash } from 'react-icons/fa';
 
 interface BasicDetailsFormProps {
   resumeInfo: { basic: BasicInfoType };
@@ -39,6 +42,18 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
           ...prevInfo.basic.additionalLinks,
           { id: newId, url: '' }
         ]
+      }
+    }));
+  };
+
+  const handleDeleteLink = (id: string) => {
+    setResumeInfo(prevInfo => ({
+      ...prevInfo,
+      basic: {
+        ...prevInfo.basic,
+        additionalLinks: prevInfo.basic.additionalLinks.filter(
+          link => link.id !== id
+        )
       }
     }));
   };
@@ -138,14 +153,19 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
           <InputRow key={link.id}>
             <InputContainer>
               <InputLabel>Additional Link</InputLabel>
-              <Input
-                type="url"
-                placeholder="https://example.com"
-                value={link.url}
-                onChange={e =>
-                  handleAdditionalLinkChange(link.id, e.target.value)
-                }
-              />
+              <NewLinkContainer>
+                <Input
+                  type="url"
+                  placeholder="https://example.com"
+                  value={link.url}
+                  onChange={e =>
+                    handleAdditionalLinkChange(link.id, e.target.value)
+                  }
+                />
+                <TrashIcon onClick={() => handleDeleteLink(link.id)}>
+                  <FaTrash />
+                </TrashIcon>
+              </NewLinkContainer>
             </InputContainer>
           </InputRow>
         ))}

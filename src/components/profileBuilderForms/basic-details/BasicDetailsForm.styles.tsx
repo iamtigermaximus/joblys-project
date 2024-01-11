@@ -92,6 +92,7 @@ export const Input = styled.input`
     height: 40px;
     margin-bottom: 10px;
     padding: 8px 12px;
+    width: 100%;
 
     &:focus {
       outline: 0.5px solid gray;
@@ -209,9 +210,14 @@ export const TrashIcon = styled.button`
   align-items: center;
   justify-content: center;
   padding: 5px;
-  margin: 0 5px;
+  margin-bottom: 10px;
   font-size: 16px;
   background-color: white;
-  border: 1px solid gray;
-  border-radius: 3px;
+  border: none;
+`;
+
+export const NewLinkContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
