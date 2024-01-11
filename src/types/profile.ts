@@ -28,6 +28,7 @@ export interface EducationType {
   course: string;
   startDate: string;
   endDate: string;
+  description: string;
 }
 
 export interface SkillType {

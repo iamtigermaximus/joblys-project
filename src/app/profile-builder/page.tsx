@@ -44,7 +44,8 @@ const ProfileBuilderPage: FC = () => {
           school: '',
           course: '',
           startDate: '',
-          endDate: ''
+          endDate: '',
+          description: ''
         }
       ]
     },
@@ -88,7 +89,7 @@ const ProfileBuilderPage: FC = () => {
         company: exp.company_name || '',
         startDate: exp.start_date || '',
         endDate: exp.end_date || '',
-        jobDetails: exp.responsibilities.join('\n') || '',
+        jobDetails: exp.responsibilities.join('\n') || ''
       }));
 
       const educations = resume?.education.map((edu: Education) => ({
@@ -97,11 +98,12 @@ const ProfileBuilderPage: FC = () => {
         course: '',
         startDate: edu.start_date || '',
         endDate: edu.end_date || '',
+        description: ''
       }));
 
       const languages = resume?.languages.map((lang: string) => ({
         id: uuidv4(),
-        name: lang,
+        name: lang
       }));
 
       setResumeInfo({
@@ -112,26 +114,26 @@ const ProfileBuilderPage: FC = () => {
           email: resume?.email || '',
           address: '',
           linkedin: '',
-          additionalLinks: [],
+          additionalLinks: []
         },
         professional: {
           summary: '',
-          work: works || [],
+          work: works || []
         },
         educational: {
-          education: educations || [],
+          education: educations || []
         },
         skills: {
           skill: [
             {
               id: uuidv4(),
-              name: '',
+              name: ''
             }
-          ],
+          ]
         },
         languages: {
           language: languages
-        },
+        }
       });
     }
 

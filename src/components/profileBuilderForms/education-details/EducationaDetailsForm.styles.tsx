@@ -143,7 +143,7 @@ export const SaveDetailsButton = styled.button`
   }
 `;
 
-export const WorkExperienceContainer = styled.div`
+export const EducationContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -210,5 +210,33 @@ export const BackButton = styled.button`
     font-size: 15px;
     padding: 20px;
     margin-right: 5px;
+  }
+`;
+
+export const TextArea = styled.textarea`
+  border: 2px solid ${colors.blueGray};
+  border-radius: 5px;
+  /* margin: 5px 0; */
+  font-size: 12px;
+  height: 100px;
+
+  /* @media (min-width: ${bp.md}) {
+    font-size: 15px;
+    padding: 20px;
+    height: 100px;
+  } */
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+    /* margin: 5px; */
+    background-color: #f5f5f5;
+    border: none;
+    color: black;
+    padding: 8px 12px;
+    margin-bottom: 20px;
+
+    &:focus {
+      outline: 0.5px solid gray;
+    }
   }
 `;

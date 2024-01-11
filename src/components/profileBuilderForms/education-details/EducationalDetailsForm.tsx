@@ -6,6 +6,7 @@ import {
   AddEducationContainer,
   BackButton,
   Container,
+  EducationContainer,
   EducationalDetailsContainer,
   EducationalDetailsTitle,
   EducationalDetailsTitleContainer,
@@ -14,7 +15,8 @@ import {
   InputLabel,
   InputRow,
   SaveDetailsButton,
-  SaveDetailsContainer
+  SaveDetailsContainer,
+  TextArea
 } from './EducationaDetailsForm.styles';
 import { EducationType, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
@@ -68,7 +70,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
     <Container>
       <EducationalDetailsContainer>
         {resumeInfo.educational.education.map(educ => (
-          <div key={educ.id}>
+          <EducationContainer key={educ.id}>
             <InputRow>
               <InputContainer>
                 <InputLabel>School:</InputLabel>
@@ -117,7 +119,15 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                 />
               </InputContainer>
             </InputRow>
-          </div>
+            <InputLabel>Description:</InputLabel>
+            <TextArea
+              placeholder="Describe your role and achievements"
+              value={educ.description}
+              onChange={e =>
+                handleInputChange(educ.id, 'description', e.target.value)
+              }
+            />
+          </EducationContainer>
         ))}
         <AddEducationContainer>
           <AddEducationButton onClick={handleAddEducation}>

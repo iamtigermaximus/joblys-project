@@ -199,16 +199,6 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
             <JobName>Software Developer</JobName>
           </Header>
           <SummaryContainer>{professional.summary}</SummaryContainer>
-          {/* {professional?.work.map(experience => (
-                      <EmploymentDetailContainer
-          key={experience.id}>
-            <h6>jobtitle:{experience.jobTitle}</h6>
-            <h6>company:{experience.company}</h6>
-            <h6>startdate:{experience.startDate}</h6>
-            <h6>enddate{experience.endDate}</h6>
-            <h6>jobdetails{experience.jobDetails}</h6>
-          </EmploymentDetailContainer>
-        ))} */}
           <ProfessionalContainer>
             <ProfessionalContainerTitle>Employment</ProfessionalContainerTitle>
             {professional.work.map(experience => (
@@ -244,11 +234,7 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
                     <Date>{educ.endDate}</Date>
                   </DateContainer>
                 </EducationDetailContainer>
-                <EducationDescription>
-                  Suprotno raširenom mišljenju, Lorem Ipsum nije samo slučajni
-                  tekst, već ima korijene u klasičnoj latinskoj književnosti iz
-                  godine 45. pr.n.e., što znači da mu je preko 2000 godina.
-                </EducationDescription>
+                <EducationDescription>{educ.description}</EducationDescription>
               </div>
             ))}
           </EducationContainer>

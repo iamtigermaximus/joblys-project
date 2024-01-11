@@ -90,6 +90,7 @@ export const TextArea = styled.textarea`
     border: none;
     color: black;
     padding: 8px 12px;
+    margin-bottom: 20px;
 
     &:focus {
       outline: 0.5px solid gray;
