@@ -72,7 +72,9 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
                   <FaCircleChevronUp style={{ fontSize: '24px' }} />
                 </IconContainer>
               ) : (
-                <FaCircleChevronDown style={{ fontSize: '24px' }} />
+                <IconContainer>
+                  <FaCircleChevronDown style={{ fontSize: '24px' }} />
+                </IconContainer>
               )}
             </span>
           </AccordionHeader>
@@ -95,9 +97,13 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('professional')}>
               {accordionState.professional ? (
-                <FaCircleChevronUp />
+                <IconContainer>
+                  <FaCircleChevronUp style={{ fontSize: '24px' }} />
+                </IconContainer>
               ) : (
-                <FaCircleChevronDown />
+                <IconContainer>
+                  <FaCircleChevronDown style={{ fontSize: '24px' }} />
+                </IconContainer>
               )}
             </span>
           </AccordionHeader>

@@ -7,13 +7,9 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  /* height: 100vh; */
-  /* padding: 20px 30px; */
-  /* overflow-y: scroll; */
 
   @media (min-width: ${bp.lg}) {
-    /* padding: 50px 100px; */
-    /* height: 100%; */
+    padding: 20px 0;
   }
 `;
 
@@ -24,7 +20,7 @@ export const ProfessionalDetailsContainer = styled.div`
   /* border-radius: 8px; */
   /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
   width: 100%;
-  padding: 30px 20px;
+  /* padding: 30px 20px; */
   margin-bottom: 20px;
   flex-direction: column;
   color: ${colors.white};
@@ -77,7 +73,6 @@ export const InputContainer = styled.div`
 export const TextArea = styled.textarea`
   border: 2px solid ${colors.blueGray};
   border-radius: 5px;
-  padding: 10px;
   /* margin: 5px 0; */
   font-size: 12px;
   height: 100px;
@@ -89,11 +84,12 @@ export const TextArea = styled.textarea`
   } */
 
   @media (min-width: ${bp.md}) {
-    font-size: 13px;
+    font-size: 14px;
     /* margin: 5px; */
     background-color: #f5f5f5;
     border: none;
     color: black;
+    padding: 8px 12px;
 
     &:focus {
       outline: 0.5px solid gray;
@@ -105,11 +101,10 @@ export const InputLabel = styled.label`
   font-size: 10px;
   color: ${colors.darkPurple};
   letter-spacing: 1px;
-  margin: 5px 0;
 
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    margin: 5px;
+    font-size: 14px;
+    margin: 5px 0;
   }
 `;
 
@@ -181,7 +176,7 @@ export const SkillsContainer = styled.div`
 export const Input = styled.input`
   border: 2px solid ${colors.blueGray};
   border-radius: 5px;
-  padding: 10px;
+  padding: 8px 12px;
   /* margin: 5px 0; */
   font-size: 12px;
   width: 100%;
