@@ -9,9 +9,8 @@ export const Container = styled.div`
   width: 100%;
   /* height: 100vh; */
   /* padding: 20px 30px; */
-
   @media (min-width: ${bp.lg}) {
-    /* padding: 50px 100px; */
+    padding: 20px 0;
   }
 `;
 
@@ -22,7 +21,7 @@ export const SkillsDetailsContainer = styled.div`
   /* border-radius: 8px; */
   /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
   width: 100%;
-  padding: 30px 20px;
+  /* padding: 30px 20px; */
   /* margin: 20px; */
   /* color: ${colors.white}; */
   color: black;
@@ -47,12 +46,12 @@ export const InputContainer = styled.div`
 export const Input = styled.input`
   border: 2px solid ${colors.blueGray};
   border-radius: 5px;
-  padding: 10px;
+  padding: 8px 12px;
   /* margin: 5px 0; */
   font-size: 12px;
 
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
+    font-size: 14px;
     /* padding: 20px; */
     /* margin: 5px; */
     background-color: #f5f5f5;
@@ -70,11 +69,10 @@ export const InputLabel = styled.label`
   font-size: 10px;
   color: ${colors.darkPurple};
   letter-spacing: 1px;
-  margin: 5px 0;
 
   @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    margin: 5px;
+    font-size: 14px;
+    margin: 5px 0;
   }
 `;
 
@@ -109,7 +107,7 @@ export const AddNewSkillContainer = styled.div`
   align-items: center;
   justify-content: flex-end;
   /* margin: 10px 0; */
-  padding: 10px;
+  padding: 10px 0;
 `;
 
 export const DoneButton = styled.button`

@@ -156,9 +156,13 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('skills')}>
               {accordionState.skills ? (
-                <FaCircleChevronUp />
+                <IconContainer style={{ fontSize: '24px' }}>
+                  <FaCircleChevronUp />
+                </IconContainer>
               ) : (
-                <FaCircleChevronDown />
+                <IconContainer style={{ fontSize: '24px' }}>
+                  <FaCircleChevronDown />
+                </IconContainer>
               )}
             </span>
           </AccordionHeader>
@@ -180,9 +184,13 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('languages')}>
               {accordionState.languages ? (
-                <FaCircleChevronUp />
+                <IconContainer style={{ fontSize: '24px' }}>
+                  <FaCircleChevronUp />
+                </IconContainer>
               ) : (
-                <FaCircleChevronDown />
+                <IconContainer style={{ fontSize: '24px' }}>
+                  <FaCircleChevronDown />
+                </IconContainer>
               )}
             </span>
           </AccordionHeader>

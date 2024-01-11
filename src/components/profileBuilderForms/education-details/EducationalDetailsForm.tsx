@@ -43,7 +43,8 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
             school: '',
             course: '',
             startDate: '',
-            endDate: ''
+            endDate: '',
+            description: ''
           }
         ]
       }

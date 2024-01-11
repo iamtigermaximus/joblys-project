@@ -196,7 +196,7 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
               <FirstName>{basic.firstName}</FirstName>
               <LastName>{basic.lastName}</LastName>
             </NameContainer>
-            <JobName>Software Developer</JobName>
+            {/* <JobName>Software Developer</JobName> */}
           </Header>
           <SummaryContainer>{professional.summary}</SummaryContainer>
           <ProfessionalContainer>
