@@ -182,7 +182,7 @@ export const Input = styled.input`
   font-size: 12px;
   width: 100%;
   height: 40px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 
   @media (min-width: ${bp.md}) {
     font-size: 13px;

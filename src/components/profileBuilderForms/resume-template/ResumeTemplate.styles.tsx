@@ -8,11 +8,13 @@ export const TemplateContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 20px 0;
-  margin: 0 100px 100px;
+  margin: 20px;
+  overflow-y: auto;
 
   @media (min-width: ${bp.lg}) {
     /* padding: 50px 20px; */
-    height: 100vh;
+    height: 100%;
+    margin-bottom: 100px;
   }
 `;
 
@@ -22,7 +24,7 @@ export const Template = styled.div`
   background-color: ${colors.white};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   width: 100%;
-  height: 650px;
+  height: 100vh;
   /* padding: 30px 20px; */
   color: ${colors.blueGray};
   border-left: 20px solid#bb342f;
@@ -144,8 +146,8 @@ export const SummaryContainer = styled.div`
   align-items: center;
   width: 100%;
   font-size: 11px;
-  border-bottom: 0.2px solid gray;
   padding-bottom: 5px;
+  margin-bottom: 10px;
 `;
 
 export const EducationContainer = styled.div`
@@ -199,7 +201,7 @@ export const EmploymentDetail = styled.div`
   flex-direction: column;
   width: 100%;
   font-size: 11px;
-  padding-bottom: 5px;
+  margin: 10px 0;
 `;
 
 export const EmploymentDescription = styled.h1`
@@ -208,8 +210,7 @@ export const EmploymentDescription = styled.h1`
   align-items: center;
   width: 100%;
   font-size: 11px;
-  border-bottom: 0.2px solid gray;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
 `;
 
 export const JobTitle = styled.h1`
@@ -219,6 +220,16 @@ export const JobTitle = styled.h1`
   width: 100%;
   font-size: 11px;
   font-weight: 700;
+`;
+
+export const CurrentRole = styled.h1`
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 10px;
 `;
 
 export const Company = styled.h1`
@@ -234,12 +245,12 @@ export const DateContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  margin: 10px 0;
 `;
 
 export const Date = styled.h1`
   display: flex;
   justify-content: left;
-  align-items: center;
   width: 100%;
   font-size: 11px;
   font-weight: 700;
@@ -277,7 +288,7 @@ export const EducationDetail = styled.div`
   flex-direction: column;
   width: 100%;
   font-size: 11px;
-  padding-bottom: 5px;
+  margin: 10px 0;
 `;
 
 export const EducationDescription = styled.h1`
@@ -286,8 +297,7 @@ export const EducationDescription = styled.h1`
   align-items: center;
   width: 100%;
   font-size: 11px;
-  border-bottom: 0.2px solid gray;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
 `;
 export const SkillsDetailsContent = styled.div`
   display: flex;

@@ -144,6 +144,8 @@ export const ResumeTemplateContainer = styled.div`
   @media (min-width: ${bp.lg}) {
     flex-direction: row;
     width: 100%;
+    overflow-y: auto;
+    height: 100vh;
   }
 `;
 

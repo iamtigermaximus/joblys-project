@@ -45,6 +45,7 @@ export interface ResumeInfoType {
   basic: BasicInfoType;
   professional: {
     summary: string;
+    currentRole: string;
     // skills: SkillType[];
     // languages: LanguageType[];
     work: ProfessionalExperienceType[];

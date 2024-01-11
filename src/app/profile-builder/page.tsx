@@ -26,6 +26,7 @@ const ProfileBuilderPage: FC = () => {
     },
     professional: {
       summary: '',
+      currentRole: '',
       work: [
         {
           id: uuidv4(),
@@ -118,6 +119,7 @@ const ProfileBuilderPage: FC = () => {
         },
         professional: {
           summary: '',
+          currentRole: '',
           work: works || []
         },
         educational: {

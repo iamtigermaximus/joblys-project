@@ -1,6 +1,12 @@
 'use client';
 
-import React, { Dispatch, FC, SetStateAction, useState } from 'react';
+import React, {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  SetStateAction,
+  useState
+} from 'react';
 import {
   AddWorkExperienceButton,
   AddWorkExperienceContainer,
@@ -26,10 +32,9 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   setResumeInfo
 }) => {
   const [summary, setSummary] = useState('');
+  const [currentRole, setCurrentRole] = useState('');
 
-  const handleSummaryChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const handleSummaryChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const newSummary = event.target.value;
     setSummary(newSummary);
 
@@ -42,6 +47,20 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     }));
     // console.log('newSummary', newSummary);
   };
+
+  const handleCurrentRole = (event: ChangeEvent<HTMLInputElement>) => {
+    const newCurrentRole = event.target.value;
+    setCurrentRole(newCurrentRole);
+
+    setResumeInfo(prevInfo => ({
+      ...prevInfo,
+      professional: {
+        ...prevInfo.professional,
+        currentRole: newCurrentRole
+      }
+    }));
+  };
+
   const handleAddWorkExperience = () => {
     const newId = uuidv4();
 
@@ -91,10 +110,15 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             onChange={handleSummaryChange}
           />
         </InputContainer>
-        <InputRow>
-          <InputContainer></InputContainer>
-          <InputContainer></InputContainer>
-        </InputRow>
+        <InputContainer>
+          <InputLabel>Current Role:</InputLabel>
+          <Input
+            type="text"
+            placeholder="ex. Software developer"
+            value={currentRole}
+            onChange={handleCurrentRole}
+          />
+        </InputContainer>
         <InputLabel>Work Experience:</InputLabel>
         {resumeInfo.professional.work.map(experience => (
           <WorkExperienceContainer key={experience.id}>

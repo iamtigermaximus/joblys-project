@@ -8,6 +8,7 @@ import {
   ContentContainerA,
   ContentContainerB,
   Course,
+  CurrentRole,
   Date,
   DateContainer,
   EducationContainer,
@@ -197,6 +198,7 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
               <LastName>{basic.lastName}</LastName>
             </NameContainer>
             {/* <JobName>Software Developer</JobName> */}
+            <CurrentRole>{professional.currentRole}</CurrentRole>
           </Header>
           <SummaryContainer>{professional.summary}</SummaryContainer>
           <ProfessionalContainer>
