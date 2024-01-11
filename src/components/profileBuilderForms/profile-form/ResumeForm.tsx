@@ -128,9 +128,13 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('educational')}>
               {accordionState.educational ? (
-                <FaCircleChevronUp />
+                <IconContainer style={{ fontSize: '24px' }}>
+                  <FaCircleChevronUp />
+                </IconContainer>
               ) : (
-                <FaCircleChevronDown />
+                <IconContainer style={{ fontSize: '24px' }}>
+                  <FaCircleChevronDown />
+                </IconContainer>
               )}
             </span>
           </AccordionHeader>
