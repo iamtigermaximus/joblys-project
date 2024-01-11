@@ -54,23 +54,34 @@ const SkillsForm: FC<SkillsFormProps> = ({ resumeInfo, setResumeInfo }) => {
     }));
   };
 
+  const handleDeleteSkill = (id: string) => {
+    setResumeInfo(prevInfo => ({
+      ...prevInfo,
+      skills: {
+        ...prevInfo.skills,
+        skill: prevInfo.skills.skill.filter(skill => skill.id !== id)
+      }
+    }));
+  };
+
   return (
     <Container>
       <SkillsDetailsContainer>
         {resumeInfo.skills.skill.map(enteredSkill => (
           <InputContainer key={enteredSkill.id}>
             <InputLabel>Skill:</InputLabel>
-            <Input
-              type="text"
-              placeholder="eg. Javascript"
-              value={enteredSkill.name}
-              onChange={e => handleInputChange(enteredSkill.id, e.target.value)}
-            />
             <AddNewSkillContainer>
-              <TrashIcon>
+              <Input
+                type="text"
+                placeholder="eg. Javascript"
+                value={enteredSkill.name}
+                onChange={e =>
+                  handleInputChange(enteredSkill.id, e.target.value)
+                }
+              />
+              <TrashIcon onClick={() => handleDeleteSkill(enteredSkill.id)}>
                 <FaTrash />
               </TrashIcon>
-              <DoneButton>Done</DoneButton>
             </AddNewSkillContainer>
           </InputContainer>
         ))}

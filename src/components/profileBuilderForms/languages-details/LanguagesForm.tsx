@@ -48,25 +48,38 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
       }
     }));
   };
+
+  const handleDeleteLanguage = (id: string) => {
+    setResumeInfo(prevInfo => ({
+      ...prevInfo,
+      languages: {
+        ...prevInfo.languages,
+        language: prevInfo.languages.language.filter(
+          language => language.id !== id
+        )
+      }
+    }));
+  };
   return (
     <Container>
       <LanguagesDetailsContainer>
         {resumeInfo.languages.language.map(enteredLanguage => (
           <InputContainer key={enteredLanguage.id}>
-            <InputLabel>Languages:</InputLabel>
-            <Input
-              type="text"
-              placeholder="eg. Javascript"
-              value={enteredLanguage.name}
-              onChange={e =>
-                handleInputChange(enteredLanguage.id, e.target.value)
-              }
-            />
+            <InputLabel>Language:</InputLabel>
             <AddNewLanguageContainer>
-              <TrashIcon>
+              <Input
+                type="text"
+                placeholder="eg. Javascript"
+                value={enteredLanguage.name}
+                onChange={e =>
+                  handleInputChange(enteredLanguage.id, e.target.value)
+                }
+              />
+              <TrashIcon
+                onClick={() => handleDeleteLanguage(enteredLanguage.id)}
+              >
                 <FaTrash />
               </TrashIcon>
-              <DoneButton>Done</DoneButton>
             </AddNewLanguageContainer>
           </InputContainer>
         ))}

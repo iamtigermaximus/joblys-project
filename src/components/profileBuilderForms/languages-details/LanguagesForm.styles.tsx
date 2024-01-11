@@ -49,6 +49,7 @@ export const Input = styled.input`
   padding: 8px 12px;
   /* margin: 5px 0; */
   font-size: 12px;
+  width: 100%;
 
   @media (min-width: ${bp.md}) {
     font-size: 14px;
@@ -103,8 +104,7 @@ export const AddButton = styled.button`
 export const AddNewLanguageContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   /* margin: 10px 0; */
   padding: 10px 0;
 `;
@@ -128,10 +128,8 @@ export const TrashIcon = styled.button`
   align-items: center;
   justify-content: center;
   padding: 5px;
-  border: 1px solid red;
+  border: none;
   margin: 0 5px;
   font-size: 16px;
   background-color: white;
-  border: 1px solid gray;
-  border-radius: 3px;
 `;

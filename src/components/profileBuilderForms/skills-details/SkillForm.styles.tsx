@@ -58,6 +58,7 @@ export const Input = styled.input`
     border: none;
     color: black;
     height: 40px;
+    width: 100%;
 
     &:focus {
       outline: 0.5px solid gray;
@@ -104,8 +105,7 @@ export const AddButton = styled.button`
 export const AddNewSkillContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   /* margin: 10px 0; */
   padding: 10px 0;
 `;
@@ -129,10 +129,8 @@ export const TrashIcon = styled.button`
   align-items: center;
   justify-content: center;
   padding: 5px;
-  border: 1px solid red;
+  border: none;
   margin: 0 5px;
   font-size: 16px;
   background-color: white;
-  border: 1px solid gray;
-  border-radius: 3px;
 `;
