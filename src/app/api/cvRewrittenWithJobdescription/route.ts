@@ -2,16 +2,20 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
 
-const parserPromt = `Rewrite the following job responsibilities to enhance their professional appeal for a CV, while preserving their original meaning. 
-Please list your responsibilities in a bullet or numbered format. Ensure that the essence of each task remains the same, without introducing new facts or figures. 
-Each rewritten responsibility should correspond directly to the original ones provided, and try to maintain a concise length suitable for a CV.
-Original Responsibilities:
+const parserPromt = `Please share your current job responsibilities listed in your CV, as well as the description of the new job you are applying for. 
+The model will then rewrite your current responsibilities to better align with the new job description, ensuring to incorporate relevant keywords and present your achievements in a clear.
+Each duty from your current job will be rewritten into single sentence.
+The rewritten responsibilities will be presented in a clear, concise bullet or numbered format, using dynamic action verbs and professional terminology. 
+If your experience is in a specific industry, please mention it. 
+Current Job Responsibilities:
 {original_responsibilities}
-Focus on using a variety of dynamic action verbs and professional terminology, especially if your experience is in a specific industry (please mention if so). For clarity, see the examples below:
-
+New Job Description:
+{job_description}
+The model will use dynamic action verbs and professional terminology, particularly if your experience is within a specific industry. For your reference, here are some examples:
 Developed and optimized back-end APIs for a large-scale e-commerce platform, leading to significant improvements in response time.
 Designed and executed a comprehensive digital marketing strategy, substantially increasing online brand presence and social media engagement.
-Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.`;
+Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.
+Led cross-functional teams to foster collaboration and effective communication, successfully meeting project milestones.`;
 
 interface ResumeData {
   'Work Experience': WorkExperience;
@@ -34,7 +38,7 @@ const openAI = new OpenAI({
 });
 
 export async function POST(req: NextRequest) {
-  const { id } = await req.json();
+  const { id, job_descriptions } = await req.json();
 
   if (!id) {
     return NextResponse.json(
@@ -80,13 +84,10 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const formattedResponsibilities = allResponsibilities
-    .map(responsibility => `- ${responsibility}`)
-    .join('\n');
-  const modifiedPrompt = parserPromt.replace(
-    '{original_responsibilities}',
-    formattedResponsibilities
-  );
+  const formattedResponsibilities = allResponsibilities.map(responsibility => `- ${responsibility}`).join('\n');
+  const replacementMap: Record<string, string> = { '{original_responsibilities}': formattedResponsibilities, '{job_description}': job_descriptions };
+  const modifiedPrompt = parserPromt.replace(/{original_responsibilities}|{job_description}/g, match => replacementMap[match]);
+
 
   const openaiResponse = await openAI.completions.create({
     model: 'gpt-3.5-turbo-instruct',
