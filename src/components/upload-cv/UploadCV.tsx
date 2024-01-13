@@ -37,7 +37,10 @@ const UploadCV = () => {
       formData.append('cvFile', cvFile);
       const resp = await fetch('/api/cv', {
         method: 'POST',
-        body: formData
+        body: {
+          fileType: cvFile.type,
+          formData,
+        },
       });
 
       if (resp.status === 200) {
