@@ -60,7 +60,7 @@ const UploadCV = () => {
         </SectionTitleContainer>
         <FileUpload
           type="file"
-          accept=".docx"
+          accept=".docx,.pdf"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {handleFileChange(e)}} />
         <UploadButton onClick={handleUploadCV}>
           Upload
