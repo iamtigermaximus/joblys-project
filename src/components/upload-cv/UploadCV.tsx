@@ -34,13 +34,10 @@ const UploadCV = () => {
   const handleUploadCV = async () => {
     let formData = new FormData();
     if (cvFile) {
-      formData.append('cvFile', cvFile);
+      formData.append('file', cvFile);
       const resp = await fetch('/api/cv', {
         method: 'POST',
-        body: {
-          fileType: cvFile.type,
-          formData,
-        },
+        body: formData,
       });
 
       if (resp.status === 200) {

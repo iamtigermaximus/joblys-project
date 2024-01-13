@@ -3,10 +3,24 @@ import { getToken } from 'next-auth/jwt'
 import mammoth from 'mammoth';
 import OpenAI from 'openai';
 import prisma from '../../../lib/prisma';
+import * as pdfjs from 'pdfjs-dist/build/pdf.min.mjs';
+await import('pdfjs-dist/build/pdf.worker.min.mjs');
 
 const openAI = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'],
 });
+
+const parserPromtPdf = `You will be provided with extracted text programmatically from a .pdf file of a CV, where the text is separated by new lines.
+Your task is to parse it and organize the text. Remove unrealted text regarding the CV. Use the same structure from top to down. Output the data in JSON format. Have the following fields in the top level JSON:
+- name (the CV holder's name)
+- personal_information, and under it keys email, phone_number, about_me
+- technical_skills (as an array of skills as strings)
+- languages (as an array of strings)
+- work_experience, and under it as an array of objects with keys: company_name (string), position (job title, string), location (location of the company, string), start_date (string), end_date (string), responsibilities (array of strings)
+- personal_projects, and under it as an array of objects with keys: name (string), start_date (string), end_date (string)
+- education, and under it as an array of objcts with keys: degree (string), location (string), start_date (string), end_date (string), grade (string)
+- interests (array of strings).
+If some field or data is missing or you cannot parse it, mark the field with n/a.`;
 
 const parserPromt = `You will be provided with extracted text from a .docx CV, and your task is to parse it and organize the text. Remove unrealted text regarding the CV. Use the same structure from top to down. Output the data in JSON format. Have the following fields in the top level JSON:
 - name (the CV holder's name)
@@ -18,6 +32,7 @@ const parserPromt = `You will be provided with extracted text from a .docx CV, a
 - education, and under it as an array of objcts with keys: degree (string), location (string), start_date (string), end_date (string), grade (string)
 - interests (array of strings).
 If some field or data is missing or you cannot parse it, mark the field with n/a.`;
+
 
 export async function POST(req: NextRequest) {
   const token = await getToken({ req })
@@ -53,21 +68,46 @@ export async function POST(req: NextRequest) {
 
   console.log('Parsing the CV...');
 
-  let text;
-  const readData = await req.body?.getReader().read();
-  if (readData && readData.value) {
-    const buffer = Buffer.from(readData?.value);
-    text = (await mammoth.extractRawText({ buffer })).value;
+  const formData = await req.formData();
+  const file: File | null = formData?.get('file') as File;
+  let cvTextContent: string = '';
+
+  if (file && file.type === 'application/pdf') {
+    console.log('*** Foo ***');
+    console.log(formData.get('file'));
+    const buffer = await file.arrayBuffer();
+    const pdf = await pdfjs.getDocument({ data: buffer }).promise;
+
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const textContent = await page.getTextContent();
+      const pageText: string = textContent.items.map(c => c.str).join('\n');
+      cvTextContent = cvTextContent.concat(pageText);
+    }
+  } else if (file && file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+    const buffer = await file.arrayBuffer();
+    const result = await mammoth.extractRawText({ buffer });
+    cvTextContent = result.value;
+  } else {
+    console.log('Invalid file type');
+    return NextResponse.json(
+      {
+        body: {
+          message: 'invalid file type',
+        }
+      },
+      { status: 400 }
+    );
   }
 
-  if (text) {
+  if (cvTextContent) {
     console.log('Parsed the CV, persisting it...');
     let parsedCV;
     try {
       parsedCV = await prisma.parsedCVs.create({
         data: {
           ownerId: user.id,
-          content: text,
+          content: cvTextContent,
           source: 'docx',
         }
       });
@@ -95,7 +135,7 @@ export async function POST(req: NextRequest) {
           },
           {
             'role': 'user',
-            'content': text,
+            'content': cvTextContent,
           },
         ],
         stream: false,
@@ -170,7 +210,7 @@ export async function POST(req: NextRequest) {
           message: 'parsing succeeded',
         }
       },
-      { status: 200 }
+      { status: 300 }
     );
   }
 
