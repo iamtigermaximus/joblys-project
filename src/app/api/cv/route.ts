@@ -21,7 +21,7 @@ If some field or data is missing or you cannot parse it, mark the field with n/a
 
 export async function POST(req: NextRequest) {
   const token = await getToken({ req })
-  if (!token && token != null) {
+  if (!token) {
     console.log('invalid token');
     return NextResponse.json(
       {
