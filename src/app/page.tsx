@@ -9,6 +9,7 @@ import {
   BoxBody,
   Container,
   GetStartedButton,
+  ImageContainer
 } from './page.styles';
 import Image from 'next/image';
 import Image1 from '../assets/joblys-hero.png';
@@ -22,11 +23,11 @@ export default function Home() {
     router.push('/signup');
   };
 
-  const isSmallScreen =
-    typeof window !== 'undefined' && window.innerWidth <= 480;
+  // const isSmallScreen =
+  //   typeof window !== 'undefined' && window.innerWidth <= 480;
 
-  const imageWidth = isSmallScreen ? 200 : 500;
-  const imageHeight = isSmallScreen ? 350 : 600;
+  // const imageWidth = isSmallScreen ? 200 : 500;
+  // const imageHeight = isSmallScreen ? 350 : 600;
   return (
     <Container>
       <LandingNavbar />
@@ -52,13 +53,15 @@ export default function Home() {
           </Box3>
         </Box>
         <Box2>
-          <Image
-            src={Image1}
-            width={imageWidth}
-            height={imageHeight}
-            alt="hero-image"
-            priority
-          />
+          <ImageContainer>
+            <Image
+              src={Image1}
+              layout="fill"
+              objectFit="contain"
+              alt="hero-image"
+              priority
+            />
+          </ImageContainer>
         </Box2>
       </BoxContainer>
     </Container>

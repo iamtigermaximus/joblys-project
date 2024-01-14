@@ -7,8 +7,16 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   width: 100%;
+  height: 100%;
   background-color: #b4ecf9;
   flex-direction: column;
+
+  @media (-width: ${bp.md}) {
+    height: 100vh;
+  }
+  @media (min-width: ${bp.lg}) {
+    height: 100vh;
+  }
 `;
 
 export const ProfileBuilderContainer = styled.div`
@@ -23,14 +31,16 @@ export const ProfileBuilderContainer = styled.div`
 export const BoxContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 100%;
   padding: 20px;
 
   @media (min-width: ${bp.md}) {
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  }
+  @media (min-width: ${bp.lg}) {
+    height: 100%;
   }
 `;
 
@@ -161,5 +171,24 @@ export const FormViewerContainer = styled.div`
 
   @media (min-width: ${bp.lg}) {
     flex-direction: row;
+  }
+`;
+
+export const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  height: 400px;
+  padding: 10px;
+
+  @media (min-width: ${bp.sm}) {
+    width: 450px;
+    height: 550px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    width: 350px;
+    height: 400px;
   }
 `;
