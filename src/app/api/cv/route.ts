@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
   switch (file.type) {
     case FileType.PDF:
       const pdf = await pdfjs.getDocument({ data: await file.arrayBuffer() }).promise;
-      
+
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const textContent = await page.getTextContent();
@@ -140,7 +140,7 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
   }
-  
+
   if (!cvTextContent) {
     console.log('no text content');
     return NextResponse.json(
