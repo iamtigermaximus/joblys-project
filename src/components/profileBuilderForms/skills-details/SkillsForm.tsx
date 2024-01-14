@@ -12,7 +12,6 @@ import {
   AddButton,
   AddNewSkillContainer,
   Container,
-  DoneButton,
   Input,
   InputContainer,
   InputLabel,
