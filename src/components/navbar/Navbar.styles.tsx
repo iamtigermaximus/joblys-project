@@ -276,3 +276,15 @@ export const MobileMenuItemContainer = styled.div`
     letter-spacing: 1px;
   }
 `;
+
+export const MobileLogoutButton = styled.div`
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  color: ${colors.white};
+  font-size: 16px;
+
+  @media (min-width: ${bp.lg}) {
+    display: none;
+  }
+`;

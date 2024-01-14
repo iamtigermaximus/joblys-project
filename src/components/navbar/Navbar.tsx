@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import {
   Brand,
   BrandContainer,
@@ -7,13 +7,14 @@ import {
   MenuContainer,
   MenuItem,
   MenuItemContainer,
+  MobileLogoutButton,
   MobileMenuContainer,
   MobileMenuItem,
   MobileMenuItemContainer,
   NavbarContainer,
-  NavbarItemsContainer,
+  NavbarItemsContainer
 } from './Navbar.styles';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
 import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
@@ -38,6 +39,11 @@ const Navbar = () => {
       setActiveMenuItem('cover-letters');
     }
   }, [pathname]);
+
+  const handleSignOut = async (e: FormEvent) => {
+    e.preventDefault();
+    await signOut({ callbackUrl: '/' });
+  };
 
   return (
     <NavbarContainer>
@@ -106,6 +112,11 @@ const Navbar = () => {
             <MobileMenuItem href="/joblys/cover-letters">
               Cover Letters
             </MobileMenuItem>
+          </MobileMenuItemContainer>
+          <MobileMenuItemContainer>
+            <MobileLogoutButton onClick={handleSignOut}>
+              Logout
+            </MobileLogoutButton>
           </MobileMenuItemContainer>
         </MobileMenuContainer>
       </BurgerMenu>

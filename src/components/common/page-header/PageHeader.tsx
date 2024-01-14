@@ -27,6 +27,7 @@ import { useRouter, usePathname } from 'next/navigation';
 const PageHeader = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const isProfileBuilder = pathname === '/profile-builder';
 
   // const { data: session } = useSession();
   const { data: session, status } = useSession();
@@ -85,49 +86,145 @@ const PageHeader = () => {
           </MenuLink>
         </MenuLinkButton>
       </HeaderMenuContainer> */}
-      <HeaderMenuContainer>
-        <LeftContainer>
-          {pathname === '/profile-builder' && (
+      {/* {pathname === '/profile-builder' ? (
+        <HeaderMenuContainer>
+          <LeftContainer>
             <ResumeButton onClick={navigateToResume}>
               <ResumeButtonIcon>
                 <FaArrowLeft />
               </ResumeButtonIcon>
               <ResumeButtonTitle> Resume</ResumeButtonTitle>
             </ResumeButton>
+          </LeftContainer>
+          {session ? (
+            <RightContainer>
+              <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
+              <LogoutButton onClick={handleSignOut}>Log out</LogoutButton>
+              <HeaderLinksContainer>
+                <IconContainer>
+                  <FaBell />
+                </IconContainer>
+              </HeaderLinksContainer>
+              <HeaderLinksContainer>
+                <IconContainer>
+                  <FaUser />
+                </IconContainer>
+              </HeaderLinksContainer>
+            </RightContainer>
+          ) : (
+            <RightContainer>
+              <SignInButton>Sign In</SignInButton>
+              <HeaderLinksContainer>
+                <IconContainer>
+                  <FaBell />
+                </IconContainer>
+              </HeaderLinksContainer>
+              <HeaderLinksContainer>
+                <IconContainer>
+                  <FaUser />
+                </IconContainer>
+              </HeaderLinksContainer>
+            </RightContainer>
           )}
-        </LeftContainer>
-
-        {session ? (
-          <RightContainer>
-            <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
-            <LogoutButton onClick={handleSignOut}>Log out</LogoutButton>
-            <HeaderLinksContainer>
-              <IconContainer>
-                <FaBell />
-              </IconContainer>
-            </HeaderLinksContainer>
-            <HeaderLinksContainer>
-              <IconContainer>
-                <FaUser />
-              </IconContainer>
-            </HeaderLinksContainer>
-          </RightContainer>
-        ) : (
-          <RightContainer>
-            <SignInButton>Sign In</SignInButton>
-            <HeaderLinksContainer>
-              <IconContainer>
-                <FaBell />
-              </IconContainer>
-            </HeaderLinksContainer>
-            <HeaderLinksContainer>
-              <IconContainer>
-                <FaUser />
-              </IconContainer>
-            </HeaderLinksContainer>
-          </RightContainer>
-        )}
-      </HeaderMenuContainer>
+        </HeaderMenuContainer>
+      ) : (
+        <HeaderMenuContainer>
+          <LeftContainer>
+            <ResumeButton onClick={navigateToResume}>
+              <ResumeButtonIcon>
+                <FaArrowLeft />
+              </ResumeButtonIcon>
+              <ResumeButtonTitle> Resume</ResumeButtonTitle>
+            </ResumeButton>
+          </LeftContainer>
+          {session ? (
+            <RightContainer>
+              <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
+              <LogoutButton onClick={handleSignOut}>Log out</LogoutButton>
+              <HeaderLinksContainer>
+                <IconContainer>
+                  <FaBell />
+                </IconContainer>
+              </HeaderLinksContainer>
+              <HeaderLinksContainer>
+                <IconContainer>
+                  <FaUser />
+                </IconContainer>
+              </HeaderLinksContainer>
+            </RightContainer>
+          ) : (
+            <RightContainer>
+              <SignInButton>Sign In</SignInButton>
+              <HeaderLinksContainer>
+                <IconContainer>
+                  <FaBell />
+                </IconContainer>
+              </HeaderLinksContainer>
+              <HeaderLinksContainer>
+                <IconContainer>
+                  <FaUser />
+                </IconContainer>
+              </HeaderLinksContainer>
+            </RightContainer>
+          )}
+        </HeaderMenuContainer>
+      )} */}
+      {isProfileBuilder && (
+        <HeaderMenuContainer>
+          <LeftContainer>
+            <ResumeButton onClick={navigateToResume}>
+              <ResumeButtonIcon>
+                <FaArrowLeft />
+              </ResumeButtonIcon>
+              <ResumeButtonTitle> Resume</ResumeButtonTitle>
+            </ResumeButton>
+          </LeftContainer>
+          {session && (
+            <RightContainer>
+              {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
+              <LogoutButton onClick={handleSignOut}>Log out</LogoutButton> */}
+              <HeaderLinksContainer>
+                <IconContainer>
+                  <FaBell />
+                </IconContainer>
+              </HeaderLinksContainer>
+              <HeaderLinksContainer>
+                <IconContainer>
+                  <FaUser />
+                </IconContainer>
+              </HeaderLinksContainer>
+            </RightContainer>
+          )}
+        </HeaderMenuContainer>
+      )}
+      {!isProfileBuilder && (
+        <HeaderMenuContainer>
+          <LeftContainer>
+            <ResumeButton onClick={navigateToResume}>
+              <ResumeButtonIcon>
+                <FaArrowLeft />
+              </ResumeButtonIcon>
+              <ResumeButtonTitle> Resume</ResumeButtonTitle>
+            </ResumeButton>
+          </LeftContainer>
+          {session && (
+            <RightContainer>
+              <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
+              <LogoutButton onClick={handleSignOut}>Log out</LogoutButton>
+              <HeaderLinksContainer>
+                <IconContainer>
+                  <FaBell />
+                </IconContainer>
+              </HeaderLinksContainer>
+              <HeaderLinksContainer>
+                <IconContainer>
+                  <FaUser />
+                </IconContainer>
+              </HeaderLinksContainer>
+            </RightContainer>
+          )}
+        </HeaderMenuContainer>
+      )}
     </Header>
   );
 };

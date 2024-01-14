@@ -7,11 +7,15 @@ import colors from '../../../utils/colors';
 
 export const Header = styled.div`
   width: 100%;
-  height: 10vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background-color: ${colors.white};
+  height: 100px;
+
+  @media (min-width: ${bp.lg}) {
+    height: 10vh;
+  }
 `;
 
 export const HeaderMenuContainer = styled.div`
@@ -22,7 +26,7 @@ export const HeaderMenuContainer = styled.div`
   justify-content: flex-end;
 
   @media (min-width: ${bp.lg}) {
-    padding: 0 20px;
+    padding: 20px;
   }
 `;
 
@@ -32,6 +36,7 @@ export const LeftContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  padding-left: 10px;
 
   @media (min-width: ${bp.lg}) {
     padding: 20px 0;
@@ -44,6 +49,7 @@ export const RightContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+  padding-right: 10px;
 
   @media (min-width: ${bp.lg}) {
   }
