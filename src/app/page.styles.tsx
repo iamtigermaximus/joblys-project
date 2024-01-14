@@ -132,26 +132,27 @@ export const ResumeFormContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
   overflow-y: auto;
 
   @media (min-width: ${bp.lg}) {
     flex-direction: row;
     width: 100%;
+    height: 100vh;
   }
 `;
 
 export const ResumeTemplateContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-color: #f8f8f8;
+  display: none;
 
   @media (min-width: ${bp.lg}) {
+    display: flex;
     flex-direction: row;
     width: 100%;
     overflow-y: auto;
     height: 100vh;
+    justify-content: center;
+    background-color: #f8f8f8;
   }
 `;
 

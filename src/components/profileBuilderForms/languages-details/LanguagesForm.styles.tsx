@@ -86,7 +86,7 @@ export const AddButton = styled.button`
   color: ${colors.white};
   /* margin: 5px; */
   font-size: 10px;
-  width: 20%;
+  width: 100%;
   letter-spacing: 1px;
   cursor: pointer;
   padding: 10px;
@@ -109,20 +109,6 @@ export const AddNewLanguageContainer = styled.div`
   padding: 10px 0;
 `;
 
-export const DoneButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  padding: 5px;
-  border: 1px solid red;
-  background-color: purple;
-  color: white;
-  border-radius: 3px;
-  border: none;
-  border: 1px solid purple;
-`;
-
 export const TrashIcon = styled.button`
   display: flex;
   align-items: center;
@@ -132,4 +118,16 @@ export const TrashIcon = styled.button`
   margin: 0 5px;
   font-size: 16px;
   background-color: white;
+`;
+
+export const AddLanguageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  width: 100%;
+
+  @media (min-width: ${bp.md}) {
+    justify-content: flex-start;
+  }
 `;

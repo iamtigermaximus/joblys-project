@@ -85,7 +85,9 @@ const SkillsForm: FC<SkillsFormProps> = ({ resumeInfo, setResumeInfo }) => {
             </AddNewSkillContainer>
           </InputContainer>
         ))}
-        <AddButton onClick={handleAddMoreSkills}>Add new skill</AddButton>
+        <AddNewSkillContainer>
+          <AddButton onClick={handleAddMoreSkills}>Add new skill</AddButton>
+        </AddNewSkillContainer>
       </SkillsDetailsContainer>
     </Container>
   );

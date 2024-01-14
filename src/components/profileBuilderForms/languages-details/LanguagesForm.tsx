@@ -83,7 +83,11 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
             </AddNewLanguageContainer>
           </InputContainer>
         ))}
-        <AddButton onClick={handleAddMoreLanguages}>Add new language</AddButton>
+        <AddNewLanguageContainer>
+          <AddButton onClick={handleAddMoreLanguages}>
+            Add new language
+          </AddButton>
+        </AddNewLanguageContainer>
       </LanguagesDetailsContainer>
     </Container>
   );
