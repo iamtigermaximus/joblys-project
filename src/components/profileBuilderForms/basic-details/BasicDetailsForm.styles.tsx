@@ -26,24 +26,6 @@ export const BasicDetailsContainer = styled.div`
   }
 `;
 
-export const BasicDetailsTitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const BasicDetailsTitle = styled.h1`
-  color: ${colors.darkPurple};
-  padding: 5px;
-  letter-spacing: 1px;
-  font-size: 16px;
-
-  @media (min-width: ${bp.md}) {
-    font-size: 25px;
-  }
-`;
-
 // export const InputContainer = styled.div`
 //   display: flex;
 //   flex-direction: column;
@@ -67,10 +49,20 @@ export const InputContainer = styled.div`
 `;
 
 export const Input = styled.input`
-  border: 2px solid ${colors.blueGray};
   border-radius: 5px;
   padding: 10px;
   font-size: 14px;
+  background-color: #f5f5f5;
+  border: none;
+  color: black;
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  width: 100%;
+
+  &:focus {
+    outline: 0.5px solid gray;
+  }
 
   @media (min-width: ${bp.md}) {
     background-color: #f5f5f5;
@@ -156,4 +148,5 @@ export const NewLinkContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
 `;

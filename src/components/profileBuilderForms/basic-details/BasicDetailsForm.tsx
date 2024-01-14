@@ -147,22 +147,20 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
         </InputRow>
         {resumeInfo.basic.additionalLinks.map(link => (
           <InputRow key={link.id}>
-            <InputContainer>
-              <InputLabel>Additional Link</InputLabel>
-              <NewLinkContainer>
-                <Input
-                  type="url"
-                  placeholder="https://example.com"
-                  value={link.url}
-                  onChange={e =>
-                    handleAdditionalLinkChange(link.id, e.target.value)
-                  }
-                />
-                <TrashIcon onClick={() => handleDeleteLink(link.id)}>
-                  <FaTrash />
-                </TrashIcon>
-              </NewLinkContainer>
-            </InputContainer>
+            <InputLabel>Additional Link</InputLabel>
+            <NewLinkContainer>
+              <Input
+                type="url"
+                placeholder="https://example.com"
+                value={link.url}
+                onChange={e =>
+                  handleAdditionalLinkChange(link.id, e.target.value)
+                }
+              />
+              <TrashIcon onClick={() => handleDeleteLink(link.id)}>
+                <FaTrash />
+              </TrashIcon>
+            </NewLinkContainer>
           </InputRow>
         ))}
 

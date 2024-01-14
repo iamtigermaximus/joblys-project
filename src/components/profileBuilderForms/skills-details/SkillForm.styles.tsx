@@ -7,8 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  /* height: 100vh; */
-  /* padding: 20px 30px; */
+
   @media (min-width: ${bp.lg}) {
     padding: 20px 0;
   }
@@ -18,18 +17,8 @@ export const SkillsDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${colors.white};
-  /* border-radius: 8px; */
-  /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
   width: 100%;
-  /* padding: 30px 20px; */
-  /* margin: 20px; */
-  /* color: ${colors.white}; */
   color: black;
-
-  /* @media (min-width: ${bp.sm}) {
-    max-width: 400px;
-    padding: 30px 40px;
-  } */
 
   @media (min-width: ${bp.md}) {
     /* max-width: 500px; */
@@ -47,23 +36,18 @@ export const Input = styled.input`
   border: 2px solid ${colors.blueGray};
   border-radius: 5px;
   padding: 8px 12px;
-  /* margin: 5px 0; */
-  font-size: 12px;
+  font-size: 14px;
+  background-color: #f5f5f5;
+  border: none;
+  color: black;
+  height: 40px;
   width: 100%;
 
-  @media (min-width: ${bp.md}) {
-    font-size: 14px;
-    /* padding: 20px; */
-    /* margin: 5px; */
-    background-color: #f5f5f5;
-    border: none;
-    color: black;
-    height: 40px;
-    width: 100%;
+  &:focus {
+    outline: 0.5px solid gray;
+  }
 
-    &:focus {
-      outline: 0.5px solid gray;
-    }
+  @media (min-width: ${bp.md}) {
   }
 `;
 
@@ -71,9 +55,10 @@ export const InputLabel = styled.label`
   font-size: 10px;
   color: ${colors.darkPurple};
   letter-spacing: 1px;
+  font-size: 14px;
+  padding: 5px 0;
 
   @media (min-width: ${bp.md}) {
-    font-size: 14px;
     margin: 5px 0;
   }
 `;
@@ -87,7 +72,7 @@ export const AddButton = styled.button`
   background-color: ${colors.purple};
   color: ${colors.white};
   /* margin: 5px; */
-  font-size: 10px;
+  font-size: 14px;
   width: 100%;
   letter-spacing: 1px;
   cursor: pointer;
@@ -98,7 +83,6 @@ export const AddButton = styled.button`
   }
 
   @media (min-width: ${bp.md}) {
-    font-size: 13px;
     width: 30%;
   }
 `;
@@ -107,7 +91,6 @@ export const AddNewSkillContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* margin: 10px 0; */
   padding: 10px 0;
 `;
 
@@ -118,7 +101,7 @@ export const TrashIcon = styled.button`
   padding: 5px;
   border: none;
   margin: 0 5px;
-  font-size: 16px;
+  font-size: 14px;
   background-color: white;
 `;
 
