@@ -34,14 +34,13 @@ const UploadCV = () => {
   const handleUploadCV = async () => {
     let formData = new FormData();
     if (cvFile) {
-      formData.append('cvFile', cvFile);
+      formData.append('file', cvFile);
       const resp = await fetch('/api/cv', {
         method: 'POST',
-        body: formData
+        body: formData,
       });
 
       if (resp.status === 200) {
-        await resp.json();
         router.push('/profile-builder');
       } else {
         console.log('Uploading CV failed', resp.status);
@@ -58,7 +57,7 @@ const UploadCV = () => {
         </SectionTitleContainer>
         <FileUpload
           type="file"
-          accept=".docx"
+          accept=".docx,.pdf"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {handleFileChange(e)}} />
         <UploadButton onClick={handleUploadCV}>
           Upload
