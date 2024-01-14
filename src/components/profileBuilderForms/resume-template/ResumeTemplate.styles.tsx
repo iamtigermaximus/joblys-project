@@ -27,6 +27,11 @@ export const Template = styled.div`
   /* padding: 30px 20px; */
   color: ${colors.blueGray};
   border-left: 20px solid#bb342f;
+
+  &.clicked {
+    transform: scale(0.7);
+    transition: transform 0.3s ease;
+  }
 `;
 
 export const ContentContainer = styled.div`

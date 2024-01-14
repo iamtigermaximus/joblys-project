@@ -17,18 +17,8 @@ export const BasicDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${colors.white};
-  /* border-radius: 8px; */
-  /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
   width: 100%;
-
-  /* margin: 20px; */
   color: ${colors.white};
-  /* border: 1px solid red; */
-
-  /* @media (min-width: ${bp.sm}) {
-    max-width: 400px;
-    padding: 30px 40px;
-  } */
 
   @media (min-width: ${bp.md}) {
     /* max-width: 500px; */
@@ -80,12 +70,9 @@ export const Input = styled.input`
   border: 2px solid ${colors.blueGray};
   border-radius: 5px;
   padding: 10px;
-  /* margin: 5px 0; */
-  font-size: 12px;
+  font-size: 14px;
 
   @media (min-width: ${bp.md}) {
-    font-size: 14px;
-    /* margin: 5px; */
     background-color: #f5f5f5;
     border: none;
     color: black;
@@ -101,47 +88,13 @@ export const Input = styled.input`
 `;
 
 export const InputLabel = styled.label`
-  font-size: 10px;
+  font-size: 14px;
   color: ${colors.darkPurple};
   letter-spacing: 1px;
+  padding: 5px 0;
 
   @media (min-width: ${bp.md}) {
-    font-size: 14px;
     margin: 5px 0;
-  }
-`;
-
-export const SaveDetailsContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 10px;
-  width: 100%;
-`;
-
-export const SaveDetailsButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid ${colors.ashGray};
-  border-radius: 5px;
-  background-color: ${colors.blueGray};
-  color: ${colors.white};
-  /* margin: 5px; */
-  font-size: 10px;
-  width: 160px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  padding: 10px;
-
-  &:hover {
-    background: ${colors.darkPurple};
-  }
-
-  @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    padding: 20px;
-    width: 50%;
   }
 `;
 
@@ -165,8 +118,7 @@ export const AddMoreLinksButton = styled.button`
   border-radius: 5px;
   background-color: ${colors.purple};
   color: ${colors.white};
-  /* margin: 5px; */
-  font-size: 10px;
+  font-size: 14px;
   width: 100%;
   letter-spacing: 1px;
   cursor: pointer;
@@ -177,7 +129,6 @@ export const AddMoreLinksButton = styled.button`
   }
 
   @media (min-width: ${bp.md}) {
-    font-size: 13px;
     width: 30%;
   }
 `;
@@ -187,22 +138,7 @@ export const AddNewLinksContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  /* margin: 10px 0; */
   padding: 10px;
-`;
-
-export const DoneButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  padding: 5px;
-  border: 1px solid red;
-  background-color: purple;
-  color: white;
-  border-radius: 3px;
-  border: none;
-  border: 1px solid purple;
 `;
 
 export const TrashIcon = styled.button`

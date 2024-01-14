@@ -5,8 +5,6 @@ import {
   AddMoreLinksButton,
   AddMoreLinksContainer,
   BasicDetailsContainer,
-  // BasicDetailsTitle,
-  // BasicDetailsTitleContainer,
   Container,
   Input,
   InputContainer,
@@ -14,8 +12,6 @@ import {
   InputRow,
   NewLinkContainer,
   TrashIcon
-  // SaveDetailsButton,
-  // SaveDetailsContainer
 } from './BasicDetailsForm.styles';
 import { BasicInfoType, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
