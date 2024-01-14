@@ -2,16 +2,19 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
 
-const parserPromt = `Rewrite the following job responsibilities to enhance their professional appeal for a CV, while preserving their original meaning. 
-Please list your responsibilities in a bullet or numbered format. Ensure that the essence of each task remains the same, without introducing new facts or figures. 
-Each rewritten responsibility should correspond directly to the original ones provided, and try to maintain a concise length suitable for a CV.
+const parserPromt = `Please rewrite the following three job responsibilities to enhance their professional appeal for a CV, while preserving their original meaning.
+Each rewritten responsibility should be a more professional and concise version of the original, suitable for a CV. List your responsibilities in a bullet or numbered format, ensuring that the essence of each task remains the same, without introducing new facts or figures.
+Each rewritten responsibility should correspond directly to the original ones provided, maintaining a concise length suitable for a CV. Focus on using a variety of dynamic action verbs and professional terminology, especially if your experience is in a specific industry. For clarity, see the examples provided after the original responsibilities. 
+Please provide exactly {number_sentences} rewritten sentences, one corresponding to each of the following original responsibilities:
+
 Original Responsibilities:
 {original_responsibilities}
 Focus on using a variety of dynamic action verbs and professional terminology, especially if your experience is in a specific industry (please mention if so). For clarity, see the examples below:
 
 Developed and optimized back-end APIs for a large-scale e-commerce platform, leading to significant improvements in response time.
 Designed and executed a comprehensive digital marketing strategy, substantially increasing online brand presence and social media engagement.
-Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.`;
+Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.
+Led cross-functional teams to foster collaboration and effective communication, successfully meeting project milestones.`;
 
 interface ResumeData {
   'Work Experience': WorkExperience;
@@ -83,9 +86,14 @@ export async function POST(req: NextRequest) {
   const formattedResponsibilities = allResponsibilities
     .map(responsibility => `- ${responsibility}`)
     .join('\n');
+
+  const replacementMap: Record<string, string> = {
+    '{number_sentences}': allResponsibilities.length.toString(),
+    '{original_responsibilities}': formattedResponsibilities,
+  };
   const modifiedPrompt = parserPromt.replace(
-    '{original_responsibilities}',
-    formattedResponsibilities,
+    /{original_responsibilities}|{number_sentences}/g,
+    match => replacementMap[match],
   );
 
   const openaiResponse = await openAI.completions.create({

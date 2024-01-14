@@ -2,20 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
 
-const parserPromt = `Please share your current job responsibilities listed in your CV, as well as the description of the new job you are applying for. 
-The model will then rewrite your current responsibilities to better align with the new job description, ensuring to incorporate relevant keywords and present your achievements in a clear.
-Each duty from your current job will be rewritten into single sentence.
-The rewritten responsibilities will be presented in a clear, concise bullet or numbered format, using dynamic action verbs and professional terminology. 
-If your experience is in a specific industry, please mention it. 
-Current Job Responsibilities:
-{original_responsibilities}
-New Job Description:
-{job_description}
-The model will use dynamic action verbs and professional terminology, particularly if your experience is within a specific industry. For your reference, here are some examples:
-Developed and optimized back-end APIs for a large-scale e-commerce platform, leading to significant improvements in response time.
-Designed and executed a comprehensive digital marketing strategy, substantially increasing online brand presence and social media engagement.
-Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.
-Led cross-functional teams to foster collaboration and effective communication, successfully meeting project milestones.`;
+const parserPromt = `Provide details of your current job responsibilities as outlined in your resume, along with the job description for the position you're seeking. 
+This will enable the model to tailor your existing responsibilities to better match the new job's requirements. 
+The process will include integrating relevant keywords to enhance your prospects for the new role. 
+Each of your current job responsibilities will be rephrased into a single, more impactful sentence. 
+The final output will be a list of your reformulated duties, either in bullet points or numbered format, emphasizing dynamic action verbs and industry-specific jargon.
+
+Please provide exactly {number_sentences} rewritten sentences, corresponding to your original responsibilities, as follows:
+
+Current Job Responsibilities: {original_responsibilities}
+Target Job Description: {job_description}
+The model will prioritize the use of dynamic action verbs and professional terminology, particularly tailored to your industry. Below are some sample reformulations for reference:
+
+Enhanced and streamlined back-end APIs for a major e-commerce platform, resulting in markedly faster response times.
+Crafted and implemented a holistic digital marketing strategy, significantly boosting online brand visibility and social media engagement.
+Managed and guided multiple critical projects, ensuring timely completion within budget.
+Spearheaded collaborative efforts across various teams, achieving key project goals efficiently.`;
 
 interface ResumeData {
   'Work Experience': WorkExperience;
@@ -97,11 +99,12 @@ export async function POST(req: NextRequest) {
     .map(responsibility => `- ${responsibility}`)
     .join('\n');
   const replacementMap: Record<string, string> = {
+    '{number_sentences}': allResponsibilities.length.toString(),
     '{original_responsibilities}': formattedResponsibilities,
     '{job_description}': job_descriptions,
   };
   const modifiedPrompt = parserPromt.replace(
-    /{original_responsibilities}|{job_description}/g,
+    /{number_sentences}|{original_responsibilities}|{job_description}/g,
     match => replacementMap[match],
   );
 
