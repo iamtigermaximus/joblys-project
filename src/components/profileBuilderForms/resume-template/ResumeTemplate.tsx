@@ -9,7 +9,7 @@ import {
   ContentContainerB,
   Course,
   CurrentRole,
-  Date,
+  Dates,
   DateContainer,
   EducationContainer,
   EducationContainerTitle,
@@ -40,7 +40,10 @@ import {
   SkillsDetailsContent,
   SummaryContainer,
   Template,
-  TemplateContainer
+  TemplateContainer,
+  Year,
+  Month,
+  DateSeparator
 } from './ResumeTemplate.styles';
 import { ResumeInfoType } from '@/types/profile';
 import Minimalist from '../templates/minimalist/Minimalist';
@@ -211,8 +214,47 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
                     <Company>{experience.company}</Company>
                   </EmploymentDetail>
                   <DateContainer>
-                    <Date>{experience.startDate} </Date>
-                    <Date>{experience.endDate}</Date>
+                    <Dates>
+                      <Month>
+                        {experience.startDate.month &&
+                        !isNaN(parseInt(experience.startDate.month)) ? (
+                          <>
+                            {new Date(
+                              2022,
+                              parseInt(experience.startDate.month) - 1
+                            ).toLocaleString('default', {
+                              month: 'short'
+                            })}
+                          </>
+                        ) : (
+                          <>Jan</>
+                        )}
+                      </Month>
+                      <Year>
+                        {experience.startDate.year || new Date().getFullYear()}
+                      </Year>
+                    </Dates>
+                    <DateSeparator> - </DateSeparator>
+                    <Dates>
+                      <Month>
+                        {experience.endDate.month &&
+                        !isNaN(parseInt(experience.endDate.month)) ? (
+                          <>
+                            {new Date(
+                              2022,
+                              parseInt(experience.endDate.month) - 1
+                            ).toLocaleString('default', {
+                              month: 'short'
+                            })}
+                          </>
+                        ) : (
+                          <>Jan</>
+                        )}
+                      </Month>
+                      <Year>
+                        {experience.endDate.year || new Date().getFullYear()}
+                      </Year>
+                    </Dates>
                   </DateContainer>
                 </EmploymentDetailContainer>
                 <EmploymentDescription>
@@ -232,8 +274,48 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
                     <School>{educ.school}</School>
                   </EducationDetail>
                   <DateContainer>
-                    <Date>{educ.startDate}</Date>
-                    <Date>{educ.endDate}</Date>
+                    <Dates>
+                      <Month>
+                        {educ.startDate.month &&
+                        !isNaN(parseInt(educ.startDate.month)) ? (
+                          <>
+                            {new Date(
+                              2022,
+                              parseInt(educ.startDate.month) - 1
+                            ).toLocaleString('default', {
+                              month: 'short'
+                            })}
+                          </>
+                        ) : (
+                          <>Jan</>
+                        )}
+                      </Month>
+                      <Year>
+                        {educ.startDate.year || new Date().getFullYear()}
+                      </Year>
+                    </Dates>
+                    <DateSeparator> - </DateSeparator>
+
+                    <Dates>
+                      <Month>
+                        {educ.endDate.month &&
+                        !isNaN(parseInt(educ.endDate.month)) ? (
+                          <>
+                            {new Date(
+                              2022,
+                              parseInt(educ.endDate.month) - 1
+                            ).toLocaleString('default', {
+                              month: 'short'
+                            })}
+                          </>
+                        ) : (
+                          <>Jan</>
+                        )}
+                      </Month>
+                      <Year>
+                        {educ.endDate.year || new Date().getFullYear()}
+                      </Year>
+                    </Dates>
                   </DateContainer>
                 </EducationDetailContainer>
                 <EducationDescription>{educ.description}</EducationDescription>

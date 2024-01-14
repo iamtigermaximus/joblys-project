@@ -32,8 +32,8 @@ const ProfileBuilderPage: FC = () => {
           id: uuidv4(),
           jobTitle: '',
           company: '',
-          startDate: '',
-          endDate: '',
+          startDate: { month: '', year: '' },
+          endDate: { month: '', year: '' },
           jobDetails: ''
         }
       ]
@@ -44,8 +44,8 @@ const ProfileBuilderPage: FC = () => {
           id: uuidv4(),
           school: '',
           course: '',
-          startDate: '',
-          endDate: '',
+          startDate: { month: '', year: '' },
+          endDate: { month: '', year: '' },
           description: ''
         }
       ]

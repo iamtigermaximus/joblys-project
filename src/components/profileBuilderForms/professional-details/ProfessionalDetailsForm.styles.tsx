@@ -282,3 +282,27 @@ export const AddWorkExperienceButton = styled.button`
     width: 40%;
   }
 `;
+
+export const DropdownContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const MonthSelect = styled.select`
+  width: 50%;
+  background-color: #f5f5f5;
+  height: 40px;
+  padding: 8px 12px;
+  border: none;
+  margin-right: 5px;
+`;
+
+export const YearSelect = styled.select`
+  width: 50%;
+  background-color: #f5f5f5;
+  height: 40px;
+  padding: 8px 12px;
+  border: none;
+`;

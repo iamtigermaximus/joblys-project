@@ -11,13 +11,16 @@ import {
   AddWorkExperienceButton,
   AddWorkExperienceContainer,
   Container,
+  DropdownContainer,
   Input,
   InputContainer,
   InputLabel,
   InputRow,
+  MonthSelect,
   ProfessionalDetailsContainer,
   TextArea,
-  WorkExperienceContainer
+  WorkExperienceContainer,
+  YearSelect
 } from './ProfessionalDetailsForm.styles';
 import { ProfessionalExperienceType, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
@@ -33,6 +36,21 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
 }) => {
   const [summary, setSummary] = useState('');
   const [currentRole, setCurrentRole] = useState('');
+
+  const generateMonths = () => {
+    return Array.from({ length: 12 }, (_, index) => {
+      const month = index + 1;
+      return month < 10 ? `0${month}` : `${month}`;
+    });
+  };
+
+  const generateYears = () => {
+    const currentYear = new Date().getFullYear();
+    return Array.from({ length: 10 }, (_, index) => currentYear - index);
+  };
+
+  const months = generateMonths();
+  const years = generateYears();
 
   const handleSummaryChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const newSummary = event.target.value;
@@ -74,8 +92,8 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             id: newId,
             jobTitle: '',
             company: '',
-            startDate: '',
-            endDate: '',
+            startDate: { month: '01', year: `${new Date().getFullYear()}` }, // Initial values
+            endDate: { month: '01', year: `${new Date().getFullYear()}` },
             jobDetails: ''
           }
         ]
@@ -86,7 +104,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   const handleInputChange = (
     id: string,
     field: keyof ProfessionalExperienceType,
-    value: string
+    value: string | { month: string; year: string }
   ) => {
     setResumeInfo(prevInfo => ({
       ...prevInfo,
@@ -149,29 +167,83 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             <InputRow>
               <InputContainer>
                 <InputLabel>Start date:</InputLabel>
-                <Input
-                  type="date"
-                  placeholder="Enter start date Jan 2022"
-                  value={experience.startDate}
-                  onChange={e =>
-                    handleInputChange(
-                      experience.id,
-                      'startDate',
-                      e.target.value
-                    )
-                  }
-                />
+                <DropdownContainer>
+                  <MonthSelect
+                    value={experience.startDate.month}
+                    onChange={e =>
+                      handleInputChange(experience.id, 'startDate', {
+                        ...experience.startDate,
+                        month: e.target.value
+                      })
+                    }
+                  >
+                    {months.map(month => (
+                      <option key={month} value={month}>
+                        {new Date(2022, parseInt(month) - 1).toLocaleString(
+                          'default',
+                          {
+                            month: 'long'
+                          }
+                        )}
+                      </option>
+                    ))}
+                  </MonthSelect>
+                  <YearSelect
+                    value={experience.startDate.year}
+                    onChange={e =>
+                      handleInputChange(experience.id, 'startDate', {
+                        ...experience.startDate,
+                        year: e.target.value
+                      })
+                    }
+                  >
+                    {years.map(year => (
+                      <option key={year} value={year.toString()}>
+                        {year}
+                      </option>
+                    ))}
+                  </YearSelect>
+                </DropdownContainer>
               </InputContainer>
               <InputContainer>
                 <InputLabel>End date:</InputLabel>
-                <Input
-                  type="date"
-                  placeholder="Enter end date Jan 2023"
-                  value={experience.endDate}
-                  onChange={e =>
-                    handleInputChange(experience.id, 'endDate', e.target.value)
-                  }
-                />
+                <DropdownContainer>
+                  <MonthSelect
+                    value={experience.endDate.month}
+                    onChange={e =>
+                      handleInputChange(experience.id, 'endDate', {
+                        ...experience.endDate,
+                        month: e.target.value
+                      })
+                    }
+                  >
+                    {months.map(month => (
+                      <option key={month} value={month}>
+                        {new Date(2022, parseInt(month) - 1).toLocaleString(
+                          'default',
+                          {
+                            month: 'long'
+                          }
+                        )}
+                      </option>
+                    ))}
+                  </MonthSelect>
+                  <YearSelect
+                    value={experience.endDate.year}
+                    onChange={e =>
+                      handleInputChange(experience.id, 'endDate', {
+                        ...experience.endDate,
+                        year: e.target.value
+                      })
+                    }
+                  >
+                    {years.map(year => (
+                      <option key={year} value={year.toString()}>
+                        {year}
+                      </option>
+                    ))}
+                  </YearSelect>
+                </DropdownContainer>
               </InputContainer>
             </InputRow>
             <InputLabel>Job details:</InputLabel>

@@ -17,7 +17,7 @@ export const ProfileBuilderContainer = styled.div`
   background-color: white;
   flex-direction: column;
   height: 100vh;
-  position: fixed;
+  /* position: fixed; */
 `;
 
 export const BoxContainer = styled.div`
@@ -115,6 +115,12 @@ export const GetStartedButton = styled.button`
   border-radius: 10px;
   border: none;
   color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+    color: ${colors.white};
+  }
 
   @media (min-width: ${bp.lg}) {
     width: 150px;

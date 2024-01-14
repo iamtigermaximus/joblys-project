@@ -73,6 +73,11 @@ export const LoginButton = styled.button`
   font-weight: 700;
   margin-right: 5px;
 
+  &:hover {
+    background-color: ${colors.darkPurple};
+    color: ${colors.white};
+  }
+
   @media (min-width: ${bp.md}) {
     width: 100px;
     padding: 0 10px;
@@ -94,6 +99,11 @@ export const SignupButton = styled.button`
   font-weight: 700;
   margin-right: 5px;
   white-space: nowrap;
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+    color: ${colors.white};
+  }
 
   @media (min-width: ${bp.md}) {
     width: 100px;

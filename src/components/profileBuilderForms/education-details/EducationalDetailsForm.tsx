@@ -6,6 +6,7 @@ import {
   AddEducationContainer,
   BackButton,
   Container,
+  DropdownContainer,
   EducationContainer,
   EducationalDetailsContainer,
   EducationalDetailsTitle,
@@ -14,9 +15,11 @@ import {
   InputContainer,
   InputLabel,
   InputRow,
+  MonthSelect,
   SaveDetailsButton,
   SaveDetailsContainer,
-  TextArea
+  TextArea,
+  YearSelect
 } from './EducationaDetailsForm.styles';
 import { EducationType, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
@@ -30,6 +33,21 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
   resumeInfo,
   setResumeInfo
 }) => {
+  const generateMonths = () => {
+    return Array.from({ length: 12 }, (_, index) => {
+      const month = index + 1;
+      return month < 10 ? `0${month}` : `${month}`;
+    });
+  };
+
+  const generateYears = () => {
+    const currentYear = new Date().getFullYear();
+    return Array.from({ length: 10 }, (_, index) => currentYear - index);
+  };
+
+  const months = generateMonths();
+  const years = generateYears();
+
   const handleAddEducation = () => {
     const newId = uuidv4();
     setResumeInfo(prevInfo => ({
@@ -42,8 +60,8 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
             id: newId,
             school: '',
             course: '',
-            startDate: '',
-            endDate: '',
+            startDate: { month: '01', year: `${new Date().getFullYear()}` },
+            endDate: { month: '01', year: `${new Date().getFullYear()}` },
             description: ''
           }
         ]
@@ -54,7 +72,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
   const handleInputChange = (
     id: string,
     field: keyof EducationType,
-    value: string
+    value: string | { month: string; year: string }
   ) => {
     setResumeInfo(prevInfo => ({
       ...prevInfo,
@@ -99,25 +117,83 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
             <InputRow>
               <InputContainer>
                 <InputLabel>Start date:</InputLabel>
-                <Input
-                  type="date"
-                  placeholder="Enter start date or year Jan 2022"
-                  value={educ.startDate}
-                  onChange={e =>
-                    handleInputChange(educ.id, 'startDate', e.target.value)
-                  }
-                />
+                <DropdownContainer>
+                  <MonthSelect
+                    value={educ.startDate.month}
+                    onChange={e =>
+                      handleInputChange(educ.id, 'startDate', {
+                        ...educ.startDate,
+                        month: e.target.value
+                      })
+                    }
+                  >
+                    {months.map(month => (
+                      <option key={month} value={month}>
+                        {new Date(2022, parseInt(month) - 1).toLocaleString(
+                          'default',
+                          {
+                            month: 'long'
+                          }
+                        )}
+                      </option>
+                    ))}
+                  </MonthSelect>
+                  <YearSelect
+                    value={educ.startDate.year}
+                    onChange={e =>
+                      handleInputChange(educ.id, 'startDate', {
+                        ...educ.startDate,
+                        year: e.target.value
+                      })
+                    }
+                  >
+                    {years.map(year => (
+                      <option key={year} value={year.toString()}>
+                        {year}
+                      </option>
+                    ))}
+                  </YearSelect>
+                </DropdownContainer>
               </InputContainer>
               <InputContainer>
                 <InputLabel>End date:</InputLabel>
-                <Input
-                  type="date"
-                  placeholder="Enter end date or year Jan 2023"
-                  value={educ.endDate}
-                  onChange={e =>
-                    handleInputChange(educ.id, 'endDate', e.target.value)
-                  }
-                />
+                <DropdownContainer>
+                  <MonthSelect
+                    value={educ.endDate.month}
+                    onChange={e =>
+                      handleInputChange(educ.id, 'endDate', {
+                        ...educ.endDate,
+                        month: e.target.value
+                      })
+                    }
+                  >
+                    {months.map(month => (
+                      <option key={month} value={month}>
+                        {new Date(2022, parseInt(month) - 1).toLocaleString(
+                          'default',
+                          {
+                            month: 'long'
+                          }
+                        )}
+                      </option>
+                    ))}
+                  </MonthSelect>
+                  <YearSelect
+                    value={educ.endDate.year}
+                    onChange={e =>
+                      handleInputChange(educ.id, 'endDate', {
+                        ...educ.endDate,
+                        year: e.target.value
+                      })
+                    }
+                  >
+                    {years.map(year => (
+                      <option key={year} value={year.toString()}>
+                        {year}
+                      </option>
+                    ))}
+                  </YearSelect>
+                </DropdownContainer>
               </InputContainer>
             </InputRow>
             <InputLabel>Description:</InputLabel>

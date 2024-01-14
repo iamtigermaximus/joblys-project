@@ -13,12 +13,29 @@ export interface BasicInfoType {
   additionalLinks: AdditionalLinkType[];
 }
 
+// export interface ProfessionalExperienceType {
+//   id: string;
+//   jobTitle: string;
+//   company: string;
+//   startDate: string;
+//   endDate: string;
+//   jobDetails: string;
+// }
+
+// export interface EducationType {
+//   id: string;
+//   school: string;
+//   course: string;
+//   startDate: string;
+//   endDate: string;
+//   description: string;
+// }
 export interface ProfessionalExperienceType {
   id: string;
   jobTitle: string;
   company: string;
-  startDate: string;
-  endDate: string;
+  startDate: { month: string; year: string };
+  endDate: { month: string; year: string };
   jobDetails: string;
 }
 
@@ -26,8 +43,8 @@ export interface EducationType {
   id: string;
   school: string;
   course: string;
-  startDate: string;
-  endDate: string;
+  startDate: { month: string; year: string };
+  endDate: { month: string; year: string };
   description: string;
 }
 

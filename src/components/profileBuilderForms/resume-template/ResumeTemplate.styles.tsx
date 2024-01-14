@@ -8,13 +8,12 @@ export const TemplateContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 20px 0;
-  margin: 20px;
+  margin: 20px 20px 100px;
   overflow-y: auto;
 
   @media (min-width: ${bp.lg}) {
     /* padding: 50px 20px; */
-    height: 100%;
-    margin-bottom: 100px;
+    height: 100vh;
   }
 `;
 
@@ -24,7 +23,7 @@ export const Template = styled.div`
   background-color: ${colors.white};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   width: 100%;
-  height: 100vh;
+  height: 100%;
   /* padding: 30px 20px; */
   color: ${colors.blueGray};
   border-left: 20px solid#bb342f;
@@ -33,6 +32,7 @@ export const Template = styled.div`
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: row;
+  height: 100%;
 `;
 
 export const ContentContainerA = styled.div`
@@ -201,7 +201,7 @@ export const EmploymentDetail = styled.div`
   flex-direction: column;
   width: 100%;
   font-size: 14px;
-  margin: 10px 0;
+  margin: 10px 5px 10px 0;
 `;
 
 export const EmploymentDescription = styled.h1`
@@ -244,17 +244,35 @@ export const Company = styled.h1`
 export const DateContainer = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   width: 100%;
   margin: 10px 0;
 `;
 
-export const Date = styled.h1`
+export const Dates = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const Month = styled.h1`
   display: flex;
   justify-content: left;
   width: 100%;
   font-size: 14px;
   font-weight: 700;
   color: #bb342f;
+  margin-right: 5px;
+`;
+
+export const Year = styled.h1`
+  display: flex;
+  justify-content: left;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  color: #bb342f;
+  margin-right: 5px;
 `;
 
 export const EducationDetailContainer = styled.div`
@@ -343,4 +361,14 @@ export const EnteredLanguage = styled.div`
   word-break: break-all;
   white-space: wrap;
   max-width: 114px;
+`;
+
+export const DateSeparator = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16;
+  font-weight: 700;
+  color: #bb342f;
+  margin: 0 5px;
 `;
