@@ -4,20 +4,15 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   AddEducationButton,
   AddEducationContainer,
-  BackButton,
   Container,
   DropdownContainer,
   EducationContainer,
   EducationalDetailsContainer,
-  EducationalDetailsTitle,
-  EducationalDetailsTitleContainer,
   Input,
   InputContainer,
   InputLabel,
   InputRow,
   MonthSelect,
-  SaveDetailsButton,
-  SaveDetailsContainer,
   TextArea,
   YearSelect
 } from './EducationaDetailsForm.styles';

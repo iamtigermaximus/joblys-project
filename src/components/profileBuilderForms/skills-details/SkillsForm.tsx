@@ -1,13 +1,7 @@
 'use client';
 
 import { ResumeInfoType, SkillType } from '@/types/profile';
-import React, {
-  ChangeEvent,
-  Dispatch,
-  FC,
-  SetStateAction,
-  useState
-} from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   AddButton,
   AddNewSkillContainer,
