@@ -12,11 +12,23 @@ import {
   AccordionHeaderTitle,
   AccordionSection,
   Container,
-  IconContainer
+  HeaderItem,
+  IconContainer,
+  PreviewButton,
+  PreviewButtonSection,
+  TemplateHeaderItem,
+  TemplatePreview,
+  TemplatePreviewHeader
 } from './ResumeForm.styles';
-import { FaCircleChevronDown, FaCircleChevronUp } from 'react-icons/fa6';
+import {
+  FaArrowLeft,
+  FaCircleChevronDown,
+  FaCircleChevronUp,
+  FaDownload
+} from 'react-icons/fa6';
 import SkillsForm from '../skills-details/SkillsForm';
 import LanguagesForm from '../languages-details/LanguagesForm';
+// import ResumeTemplate from '../resume-template/ResumeTemplate';
 
 interface ResumeFormProps {
   resumeInfo: ResumeInfoType;
@@ -34,6 +46,13 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     skills: false,
     languages: false
   });
+
+  const [click, setClick] = useState(true);
+  const resumeTemplate = () => setClick(!click);
+
+  const handleClosePreview = () => {
+    setClick(false);
+  };
 
   const toggleAccordion = (section: keyof typeof accordionState) => {
     setAccordionState(prevState => {
@@ -58,6 +77,27 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   // };
   return (
     <Container>
+      <TemplatePreview
+        className={click ? 'resume active' : 'resume'}
+        onClick={resumeTemplate}
+      >
+        <TemplatePreviewHeader>
+          <TemplateHeaderItem>
+            <HeaderItem>
+              <FaArrowLeft />
+            </HeaderItem>
+          </TemplateHeaderItem>
+          <TemplateHeaderItem>
+            <HeaderItem>PREVIEW</HeaderItem>
+          </TemplateHeaderItem>
+          <TemplateHeaderItem>
+            <HeaderItem>
+              <FaDownload />
+            </HeaderItem>
+          </TemplateHeaderItem>
+        </TemplatePreviewHeader>
+      </TemplatePreview>
+
       <AccordionContainer>
         <AccordionSection>
           <AccordionHeader>
@@ -209,6 +249,10 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             <button onClick={handleFinalSubmit}>Submit</button>
           </AccordionHeader>
         </AccordionSection> */}
+
+        <PreviewButtonSection>
+          <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
+        </PreviewButtonSection>
       </AccordionContainer>
     </Container>
   );
