@@ -88,6 +88,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
+
   let resumeData: ResumeData;
   if (!structuredCV?.content) {
     return NextResponse.json(
@@ -147,7 +148,8 @@ export async function POST(req: NextRequest) {
     prompt: modifiedPrompt,
     temperature: 0.5,
     max_tokens: 2050,
-  })
+  });
+
   const responseContent = openaiResponse?.choices?.[0]?.text;
   if (!responseContent) {
     return NextResponse.json(
