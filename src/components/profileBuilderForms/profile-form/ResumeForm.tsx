@@ -28,6 +28,7 @@ import {
 } from 'react-icons/fa6';
 import SkillsForm from '../skills-details/SkillsForm';
 import LanguagesForm from '../languages-details/LanguagesForm';
+import ResumeTemplate from '../resume-template/ResumeTemplate';
 // import ResumeTemplate from '../resume-template/ResumeTemplate';
 
 interface ResumeFormProps {
@@ -96,6 +97,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </HeaderItem>
           </TemplateHeaderItem>
         </TemplatePreviewHeader>
+        <ResumeTemplate resumeInfo={resumeInfo} />
       </TemplatePreview>
 
       <AccordionContainer>
