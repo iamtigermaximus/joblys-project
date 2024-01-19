@@ -7,13 +7,16 @@ export const TemplateContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 20px 0;
-  margin: 20px 20px 100px;
+  height: 100vh;
+  padding: 20px;
   overflow-y: auto;
 
+  @media (min-width: ${bp.md}) {
+    padding: 20px 100px;
+  }
+
   @media (min-width: ${bp.lg}) {
-    /* padding: 50px 20px; */
-    height: 100vh;
+    padding: 20px 20px 100px;
   }
 `;
 
@@ -23,14 +26,15 @@ export const Template = styled.div`
   background-color: ${colors.white};
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   width: 100%;
-  height: 100%;
-  /* padding: 30px 20px; */
   color: ${colors.blueGray};
   border-left: 20px solid#bb342f;
+  height: 100vh;
 
-  &.clicked {
-    transform: scale(0.7);
-    transition: transform 0.3s ease;
+  @media (min-width: ${bp.lg}) {
+    &.clicked {
+      transform: scale(0.7);
+      transition: transform 0.3s ease;
+    }
   }
 `;
 
@@ -47,6 +51,7 @@ export const ContentContainerA = styled.div`
   background-color: #fbefef;
   color: black;
   padding: 20px 10px;
+  height: 100vh;
 `;
 export const PersonalDetailsContainer = styled.div`
   display: flex;
