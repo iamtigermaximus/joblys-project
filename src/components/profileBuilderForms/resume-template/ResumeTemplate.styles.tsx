@@ -16,7 +16,7 @@ export const TemplateContainer = styled.div`
   }
 
   @media (min-width: ${bp.lg}) {
-    padding: 20px 20px 100px;
+    padding: 20px;
   }
 `;
 
@@ -28,9 +28,21 @@ export const Template = styled.div`
   width: 100%;
   color: ${colors.blueGray};
   border-left: 20px solid#bb342f;
-  height: 100vh;
+  height: 500px;
+
+  @media (min-width: ${bp.sm}) {
+    height: 600px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    height: 100vh;
+    width: 600px;
+  }
 
   @media (min-width: ${bp.lg}) {
+    height: 100vh;
+    width: 100%;
+
     &.clicked {
       transform: scale(0.7);
       transition: transform 0.3s ease;
@@ -51,7 +63,11 @@ export const ContentContainerA = styled.div`
   background-color: #fbefef;
   color: black;
   padding: 20px 10px;
-  height: 100vh;
+  height: 100%;
+
+  @media (min-width: ${bp.lg}) {
+    height: 100vh;
+  }
 `;
 export const PersonalDetailsContainer = styled.div`
   display: flex;
