@@ -146,7 +146,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
           </InputContainer>
         </InputRow>
         {resumeInfo.basic.additionalLinks.map(link => (
-          <InputRow key={link.id}>
+          <InputContainer key={link.id}>
             <InputLabel>Additional Link</InputLabel>
             <NewLinkContainer>
               <Input
@@ -161,7 +161,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
                 <FaTrash />
               </TrashIcon>
             </NewLinkContainer>
-          </InputRow>
+          </InputContainer>
         ))}
 
         <AddMoreLinksContainer>

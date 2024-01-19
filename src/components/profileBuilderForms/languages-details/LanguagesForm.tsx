@@ -68,7 +68,7 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
             <AddNewLanguageContainer>
               <Input
                 type="text"
-                placeholder="eg. Javascript"
+                placeholder="eg. Finnish"
                 value={enteredLanguage.name}
                 onChange={e =>
                   handleInputChange(enteredLanguage.id, e.target.value)
