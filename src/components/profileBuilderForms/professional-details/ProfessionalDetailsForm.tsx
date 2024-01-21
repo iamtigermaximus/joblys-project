@@ -24,15 +24,18 @@ import {
 } from './ProfessionalDetailsForm.styles';
 import { ProfessionalExperienceType, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
+import { Button } from '@/components/dashboard/recent-activity/RecentActivity.styles';
 
 interface ProfessionalDetailsFormProps {
   resumeInfo: { professional: { work: ProfessionalExperienceType[] } };
   setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
+  refreshStoredResume: () => void;
 }
 
 const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   resumeInfo,
-  setResumeInfo
+  setResumeInfo,
+  refreshStoredResume,
 }) => {
   const [summary, setSummary] = useState('');
   const [currentRole, setCurrentRole] = useState('');
@@ -115,6 +118,21 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
         )
       }
     }));
+  };
+
+  const handleJobDesciptionEnhance = async (id: string) => {
+    const resp = await fetch('/api/cvRewritten', {
+      method: 'POST',
+      body: JSON.stringify({
+        id,
+      }),
+    });
+
+    if (resp.status !== 201) {
+      console.log('Error' + resp.status);
+    }
+
+    refreshStoredResume();
   };
 
   return (
@@ -254,6 +272,9 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                 handleInputChange(experience.id, 'jobDetails', e.target.value)
               }
             />
+            <Button onClick={() => handleJobDesciptionEnhance(experience.id)}>
+              Enhance
+            </Button>
           </WorkExperienceContainer>
         ))}
 
