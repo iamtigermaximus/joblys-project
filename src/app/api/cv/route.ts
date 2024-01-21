@@ -20,6 +20,38 @@ interface TextContextItem {
   str: string;
 }
 
+interface StructuredCV {
+  name: string;
+  personal_information: {
+    email: string;
+    phone_number: string;
+    about_me: string;
+  };
+  work_experience: {
+    company_name: string;
+    position: string;
+    location: string;
+    start_date: string;
+    end_date: string;
+    responsibilities: string[];
+  }[];
+  personal_projects: {
+    name: string;
+    start_date: string;
+    end_date: string;
+  }[];
+  education: {
+    degree: string;
+    location: string;
+    start_date: string;
+    end_date: string;
+    grade: string;
+  }[];
+  technical_skills: string[];
+  languages: string[];
+  interests: string[];
+}
+
 enum FileType {
   PDF = 'application/pdf',
   DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -207,7 +239,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let structuredCVContent;
+  let structuredCVContent: StructuredCV;
   try {
     structuredCVContent = JSON.parse(chatResp?.choices[0]?.message?.content!);
     if (!structuredCVContent) {
