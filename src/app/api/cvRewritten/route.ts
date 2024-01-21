@@ -85,7 +85,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-
   let resumeData: ResumeData;
   if (!structuredCV?.content) {
     return NextResponse.json(
