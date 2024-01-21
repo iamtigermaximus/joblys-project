@@ -1,4 +1,5 @@
 export interface WorkExperience {
+  id: string;
   position: string;
   company_name: string;
   start_date: string;

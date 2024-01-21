@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getToken } from 'next-auth/jwt';
 import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
 
@@ -14,19 +15,17 @@ Designed and executed a comprehensive digital marketing strategy, substantially 
 Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.`;
 
 interface ResumeData {
-  'Work Experience': WorkExperience;
-}
-
-interface WorkExperience {
-  [companyName: string]: Position[];
+  work_experience: Position[];
 }
 
 interface Position {
-  Position: string;
-  Location: string;
-  StartDate: string;
-  EndDate: string;
-  Responsibilities: string[];
+  id: string;
+  position: string;
+  company_name: string;
+  location: string;
+  start_date: string;
+  end_date: string;
+  responsibilities: string[];
 }
 
 const openAI = new OpenAI({
@@ -34,9 +33,23 @@ const openAI = new OpenAI({
 });
 
 export async function POST(req: NextRequest) {
-  const { id } = await req.json();
+  const token = await getToken({ req });
 
-  if (!id) {
+  if (!token) {
+    console.log('invalid token');
+    return NextResponse.json(
+      {
+        body: {
+          message: 'invalid token',
+        }
+      },
+      { status: 401 }
+    );
+  }
+
+  const { id: jobId } = await req.json();
+
+  if (!jobId) {
     return NextResponse.json(
       {
         body: {
@@ -47,14 +60,33 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const result = await prisma.rewrittenCVs.findUnique({
-    where: { id: id },
-    select: { content: true }
-  });
+  let structuredCV;
+  try {
+    structuredCV = await prisma.structuredCVs.findFirst({
+      where: {
+        owner: {
+          id: token.sub,
+        }
+      },
+      select: {
+        id: true,
+        content: true,
+      }
+    });
+  } catch (err) {
+    console.log(`Fetching structuredCV: ${err}`);
+    return NextResponse.json(
+      {
+        body: {
+          message: 'internal server error',
+        }
+      },
+      { status: 500 }
+    );
+  }
+
   let resumeData: ResumeData;
-  if (result?.content != null) {
-    resumeData = JSON.parse(result.content);
-  } else {
+  if (!structuredCV?.content) {
     return NextResponse.json(
       {
         body: {
@@ -65,23 +97,36 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let allResponsibilities: string[] = [];
-  const workExperience = resumeData['Work Experience'];
+  resumeData = structuredCV.content as any as ResumeData;
 
-  for (const companyName in workExperience) {
-    const positions = workExperience[companyName];
-    positions.forEach((position: { Responsibilities: string[] }) => {
-      if (Array.isArray(position.Responsibilities)) {
-        allResponsibilities = [
-          ...allResponsibilities,
-          ...position.Responsibilities
-        ];
-      }
-    });
+  const workExperienceToRewrite = resumeData
+    .work_experience
+    .filter((position) => position.id === jobId);
+
+  if (workExperienceToRewrite.length === 0) {
+    return NextResponse.json(
+      {
+        body: {
+          message: 'Position not found',
+        }
+      },
+      { status: 404 }
+    );
   }
 
-  const formattedResponsibilities = allResponsibilities
-    .map(responsibility => `- ${responsibility}`)
+  if (workExperienceToRewrite.length > 1) {
+    return NextResponse.json(
+      {
+        body: {
+          message: 'Multiple positions found',
+        }
+      },
+      { status: 500 }
+    );
+  }
+
+  const formattedResponsibilities = workExperienceToRewrite[0].responsibilities
+    .map((responsibility: string) => `- ${responsibility}`)
     .join('\n');
   const modifiedPrompt = parserPromt.replace(
     '{original_responsibilities}',
@@ -91,11 +136,11 @@ export async function POST(req: NextRequest) {
   const openaiResponse = await openAI.completions.create({
     model: 'gpt-3.5-turbo-instruct',
     prompt: modifiedPrompt,
-    max_tokens: allResponsibilities.length * 30
+    max_tokens: 2050,
   });
 
   const responseContent = openaiResponse?.choices?.[0]?.text;
-  if (responseContent === undefined || responseContent === null) {
+  if (!responseContent) {
     return NextResponse.json(
       {
         body: {
@@ -104,45 +149,42 @@ export async function POST(req: NextRequest) {
       },
       { status: 500 }
     );
-  } else {
-    const rewrittenResponsibilities = responseContent
-      .trim()
-      .split('\n')
-      .map((line: string) => line.trim());
-    let index = 0;
-    for (const companyName in workExperience) {
-      workExperience[companyName].forEach((position: any) => {
-        const originalResponsibilitiesCount = position.Responsibilities.length;
-        const updatedResponsibilities = rewrittenResponsibilities.slice(
-          index,
-          index + originalResponsibilitiesCount
-        );
-        position.Responsibilities = updatedResponsibilities;
-        index += originalResponsibilitiesCount;
-      });
-    }
+  }
 
-    const combinedData = {
-      ...resumeData,
-      'Work Experience': workExperience
-    };
+  const rewrittenResponsibilities = responseContent
+    .trim()
+    .split('\n')
+    .map((line: string) => line.trim());
 
-    const combinedDataConvertedJSON = JSON.stringify(combinedData);
+  workExperienceToRewrite[0].responsibilities = rewrittenResponsibilities;
 
-    const result = await prisma.rewrittenCVs.update({
-      where: { id: id },
+  try {
+    await prisma.structuredCVs.update({
+      where: {
+        id: structuredCV.id,
+      },
       data: {
-        content: combinedDataConvertedJSON
+        content: resumeData as any,
       }
     });
-
+  } catch (err) {
+    console.log(`Updating structuredCV: ${err}`);
     return NextResponse.json(
       {
         body: {
-          message: 'Successful rewrite of CV',
+          message: 'internal server error',
         }
       },
-      { status: 200 }
+      { status: 500 }
     );
   }
+
+  return NextResponse.json(
+    {
+      body: {
+        message: 'Successful rewrite of CV',
+      }
+    },
+    { status: 201 }
+  );
 }
