@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt'
 import mammoth from 'mammoth';
+import { v4 as uuidv4 } from 'uuid';
 import OpenAI from 'openai';
 import prisma from '../../../lib/prisma';
 
@@ -28,6 +29,7 @@ interface StructuredCV {
     about_me: string;
   };
   work_experience: {
+    id: string;
     company_name: string;
     position: string;
     location: string;
@@ -265,13 +267,18 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  structuredCVContent.work_experience.map((exp) => {
+    exp.id = uuidv4();
+    return exp;
+  });
+
   console.log('Stuctured the CV, persisting it...');
   try {
     await prisma.structuredCVs.create({
       data: {
         ownerId: user.id,
         parsedCVId: parsedCV.id,
-        content: structuredCVContent,
+        content: structuredCVContent as any,
       }
     });
   } catch (err) {
