@@ -85,7 +85,7 @@ const ProfileBuilderPage: FC = () => {
       }
 
       const works = resume?.work_experience.map((exp: WorkExperience) => ({
-        id: uuidv4(),
+        id: exp.id,
         jobTitle: exp.position,
         company: exp.company_name || '',
         startDate: exp.start_date || '',
