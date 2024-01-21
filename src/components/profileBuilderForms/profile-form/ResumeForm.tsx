@@ -34,11 +34,13 @@ import ResumeTemplate from '../resume-template/ResumeTemplate';
 interface ResumeFormProps {
   resumeInfo: ResumeInfoType;
   setResumeInfo: React.Dispatch<React.SetStateAction<ResumeInfoType>>;
+  refreshStoredResume: () => void;
 }
 
 const ResumeForm: React.FC<ResumeFormProps> = ({
   resumeInfo,
-  setResumeInfo
+  setResumeInfo,
+  refreshStoredResume,
 }) => {
   const [accordionState, setAccordionState] = useState({
     basic: true,
@@ -156,6 +158,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
                   professional: resumeInfo.professional
                 }}
                 setResumeInfo={setResumeInfo}
+                refreshStoredResume={refreshStoredResume}
               />
             </AccordionContent>
           )}
