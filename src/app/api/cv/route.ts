@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt'
 import mammoth from 'mammoth';
+import { v4 as uuidv4 } from 'uuid';
 import OpenAI from 'openai';
 import prisma from '../../../lib/prisma';
 
@@ -18,6 +19,39 @@ await import('pdfjs-dist/build/pdf.worker.min.mjs');
 
 interface TextContextItem {
   str: string;
+}
+
+interface StructuredCV {
+  name: string;
+  personal_information: {
+    email: string;
+    phone_number: string;
+    about_me: string;
+  };
+  work_experience: {
+    id: string;
+    company_name: string;
+    position: string;
+    location: string;
+    start_date: string;
+    end_date: string;
+    responsibilities: string[];
+  }[];
+  personal_projects: {
+    name: string;
+    start_date: string;
+    end_date: string;
+  }[];
+  education: {
+    degree: string;
+    location: string;
+    start_date: string;
+    end_date: string;
+    grade: string;
+  }[];
+  technical_skills: string[];
+  languages: string[];
+  interests: string[];
 }
 
 enum FileType {
@@ -207,7 +241,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let structuredCVContent;
+  let structuredCVContent: StructuredCV;
   try {
     structuredCVContent = JSON.parse(chatResp?.choices[0]?.message?.content!);
     if (!structuredCVContent) {
@@ -233,13 +267,18 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  structuredCVContent.work_experience.map((exp) => {
+    exp.id = uuidv4();
+    return exp;
+  });
+
   console.log('Stuctured the CV, persisting it...');
   try {
     await prisma.structuredCVs.create({
       data: {
         ownerId: user.id,
         parsedCVId: parsedCV.id,
-        content: structuredCVContent,
+        content: structuredCVContent as any,
       }
     });
   } catch (err) {
