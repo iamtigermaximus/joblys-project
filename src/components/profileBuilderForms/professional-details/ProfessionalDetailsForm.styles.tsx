@@ -165,3 +165,42 @@ export const YearSelect = styled.select`
   border: none;
   font-size: 14px;
 `;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-end;
+`;
+
+export const TrashIcon = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: none;
+  margin: 0 5px;
+  font-size: 16px;
+  background-color: white;
+`;
+
+export const EnhanceButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: ${colors.blueGray};
+  color: ${colors.white};
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 10px;
+
+  &:hover {
+    background: ${colors.darkPurple};
+  }
+
+  @media (min-width: ${bp.md}) {
+    width: 100px;
+  }
+`;

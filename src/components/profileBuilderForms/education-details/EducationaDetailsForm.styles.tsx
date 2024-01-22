@@ -160,3 +160,21 @@ export const YearSelect = styled.select`
   border: none;
   font-size: 14px;
 `;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-end;
+`;
+
+export const TrashIcon = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: none;
+  margin: 0 5px;
+  font-size: 16px;
+  background-color: white;
+`;
