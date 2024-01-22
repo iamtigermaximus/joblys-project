@@ -1,12 +1,6 @@
 'use client';
 
-import React, {
-  ChangeEvent,
-  Dispatch,
-  FC,
-  SetStateAction,
-  useState
-} from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import {
   AddWorkExperienceButton,
   AddWorkExperienceContainer,
@@ -27,7 +21,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/dashboard/recent-activity/RecentActivity.styles';
 
 interface ProfessionalDetailsFormProps {
-  resumeInfo: { professional: { work: ProfessionalExperienceType[] } };
+  resumeInfo: {
+    professional: {
+      summary: string;
+      currentRole: string;
+      work: ProfessionalExperienceType[];
+    };
+  };
   setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
   refreshStoredResume: () => void;
 }
@@ -35,10 +35,34 @@ interface ProfessionalDetailsFormProps {
 const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   resumeInfo,
   setResumeInfo,
-  refreshStoredResume,
+  refreshStoredResume
 }) => {
-  const [summary, setSummary] = useState('');
-  const [currentRole, setCurrentRole] = useState('');
+  const [summary, setSummary] = useState(resumeInfo.professional.summary || '');
+  const [currentRole, setCurrentRole] = useState(
+    resumeInfo.professional.currentRole || ''
+  );
+
+  const handleSummaryChange = (newSummary: string) => {
+    setSummary(newSummary);
+    setResumeInfo(prevInfo => ({
+      ...prevInfo,
+      professional: {
+        ...prevInfo.professional,
+        summary: newSummary
+      }
+    }));
+  };
+
+  const handleCurrentRoleChange = (newCurrentRole: string) => {
+    setCurrentRole(newCurrentRole);
+    setResumeInfo(prevInfo => ({
+      ...prevInfo,
+      professional: {
+        ...prevInfo.professional,
+        currentRole: newCurrentRole
+      }
+    }));
+  };
 
   const generateMonths = () => {
     return Array.from({ length: 12 }, (_, index) => {
@@ -54,33 +78,6 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
 
   const months = generateMonths();
   const years = generateYears();
-
-  const handleSummaryChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const newSummary = event.target.value;
-    setSummary(newSummary);
-
-    setResumeInfo(prevInfo => ({
-      ...prevInfo,
-      professional: {
-        ...prevInfo.professional,
-        summary: newSummary
-      }
-    }));
-    // console.log('newSummary', newSummary);
-  };
-
-  const handleCurrentRole = (event: ChangeEvent<HTMLInputElement>) => {
-    const newCurrentRole = event.target.value;
-    setCurrentRole(newCurrentRole);
-
-    setResumeInfo(prevInfo => ({
-      ...prevInfo,
-      professional: {
-        ...prevInfo.professional,
-        currentRole: newCurrentRole
-      }
-    }));
-  };
 
   const handleAddWorkExperience = () => {
     const newId = uuidv4();
@@ -124,8 +121,8 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     const resp = await fetch('/api/cvRewritten', {
       method: 'POST',
       body: JSON.stringify({
-        id,
-      }),
+        id
+      })
     });
 
     if (resp.status !== 201) {
@@ -143,7 +140,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
           <TextArea
             placeholder="Introduce yourself by pitching your skills & explaining how they can be of value to a company"
             value={summary}
-            onChange={handleSummaryChange}
+            onChange={e => handleSummaryChange(e.target.value)}
           />
         </InputContainer>
         <InputContainer>
@@ -152,7 +149,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             type="text"
             placeholder="ex. Software developer"
             value={currentRole}
-            onChange={handleCurrentRole}
+            onChange={e => handleCurrentRoleChange(e.target.value)}
           />
         </InputContainer>
         <InputLabel>Work Experience:</InputLabel>
