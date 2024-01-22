@@ -62,8 +62,12 @@ export const ContentContainerA = styled.div`
   width: 35%;
   background-color: #fbefef;
   color: black;
-  padding: 20px 10px;
+  padding: 10px 5px;
   height: 100%;
+
+  @media (min-width: ${bp.md}) {
+    padding: 20px 10px;
+  }
 
   @media (min-width: ${bp.lg}) {
     height: 100vh;
@@ -72,7 +76,11 @@ export const ContentContainerA = styled.div`
 export const PersonalDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px 0;
+  padding: 5px 0;
+
+  @media (min-width: ${bp.md}) {
+    padding: 10px 0;
+  }
 `;
 
 export const IconContainer = styled.span`
@@ -80,6 +88,11 @@ export const IconContainer = styled.span`
   justify-content: center;
   align-items: center;
   padding-right: 5px;
+  font-size: 10px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 17px;
+  }
 `;
 
 export const BasicNameContainer = styled.div`
@@ -92,22 +105,30 @@ export const BasicNameContainer = styled.div`
 export const BasicDetail = styled.div`
   display: flex;
   align-items: center;
-  font-size: 10px;
+  font-size: 7px;
   color: black;
   padding-right: 5px;
   max-width: 100%;
   word-break: break-all;
   white-space: wrap;
   max-width: 114px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 10px;
+  }
 `;
 
 export const PersonalDetailsTitle = styled.h1`
   display: flex;
   flex-direction: column;
-  font-size: 17px;
+  font-size: 10px;
   color: #bb342f;
   border-bottom: 0.5px solid #bb342f;
   padding-bottom: 5px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 17px;
+  }
 `;
 
 export const PersonalDetailsContent = styled.div`
@@ -115,14 +136,22 @@ export const PersonalDetailsContent = styled.div`
   flex-direction: row;
   font-size: 17px;
   color: #bb342f;
-  padding: 10px 0;
+  padding: 5px 0;
+
+  @media (min-width: ${bp.md}) {
+    padding: 10px 0;
+  }
 `;
 
 export const ContentContainerB = styled.div`
   display: flex;
   flex-direction: column;
   width: 65%;
-  padding: 10px 20px;
+  padding: 5px;
+
+  @media (min-width: ${bp.md}) {
+    padding: 10px 20px;
+  }
 `;
 
 export const NameContainer = styled.div`
@@ -137,17 +166,25 @@ export const NameContainer = styled.div`
 export const FirstName = styled.h1`
   display: flex;
   justify-content: flex-start;
-  font-size: 25px;
   color: #bb342f;
   font-weight: 700;
   margin-right: 3px;
+  font-size: 15px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 25px;
+  }
 `;
 export const LastName = styled.h1`
   display: flex;
   justify-content: flex-start;
-  font-size: 25px;
   color: #bb342f;
   font-weight: 700;
+  font-size: 15px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 25px;
+  }
 `;
 
 export const JobName = styled.h1`
@@ -171,9 +208,13 @@ export const SummaryContainer = styled.div`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 14px;
   padding-bottom: 5px;
-  margin-bottom: 10px;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+    padding-bottom: 10px;
+  }
 `;
 
 export const EducationContainer = styled.div`
@@ -189,10 +230,14 @@ export const EducationContainerTitle = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 17px;
   border-bottom: 0.2px solid gray;
   padding-bottom: 5px;
   color: #bb342f;
+  font-size: 10px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 17px;
+  }
 `;
 
 export const ProfessionalContainer = styled.div`
@@ -208,10 +253,14 @@ export const ProfessionalContainerTitle = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 17px;
   border-bottom: 0.2px solid gray;
   padding-bottom: 5px;
   color: #bb342f;
+  font-size: 10px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 17px;
+  }
 `;
 
 export const EmploymentDetailContainer = styled.div`
@@ -219,15 +268,26 @@ export const EmploymentDetailContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  font-size: 14px;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+    padding-bottom: 10px;
+  }
 `;
 
 export const EmploymentDetail = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-size: 14px;
-  margin: 10px 5px 10px 0;
+  /* margin: 10px 5px 10px 0; */
+  font-size: 7px;
+  padding: 5px 0;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+    padding: 10px 0;
+  }
 `;
 
 export const EmploymentDescription = styled.h1`
@@ -235,8 +295,13 @@ export const EmploymentDescription = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 14px;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+    padding-bottom: 10px;
+  }
 `;
 
 export const JobTitle = styled.h1`
@@ -244,8 +309,12 @@ export const JobTitle = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 14px;
   font-weight: 700;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+  }
 `;
 
 export const CurrentRole = styled.h1`
@@ -253,9 +322,14 @@ export const CurrentRole = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 15px;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  font-size: 10px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
 `;
 
 export const Company = styled.h1`
@@ -263,8 +337,12 @@ export const Company = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 14px;
   color: #bb342f;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+  }
 `;
 
 export const DateContainer = styled.div`
@@ -272,33 +350,45 @@ export const DateContainer = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   width: 100%;
-  margin: 10px 0;
+  margin: 5px 0;
+
+  @media (min-width: ${bp.md}) {
+    margin: 10px 0;
+  }
 `;
 
 export const Dates = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  /* align-items: center; */
 `;
 
 export const Month = styled.h1`
   display: flex;
   justify-content: left;
   width: 100%;
-  font-size: 14px;
   font-weight: 700;
   color: #bb342f;
   margin-right: 5px;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+  }
 `;
 
 export const Year = styled.h1`
   display: flex;
   justify-content: left;
   width: 100%;
-  font-size: 14px;
   font-weight: 700;
   color: #bb342f;
   margin-right: 5px;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+  }
 `;
 
 export const EducationDetailContainer = styled.div`
@@ -306,7 +396,11 @@ export const EducationDetailContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  font-size: 14px;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+  }
 `;
 
 export const Course = styled.h1`
@@ -314,8 +408,12 @@ export const Course = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 14px;
   font-weight: 700;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+  }
 `;
 
 export const School = styled.h1`
@@ -323,16 +421,26 @@ export const School = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 14px;
   color: #bb342f;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+  }
 `;
 
 export const EducationDetail = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-size: 14px;
-  margin: 10px 0;
+  /* margin: 10px 5px 10px 0; */
+  font-size: 7px;
+  padding: 5px 0;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+    padding: 10px 0;
+  }
 `;
 
 export const EducationDescription = styled.h1`
@@ -340,15 +448,24 @@ export const EducationDescription = styled.h1`
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-size: 14px;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+    padding-bottom: 10px;
+  }
 `;
 export const SkillsDetailsContent = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 17px;
   color: #bb342f;
   padding: 5px 0;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 17px;
+  }
 `;
 export const EnteredSkillsContainer = styled.div`
   display: flex;
@@ -357,21 +474,29 @@ export const EnteredSkillsContainer = styled.div`
 
 export const EnteredSkill = styled.div`
   display: flex;
-  font-size: 14px;
   color: black;
   padding-right: 5px;
   max-width: 100%;
   word-break: break-all;
   white-space: wrap;
   max-width: 114px;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+  }
 `;
 
 export const LanguagesDetailsContent = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 17px;
   color: #bb342f;
   padding: 5px 0;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 17px;
+  }
 `;
 export const EnteredLanguagesContainer = styled.div`
   display: flex;
@@ -380,21 +505,29 @@ export const EnteredLanguagesContainer = styled.div`
 
 export const EnteredLanguage = styled.div`
   display: flex;
-  font-size: 14px;
   color: black;
   padding-right: 5px;
   max-width: 100%;
   word-break: break-all;
   white-space: wrap;
   max-width: 114px;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+  }
 `;
 
 export const DateSeparator = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 16;
   font-weight: 700;
   color: #bb342f;
   margin: 0 5px;
+  font-size: 7px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+  }
 `;
