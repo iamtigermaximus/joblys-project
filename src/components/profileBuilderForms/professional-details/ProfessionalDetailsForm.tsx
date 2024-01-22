@@ -4,8 +4,10 @@ import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import {
   AddWorkExperienceButton,
   AddWorkExperienceContainer,
+  ButtonsContainer,
   Container,
   DropdownContainer,
+  EnhanceButton,
   Input,
   InputContainer,
   InputLabel,
@@ -13,10 +15,12 @@ import {
   MonthSelect,
   ProfessionalDetailsContainer,
   TextArea,
+  TrashIcon,
   WorkExperienceContainer,
   YearSelect
 } from './ProfessionalDetailsForm.styles';
 import { ProfessionalExperienceType, ResumeInfoType } from '@/types/profile';
+import { FaTrash } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/dashboard/recent-activity/RecentActivity.styles';
 
@@ -132,6 +136,17 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     refreshStoredResume();
   };
 
+  const handleDeleteWorkExperience = (id: string) => {
+    setResumeInfo(prevInfo => ({
+      ...prevInfo,
+      professional: {
+        ...prevInfo.professional,
+        work: prevInfo.professional.work.filter(
+          experience => experience.id !== id
+        )
+      }
+    }));
+  };
   return (
     <Container>
       <ProfessionalDetailsContainer>
@@ -269,9 +284,18 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                 handleInputChange(experience.id, 'jobDetails', e.target.value)
               }
             />
-            <Button onClick={() => handleJobDesciptionEnhance(experience.id)}>
-              Enhance
-            </Button>
+            <ButtonsContainer>
+              <EnhanceButton
+                onClick={() => handleJobDesciptionEnhance(experience.id)}
+              >
+                Enhance
+              </EnhanceButton>
+              <TrashIcon
+                onClick={() => handleDeleteWorkExperience(experience.id)}
+              >
+                <FaTrash />
+              </TrashIcon>
+            </ButtonsContainer>
           </WorkExperienceContainer>
         ))}
 

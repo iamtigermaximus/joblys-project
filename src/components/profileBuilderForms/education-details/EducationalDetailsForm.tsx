@@ -14,10 +14,13 @@ import {
   InputRow,
   MonthSelect,
   TextArea,
-  YearSelect
+  YearSelect,
+  ButtonsContainer,
+  TrashIcon
 } from './EducationaDetailsForm.styles';
 import { EducationType, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
+import { FaTrash } from 'react-icons/fa';
 
 interface EducationalDetailsFormProps {
   resumeInfo: { educational: { education: EducationType[] } };
@@ -76,6 +79,16 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
         education: prevInfo.educational.education.map(educ =>
           educ.id === id ? { ...educ, [field]: value } : educ
         )
+      }
+    }));
+  };
+
+  const handleDeleteEducation = (id: string) => {
+    setResumeInfo(prevInfo => ({
+      ...prevInfo,
+      educational: {
+        ...prevInfo.educational,
+        education: prevInfo.educational.education.filter(educ => educ.id !== id)
       }
     }));
   };
@@ -199,6 +212,11 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                 handleInputChange(educ.id, 'description', e.target.value)
               }
             />
+            <ButtonsContainer>
+              <TrashIcon onClick={() => handleDeleteEducation(educ.id)}>
+                <FaTrash />
+              </TrashIcon>
+            </ButtonsContainer>
           </EducationContainer>
         ))}
         <AddEducationContainer>
