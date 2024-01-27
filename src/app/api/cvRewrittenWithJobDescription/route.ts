@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getToken } from 'next-auth/jwt';
 import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
 
@@ -19,29 +20,41 @@ Your assistance in providing these tailored, succinct rephrased sentences will b
 `;
 
 interface ResumeData {
-  'Work Experience': WorkExperience;
-}
-
-interface WorkExperience {
-  [companyName: string]: Position[];
+  work_experience: Position[];
 }
 
 interface Position {
-  Position: string;
-  Location: string;
-  StartDate: string;
-  EndDate: string;
-  Responsibilities: string[];
+  id: string;
+  position: string;
+  company_name: string;
+  location: string;
+  start_date: string;
+  end_date: string;
+  responsibilities: string[];
 }
-
 const openAI = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(req: NextRequest) {
-  const { id, job_descriptions } = await req.json();
 
-  if (!id) {
+  const token = await getToken({ req });
+
+  if (!token) {
+    console.log('invalid token');
+    return NextResponse.json(
+      {
+        body: {
+          message: 'invalid token',
+        }
+      },
+      { status: 401 }
+    );
+  }
+
+  const { id: jobId, job_descriptions } = await req.json();
+
+  if (!jobId) {
     return NextResponse.json(
       {
         body: {
@@ -60,43 +73,74 @@ export async function POST(req: NextRequest) {
       { status: 400 },
     );
   }
+  let structuredCV;
+  try {
+    structuredCV = await prisma.structuredCVs.findFirst({
+      where: {
+        owner: {
+          id: token.sub,
+        }
+      },
+      select: {
+        id: true,
+        content: true,
+      }
+    });
+  } catch (err) {
+    console.log(`Fetching structuredCV: ${err}`);
+    return NextResponse.json(
+      {
+        body: {
+          message: 'internal server error',
+        }
+      },
+      { status: 500 }
+    );
+  }
 
-  const result = await prisma.rewrittenCVs.findUnique({
-    where: { id: id },
-    select: { content: true },
-  });
   let resumeData: ResumeData;
-  if (result?.content != null) {
-    resumeData = JSON.parse(result.content);
-  } else {
+  if (!structuredCV?.content) {
     return NextResponse.json(
       {
         body: {
           message: 'CV not found or missing Work Experience',
-        },
+        }
       },
-      { status: 404 },
+      { status: 404 }
     );
   }
 
-  let allResponsibilities: string[] = [];
-  const workExperience = resumeData['Work Experience'];
+  resumeData = structuredCV.content as any as ResumeData;
 
-  for (const companyName in workExperience) {
-    const positions = workExperience[companyName];
-    positions.forEach((position: { Responsibilities: string[] }) => {
-      if (Array.isArray(position.Responsibilities)) {
-        allResponsibilities = [
-          ...allResponsibilities,
-          ...position.Responsibilities,
-        ];
-      }
-    });
+  const workExperienceToRewrite = resumeData
+    .work_experience
+    .filter((position) => position.id === jobId);
+
+  if (workExperienceToRewrite.length === 0) {
+    return NextResponse.json(
+      {
+        body: {
+          message: 'Position not found',
+        }
+      },
+      { status: 404 }
+    );
   }
 
-  const formattedResponsibilities = allResponsibilities
-    .map(responsibility => `- ${responsibility}`)
+  if (workExperienceToRewrite.length > 1) {
+    return NextResponse.json(
+      {
+        body: {
+          message: 'Multiple positions found',
+        }
+      },
+      { status: 500 }
+    );
+  }
+  const formattedResponsibilities = workExperienceToRewrite[0].responsibilities
+    .map((responsibility: string) => `- ${responsibility}`)
     .join('\n');
+
   const replacementMap: Record<string, string> = {
     '{original_responsibilities}': formattedResponsibilities,
     '{job_description}': job_descriptions,
@@ -114,7 +158,7 @@ export async function POST(req: NextRequest) {
         content: modifiedPrompt,
       },
     ],
-    max_tokens: allResponsibilities.length * 30,
+    max_tokens: 2050,
     temperature: 0.5,
   });
 
@@ -128,45 +172,41 @@ export async function POST(req: NextRequest) {
       },
       { status: 500 },
     );
-  } else {
-    const rewrittenResponsibilities = responseContent
-      .trim()
-      .split('\n')
-      .map((line: string) => line.trim());
-    let index = 0;
-    for (const companyName in workExperience) {
-      workExperience[companyName].forEach((position: any) => {
-        const originalResponsibilitiesCount = position.Responsibilities.length;
-        const updatedResponsibilities = rewrittenResponsibilities.slice(
-          index,
-          index + originalResponsibilitiesCount,
-        );
-        position.Responsibilities = updatedResponsibilities;
-        index += originalResponsibilitiesCount;
-      });
-    }
+  } 
+  const rewrittenResponsibilities = responseContent
+    .trim()
+    .split('\n')
+    .map((line: string) => line.trim());
 
-    const combinedData = {
-      ...resumeData,
-      'Work Experience': workExperience,
-    };
+  workExperienceToRewrite[0].responsibilities = rewrittenResponsibilities;
 
-    const combinedDataConvertedJSON = JSON.stringify(combinedData);
-
-    const result = await prisma.rewrittenCVs.update({
-      where: { id: id },
-      data: {
-        content: combinedDataConvertedJSON,
+  try {
+    await prisma.structuredCVs.update({
+      where: {
+        id: structuredCV.id,
       },
+      data: {
+        content: resumeData as any,
+      }
     });
-
+  } catch (err) {
+    console.log(`Updating structuredCV: ${err}`);
     return NextResponse.json(
       {
         body: {
-          message: 'Successful rewrite of CV',
-        },
+          message: 'internal server error',
+        }
       },
-      { status: 200 },
+      { status: 500 }
     );
   }
+
+  return NextResponse.json(
+    {
+      body: {
+        message: 'Successful rewrite of CV',
+      }
+    },
+    { status: 201 }
+  );
 }
