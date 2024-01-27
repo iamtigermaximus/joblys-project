@@ -172,7 +172,7 @@ export async function POST(req: NextRequest) {
       },
       { status: 500 },
     );
-  } 
+  }
   const rewrittenResponsibilities = responseContent
     .trim()
     .split('\n')
