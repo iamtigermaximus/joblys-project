@@ -45,6 +45,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   const [currentRole, setCurrentRole] = useState(
     resumeInfo.professional.currentRole || ''
   );
+  const [applyJobDescription, setApplyJobDescription] = useState('');
 
   const handleSummaryChange = (newSummary: string) => {
     setSummary(newSummary);
@@ -147,9 +148,41 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
       }
     }));
   };
+
+  const handleApplyJobDescriptionChange = async (jobDescription: string) => {
+    setApplyJobDescription(jobDescription);
+  };
+
+  const handleCVMatchJobDescription = async (jobDescription: string) => {
+    const resp = await fetch('/api/cvRewrittenWithJobDescription', {
+      method: 'POST',
+      body: JSON.stringify({
+        jobDescription
+      })
+    });
+
+    if (resp.status !== 201) {
+      console.log('Error' + resp.status);
+    }
+
+    refreshStoredResume();
+  };
+
   return (
     <Container>
       <ProfessionalDetailsContainer>
+        <InputContainer>
+          <InputLabel>Job description</InputLabel>
+          <Input
+            type="text"
+            placeholder="Paste job description here"
+            value={applyJobDescription}
+            onChange={e => handleApplyJobDescriptionChange(e.target.value)}
+          />
+        </InputContainer>
+        <EnhanceButton onClick={() => handleCVMatchJobDescription(applyJobDescription)}>
+          Enhance to match job ad
+        </EnhanceButton>
         <InputContainer>
           <InputLabel>Summary:</InputLabel>
           <TextArea
