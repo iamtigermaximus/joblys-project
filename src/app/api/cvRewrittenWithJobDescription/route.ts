@@ -15,8 +15,6 @@ Target Job Description for the New Role:
 {job_description}
 
 Your assistance in providing these tailored, succinct rephrased sentences will be greatly appreciated.
-
-
 `;
 
 interface ResumeData {
