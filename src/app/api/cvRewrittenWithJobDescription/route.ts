@@ -30,12 +30,12 @@ interface Position {
   end_date: string;
   responsibilities: string[];
 }
+
 const openAI = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(req: NextRequest) {
-
   const token = await getToken({ req });
 
   if (!token) {
