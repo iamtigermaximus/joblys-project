@@ -18,15 +18,15 @@ const openAI = new OpenAI({
 });
 
 export async function POST(req: NextRequest) {
-  // const token = await getToken({ req });
+  const token = await getToken({ req });
 
-  // if (!token) {
-  //   console.log('invalid token');
-  //   return NextResponse.json(
-  //     { body: { message: 'invalid token' } },
-  //     { status: 401 },
-  //   );
-  // }
+  if (!token) {
+    console.log('invalid token');
+    return NextResponse.json(
+      { body: { message: 'invalid token' } },
+      { status: 401 },
+    );
+  }
 
   const { responsibility: originalResponsibility } = await req.json();
   if (!originalResponsibility) {
