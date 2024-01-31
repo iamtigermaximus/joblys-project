@@ -50,18 +50,9 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { id: jobId, job_descriptions } = await req.json();
+  const { jobDescription } = await req.json();
 
-  if (!jobId) {
-    return NextResponse.json(
-      {
-        body: {
-          message: 'ID not provided',
-        },
-      },
-      { status: 400 },
-    );
-  } else if (!job_descriptions) {
+  if (!jobDescription) {
     return NextResponse.json(
       {
         body: {
@@ -71,6 +62,7 @@ export async function POST(req: NextRequest) {
       { status: 400 },
     );
   }
+
   let structuredCV;
   try {
     structuredCV = await prisma.structuredCVs.findFirst({
@@ -110,73 +102,54 @@ export async function POST(req: NextRequest) {
 
   resumeData = structuredCV.content as any as ResumeData;
 
-  const workExperienceToRewrite = resumeData
-    .work_experience
-    .filter((position) => position.id === jobId);
+  const openaiApiPromises = [];
+  for (const position of resumeData.work_experience) {
+    const formattedResponsibilities = position.responsibilities
+      .map((responsibility: string) => `- ${responsibility}`)
+      .join('\n');
 
-  if (workExperienceToRewrite.length === 0) {
-    return NextResponse.json(
-      {
-        body: {
-          message: 'Position not found',
-        }
-      },
-      { status: 404 }
+    const replacementMap: Record<string, string> = {
+      '{original_responsibilities}': formattedResponsibilities,
+      '{job_description}': jobDescription,
+    };
+
+    const modifiedPrompt = parserPromt.replace(
+      /{original_responsibilities}|{job_description}/g,
+      match => replacementMap[match],
     );
-  }
 
-  if (workExperienceToRewrite.length > 1) {
-    return NextResponse.json(
-      {
-        body: {
-          message: 'Multiple positions found',
-        }
-      },
-      { status: 500 }
-    );
-  }
-  const formattedResponsibilities = workExperienceToRewrite[0].responsibilities
-    .map((responsibility: string) => `- ${responsibility}`)
-    .join('\n');
-
-  const replacementMap: Record<string, string> = {
-    '{original_responsibilities}': formattedResponsibilities,
-    '{job_description}': job_descriptions,
-  };
-  const modifiedPrompt = parserPromt.replace(
-    /{original_responsibilities}|{job_description}/g,
-    match => replacementMap[match],
-  );
-
-  const openaiResponse = await openAI.chat.completions.create({
-    model: 'gpt-4',
-    messages: [
-      {
-        role: 'user',
-        content: modifiedPrompt,
-      },
-    ],
-    max_tokens: 2050,
-    temperature: 0.5,
-  });
-
-  const responseContent = openaiResponse?.choices?.[0]?.message?.content;
-  if (responseContent === undefined || responseContent === null) {
-    return NextResponse.json(
-      {
-        body: {
-          message: 'Unable to rewrite CV',
+    const openaiApiCall = openAI.chat.completions.create({
+      model: 'gpt-4',
+      messages: [
+        {
+          role: 'user',
+          content: modifiedPrompt,
         },
-      },
-      { status: 500 },
-    );
-  }
-  const rewrittenResponsibilities = responseContent
-    .trim()
-    .split('\n')
-    .map((line: string) => line.trim());
+      ],
+      max_tokens: 2050,
+      temperature: 0.5,
+    });
 
-  workExperienceToRewrite[0].responsibilities = rewrittenResponsibilities;
+    openaiApiPromises.push(openaiApiCall);
+  }
+
+  const openaiApiResponses = await Promise.all(openaiApiPromises);
+
+  for (let i = 0; i < resumeData.work_experience.length; i++) {
+    const rewrittenResponsibility = openaiApiResponses[i]?.choices?.[0]?.message?.content;
+
+    if (!rewrittenResponsibility) {
+      console.log('Failed to rewrite responsibility');
+      continue;
+    }
+
+    const rewrittenResponsibilitiesFormatted = rewrittenResponsibility
+      .trim()
+      .split('\n')
+      .map((line: string) => line.trim());
+
+    resumeData.work_experience[i].responsibilities = rewrittenResponsibilitiesFormatted;
+  }
 
   try {
     await prisma.structuredCVs.update({
