@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
 
 const parserPrompt = `Please rewrite the following job responsibility to enhance its professional appeal for a CV, while preserving its original meaning. 
