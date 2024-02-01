@@ -20,12 +20,6 @@ export const EducationalDetailsContainer = styled.div`
   width: 100%;
   flex-direction: column;
   color: ${colors.white};
-
-  @media (min-width: ${bp.sm}) {
-  }
-
-  @media (min-width: ${bp.md}) {
-  }
 `;
 
 export const InputRow = styled.div`
@@ -57,9 +51,6 @@ export const Input = styled.input`
 
   &:focus {
     outline: 0.5px solid gray;
-  }
-
-  @media (min-width: ${bp.md}) {
   }
 `;
 

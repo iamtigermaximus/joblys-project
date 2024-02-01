@@ -280,7 +280,6 @@ export const EmploymentDetail = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* margin: 10px 5px 10px 0; */
   font-size: 7px;
   padding: 5px 0;
 
@@ -360,7 +359,6 @@ export const DateContainer = styled.div`
 export const Dates = styled.div`
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
 `;
 
 export const Month = styled.h1`
@@ -433,7 +431,6 @@ export const EducationDetail = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* margin: 10px 5px 10px 0; */
   font-size: 7px;
   padding: 5px 0;
 

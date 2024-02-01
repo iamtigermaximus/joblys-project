@@ -11,7 +11,7 @@ import {
   InputLabel,
   InputRow,
   NewLinkContainer,
-  TrashIcon
+  TrashIcon,
 } from './BasicDetailsForm.styles';
 import { BasicInfoType, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
@@ -24,7 +24,7 @@ interface BasicDetailsFormProps {
 
 const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
   resumeInfo,
-  setResumeInfo
+  setResumeInfo,
 }) => {
   const [additionalLinks, setAdditionalLinks] = useState<string[]>(['']);
 
@@ -36,9 +36,9 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
         ...prevInfo.basic,
         additionalLinks: [
           ...prevInfo.basic.additionalLinks,
-          { id: newId, url: '' }
-        ]
-      }
+          { id: newId, url: '' },
+        ],
+      },
     }));
   };
 
@@ -48,9 +48,9 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
       basic: {
         ...prevInfo.basic,
         additionalLinks: prevInfo.basic.additionalLinks.filter(
-          link => link.id !== id
-        )
-      }
+          link => link.id !== id,
+        ),
+      },
     }));
   };
 
@@ -60,9 +60,9 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
       basic: {
         ...prevInfo.basic,
         additionalLinks: prevInfo.basic.additionalLinks.map(link =>
-          link.id === id ? { ...link, url: value } : link
-        )
-      }
+          link.id === id ? { ...link, url: value } : link,
+        ),
+      },
     }));
   };
 
@@ -74,8 +74,8 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
         ...prevInfo,
         basic: {
           ...prevInfo.basic,
-          [field]: value
-        }
+          [field]: value,
+        },
       }));
     }
   };

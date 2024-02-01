@@ -19,11 +19,6 @@ export const LanguagesDetailsContainer = styled.div`
   background-color: ${colors.white};
   width: 100%;
   color: black;
-
-  @media (min-width: ${bp.md}) {
-    /* max-width: 500px; */
-    /* width: 100%; */
-  }
 `;
 
 export const InputContainer = styled.div`
@@ -45,9 +40,6 @@ export const Input = styled.input`
 
   &:focus {
     outline: 0.5px solid gray;
-  }
-
-  @media (min-width: ${bp.md}) {
   }
 `;
 
@@ -91,7 +83,6 @@ export const AddNewLanguageContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
   padding: 10px 0;
 `;
 

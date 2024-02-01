@@ -22,7 +22,6 @@ export const AccordionSection = styled.div`
 `;
 
 export const AccordionHeader = styled.div`
-  /* padding: 10px 5px; */
   cursor: pointer;
   background-color: ${colors.white};
   display: flex;

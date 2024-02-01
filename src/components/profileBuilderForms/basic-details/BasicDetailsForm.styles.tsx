@@ -19,17 +19,7 @@ export const BasicDetailsContainer = styled.div`
   background-color: ${colors.white};
   width: 100%;
   color: ${colors.white};
-
-  @media (min-width: ${bp.md}) {
-    /* max-width: 500px; */
-    /* width: 100%; */
-  }
 `;
-
-// export const InputContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-// `;
 
 export const InputRow = styled.div`
   display: flex;

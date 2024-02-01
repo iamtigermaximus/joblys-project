@@ -21,15 +21,6 @@ export const ProfessionalDetailsContainer = styled.div`
   margin-bottom: 20px;
   flex-direction: column;
   color: ${colors.white};
-
-  @media (min-width: ${bp.sm}) {
-    /* max-width: 400px;
-    padding: 30px 40px; */
-  }
-
-  @media (min-width: ${bp.md}) {
-    /* max-width: 800px; */
-  }
 `;
 
 export const InputRow = styled.div`
@@ -92,9 +83,6 @@ export const Input = styled.input`
 
   &:focus {
     outline: 0.5px solid gray;
-  }
-
-  @media (min-width: ${bp.md}) {
   }
 `;
 
