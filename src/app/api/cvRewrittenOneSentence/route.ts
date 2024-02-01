@@ -59,6 +59,6 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json(
     { body: { rewrittenResponsibility: rewrittenResponsibility } },
-    { status: 201 },
+    { status: 200 },
   );
 }
