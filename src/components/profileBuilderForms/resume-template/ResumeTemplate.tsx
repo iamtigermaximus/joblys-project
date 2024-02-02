@@ -43,17 +43,16 @@ import {
   TemplateContainer,
   Year,
   Month,
-  DateSeparator
+  DateSeparator,
 } from './ResumeTemplate.styles';
 import { ResumeInfoType } from '@/types/profile';
-import Minimalist from '../templates/minimalist/Minimalist';
 import {
   FaUser,
   FaEnvelope,
   FaPhone,
   FaHome,
   FaLinkedin,
-  FaGlobe
+  FaGlobe,
 } from 'react-icons/fa';
 
 interface ResumeTemplateProps {
@@ -178,9 +177,9 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
                           <>
                             {new Date(
                               2022,
-                              parseInt(experience.startDate.month) - 1
+                              parseInt(experience.startDate.month) - 1,
                             ).toLocaleString('default', {
-                              month: 'short'
+                              month: 'short',
                             })}
                           </>
                         ) : (
@@ -199,9 +198,9 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
                           <>
                             {new Date(
                               2022,
-                              parseInt(experience.endDate.month) - 1
+                              parseInt(experience.endDate.month) - 1,
                             ).toLocaleString('default', {
-                              month: 'short'
+                              month: 'short',
                             })}
                           </>
                         ) : (
@@ -238,9 +237,9 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
                           <>
                             {new Date(
                               2022,
-                              parseInt(educ.startDate.month) - 1
+                              parseInt(educ.startDate.month) - 1,
                             ).toLocaleString('default', {
-                              month: 'short'
+                              month: 'short',
                             })}
                           </>
                         ) : (
@@ -260,9 +259,9 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
                           <>
                             {new Date(
                               2022,
-                              parseInt(educ.endDate.month) - 1
+                              parseInt(educ.endDate.month) - 1,
                             ).toLocaleString('default', {
-                              month: 'short'
+                              month: 'short',
                             })}
                           </>
                         ) : (
