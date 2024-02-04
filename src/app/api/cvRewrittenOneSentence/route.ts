@@ -19,12 +19,13 @@ const openAI = new OpenAI({
 
 function parseToJSON(str: string) {
   const sections = str.split('\n\n');
-  const result = {};
-
-  sections.forEach(section => {
+  const result = sections.map(section => {
     const [key, value] = section.split(/:\n/);
-    let formattedKey = key.toLowerCase();
-    result[formattedKey] = value.trim();
+    const formattedKey = key.toLowerCase();
+
+    return {
+      [formattedKey]: value.trim(),
+    };
   });
 
   return result;
