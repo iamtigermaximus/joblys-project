@@ -17,6 +17,19 @@ const openAI = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+function parseToJSON(str: string) {
+  const sections = str.split('\n\n');
+  const result = {};
+
+  sections.forEach(section => {
+    const [key, value] = section.split(/:\n/);
+    let formattedKey = key.toLowerCase();
+    result[formattedKey] = value.trim();
+  });
+
+  return result;
+}
+
 export async function POST(req: NextRequest) {
   const token = await getToken({ req });
 
@@ -56,7 +69,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const rewrittenResponsibility = responseContent.trim();
+  const rewrittenResponsibility = parseToJSON(responseContent.trim());
 
   return NextResponse.json(
     { body: { rewrittenResponsibility: rewrittenResponsibility } },
