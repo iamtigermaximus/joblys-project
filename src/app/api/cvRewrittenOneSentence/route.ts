@@ -2,19 +2,33 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import OpenAI from 'openai';
 
-const parserPrompt = `Please rewrite the following job responsibility to enhance its professional appeal for a CV, while preserving its original meaning. 
-The rewritten responsibility should be a more professional and concise version of the original, suitable for a CV. Ensure that the essence of the task remains the same, without introducing new facts or figures. 
-Use dynamic action verbs and professional terminology. For clarity, see the example provided after the original responsibility. 
+const parserPrompt = `
+Please rewrite the following job responsibility in three different tones: formal, enthusiastic, and confident. 
+Please rewrite enhance its professional appeal for a CV, while preserving its original meaning. 
+The original responsibility should be transformed into a more professional and concise version, suitable for a CV. 
+Ensure the essence of the task remains intact, without introducing new facts or figures. Use dynamic action verbs and professional terminology for each tone. The original responsibility is as follows:
 
 Original Responsibility:
 {original_responsibility}
 
-Example:
-Developed and optimized a back-end API for a large-scale e-commerce platform, leading to significant improvements in response time.`;
+For each tone, provide a rewritten version of this responsibility that maintains its original meaning but is tailored to the specified tone.`;
 
 const openAI = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+
+function parseToJSON(str: string) {
+  const sections = str.split('\n\n');
+  const result = sections.reduce((acc, section) => {
+    const [key, value] = section.split(/:\n/);
+    const formattedKey = key.toLowerCase();
+    acc[formattedKey] = value.trim();
+
+    return acc;
+  }, {} as Record<string, string>);
+
+  return result;
+}
 
 export async function POST(req: NextRequest) {
   const token = await getToken({ req });
@@ -43,7 +57,7 @@ export async function POST(req: NextRequest) {
   const openaiResponse = await openAI.completions.create({
     model: 'gpt-3.5-turbo-instruct',
     prompt: modifiedPrompt,
-    max_tokens: 30,
+    max_tokens: 90,
     temperature: 0.5,
   });
 
@@ -55,7 +69,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const rewrittenResponsibility = responseContent.trim();
+  const rewrittenResponsibility = parseToJSON(responseContent.trim());
 
   return NextResponse.json(
     { body: { rewrittenResponsibility: rewrittenResponsibility } },
