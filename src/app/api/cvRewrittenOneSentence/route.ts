@@ -25,7 +25,7 @@ function parseToJSON(str: string) {
     acc[formattedKey] = value.trim();
 
     return acc;
-  }, {});
+  }, {} as Record<string, string>);
 
   return result;
 }
