@@ -175,6 +175,7 @@ export const TrashIcon = styled.button`
   max-width: 200px;
 
   &:hover {
-    background: ${colors.darkPurple};
+    background-color: ${colors.blueGray};
+    color: ${colors.white};
   }
 `;

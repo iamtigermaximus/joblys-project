@@ -178,7 +178,8 @@ export const TrashIcon = styled.button`
   max-width: 200px;
 
   &:hover {
-    background: ${colors.darkPurple};
+    background: ${colors.blueGray};
+    color: ${colors.white};
   }
 `;
 
@@ -197,7 +198,8 @@ export const EnhanceButton = styled.button`
   max-width: 200px;
 
   &:hover {
-    background: ${colors.darkPurple};
+    background: ${colors.white};
+    color: ${colors.blueGray};
   }
 
   @media (min-width: ${bp.md}) {

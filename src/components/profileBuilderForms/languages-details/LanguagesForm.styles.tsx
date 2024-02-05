@@ -95,6 +95,7 @@ export const TrashIcon = styled.button`
   margin: 0 5px;
   font-size: 14px;
   background-color: white;
+  cursor: pointer;
 `;
 
 export const AddLanguageContainer = styled.div`
