@@ -10,7 +10,7 @@ import {
   InputContainer,
   InputLabel,
   SkillsDetailsContainer,
-  TrashIcon
+  TrashIcon,
 } from './SkillForm.styles';
 import { FaTrash } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
@@ -31,9 +31,9 @@ const SkillsForm: FC<SkillsFormProps> = ({ resumeInfo, setResumeInfo }) => {
         skill: prevInfo.skills.skill.map(enteredSkill =>
           enteredSkill.id === id
             ? { ...enteredSkill, name: value }
-            : enteredSkill
-        )
-      }
+            : enteredSkill,
+        ),
+      },
     }));
   };
   const handleAddMoreSkills = () => {
@@ -42,8 +42,8 @@ const SkillsForm: FC<SkillsFormProps> = ({ resumeInfo, setResumeInfo }) => {
       ...prevInfo,
       skills: {
         ...prevInfo.skills,
-        skill: [...prevInfo.skills.skill, { id: newId, name: '' }]
-      }
+        skill: [...prevInfo.skills.skill, { id: newId, name: '' }],
+      },
     }));
   };
 
@@ -52,9 +52,13 @@ const SkillsForm: FC<SkillsFormProps> = ({ resumeInfo, setResumeInfo }) => {
       ...prevInfo,
       skills: {
         ...prevInfo.skills,
-        skill: prevInfo.skills.skill.filter(skill => skill.id !== id)
-      }
+        skill: prevInfo.skills.skill.filter(skill => skill.id !== id),
+      },
     }));
+  };
+
+  const capitalizeFirstLetter = (value: string) => {
+    return value.charAt(0).toUpperCase() + value.slice(1);
   };
 
   return (
@@ -69,7 +73,10 @@ const SkillsForm: FC<SkillsFormProps> = ({ resumeInfo, setResumeInfo }) => {
                 placeholder="eg. Javascript"
                 value={enteredSkill.name}
                 onChange={e =>
-                  handleInputChange(enteredSkill.id, e.target.value)
+                  handleInputChange(
+                    enteredSkill.id,
+                    capitalizeFirstLetter(e.target.value),
+                  )
                 }
               />
               <TrashIcon onClick={() => handleDeleteSkill(enteredSkill.id)}>

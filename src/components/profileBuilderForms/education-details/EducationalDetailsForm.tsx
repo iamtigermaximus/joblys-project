@@ -16,11 +16,10 @@ import {
   TextArea,
   YearSelect,
   ButtonsContainer,
-  TrashIcon
+  TrashIcon,
 } from './EducationaDetailsForm.styles';
 import { EducationType, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
-import { FaTrash } from 'react-icons/fa';
 
 interface EducationalDetailsFormProps {
   resumeInfo: { educational: { education: EducationType[] } };
@@ -29,7 +28,7 @@ interface EducationalDetailsFormProps {
 
 const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
   resumeInfo,
-  setResumeInfo
+  setResumeInfo,
 }) => {
   const generateMonths = () => {
     return Array.from({ length: 12 }, (_, index) => {
@@ -60,26 +59,26 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
             course: '',
             startDate: { month: '01', year: `${new Date().getFullYear()}` },
             endDate: { month: '01', year: `${new Date().getFullYear()}` },
-            description: ''
-          }
-        ]
-      }
+            description: '',
+          },
+        ],
+      },
     }));
   };
 
   const handleInputChange = (
     id: string,
     field: keyof EducationType,
-    value: string | { month: string; year: string }
+    value: string | { month: string; year: string },
   ) => {
     setResumeInfo(prevInfo => ({
       ...prevInfo,
       educational: {
         ...prevInfo.educational,
         education: prevInfo.educational.education.map(educ =>
-          educ.id === id ? { ...educ, [field]: value } : educ
-        )
-      }
+          educ.id === id ? { ...educ, [field]: value } : educ,
+        ),
+      },
     }));
   };
 
@@ -88,9 +87,15 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
       ...prevInfo,
       educational: {
         ...prevInfo.educational,
-        education: prevInfo.educational.education.filter(educ => educ.id !== id)
-      }
+        education: prevInfo.educational.education.filter(
+          educ => educ.id !== id,
+        ),
+      },
     }));
+  };
+
+  const capitalizeFirstLetter = (value: string) => {
+    return value.charAt(0).toUpperCase() + value.slice(1);
   };
 
   return (
@@ -106,7 +111,11 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                   placeholder="ex. College, University, school"
                   value={educ.school}
                   onChange={e =>
-                    handleInputChange(educ.id, 'school', e.target.value)
+                    handleInputChange(
+                      educ.id,
+                      'school',
+                      capitalizeFirstLetter(e.target.value),
+                    )
                   }
                 />
               </InputContainer>
@@ -117,7 +126,11 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                   placeholder="ex. Bachelors, Masters"
                   value={educ.course}
                   onChange={e =>
-                    handleInputChange(educ.id, 'course', e.target.value)
+                    handleInputChange(
+                      educ.id,
+                      'course',
+                      capitalizeFirstLetter(e.target.value),
+                    )
                   }
                 />
               </InputContainer>
@@ -131,7 +144,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                     onChange={e =>
                       handleInputChange(educ.id, 'startDate', {
                         ...educ.startDate,
-                        month: e.target.value
+                        month: e.target.value,
                       })
                     }
                   >
@@ -140,8 +153,8 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                         {new Date(2022, parseInt(month) - 1).toLocaleString(
                           'default',
                           {
-                            month: 'long'
-                          }
+                            month: 'long',
+                          },
                         )}
                       </option>
                     ))}
@@ -151,7 +164,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                     onChange={e =>
                       handleInputChange(educ.id, 'startDate', {
                         ...educ.startDate,
-                        year: e.target.value
+                        year: e.target.value,
                       })
                     }
                   >
@@ -171,7 +184,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                     onChange={e =>
                       handleInputChange(educ.id, 'endDate', {
                         ...educ.endDate,
-                        month: e.target.value
+                        month: e.target.value,
                       })
                     }
                   >
@@ -180,8 +193,8 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                         {new Date(2022, parseInt(month) - 1).toLocaleString(
                           'default',
                           {
-                            month: 'long'
-                          }
+                            month: 'long',
+                          },
                         )}
                       </option>
                     ))}
@@ -191,7 +204,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                     onChange={e =>
                       handleInputChange(educ.id, 'endDate', {
                         ...educ.endDate,
-                        year: e.target.value
+                        year: e.target.value,
                       })
                     }
                   >
@@ -209,12 +222,16 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
               placeholder="Describe your role and achievements"
               value={educ.description}
               onChange={e =>
-                handleInputChange(educ.id, 'description', e.target.value)
+                handleInputChange(
+                  educ.id,
+                  'description',
+                  capitalizeFirstLetter(e.target.value),
+                )
               }
             />
             <ButtonsContainer>
               <TrashIcon onClick={() => handleDeleteEducation(educ.id)}>
-                <FaTrash />
+                Remove
               </TrashIcon>
             </ButtonsContainer>
           </EducationContainer>

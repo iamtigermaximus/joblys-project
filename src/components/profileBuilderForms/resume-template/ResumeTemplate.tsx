@@ -137,7 +137,6 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
               ))}
             </SkillsDetailsContent>
           </PersonalDetailsContainer>
-
           <PersonalDetailsContainer>
             <PersonalDetailsTitle>Languages</PersonalDetailsTitle>
             <LanguagesDetailsContent>

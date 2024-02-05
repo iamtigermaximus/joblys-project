@@ -17,12 +17,10 @@ import {
   TextArea,
   TrashIcon,
   WorkExperienceContainer,
-  YearSelect
+  YearSelect,
 } from './ProfessionalDetailsForm.styles';
 import { ProfessionalExperienceType, ResumeInfoType } from '@/types/profile';
-import { FaTrash } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
-import { Button } from '@/components/dashboard/recent-activity/RecentActivity.styles';
 
 interface ProfessionalDetailsFormProps {
   resumeInfo: {
@@ -39,11 +37,11 @@ interface ProfessionalDetailsFormProps {
 const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   resumeInfo,
   setResumeInfo,
-  refreshStoredResume
+  refreshStoredResume,
 }) => {
   const [summary, setSummary] = useState(resumeInfo.professional.summary || '');
   const [currentRole, setCurrentRole] = useState(
-    resumeInfo.professional.currentRole || ''
+    resumeInfo.professional.currentRole || '',
   );
   const [applyJobDescription, setApplyJobDescription] = useState('');
 
@@ -53,8 +51,8 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
       ...prevInfo,
       professional: {
         ...prevInfo.professional,
-        summary: newSummary
-      }
+        summary: newSummary,
+      },
     }));
   };
 
@@ -64,8 +62,8 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
       ...prevInfo,
       professional: {
         ...prevInfo.professional,
-        currentRole: newCurrentRole
-      }
+        currentRole: newCurrentRole,
+      },
     }));
   };
 
@@ -99,26 +97,26 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             company: '',
             startDate: { month: '01', year: `${new Date().getFullYear()}` }, // Initial values
             endDate: { month: '01', year: `${new Date().getFullYear()}` },
-            jobDetails: ''
-          }
-        ]
-      }
+            jobDetails: '',
+          },
+        ],
+      },
     }));
   };
 
   const handleInputChange = (
     id: string,
     field: keyof ProfessionalExperienceType,
-    value: string | { month: string; year: string }
+    value: string | { month: string; year: string },
   ) => {
     setResumeInfo(prevInfo => ({
       ...prevInfo,
       professional: {
         ...prevInfo.professional,
         work: prevInfo.professional.work.map(experience =>
-          experience.id === id ? { ...experience, [field]: value } : experience
-        )
-      }
+          experience.id === id ? { ...experience, [field]: value } : experience,
+        ),
+      },
     }));
   };
 
@@ -126,8 +124,8 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     const resp = await fetch('/api/cvRewritten', {
       method: 'POST',
       body: JSON.stringify({
-        id
-      })
+        id,
+      }),
     });
 
     if (resp.status !== 201) {
@@ -143,9 +141,9 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
       professional: {
         ...prevInfo.professional,
         work: prevInfo.professional.work.filter(
-          experience => experience.id !== id
-        )
-      }
+          experience => experience.id !== id,
+        ),
+      },
     }));
   };
 
@@ -157,8 +155,8 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     const resp = await fetch('/api/cvRewrittenWithJobDescription', {
       method: 'POST',
       body: JSON.stringify({
-        jobDescription
-      })
+        jobDescription,
+      }),
     });
 
     if (resp.status !== 201) {
@@ -168,27 +166,36 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     refreshStoredResume();
   };
 
+  const capitalizeFirstLetter = (value: string) => {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  };
+
   return (
     <Container>
       <ProfessionalDetailsContainer>
         <InputContainer>
           <InputLabel>Job description</InputLabel>
-          <Input
-            type="text"
+          <TextArea
             placeholder="Paste job description here"
             value={applyJobDescription}
             onChange={e => handleApplyJobDescriptionChange(e.target.value)}
           />
         </InputContainer>
-        <EnhanceButton onClick={() => handleCVMatchJobDescription(applyJobDescription)}>
-          Enhance to match job ad
-        </EnhanceButton>
+        <ButtonsContainer>
+          <EnhanceButton
+            onClick={() => handleCVMatchJobDescription(applyJobDescription)}
+          >
+            Enhance to match job ad
+          </EnhanceButton>
+        </ButtonsContainer>
         <InputContainer>
           <InputLabel>Summary:</InputLabel>
           <TextArea
             placeholder="Introduce yourself by pitching your skills & explaining how they can be of value to a company"
             value={summary}
-            onChange={e => handleSummaryChange(e.target.value)}
+            onChange={e =>
+              handleSummaryChange(capitalizeFirstLetter(e.target.value))
+            }
           />
         </InputContainer>
         <InputContainer>
@@ -197,7 +204,9 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             type="text"
             placeholder="ex. Software developer"
             value={currentRole}
-            onChange={e => handleCurrentRoleChange(e.target.value)}
+            onChange={e =>
+              handleCurrentRoleChange(capitalizeFirstLetter(e.target.value))
+            }
           />
         </InputContainer>
         <InputLabel>Work Experience:</InputLabel>
@@ -211,7 +220,11 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                   placeholder="ex. Software developer"
                   value={experience.jobTitle}
                   onChange={e =>
-                    handleInputChange(experience.id, 'jobTitle', e.target.value)
+                    handleInputChange(
+                      experience.id,
+                      'jobTitle',
+                      capitalizeFirstLetter(e.target.value),
+                    )
                   }
                 />
               </InputContainer>
@@ -222,7 +235,11 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                   placeholder="Company name"
                   value={experience.company}
                   onChange={e =>
-                    handleInputChange(experience.id, 'company', e.target.value)
+                    handleInputChange(
+                      experience.id,
+                      'company',
+                      capitalizeFirstLetter(e.target.value),
+                    )
                   }
                 />
               </InputContainer>
@@ -236,7 +253,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                     onChange={e =>
                       handleInputChange(experience.id, 'startDate', {
                         ...experience.startDate,
-                        month: e.target.value
+                        month: e.target.value,
                       })
                     }
                   >
@@ -245,8 +262,8 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                         {new Date(2022, parseInt(month) - 1).toLocaleString(
                           'default',
                           {
-                            month: 'long'
-                          }
+                            month: 'long',
+                          },
                         )}
                       </option>
                     ))}
@@ -256,7 +273,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                     onChange={e =>
                       handleInputChange(experience.id, 'startDate', {
                         ...experience.startDate,
-                        year: e.target.value
+                        year: e.target.value,
                       })
                     }
                   >
@@ -276,7 +293,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                     onChange={e =>
                       handleInputChange(experience.id, 'endDate', {
                         ...experience.endDate,
-                        month: e.target.value
+                        month: e.target.value,
                       })
                     }
                   >
@@ -285,8 +302,8 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                         {new Date(2022, parseInt(month) - 1).toLocaleString(
                           'default',
                           {
-                            month: 'long'
-                          }
+                            month: 'long',
+                          },
                         )}
                       </option>
                     ))}
@@ -296,7 +313,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                     onChange={e =>
                       handleInputChange(experience.id, 'endDate', {
                         ...experience.endDate,
-                        year: e.target.value
+                        year: e.target.value,
                       })
                     }
                   >
@@ -314,7 +331,11 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
               placeholder="Describe your role and achievements"
               value={experience.jobDetails}
               onChange={e =>
-                handleInputChange(experience.id, 'jobDetails', e.target.value)
+                handleInputChange(
+                  experience.id,
+                  'jobDetails',
+                  capitalizeFirstLetter(e.target.value),
+                )
               }
             />
             <ButtonsContainer>
@@ -326,7 +347,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
               <TrashIcon
                 onClick={() => handleDeleteWorkExperience(experience.id)}
               >
-                <FaTrash />
+                Remove
               </TrashIcon>
             </ButtonsContainer>
           </WorkExperienceContainer>

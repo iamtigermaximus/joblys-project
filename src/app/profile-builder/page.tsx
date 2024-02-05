@@ -5,13 +5,14 @@ import {
   FormViewerContainer,
   ProfileBuilderContainer,
   ResumeFormContainer,
-  ResumeTemplateContainer
+  ResumeTemplateContainer,
 } from '../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import ResumeForm from '@/components/profileBuilderForms/profile-form/ResumeForm';
 import ResumeTemplate from '@/components/profileBuilderForms/resume-template/ResumeTemplate';
 import { ResumeInfoType } from '@/types/profile';
 import { WorkExperience, Education } from '@/types/storedResume';
+import Minimalist from '@/components/templates/minimalist/Minimalist';
 
 const ProfileBuilderPage: FC = () => {
   const initialState: ResumeInfoType = {
@@ -22,7 +23,7 @@ const ProfileBuilderPage: FC = () => {
       email: '',
       address: '',
       linkedin: '',
-      additionalLinks: []
+      additionalLinks: [],
     },
     professional: {
       summary: '',
@@ -34,9 +35,9 @@ const ProfileBuilderPage: FC = () => {
           company: '',
           startDate: { month: '', year: '' },
           endDate: { month: '', year: '' },
-          jobDetails: ''
-        }
-      ]
+          jobDetails: '',
+        },
+      ],
     },
     educational: {
       education: [
@@ -46,26 +47,26 @@ const ProfileBuilderPage: FC = () => {
           course: '',
           startDate: { month: '', year: '' },
           endDate: { month: '', year: '' },
-          description: ''
-        }
-      ]
+          description: '',
+        },
+      ],
     },
     skills: {
       skill: [
         {
           id: uuidv4(),
-          name: ''
-        }
-      ]
+          name: '',
+        },
+      ],
     },
     languages: {
       language: [
         {
           id: uuidv4(),
-          name: ''
-        }
-      ]
-    }
+          name: '',
+        },
+      ],
+    },
   };
 
   const [resumeInfo, setResumeInfo] = useState(initialState);
@@ -89,7 +90,7 @@ const ProfileBuilderPage: FC = () => {
       company: exp.company_name || '',
       startDate: exp.start_date || '',
       endDate: exp.end_date || '',
-      jobDetails: exp.responsibilities.join('\n') || ''
+      jobDetails: exp.responsibilities.join('\n') || '',
     }));
 
     const educations = resume?.education.map((edu: Education) => ({
@@ -98,12 +99,12 @@ const ProfileBuilderPage: FC = () => {
       course: '',
       startDate: edu.start_date || '',
       endDate: edu.end_date || '',
-      description: ''
+      description: '',
     }));
 
     const languages = resume?.languages.map((lang: string) => ({
       id: uuidv4(),
-      name: lang
+      name: lang,
     }));
 
     setResumeInfo({
@@ -114,27 +115,27 @@ const ProfileBuilderPage: FC = () => {
         email: resume?.email || '',
         address: '',
         linkedin: '',
-        additionalLinks: []
+        additionalLinks: [],
       },
       professional: {
         summary: '',
         currentRole: '',
-        work: works || []
+        work: works || [],
       },
       educational: {
-        education: educations || []
+        education: educations || [],
       },
       skills: {
         skill: [
           {
             id: uuidv4(),
-            name: ''
-          }
-        ]
+            name: '',
+          },
+        ],
       },
       languages: {
-        language: languages
-      }
+        language: languages,
+      },
     });
   };
 
@@ -157,7 +158,8 @@ const ProfileBuilderPage: FC = () => {
           />
         </ResumeFormContainer>
         <ResumeTemplateContainer>
-          <ResumeTemplate resumeInfo={resumeInfo} />
+          {/* <ResumeTemplate resumeInfo={resumeInfo} /> */}
+          <Minimalist resumeInfo={resumeInfo} />
         </ResumeTemplateContainer>
       </FormViewerContainer>
     </ProfileBuilderContainer>

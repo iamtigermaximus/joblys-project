@@ -161,11 +161,20 @@ export const ButtonsContainer = styled.div`
 
 export const TrashIcon = styled.button`
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 5px;
-  border: none;
-  margin: 0 5px;
-  font-size: 16px;
-  background-color: white;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid ${colors.blueGray};
+  background-color: ${colors.white};
+  color: ${colors.blueGray};
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 10px;
+  white-space: nowrap;
+  max-width: 200px;
+
+  &:hover {
+    background: ${colors.darkPurple};
+  }
 `;

@@ -80,6 +80,10 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
     }
   };
 
+  const capitalizeFirstLetter = (value: string) => {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  };
+
   return (
     <Container>
       <BasicDetailsContainer>
@@ -90,7 +94,12 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
               type="text"
               placeholder="Your first name"
               value={resumeInfo.basic.firstName}
-              onChange={e => handleInputChange('firstName', e.target.value)}
+              onChange={e =>
+                handleInputChange(
+                  'firstName',
+                  capitalizeFirstLetter(e.target.value),
+                )
+              }
             />
           </InputContainer>
           <InputContainer>
@@ -99,7 +108,12 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
               type="text"
               placeholder="Your last name"
               value={resumeInfo.basic.lastName}
-              onChange={e => handleInputChange('lastName', e.target.value)}
+              onChange={e =>
+                handleInputChange(
+                  'lastName',
+                  capitalizeFirstLetter(e.target.value),
+                )
+              }
             />
           </InputContainer>
         </InputRow>
@@ -130,7 +144,12 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
               type="text"
               placeholder="Address"
               value={resumeInfo.basic.address}
-              onChange={e => handleInputChange('address', e.target.value)}
+              onChange={e =>
+                handleInputChange(
+                  'address',
+                  capitalizeFirstLetter(e.target.value),
+                )
+              }
             />
           </InputContainer>
         </InputRow>

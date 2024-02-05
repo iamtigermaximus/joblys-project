@@ -10,7 +10,7 @@ import {
   InputContainer,
   InputLabel,
   LanguagesDetailsContainer,
-  TrashIcon
+  TrashIcon,
 } from './LanguagesForm.styles';
 import { FaTrash } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
@@ -22,7 +22,7 @@ interface LanguagesFormProps {
 
 const LanguagesForm: FC<LanguagesFormProps> = ({
   resumeInfo,
-  setResumeInfo
+  setResumeInfo,
 }) => {
   const handleInputChange = (id: string, value: string) => {
     setResumeInfo(prevInfo => ({
@@ -32,9 +32,9 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
         language: prevInfo.languages.language.map(enteredLanguage =>
           enteredLanguage.id === id
             ? { ...enteredLanguage, name: value }
-            : enteredLanguage
-        )
-      }
+            : enteredLanguage,
+        ),
+      },
     }));
   };
   const handleAddMoreLanguages = () => {
@@ -43,8 +43,8 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
       ...prevInfo,
       languages: {
         ...prevInfo.languages,
-        language: [...prevInfo.languages.language, { id: newId, name: '' }]
-      }
+        language: [...prevInfo.languages.language, { id: newId, name: '' }],
+      },
     }));
   };
 
@@ -54,11 +54,16 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
       languages: {
         ...prevInfo.languages,
         language: prevInfo.languages.language.filter(
-          language => language.id !== id
-        )
-      }
+          language => language.id !== id,
+        ),
+      },
     }));
   };
+
+  const capitalizeFirstLetter = (value: string) => {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  };
+
   return (
     <Container>
       <LanguagesDetailsContainer>
@@ -71,7 +76,10 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
                 placeholder="eg. Finnish"
                 value={enteredLanguage.name}
                 onChange={e =>
-                  handleInputChange(enteredLanguage.id, e.target.value)
+                  handleInputChange(
+                    enteredLanguage.id,
+                    capitalizeFirstLetter(e.target.value),
+                  )
                 }
               />
               <TrashIcon
