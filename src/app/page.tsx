@@ -9,7 +9,7 @@ import {
   BoxBody,
   Container,
   GetStartedButton,
-  ImageContainer
+  ImageContainer,
 } from './page.styles';
 import Image from 'next/image';
 import Image1 from '../assets/joblys-hero.png';
@@ -20,7 +20,7 @@ export default function Home() {
   const router = useRouter();
 
   const handleGetStartedClick = () => {
-    router.push('/signup');
+    router.push('/profile-builder');
   };
 
   // const isSmallScreen =

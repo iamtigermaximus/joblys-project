@@ -20,9 +20,13 @@ const LandingNavbar = () => {
     router.push('/login');
   };
 
-  const handleSignup = () => {
-    router.push('/signup');
+  const handleGetStarted = () => {
+    router.push('/profile-builder');
   };
+
+  // const handleSignup = () => {
+  //   router.push('/signup');
+  // };
 
   return (
     <Container>
@@ -39,8 +43,8 @@ const LandingNavbar = () => {
           </Brand>
         </BrandContainer>
         <ButtonsContainer>
-          <SignupButton onClick={handleSignup}>Sign up</SignupButton>
           <LoginButton onClick={handleLogin}>Log in</LoginButton>
+          <SignupButton onClick={handleGetStarted}>Get started</SignupButton>
         </ButtonsContainer>
       </MenuContainer>
     </Container>

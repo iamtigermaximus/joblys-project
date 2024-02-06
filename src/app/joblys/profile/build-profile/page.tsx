@@ -11,7 +11,7 @@ const BuildProfilePage = () => {
       <div>
         <title>BUILD PROFILE</title>
       </div>
-      <PageHeader />
+      {/* <PageHeader /> */}
       <BuildProfile />
     </Container>
   );

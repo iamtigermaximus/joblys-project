@@ -8,7 +8,7 @@ const CoverLetter = () => {
       <div>
         <title>COVER LETTERS</title>
       </div>
-      <PageHeader />
+      {/* <PageHeader /> */}
       COVER LETTERS
     </Container>
   );

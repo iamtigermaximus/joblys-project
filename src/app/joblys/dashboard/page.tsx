@@ -9,7 +9,7 @@ const DashboardPage = () => {
       <div>
         <title>DASHBOARD</title>
       </div>
-      <PageHeader />
+      {/* <PageHeader /> */}
       <Dashboard />
     </Container>
   );

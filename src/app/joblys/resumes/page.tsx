@@ -9,7 +9,7 @@ const ResumesPage = () => {
       <div>
         <title>CV/RESUME</title>
       </div>
-      <PageHeader />
+      {/* <PageHeader /> */}
       {/* <Resumes /> */}
       <div>CV / RESUMES</div>
     </Container>

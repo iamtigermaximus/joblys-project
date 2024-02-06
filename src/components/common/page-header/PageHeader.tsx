@@ -18,7 +18,7 @@ import {
   // RegisterLink,
   // SignInButton,
   // SignInLink,
-  WelcomeTextContainer
+  WelcomeTextContainer,
 } from './PageHeader.styles';
 import { useSession, signOut } from 'next-auth/react';
 import { FaBell, FaUser, FaArrowLeft } from 'react-icons/fa';
@@ -50,11 +50,11 @@ const PageHeader = () => {
       case '/profile-builder':
         return {
           backgroundColor: '#520668',
-          color: 'white'
+          color: 'white',
         };
       default:
         return {
-          backgroundColor: 'white'
+          backgroundColor: 'white',
         };
     }
   };
@@ -179,50 +179,21 @@ const PageHeader = () => {
               <ResumeButtonTitle> Resume</ResumeButtonTitle>
             </ResumeButton>
           </LeftContainer>
-          {session && (
-            <RightContainer>
-              {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
+
+          <RightContainer>
+            {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
               <LogoutButton onClick={handleSignOut}>Log out</LogoutButton> */}
-              <HeaderLinksContainer>
-                <IconContainer>
-                  <FaBell />
-                </IconContainer>
-              </HeaderLinksContainer>
-              <HeaderLinksContainer>
-                <IconContainer>
-                  <FaUser />
-                </IconContainer>
-              </HeaderLinksContainer>
-            </RightContainer>
-          )}
-        </HeaderMenuContainer>
-      )}
-      {!isProfileBuilder && (
-        <HeaderMenuContainer>
-          <LeftContainer>
-            <ResumeButton onClick={navigateToResume}>
-              <ResumeButtonIcon>
-                <FaArrowLeft />
-              </ResumeButtonIcon>
-              <ResumeButtonTitle> Resume</ResumeButtonTitle>
-            </ResumeButton>
-          </LeftContainer>
-          {session && (
-            <RightContainer>
-              <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
-              <LogoutButton onClick={handleSignOut}>Log out</LogoutButton>
-              <HeaderLinksContainer>
-                <IconContainer>
-                  <FaBell />
-                </IconContainer>
-              </HeaderLinksContainer>
-              <HeaderLinksContainer>
-                <IconContainer>
-                  <FaUser />
-                </IconContainer>
-              </HeaderLinksContainer>
-            </RightContainer>
-          )}
+            <HeaderLinksContainer>
+              <IconContainer>
+                <FaBell />
+              </IconContainer>
+            </HeaderLinksContainer>
+            <HeaderLinksContainer>
+              <IconContainer>
+                <FaUser />
+              </IconContainer>
+            </HeaderLinksContainer>
+          </RightContainer>
         </HeaderMenuContainer>
       )}
     </Header>

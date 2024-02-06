@@ -11,7 +11,7 @@ const ProfilePage = () => {
       <div>
         <title>CREATE PROFILE</title>
       </div>
-      <PageHeader />
+      {/* <PageHeader /> */}
       <CreateProfile />
     </Container>
   );

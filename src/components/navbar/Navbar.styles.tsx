@@ -27,8 +27,9 @@ export const NavbarItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  /* justify-content: center; */
+  height: 100%;
 `;
 
 export const BrandContainer = styled.div`
@@ -286,5 +287,26 @@ export const MobileLogoutButton = styled.div`
 
   @media (min-width: ${bp.lg}) {
     display: none;
+  }
+`;
+
+export const Menu = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+`;
+
+export const LoginContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  height: 100%;
+  margin-bottom: 20px;
+
+  @media (min-width: ${bp.lg}) {
+    flex-direction: column;
   }
 `;

@@ -4,6 +4,8 @@ import {
   Brand,
   BrandContainer,
   BurgerMenu,
+  LoginContainer,
+  Menu,
   MenuContainer,
   MenuItem,
   MenuItemContainer,
@@ -12,7 +14,7 @@ import {
   MobileMenuItem,
   MobileMenuItemContainer,
   NavbarContainer,
-  NavbarItemsContainer
+  NavbarItemsContainer,
 } from './Navbar.styles';
 import { useSession, signOut } from 'next-auth/react';
 import { FaBars, FaTimes } from 'react-icons/fa';
@@ -62,36 +64,43 @@ const Navbar = () => {
             </Brand>
           </BrandContainer>
         </MenuContainer>
-        <MenuContainer>
-          <MenuItemContainer
-            onClick={() => setActiveMenuItem('dashboard')}
-            className={activeMenuItem === 'dashboard' ? 'active' : ''}
-            href="/joblys/dashboard"
-          >
-            <MenuItem>Dashboard</MenuItem>
-          </MenuItemContainer>
-          <MenuItemContainer
-            onClick={() => setActiveMenuItem('profile')}
-            className={activeMenuItem === 'profile' ? 'active' : ''}
-            href="/joblys/profile"
-          >
-            <MenuItem>Profile</MenuItem>
-          </MenuItemContainer>
-          <MenuItemContainer
-            onClick={() => setActiveMenuItem('resumes')}
-            className={activeMenuItem === 'resumes' ? 'active' : ''}
-            href="/joblys/resumes"
-          >
-            <MenuItem>CV/Resume</MenuItem>
-          </MenuItemContainer>
-          <MenuItemContainer
-            onClick={() => setActiveMenuItem('cover-letters')}
-            className={activeMenuItem === 'cover-letters' ? 'active' : ''}
-            href="/joblys/cover-letters"
-          >
-            <MenuItem>Cover Letters</MenuItem>
-          </MenuItemContainer>
-        </MenuContainer>
+        <Menu>
+          <MenuContainer>
+            <MenuItemContainer
+              onClick={() => setActiveMenuItem('dashboard')}
+              className={activeMenuItem === 'dashboard' ? 'active' : ''}
+              href="/joblys/dashboard"
+            >
+              <MenuItem>Dashboard</MenuItem>
+            </MenuItemContainer>
+            <MenuItemContainer
+              onClick={() => setActiveMenuItem('profile')}
+              className={activeMenuItem === 'profile' ? 'active' : ''}
+              href="/joblys/profile"
+            >
+              <MenuItem>Profile</MenuItem>
+            </MenuItemContainer>
+            <MenuItemContainer
+              onClick={() => setActiveMenuItem('resumes')}
+              className={activeMenuItem === 'resumes' ? 'active' : ''}
+              href="/joblys/resumes"
+            >
+              <MenuItem>CV/Resume</MenuItem>
+            </MenuItemContainer>
+            <MenuItemContainer
+              onClick={() => setActiveMenuItem('cover-letters')}
+              className={activeMenuItem === 'cover-letters' ? 'active' : ''}
+              href="/joblys/cover-letters"
+            >
+              <MenuItem>Cover Letters</MenuItem>
+            </MenuItemContainer>
+          </MenuContainer>
+          <LoginContainer>
+            <MenuItemContainer href="/login">
+              <MenuItem>Login</MenuItem>
+            </MenuItemContainer>
+          </LoginContainer>
+        </Menu>
       </NavbarItemsContainer>
       <BurgerMenu onClick={categoryMenu}>
         {click ? <FaBars /> : <FaTimes />}
