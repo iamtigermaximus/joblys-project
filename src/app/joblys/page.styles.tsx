@@ -7,7 +7,9 @@ export const Container = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: #b4ecf9;
+  /* background-color: #b4ecf9; */
+  background-color: #f5f5f5;
+
   flex-direction: column;
   padding-bottom: 20px;
   overflow-y: scroll;

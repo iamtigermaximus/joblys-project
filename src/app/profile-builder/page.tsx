@@ -13,6 +13,7 @@ import ResumeTemplate from '@/components/profileBuilderForms/resume-template/Res
 import { ResumeInfoType } from '@/types/profile';
 import { WorkExperience, Education } from '@/types/storedResume';
 import Minimalist from '@/components/templates/minimalist/Minimalist';
+import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
 
 const ProfileBuilderPage: FC = () => {
   const initialState: ResumeInfoType = {
@@ -159,7 +160,8 @@ const ProfileBuilderPage: FC = () => {
         </ResumeFormContainer>
         <ResumeTemplateContainer>
           {/* <ResumeTemplate resumeInfo={resumeInfo} /> */}
-          <Minimalist resumeInfo={resumeInfo} />
+          {/* <Minimalist resumeInfo={resumeInfo} /> */}
+          <DefaultTemplate resumeInfo={resumeInfo} />
         </ResumeTemplateContainer>
       </FormViewerContainer>
     </ProfileBuilderContainer>
