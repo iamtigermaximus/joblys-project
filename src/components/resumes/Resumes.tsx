@@ -8,6 +8,7 @@ import {
   CreateResumeButton,
   ResumeContainer,
   ResumeCard,
+  ButtonLabel,
 } from './Resumes.styles';
 
 const Resumes = () => {
@@ -17,7 +18,9 @@ const Resumes = () => {
         <PageName>Resumes</PageName>
       </HeaderContainer>
       <ResumeContainer>
-        <CreateResumeButton>Create new</CreateResumeButton>
+        <CreateResumeButton>
+          <ButtonLabel>Create new resume </ButtonLabel>
+        </CreateResumeButton>
         <ResumeCard>Resume 1</ResumeCard>
         <ResumeCard>Resume 2</ResumeCard>
         <ResumeCard>Resume 3</ResumeCard>

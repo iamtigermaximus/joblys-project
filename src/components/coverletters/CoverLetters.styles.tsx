@@ -33,7 +33,7 @@ export const PageName = styled.h1`
   color: black;
 `;
 
-export const CreateResumeButton = styled.button`
+export const CreateCoverLetterButton = styled.button`
   border: 1px dashed gray;
   width: 250px;
   height: 350px;
@@ -58,14 +58,14 @@ export const ButtonLabel = styled.h1`
   }
 `;
 
-export const ResumeContainer = styled.div`
+export const CoverLetterContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 20px;
 `;
 
-export const ResumeCard = styled.div`
+export const CoverLetterCard = styled.div`
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 250px;
