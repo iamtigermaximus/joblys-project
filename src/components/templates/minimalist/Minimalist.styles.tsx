@@ -27,6 +27,7 @@ export const MinimalistTemplate = styled.div`
   background-color: white;
   width: 100%;
   padding: 30px 0;
+  height: 100vh;
 
   &.clicked {
     transform: scale(0.7);

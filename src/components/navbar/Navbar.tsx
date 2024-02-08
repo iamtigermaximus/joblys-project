@@ -96,9 +96,15 @@ const Navbar = () => {
             </MenuItemContainer>
           </MenuContainer>
           <LoginContainer>
-            <MenuItemContainer href="/login">
-              <MenuItem>Login</MenuItem>
-            </MenuItemContainer>
+            {session ? (
+              <MenuItemContainer href="/login">
+                <MenuItem onClick={handleSignOut}>Logout</MenuItem>
+              </MenuItemContainer>
+            ) : (
+              <MenuItemContainer href="/login">
+                <MenuItem>Login</MenuItem>
+              </MenuItemContainer>
+            )}
           </LoginContainer>
         </Menu>
       </NavbarItemsContainer>

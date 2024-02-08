@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   compiler: {
-    styledComponents: true
+    styledComponents: true,
   },
   webpack: config => {
     config.resolve.alias.canvas = false;
@@ -11,10 +11,10 @@ const nextConfig = {
       // by next.js will be dropped.
       ...config.resolve.fallback,
 
-      fs: false // the solution
+      fs: false, // the solution
     };
     return config;
-  }
+  },
 };
 
 module.exports = nextConfig;
