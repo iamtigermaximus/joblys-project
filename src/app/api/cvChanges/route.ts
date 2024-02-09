@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(
     {
       body: {
-        message: 'resume persisted',
+        message: 'success',
       }
     },
     { status: 200 }
