@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
         ownerId: token.sub,
       },
       data: {
-        content: resume.content as any,
+        content: resume as any,
       }
     });
   } catch (err) {
