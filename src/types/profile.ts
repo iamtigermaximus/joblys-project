@@ -58,6 +58,13 @@ export interface LanguageType {
   name: string;
 }
 
+export interface Resume extends BasicInfoType {
+  professionalExperience: ProfessionalExperienceType[];
+  education: EducationType[];
+  skills: SkillType[];
+  languages: LanguageType[];
+}
+
 export interface ResumeInfoType {
   basic: BasicInfoType;
   professional: {
