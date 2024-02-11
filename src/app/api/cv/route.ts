@@ -44,7 +44,7 @@ const parserPromt = `You will be provided with extracted text from a {file_type}
 - address (string)
 - linkedin (string)
 - additionalLinks, and under it as an array of objects with keys: url (string)
-- prefessionalExperience, and under it as an array of objects with keys: company (string), jobTitle (string), startDate (in format YYYY-MM-DD, string), endDate (in format YYYY-MM-DD, string), jobDetails as an array of strings
+- prefessional, and under it as an array of objects with keys: company (string), jobTitle (string), startDate (in format YYYY-MM-DD, string), endDate (in format YYYY-MM-DD, string), jobDetails as an array of strings
 - education, and under it as an array of objects with keys: school (string), course (name of the degree, string), startDate (in format YYYY-MM-DD, string), endDate (in format YYYY-MM-DD, string), description (string)
 - skills (array of strings)
 - languages (array of strings)
@@ -241,7 +241,7 @@ export async function POST(req: NextRequest) {
   console.log('Structured resume:', structuredCVContent);
   console.log(structuredCVContent.professionalExperience);
 
-  structuredCVContent.professionalExperience.map((exp) => {
+  structuredCVContent.professional.map((exp) => {
     exp.id = uuidv4();
     return exp;
   });
@@ -320,6 +320,7 @@ export async function GET(req: NextRequest) {
         ownerId: user.id,
       },
       select: {
+        id: true,
         content: true,
       },
     });
@@ -348,6 +349,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(
     {
       body: {
+        id: structuredCV?.id,
         profile: structuredCV?.content,
       },
     },

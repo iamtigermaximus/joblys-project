@@ -68,7 +68,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { resume } = (await req.json()) as { resume: Resume };
+  const { id, resume } = (await req.json()) as { id: string, resume: Resume };
+
 
   if (!resume) {
     return NextResponse.json(
@@ -85,11 +86,11 @@ export async function POST(req: NextRequest) {
   try {
     await prisma.structuredCVs.update({
       where: {
-        id: resume.id,
+        id: id,
         ownerId: token.sub,
       },
       data: {
-        content: resume as any,
+        content: resume.content as any,
       }
     });
   } catch (err) {

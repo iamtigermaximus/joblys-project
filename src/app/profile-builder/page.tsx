@@ -16,6 +16,7 @@ import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTempl
 
 const ProfileBuilderPage: FC = () => {
   const initialState: ResumeInfoType = {
+    id: '',
     basic: {
       firstName: '',
       lastName: '',
@@ -78,13 +79,16 @@ const ProfileBuilderPage: FC = () => {
     }
 
     const responseJson = await response.json();
-    const resume = responseJson.body.profile as Resume;
-
+    const resume = {
+      id: responseJson.body.id,
+      profile: responseJson.body.profile as Resume,
+    };
+    
     if (!resume) {
       return;
     }
 
-    const works = resume?.professionalExperience.map((exp: ProfessionalExperienceType) => ({
+    const works = resume?.profile.professional.map((exp: ProfessionalExperienceType) => ({
       id: exp.id || uuidv4(),
       jobTitle: exp.jobTitle || '',
       company: exp.company || '',
@@ -93,7 +97,7 @@ const ProfileBuilderPage: FC = () => {
       jobDetails: exp.jobDetails || '',
     }));
 
-    const educations = resume?.education.map((edu: EducationType) => ({
+    const educations = resume?.profile.education.map((edu: EducationType) => ({
       id: edu.id || uuidv4(),
       school: edu.school || '',
       course: edu.course || '',
@@ -102,20 +106,21 @@ const ProfileBuilderPage: FC = () => {
       description: edu.description || '',
     }));
 
-    const languages = resume?.languages.map((lang: LanguageType) => ({
+    const languages = resume?.profile.languages.map((lang: LanguageType) => ({
       id: lang.id || uuidv4(),
       name: lang.name || '',
     }));
 
     setResumeInfo({
+      id: resume.id,
       basic: {
-        firstName: resume?.firstName || '',
-        lastName: resume?.lastName || '',
-        phoneNumber: resume?.phoneNumber || '',
-        email: resume?.email || '',
-        address: resume?.address || '',
-        linkedin: resume?.linkedin || '',
-        additionalLinks: resume?.additionalLinks || [],
+        firstName: resume?.profile.firstName || '',
+        lastName: resume?.profile.lastName || '',
+        phoneNumber: resume?.profile.phoneNumber || '',
+        email: resume?.profile.email || '',
+        address: resume?.profile.address || '',
+        linkedin: resume?.profile.linkedin || '',
+        additionalLinks: resume?.profile.additionalLinks || [],
       },
       professional: {
         summary: '',
