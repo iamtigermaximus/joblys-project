@@ -66,6 +66,7 @@ export interface Resume extends BasicInfoType {
 }
 
 export interface ResumeInfoType {
+  id: string;
   basic: BasicInfoType;
   professional: {
     summary: string;
