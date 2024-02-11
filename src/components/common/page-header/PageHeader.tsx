@@ -1,5 +1,5 @@
 'use client';
-import React, { FormEvent, useEffect } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import {
   Header,
   HeaderLinksContainer,
@@ -12,6 +12,7 @@ import {
   ResumeButtonTitle,
   RightContainer,
   SignInButton,
+  UserModal,
   // MenuLink,
   // MenuLinkButton,
   // RegisterButton,
@@ -23,14 +24,20 @@ import {
 import { useSession, signOut } from 'next-auth/react';
 import { FaBell, FaUser, FaArrowLeft } from 'react-icons/fa';
 import { useRouter, usePathname } from 'next/navigation';
+import { SignOut } from '@/components/navbar/Navbar.styles';
 
 const PageHeader = () => {
   const router = useRouter();
   const pathname = usePathname();
   const isProfileBuilder = pathname === '/profile-builder';
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
 
   // const { data: session } = useSession();
   const { data: session, status } = useSession();
+
+  const toggleUserModal = () => {
+    setIsUserModalOpen(!isUserModalOpen);
+  };
 
   useEffect(() => {
     // Redirect to a login page if the session is not loading and the user is not authenticated
@@ -63,7 +70,7 @@ const PageHeader = () => {
 
   const handleSignOut = async (e: FormEvent) => {
     e.preventDefault();
-    await signOut({ callbackUrl: '/' });
+    await signOut({ callbackUrl: '/joblys/dashboard' });
   };
   const welcomeText = session ? `Welcome, ${session.user?.name}!` : '';
 
@@ -183,15 +190,32 @@ const PageHeader = () => {
           <RightContainer>
             {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
               <LogoutButton onClick={handleSignOut}>Log out</LogoutButton> */}
-            <HeaderLinksContainer>
+            <ResumeButton>
+              <ResumeButtonTitle>Download</ResumeButtonTitle>
+            </ResumeButton>
+            {/* <HeaderLinksContainer>
               <IconContainer>
                 <FaBell />
               </IconContainer>
-            </HeaderLinksContainer>
+            </HeaderLinksContainer> */}
             <HeaderLinksContainer>
-              <IconContainer>
+              <IconContainer onClick={toggleUserModal}>
                 <FaUser />
               </IconContainer>
+
+              {isUserModalOpen && (
+                <>
+                  {session ? (
+                    <UserModal>
+                      <p onClick={handleSignOut}>Log out</p>
+                    </UserModal>
+                  ) : (
+                    <UserModal>
+                      <p>Log in</p>
+                    </UserModal>
+                  )}
+                </>
+              )}
             </HeaderLinksContainer>
           </RightContainer>
         </HeaderMenuContainer>

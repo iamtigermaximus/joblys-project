@@ -102,17 +102,54 @@ export const MenuItemContainer = styled(Link)`
 
 export const MenuItem = styled.div`
   display: none;
-  justify-content: center;
+  justify-content: flex-start;
+  color: ${colors.white};
+  /* padding-left: 10px; */
+  font-weight: 700;
+
+  @media (min-width: ${bp.lg}) {
+    display: flex;
+    min-width: 150px;
+    flex-direction: row;
+    font-size: 15px;
+    letter-spacing: 1px;
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Display ellipses for overflowing content */
+    white-space: nowrap;
+    gap: 5px;
+    padding: 0 10px;
+  }
+`;
+
+export const MenuItemLogin = styled.div`
+  display: none;
+  justify-content: flex-start;
+  color: ${colors.white};
+  font-weight: 700;
+
+  @media (min-width: ${bp.lg}) {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    font-size: 15px;
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Display ellipses for overflowing content */
+    white-space: nowrap;
+    gap: 5px;
+  }
+`;
+
+export const MenuItemIcon = styled.div`
+  display: none;
   color: ${colors.white};
   padding-left: 10px;
   font-weight: 700;
 
   @media (min-width: ${bp.lg}) {
     display: flex;
-    width: 150px;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-size: 15px;
-    letter-spacing: 1px;
   }
 `;
 

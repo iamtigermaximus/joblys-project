@@ -9,6 +9,8 @@ import {
   MenuContainer,
   MenuItem,
   MenuItemContainer,
+  MenuItemIcon,
+  MenuItemLogin,
   MobileLogoutButton,
   MobileMenuContainer,
   MobileMenuItem,
@@ -21,6 +23,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
 import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
 import { usePathname } from 'next/navigation';
+import { FaUser } from 'react-icons/fa';
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -98,7 +101,12 @@ const Navbar = () => {
           <LoginContainer>
             {session ? (
               <MenuItemContainer href="/login">
-                <MenuItem onClick={handleSignOut}>Logout</MenuItem>
+                <MenuItemLogin onClick={handleSignOut}>
+                  <MenuItemIcon>
+                    <FaUser />
+                  </MenuItemIcon>
+                  {session.user.name}
+                </MenuItemLogin>
               </MenuItemContainer>
             ) : (
               <MenuItemContainer href="/login">

@@ -51,6 +51,7 @@ export const RightContainer = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding-right: 10px;
+  gap: 5px;
 
   @media (min-width: ${bp.lg}) {
   }
@@ -227,4 +228,16 @@ export const ResumeButtonIcon = styled.span`
   color: white;
   display: flex;
   align-items: center;
+`;
+
+export const UserModal = styled.div`
+  position: fixed;
+  top: 10%;
+  right: 0;
+  transform: translate(-10%, -10%);
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  z-index: 9999;
 `;
