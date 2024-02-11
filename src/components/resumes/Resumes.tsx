@@ -10,8 +10,14 @@ import {
   ResumeCard,
   ButtonLabel,
 } from './Resumes.styles';
+import { useRouter } from 'next/navigation';
 
 const Resumes = () => {
+  const router = useRouter();
+
+  const handleCreateNewResume = () => {
+    router.push('/profile-builder');
+  };
   return (
     <Container>
       <HeaderContainer>
@@ -19,7 +25,9 @@ const Resumes = () => {
       </HeaderContainer>
       <ResumeContainer>
         <CreateResumeButton>
-          <ButtonLabel>Create new resume </ButtonLabel>
+          <ButtonLabel onClick={handleCreateNewResume}>
+            Create new resume
+          </ButtonLabel>
         </CreateResumeButton>
         <ResumeCard>Resume 1</ResumeCard>
         <ResumeCard>Resume 2</ResumeCard>

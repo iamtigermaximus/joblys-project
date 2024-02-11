@@ -2,15 +2,6 @@ import styled from 'styled-components';
 import { breakpoints as bp } from '../../../utils/layout';
 import colors from '../../../utils/colors';
 
-import {
-  FaUser,
-  FaEnvelope,
-  FaPhone,
-  FaHome,
-  FaLinkedin,
-  FaGlobe,
-} from 'react-icons/fa';
-
 export const DefaultTemplateContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,7 +9,7 @@ export const DefaultTemplateContainer = styled.div`
   width: 100%;
   padding: 20px 30px;
   overflow-y: auto;
-  min-height: 800px;
+  /* min-height: 800px; */
 `;
 
 export const Template = styled.div`
@@ -29,6 +20,7 @@ export const Template = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   flex-grow: 1;
+  height: 100%;
 
   &.clicked {
     transform: scale(0.7);
