@@ -238,9 +238,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  console.log('Structured resume:', structuredCVContent);
-  console.log(structuredCVContent.professionalExperience);
-
   structuredCVContent.professional.map((exp) => {
     exp.id = uuidv4();
     return exp;
