@@ -10,8 +10,7 @@ import {
 import PageHeader from '@/components/common/page-header/PageHeader';
 import ResumeForm from '@/components/profileBuilderForms/profile-form/ResumeForm';
 import ResumeTemplate from '@/components/profileBuilderForms/resume-template/ResumeTemplate';
-import { ResumeInfoType } from '@/types/profile';
-import { WorkExperience, Education } from '@/types/storedResume';
+import { EducationType, LanguageType, ProfessionalExperienceType, Resume, ResumeInfoType } from '@/types/profile';
 import Minimalist from '@/components/templates/minimalist/Minimalist';
 import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
 
@@ -79,44 +78,44 @@ const ProfileBuilderPage: FC = () => {
     }
 
     const responseJson = await response.json();
-    const resume = responseJson.body.profile;
+    const resume = responseJson.body.profile as Resume;
 
     if (!resume) {
       return;
     }
 
-    const works = resume?.work_experience.map((exp: WorkExperience) => ({
-      id: exp.id,
-      jobTitle: exp.position,
-      company: exp.company_name || '',
-      startDate: exp.start_date || '',
-      endDate: exp.end_date || '',
-      jobDetails: exp.responsibilities.join('\n') || '',
+    const works = resume?.professionalExperience.map((exp: ProfessionalExperienceType) => ({
+      id: exp.id || uuidv4(),
+      jobTitle: exp.jobTitle || '',
+      company: exp.company || '',
+      startDate: exp.startDate || '',
+      endDate: exp.endDate || '',
+      jobDetails: exp.jobDetails || '',
     }));
 
-    const educations = resume?.education.map((edu: Education) => ({
-      id: uuidv4(),
-      school: '',
-      course: '',
-      startDate: edu.start_date || '',
-      endDate: edu.end_date || '',
-      description: '',
+    const educations = resume?.education.map((edu: EducationType) => ({
+      id: edu.id || uuidv4(),
+      school: edu.school || '',
+      course: edu.course || '',
+      startDate: edu.startDate || '',
+      endDate: edu.endDate || '',
+      description: edu.description || '',
     }));
 
-    const languages = resume?.languages.map((lang: string) => ({
-      id: uuidv4(),
-      name: lang,
+    const languages = resume?.languages.map((lang: LanguageType) => ({
+      id: lang.id || uuidv4(),
+      name: lang.name || '',
     }));
 
     setResumeInfo({
       basic: {
-        firstName: resume?.name || '',
-        lastName: '',
-        phoneNumber: resume?.personal_information?.phone_number || '',
+        firstName: resume?.firstName || '',
+        lastName: resume?.lastName || '',
+        phoneNumber: resume?.phoneNumber || '',
         email: resume?.email || '',
-        address: '',
-        linkedin: '',
-        additionalLinks: [],
+        address: resume?.address || '',
+        linkedin: resume?.linkedin || '',
+        additionalLinks: resume?.additionalLinks || [],
       },
       professional: {
         summary: '',
