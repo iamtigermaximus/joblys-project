@@ -1,45 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt'
+import { ProfessionalExperienceType, Resume } from '@/types/profile';
 import prisma from '../../../lib/prisma';
 
-interface Resume {
-  id: string;
-  content: {
-    name: string;
-    personal_information: {
-      email: string;
-      phone_number: string;
-      about_me: string;
-    };
-    work_experience: {
-      id: string;
-      company_name: string;
-      position: string;
-      location: string;
-      start_date: string;
-      end_date: string;
-      responsibilities: string[];
-    }[];
-    personal_projects: {
-      name: string;
-      start_date: string;
-      end_date: string;
-    }[];
-    education: {
-      degree: string;
-      location: string;
-      start_date: string;
-      end_date: string;
-      grade: string;
-    }[];
-    technical_skills: string[];
-    languages: string[];
-    interests: string[];
-  }
-}
-
-// Use for validation when the objects match with
-// the frontend
 function isValid(resume: Resume) {
   return resume.id &&
     resume.content?.name &&
@@ -68,14 +31,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { id, resume } = (await req.json()) as { id: string, resume: Resume };
-
-
-  if (!resume) {
+  let { id, resume } = (await req.json()) as { id: string, resume: Resume };
+  if (!resume || !id) {
     return NextResponse.json(
       {
         body: {
-          message: 'Resume not provided',
+          message: 'Resume or id not provided',
         }
       },
       { status: 400 }
@@ -90,7 +51,7 @@ export async function POST(req: NextRequest) {
         ownerId: token.sub,
       },
       data: {
-        content: resume.content as any,
+        content: resume as any,
       }
     });
   } catch (err) {
