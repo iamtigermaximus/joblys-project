@@ -129,13 +129,12 @@ export const MenuItemLogin = styled.div`
 
   @media (min-width: ${bp.lg}) {
     display: flex;
-    width: 100%;
+    min-width: 150px;
     flex-direction: row;
     font-size: 15px;
-    overflow: hidden; /* Hide overflowing content */
-    text-overflow: ellipsis; /* Display ellipses for overflowing content */
-    white-space: nowrap;
+    letter-spacing: 1px;
     gap: 5px;
+    padding: 0 10px;
   }
 `;
 
@@ -147,7 +146,7 @@ export const MenuItemIcon = styled.div`
 
   @media (min-width: ${bp.lg}) {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     font-size: 15px;
   }
@@ -346,4 +345,22 @@ export const LoginContainer = styled.div`
   @media (min-width: ${bp.lg}) {
     flex-direction: column;
   }
+`;
+
+export const UserModal = styled.div`
+  position: fixed;
+  bottom: 10%;
+  /* left: 10%; */
+  display: flex;
+  justify-content: center;
+  transform: translate(-10%, -10%);
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 9999;
+  width: 150px;
+  color: black;
+  margin-left: 20px;
+  gap: 5px;
 `;

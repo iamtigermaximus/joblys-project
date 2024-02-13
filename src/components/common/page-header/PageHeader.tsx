@@ -32,7 +32,6 @@ const PageHeader = () => {
   const isProfileBuilder = pathname === '/profile-builder';
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
 
-  // const { data: session } = useSession();
   const { data: session, status } = useSession();
 
   const toggleUserModal = () => {

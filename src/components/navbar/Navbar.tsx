@@ -17,6 +17,7 @@ import {
   MobileMenuItemContainer,
   NavbarContainer,
   NavbarItemsContainer,
+  UserModal,
 } from './Navbar.styles';
 import { useSession, signOut } from 'next-auth/react';
 import { FaBars, FaTimes } from 'react-icons/fa';
@@ -29,6 +30,16 @@ const Navbar = () => {
   const { data: session } = useSession();
   const [activeMenuItem, setActiveMenuItem] = useState('');
   const pathname = usePathname();
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+
+  let userName = session?.user.name;
+  if (userName && userName.includes(' ')) {
+    userName = userName.substring(0, userName.indexOf(' '));
+  }
+
+  const toggleUserModal = () => {
+    setIsUserModalOpen(!isUserModalOpen);
+  };
 
   const [click, setClick] = useState(true);
   const categoryMenu = () => setClick(!click);
@@ -99,13 +110,29 @@ const Navbar = () => {
             </MenuItemContainer>
           </MenuContainer>
           <LoginContainer>
+            {isUserModalOpen && (
+              <>
+                {session ? (
+                  <UserModal>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <p onClick={handleSignOut}>Log out</p>
+                      <p>Settings</p>
+                    </div>
+                  </UserModal>
+                ) : (
+                  <UserModal>
+                    <p>Log in</p>
+                  </UserModal>
+                )}
+              </>
+            )}
             {session ? (
-              <MenuItemContainer href="/login">
-                <MenuItemLogin onClick={handleSignOut}>
+              <MenuItemContainer href="">
+                <MenuItemLogin onClick={toggleUserModal}>
                   <MenuItemIcon>
                     <FaUser />
                   </MenuItemIcon>
-                  {session.user.name}
+                  {userName}
                 </MenuItemLogin>
               </MenuItemContainer>
             ) : (
