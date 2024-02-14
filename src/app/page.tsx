@@ -23,11 +23,6 @@ export default function Home() {
     router.push('/profile-builder');
   };
 
-  // const isSmallScreen =
-  //   typeof window !== 'undefined' && window.innerWidth <= 480;
-
-  // const imageWidth = isSmallScreen ? 200 : 500;
-  // const imageHeight = isSmallScreen ? 350 : 600;
   return (
     <Container>
       <LandingNavbar />

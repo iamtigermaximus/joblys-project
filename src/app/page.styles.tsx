@@ -104,9 +104,11 @@ export const BoxHeader = styled.div`
   font-size: 30px;
   color: ${colors.purple};
   font-weight: 700;
+  font-family: 'Honk', system-ui;
+  white-space: nowrap;
 
   @media (min-width: ${bp.lg}) {
-    font-size: 60px;
+    font-size: 50px;
   }
 `;
 
@@ -148,7 +150,7 @@ export const ResumeFormContainer = styled.div`
   @media (min-width: ${bp.lg}) {
     flex-direction: row;
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
   }
 `;
 

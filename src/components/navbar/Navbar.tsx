@@ -15,16 +15,19 @@ import {
   MobileMenuContainer,
   MobileMenuItem,
   MobileMenuItemContainer,
+  ModalContainer,
+  ModalItemContainer,
   NavbarContainer,
   NavbarItemsContainer,
   UserModal,
 } from './Navbar.styles';
 import { useSession, signOut } from 'next-auth/react';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaUser } from 'react-icons/fa';
+import { FaArrowRightFromBracket } from 'react-icons/fa6';
+import { IoSettingsSharp } from 'react-icons/io5';
 import Image from 'next/image';
 import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
 import { usePathname } from 'next/navigation';
-import { FaUser } from 'react-icons/fa';
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -110,22 +113,29 @@ const Navbar = () => {
             </MenuItemContainer>
           </MenuContainer>
           <LoginContainer>
-            {isUserModalOpen && (
-              <>
-                {session ? (
-                  <UserModal>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <p onClick={handleSignOut}>Log out</p>
-                      <p>Settings</p>
-                    </div>
-                  </UserModal>
-                ) : (
-                  <UserModal>
-                    <p>Log in</p>
-                  </UserModal>
-                )}
-              </>
-            )}
+            <ModalContainer>
+              {isUserModalOpen && (
+                <>
+                  {session ? (
+                    <UserModal>
+                      <ModalItemContainer>
+                        <IoSettingsSharp />
+                        <p>Settings</p>
+                      </ModalItemContainer>
+                      <ModalItemContainer>
+                        <FaArrowRightFromBracket />
+                        <p onClick={handleSignOut}>Log out</p>
+                      </ModalItemContainer>
+                    </UserModal>
+                  ) : (
+                    <UserModal>
+                      <p>Log in</p>
+                    </UserModal>
+                  )}
+                </>
+              )}
+            </ModalContainer>
+
             {session ? (
               <MenuItemContainer href="">
                 <MenuItemLogin onClick={toggleUserModal}>
@@ -137,7 +147,12 @@ const Navbar = () => {
               </MenuItemContainer>
             ) : (
               <MenuItemContainer href="/login">
-                <MenuItem>Login</MenuItem>
+                <MenuItemLogin>
+                  <MenuItemIcon>
+                    <FaUser />
+                  </MenuItemIcon>
+                  Log in
+                </MenuItemLogin>
               </MenuItemContainer>
             )}
           </LoginContainer>

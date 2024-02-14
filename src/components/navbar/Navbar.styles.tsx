@@ -131,25 +131,38 @@ export const MenuItemLogin = styled.div`
     display: flex;
     min-width: 150px;
     flex-direction: row;
-    font-size: 15px;
+    font-size: 16px;
     letter-spacing: 1px;
-    gap: 5px;
+    gap: 10px;
     padding: 0 10px;
   }
 `;
 
-export const MenuItemIcon = styled.div`
-  display: none;
-  color: ${colors.white};
-  padding-left: 10px;
-  font-weight: 700;
+// export const MenuItemIcon = styled.div`
+//   display: none;
+//   color: ${colors.white};
+//   padding-left: 10px;
+//   font-weight: 700;
 
-  @media (min-width: ${bp.lg}) {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    font-size: 15px;
-  }
+//   @media (min-width: ${bp.lg}) {
+//     display: flex;
+//     justify-content: flex-start;
+//     align-items: center;
+//     font-size: 15px;
+//   }
+// `;
+
+export const MenuItemIcon = styled.div`
+  background-color: ${colors.orange};
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  text-decoration: none;
+  border-radius: 50%;
 `;
 
 export const SignInItemsContainer = styled.div`
@@ -352,6 +365,7 @@ export const UserModal = styled.div`
   bottom: 10%;
   /* left: 10%; */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   transform: translate(-10%, -10%);
   background-color: white;
@@ -359,8 +373,32 @@ export const UserModal = styled.div`
   border-radius: 5px;
   padding: 10px;
   z-index: 9999;
-  width: 150px;
   color: black;
-  margin-left: 20px;
   gap: 5px;
+  width: 150px;
+`;
+
+export const ModalContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  white-space: nowrap;
+  margin-left: 20px;
+`;
+
+export const ModalItemContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  white-space: nowrap;
+  flex-direction: row;
+  gap: 10px;
+  padding: 5px 10px;
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+    color: ${colors.white};
+    border-radius: 5px;
+  }
 `;
