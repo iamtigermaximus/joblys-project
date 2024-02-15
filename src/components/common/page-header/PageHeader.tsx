@@ -7,6 +7,7 @@ import {
   IconContainer,
   LeftContainer,
   LogoutButton,
+  ModalItemContainer,
   ResumeButton,
   ResumeButtonIcon,
   ResumeButtonTitle,
@@ -25,6 +26,8 @@ import { useSession, signOut } from 'next-auth/react';
 import { FaBell, FaUser, FaArrowLeft } from 'react-icons/fa';
 import { useRouter, usePathname } from 'next/navigation';
 import { SignOut } from '@/components/navbar/Navbar.styles';
+import { FaArrowRightFromBracket } from 'react-icons/fa6';
+import { IoSettingsSharp } from 'react-icons/io5';
 
 const PageHeader = () => {
   const router = useRouter();
@@ -206,7 +209,14 @@ const PageHeader = () => {
                 <>
                   {session ? (
                     <UserModal>
-                      <p onClick={handleSignOut}>Log out</p>
+                      <ModalItemContainer>
+                        <IoSettingsSharp />
+                        <p>Settings</p>
+                      </ModalItemContainer>
+                      <ModalItemContainer>
+                        <FaArrowRightFromBracket />
+                        <p onClick={handleSignOut}>Log out</p>
+                      </ModalItemContainer>
                     </UserModal>
                   ) : (
                     <UserModal>

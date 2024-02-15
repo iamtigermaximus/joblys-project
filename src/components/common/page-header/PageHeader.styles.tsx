@@ -195,6 +195,7 @@ export const IconContainer = styled.div`
   &:hover {
     background-color: ${colors.purple};
     color: ${colors.white};
+    border: 1px solid white;
   }
 `;
 
@@ -238,6 +239,33 @@ export const UserModal = styled.div`
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 5px;
-  padding: 20px;
+  padding: 10px;
   z-index: 9999;
+  width: 150px;
+`;
+
+export const ModalContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  white-space: nowrap;
+  margin-left: 20px;
+`;
+
+export const ModalItemContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  white-space: nowrap;
+  flex-direction: row;
+  gap: 10px;
+  padding: 5px 10px;
+  font-size: 16px;
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+    color: ${colors.white};
+    border-radius: 5px;
+  }
 `;
