@@ -1,11 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import {
   Container,
   ErrorContainer,
+  EyeIcon,
   Input,
   InputContainer,
   InputForm,
@@ -39,7 +41,7 @@ const signupSchema = z.object({
     .min(8, 'Password must be at least 8 characters long')
     .regex(
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/,
-      'Password must contain at least one number, one uppercase letter, and one lowercase letter'
+      'Password must contain at least one number, one uppercase letter, and one lowercase letter',
     ),
 });
 
@@ -51,6 +53,8 @@ interface FormData {
 
 const SignUp = () => {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -62,7 +66,7 @@ const SignUp = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = async (
-    data: z.infer<typeof signupSchema>
+    data: z.infer<typeof signupSchema>,
   ) => {
     try {
       signupSchema.parse(data);
@@ -91,7 +95,7 @@ const SignUp = () => {
     } catch (error) {
       if (error instanceof z.ZodError) {
         // Handle schema validation errors here
-        error.errors.forEach((validationError) => {
+        error.errors.forEach(validationError => {
           setError(validationError.path[0] as keyof FormData, {
             type: 'manual',
             message: validationError.message,
@@ -109,6 +113,9 @@ const SignUp = () => {
   const loginWithLinkedIn = () =>
     signIn('linkedin', { callbackUrl: '/joblys/profile' });
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <Container>
       <SignUpContainer>
@@ -142,27 +149,33 @@ const SignUp = () => {
               <ErrorContainer>{errors.email.message}</ErrorContainer>
             )}
             <InputLabel>Password</InputLabel>
-            <Input
-              type="password"
-              placeholder="Enter password"
-              {...register('password', {
-                required: 'Password is required',
-                pattern: {
-                  value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/,
-                  message:
-                    'Password must contain at least one number, one uppercase letter, and one lowercase letter',
-                },
-                minLength: {
-                  value: 8,
-                  message: 'Password must be at least 8 characters long',
-                },
-                maxLength: {
-                  value: 50,
-                  message: 'Password should not exceed 50 characters',
-                },
-              })}
-              defaultValue="" // Set an initial value
-            />
+            <div>
+              <Input
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Enter password"
+                {...register('password', {
+                  required: 'Password is required',
+                  pattern: {
+                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/,
+                    message:
+                      'Password must contain at least one number, one uppercase letter, and one lowercase letter',
+                  },
+                  minLength: {
+                    value: 8,
+                    message: 'Password must be at least 8 characters long',
+                  },
+                  maxLength: {
+                    value: 50,
+                    message: 'Password should not exceed 50 characters',
+                  },
+                })}
+                defaultValue="" // Set an initial value
+              />
+              <EyeIcon onClick={togglePasswordVisibility}>
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </EyeIcon>
+            </div>
+
             {errors.password && (
               <ErrorContainer>{errors.password.message}</ErrorContainer>
             )}

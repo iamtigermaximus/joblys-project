@@ -26,7 +26,10 @@ import { useSession, signOut } from 'next-auth/react';
 import { FaBell, FaUser, FaArrowLeft } from 'react-icons/fa';
 import { useRouter, usePathname } from 'next/navigation';
 import { SignOut } from '@/components/navbar/Navbar.styles';
-import { FaArrowRightFromBracket } from 'react-icons/fa6';
+import {
+  FaArrowRightFromBracket,
+  FaArrowRightToBracket,
+} from 'react-icons/fa6';
 import { IoSettingsSharp } from 'react-icons/io5';
 
 const PageHeader = () => {
@@ -75,6 +78,10 @@ const PageHeader = () => {
     await signOut({ callbackUrl: '/joblys/dashboard' });
   };
   const welcomeText = session ? `Welcome, ${session.user?.name}!` : '';
+
+  const handleSignIn = () => {
+    router.push('/login');
+  };
 
   return (
     <Header style={headerStyles}>
@@ -220,7 +227,10 @@ const PageHeader = () => {
                     </UserModal>
                   ) : (
                     <UserModal>
-                      <p>Log in</p>
+                      <ModalItemContainer onClick={handleSignIn}>
+                        <FaArrowRightFromBracket />
+                        <p>Log in</p>
+                      </ModalItemContainer>
                     </UserModal>
                   )}
                 </>

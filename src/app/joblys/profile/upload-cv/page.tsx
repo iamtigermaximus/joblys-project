@@ -9,7 +9,7 @@ const UploadCvPage = () => {
       <div>
         <title>UPLOAD CV</title>
       </div>
-      <PageHeader />
+      {/* <PageHeader /> */}
       <UploadCV />
     </Container>
   );

@@ -11,6 +11,7 @@ export const Header = styled.div`
   flex-direction: row;
   justify-content: space-between;
   background-color: ${colors.white};
+
   /* height: 100px; */
   padding: 5px;
 

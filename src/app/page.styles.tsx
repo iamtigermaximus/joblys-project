@@ -128,10 +128,29 @@ export const GetStartedButton = styled.button`
   border: none;
   color: white;
   cursor: pointer;
+  /* moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out; */
 
   &:hover {
     background-color: ${colors.darkPurple};
     color: ${colors.white};
+
+    /* background-position: 100% 0;
+    moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+
+    background-image: linear-gradient(
+      to right,
+      #354aac,
+      #5e3586,
+      #385aa4,
+      #5d139a
+    );
+    box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75); */
   }
 
   @media (min-width: ${bp.lg}) {

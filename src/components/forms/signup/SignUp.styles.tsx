@@ -11,6 +11,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100vh;
   padding: 20px 30px;
+  background-color: #f5f5f5;
 
   @media (min-width: ${bp.lg}) {
     padding: 50px 100px;
@@ -59,6 +60,7 @@ export const SignUpTitle = styled.h1`
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 export const Input = styled.input`
@@ -67,6 +69,8 @@ export const Input = styled.input`
   padding: 10px;
   /* margin: 5px 0; */
   font-size: 10px;
+  position: relative;
+  width: 100%;
 
   @media (min-width: ${bp.md}) {
     font-size: 15px;
@@ -206,4 +210,15 @@ export const ProviderIcon = styled.span`
   @media (min-width: ${bp.md}) {
     font-size: 15px;
   }
+`;
+
+export const EyeIcon = styled.button`
+  position: absolute;
+  top: 73%;
+  right: 20px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
 `;

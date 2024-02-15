@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { z } from 'zod';
-
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import {
   Container,
   LoginContainer,
@@ -27,6 +27,7 @@ import {
   ProviderButton,
   ProviderIcon,
   CreateAccountButtonContainer,
+  EyeIcon,
 } from './Login.styles';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
@@ -47,6 +48,7 @@ interface Credentials {
 
 const Login = () => {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   const {
     control,
     handleSubmit,
@@ -61,7 +63,7 @@ const Login = () => {
   const callbackUrl = searchParams.get('callbackUrl') ?? '/joblys/dashboard';
 
   const onSubmit: SubmitHandler<Credentials> = async (
-    data: z.infer<typeof credentialsSchema>
+    data: z.infer<typeof credentialsSchema>,
   ) => {
     try {
       credentialsSchema.parse(data);
@@ -93,6 +95,10 @@ const Login = () => {
   const loginWithLinkedIn = () =>
     signIn('linkedin', { callbackUrl: '/joblys/dashboard' });
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <Container>
       <LoginContainer>
@@ -123,15 +129,21 @@ const Login = () => {
               name="password"
               control={control}
               render={({ field }) => (
-                <Input
-                  type="password"
-                  name="password"
-                  placeholder="Enter password"
-                  value={field.value || ''}
-                  onChange={field.onChange}
-                />
+                <div>
+                  <Input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    placeholder="Enter password"
+                    value={field.value || ''}
+                    onChange={field.onChange}
+                  />
+                  <EyeIcon onClick={togglePasswordVisibility}>
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </EyeIcon>
+                </div>
               )}
             />
+
             {errors.password && (
               <ErrorContainer>{errors.password.message}</ErrorContainer>
             )}

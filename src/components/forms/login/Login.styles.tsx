@@ -12,6 +12,7 @@ export const Container = styled.div`
   height: 100vh;
   padding: 20px 30px;
   overflow-y: scroll;
+  background-color: #f5f5f5;
 
   @media (min-width: ${bp.lg}) {
     padding: 50px 100px;
@@ -62,6 +63,8 @@ export const InputContainer = styled.div`
   flex-direction: column;
   padding-bottom: 10px;
 
+  position: relative;
+
   @media (min-width: ${bp.md}) {
     padding-bottom: 15px;
   }
@@ -73,6 +76,9 @@ export const Input = styled.input`
   padding: 10px;
   /* margin: 5px 0; */
   font-size: 10px;
+  width: 100%;
+
+  position: relative;
 
   @media (min-width: ${bp.md}) {
     font-size: 15px;
@@ -277,4 +283,15 @@ export const ProviderIcon = styled.span`
   @media (min-width: ${bp.md}) {
     font-size: 15px;
   }
+`;
+
+export const EyeIcon = styled.button`
+  position: absolute;
+  top: 82%;
+  right: 20px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
 `;
