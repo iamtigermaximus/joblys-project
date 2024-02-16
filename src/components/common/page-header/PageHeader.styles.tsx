@@ -270,3 +270,159 @@ export const ModalItemContainer = styled.div`
     border-radius: 5px;
   }
 `;
+
+export const SidebarMenuContainer = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 0;
+  top: 0;
+  width: 40%;
+  height: 100vh;
+  background-color: white;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-out;
+  border-top: 0.3vh solid #fb5d20;
+  color: black;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+  /* z-index: 1; */
+
+  &.active {
+    transform: translateX(0%);
+    transition: transform 0.3s ease-in;
+  }
+`;
+
+export const SidebarHeader = styled.div`
+  background-color: ${colors.purple};
+  color: ${colors.white};
+  height: 10.3vh;
+  border-top: 0.3vh solid #fb5d20;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px;
+`;
+
+export const SidebarHeaderItem = styled.div`
+  color: ${colors.white};
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+`;
+
+export const SidebarHeaderClose = styled.div`
+  color: ${colors.white};
+  border: 1px solid white;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+`;
+
+export const SidebarContentContainer = styled.div`
+  padding: 20px 40px;
+  height: 100%;
+`;
+
+export const Input = styled.input`
+  padding: 12px;
+  /* border: 1px solid gray; */
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  background-color: #f5f5f5;
+`;
+
+export const Label = styled.label`
+  padding: 3px 0;
+  color: black;
+  font-size: 13px;
+`;
+
+export const TextContainer = styled.div`
+  padding: 20px 0;
+`;
+
+export const SidebarText = styled.p`
+  font-size: 20px;
+  color: black;
+  font-weight: 700;
+`;
+
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-bottom: 20px;
+`;
+
+export const ButtonContainer = styled.div`
+  width: 100%;
+  justify-content: center;
+`;
+
+export const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  background-color: ${colors.purple};
+  color: ${colors.white};
+  padding: 8px 12px;
+  border-radius: 5px;
+`;
+export const SeparatorContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+`;
+
+export const HorizontalLine = styled.div`
+  border-top: 0.5px solid gray;
+  width: 100%;
+`;
+
+export const ProvidersContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 0 50px;
+`;
+
+export const Provider = styled.button`
+  width: 100%;
+`;
+
+export const ProviderButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 12px;
+  border: 0.5px solid gray;
+  border: none;
+  background-color: ${colors.white};
+`;
+
+export const ProviderIcon = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  padding: 0 10px;
+  font-size: 15px;
+`;

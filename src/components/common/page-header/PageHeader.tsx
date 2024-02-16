@@ -1,19 +1,38 @@
 'use client';
 import React, { FormEvent, useEffect, useState } from 'react';
 import {
+  Button,
+  ButtonContainer,
   Header,
   HeaderLinksContainer,
   HeaderMenuContainer,
+  HorizontalLine,
   IconContainer,
+  Input,
+  InputContainer,
+  Label,
   LeftContainer,
   LogoutButton,
   ModalItemContainer,
+  Provider,
+  ProviderButton,
+  ProviderIcon,
+  ProvidersContainer,
   ResumeButton,
   ResumeButtonIcon,
   ResumeButtonTitle,
   RightContainer,
+  SeparatorContainer,
+  SidebarContentContainer,
+  SidebarHeader,
+  SidebarHeaderClose,
+  SidebarHeaderItem,
+  SidebarMenuContainer,
+  SidebarText,
   SignInButton,
+  TextContainer,
   UserModal,
+
   // MenuLink,
   // MenuLinkButton,
   // RegisterButton,
@@ -29,8 +48,10 @@ import { SignOut } from '@/components/navbar/Navbar.styles';
 import {
   FaArrowRightFromBracket,
   FaArrowRightToBracket,
+  FaLinkedin,
 } from 'react-icons/fa6';
-import { IoSettingsSharp } from 'react-icons/io5';
+import { IoCloseSharp, IoSettingsSharp } from 'react-icons/io5';
+import { FcGoogle } from 'react-icons/fc';
 
 const PageHeader = () => {
   const router = useRouter();
@@ -82,6 +103,9 @@ const PageHeader = () => {
   const handleSignIn = () => {
     router.push('/login');
   };
+
+  const [click, setClick] = useState(true);
+  const categoryMenu = () => setClick(!click);
 
   return (
     <Header style={headerStyles}>
@@ -194,13 +218,63 @@ const PageHeader = () => {
               </ResumeButtonIcon>
               <ResumeButtonTitle> Resume</ResumeButtonTitle>
             </ResumeButton>
+            <SidebarMenuContainer
+              className={click ? 'category active' : 'category'}
+            >
+              <SidebarHeader>
+                <SidebarHeaderItem>
+                  <ResumeButton>
+                    <ResumeButtonTitle>Account</ResumeButtonTitle>
+                  </ResumeButton>
+                </SidebarHeaderItem>
+                <SidebarHeaderClose onClick={categoryMenu}>
+                  <IoCloseSharp />
+                </SidebarHeaderClose>
+              </SidebarHeader>
+              <SidebarContentContainer>
+                <TextContainer>
+                  <SidebarText>What is your email address?</SidebarText>
+                </TextContainer>
+                <InputContainer>
+                  <Label>Email address</Label>
+                  <Input placeholder="" />
+                </InputContainer>
+                <ButtonContainer>
+                  <Button>Next</Button>
+                </ButtonContainer>
+                <SeparatorContainer>
+                  <HorizontalLine></HorizontalLine>
+                  <div style={{ padding: '0 5px', color: 'gray' }}>or</div>
+                  <HorizontalLine></HorizontalLine>
+                </SeparatorContainer>
+                <ProvidersContainer>
+                  <Provider>
+                    <ProviderButton>
+                      <ProviderIcon>
+                        <FcGoogle />
+                      </ProviderIcon>
+                      Continue with Google
+                    </ProviderButton>
+                  </Provider>
+                  <Provider>
+                    <ProviderButton>
+                      <ProviderIcon>
+                        <FaLinkedin />
+                      </ProviderIcon>
+                      Continue with LinkedIn
+                    </ProviderButton>
+                  </Provider>
+                </ProvidersContainer>
+              </SidebarContentContainer>
+            </SidebarMenuContainer>
           </LeftContainer>
-
           <RightContainer>
             {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
               <LogoutButton onClick={handleSignOut}>Log out</LogoutButton> */}
             <ResumeButton>
-              <ResumeButtonTitle>Download</ResumeButtonTitle>
+              <ResumeButtonTitle onClick={categoryMenu}>
+                Download
+              </ResumeButtonTitle>
             </ResumeButton>
             {/* <HeaderLinksContainer>
               <IconContainer>
@@ -228,7 +302,7 @@ const PageHeader = () => {
                   ) : (
                     <UserModal>
                       <ModalItemContainer onClick={handleSignIn}>
-                        <FaArrowRightFromBracket />
+                        <FaArrowRightToBracket />
                         <p>Log in</p>
                       </ModalItemContainer>
                     </UserModal>
