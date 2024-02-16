@@ -344,6 +344,8 @@ export const Label = styled.label`
   padding: 3px 0;
   color: black;
   font-size: 13px;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export const TextContainer = styled.div`
