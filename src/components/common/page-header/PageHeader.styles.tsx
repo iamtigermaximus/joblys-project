@@ -400,7 +400,7 @@ export const ProvidersContainer = styled.div`
   padding: 0 50px;
 `;
 
-export const Provider = styled.button`
+export const Provider = styled.div`
   width: 100%;
 `;
 

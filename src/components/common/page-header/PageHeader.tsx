@@ -104,7 +104,7 @@ const PageHeader = () => {
     router.push('/login');
   };
 
-  const [click, setClick] = useState(true);
+  const [click, setClick] = useState(false);
   const categoryMenu = () => setClick(!click);
 
   return (
@@ -218,55 +218,6 @@ const PageHeader = () => {
               </ResumeButtonIcon>
               <ResumeButtonTitle> Resume</ResumeButtonTitle>
             </ResumeButton>
-            <SidebarMenuContainer
-              className={click ? 'category active' : 'category'}
-            >
-              <SidebarHeader>
-                <SidebarHeaderItem>
-                  <ResumeButton>
-                    <ResumeButtonTitle>Account</ResumeButtonTitle>
-                  </ResumeButton>
-                </SidebarHeaderItem>
-                <SidebarHeaderClose onClick={categoryMenu}>
-                  <IoCloseSharp />
-                </SidebarHeaderClose>
-              </SidebarHeader>
-              <SidebarContentContainer>
-                <TextContainer>
-                  <SidebarText>What is your email address?</SidebarText>
-                </TextContainer>
-                <InputContainer>
-                  <Label>Email address</Label>
-                  <Input placeholder="" />
-                </InputContainer>
-                <ButtonContainer>
-                  <Button>Next</Button>
-                </ButtonContainer>
-                <SeparatorContainer>
-                  <HorizontalLine></HorizontalLine>
-                  <div style={{ padding: '0 5px', color: 'gray' }}>or</div>
-                  <HorizontalLine></HorizontalLine>
-                </SeparatorContainer>
-                <ProvidersContainer>
-                  <Provider>
-                    <ProviderButton>
-                      <ProviderIcon>
-                        <FcGoogle />
-                      </ProviderIcon>
-                      Continue with Google
-                    </ProviderButton>
-                  </Provider>
-                  <Provider>
-                    <ProviderButton>
-                      <ProviderIcon>
-                        <FaLinkedin />
-                      </ProviderIcon>
-                      Continue with LinkedIn
-                    </ProviderButton>
-                  </Provider>
-                </ProvidersContainer>
-              </SidebarContentContainer>
-            </SidebarMenuContainer>
           </LeftContainer>
           <RightContainer>
             {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
@@ -275,6 +226,57 @@ const PageHeader = () => {
               <ResumeButtonTitle onClick={categoryMenu}>
                 Download
               </ResumeButtonTitle>
+              {click && (
+                <SidebarMenuContainer
+                  className={click ? 'category active' : 'category'}
+                >
+                  <SidebarHeader>
+                    <SidebarHeaderItem>
+                      <ResumeButton>
+                        <ResumeButtonTitle>Account</ResumeButtonTitle>
+                      </ResumeButton>
+                    </SidebarHeaderItem>
+                    <SidebarHeaderClose onClick={categoryMenu}>
+                      <IoCloseSharp />
+                    </SidebarHeaderClose>
+                  </SidebarHeader>
+                  <SidebarContentContainer>
+                    <TextContainer>
+                      <SidebarText>What is your email address?</SidebarText>
+                    </TextContainer>
+                    <InputContainer>
+                      <Label>Email address</Label>
+                      <Input placeholder="" />
+                    </InputContainer>
+                    <ButtonContainer>
+                      <Button>Next</Button>
+                    </ButtonContainer>
+                    <SeparatorContainer>
+                      <HorizontalLine></HorizontalLine>
+                      <div style={{ padding: '0 5px', color: 'gray' }}>or</div>
+                      <HorizontalLine></HorizontalLine>
+                    </SeparatorContainer>
+                    <ProvidersContainer>
+                      <Provider>
+                        <ProviderButton>
+                          <ProviderIcon>
+                            <FcGoogle />
+                          </ProviderIcon>
+                          Continue with Google
+                        </ProviderButton>
+                      </Provider>
+                      <Provider>
+                        <ProviderButton>
+                          <ProviderIcon>
+                            <FaLinkedin />
+                          </ProviderIcon>
+                          Continue with LinkedIn
+                        </ProviderButton>
+                      </Provider>
+                    </ProvidersContainer>
+                  </SidebarContentContainer>
+                </SidebarMenuContainer>
+              )}
             </ResumeButton>
             {/* <HeaderLinksContainer>
               <IconContainer>
