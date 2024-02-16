@@ -27,10 +27,11 @@ import { FaArrowRightFromBracket } from 'react-icons/fa6';
 import { IoSettingsSharp } from 'react-icons/io5';
 import Image from 'next/image';
 import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const Navbar = () => {
   const { data: session } = useSession();
+  const router = useRouter();
   const [activeMenuItem, setActiveMenuItem] = useState('');
   const pathname = usePathname();
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
@@ -62,6 +63,10 @@ const Navbar = () => {
   const handleSignOut = async (e: FormEvent) => {
     e.preventDefault();
     await signOut({ callbackUrl: '/' });
+  };
+
+  const handleSettings = () => {
+    router.push('/joblys/settings');
   };
 
   return (
@@ -120,7 +125,7 @@ const Navbar = () => {
                     <UserModal>
                       <ModalItemContainer>
                         <IoSettingsSharp />
-                        <p>Settings</p>
+                        <p onClick={handleSettings}>Settings</p>
                       </ModalItemContainer>
                       <ModalItemContainer>
                         <FaArrowRightFromBracket />
