@@ -414,7 +414,6 @@ export const ProviderButton = styled.div`
   font-size: 15px;
   padding: 12px;
   border: 0.5px solid gray;
-  border: none;
   background-color: ${colors.white};
 `;
 
