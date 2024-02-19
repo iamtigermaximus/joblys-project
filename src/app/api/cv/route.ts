@@ -158,28 +158,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  console.log('Parsed the CV, persisting it...');
-  let parsedCV;
-  try {
-    parsedCV = await prisma.parsedCVs.create({
-      data: {
-        ownerId: user.id,
-        content: cvTextContent,
-        source: 'docx',
-      }
-    });
-  } catch (err) {
-    console.log('Create parsedCV: ' + err);
-    return NextResponse.json(
-      {
-        body: {
-          message: 'internal server error',
-        }
-      },
-      { status: 500 }
-    );
-  }
-
   console.log('Structuring the CV...');
   let chatResp;
   try {
@@ -248,7 +226,6 @@ export async function POST(req: NextRequest) {
     await prisma.structuredCVs.create({
       data: {
         ownerId: user.id,
-        parsedCVId: parsedCV.id,
         content: structuredCVContent as any,
       }
     });
