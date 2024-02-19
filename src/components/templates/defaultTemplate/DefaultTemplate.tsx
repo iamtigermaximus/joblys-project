@@ -1,6 +1,14 @@
 'use client';
-import React, { FC, useState } from 'react';
-import { ResumeInfoType } from '@/types/profile';
+import {
+  BasicInfoType,
+  EducationType,
+  LanguageType,
+  ProfessionalExperienceType,
+  ResumeInfoType,
+  SkillType,
+} from '@/types/profile';
+import React, { FC } from 'react';
+import styled from 'styled-components';
 import {
   FaUser,
   FaEnvelope,
@@ -10,54 +18,254 @@ import {
   FaGlobe,
 } from 'react-icons/fa';
 import {
-  DefaultTemplateContainer,
-  Template,
   BasicContentContainer,
-  BasicsTitleContainer,
-  BasicsTitle,
+  BasicsItem,
   BasicsItemsContainer,
   BasicsNameContainer,
-  IconContainer,
-  BasicsItem,
-  ContentContainer,
-  HeaderName,
-  HeaderCurrentRole,
-  DetailsTitleContainer,
-  DetailsTitle,
-  SummaryContainer,
-  Summary,
-  DetailsContentContainer,
-  EmploymentDetailsContainer,
-  EmploymentDetail,
-  JobTitle,
+  BasicsTitle,
+  BasicsTitleContainer,
   Company,
-  DateContainer,
-  Dates,
-  Month,
-  Year,
-  DateSeparator,
-  Description,
-  EducationDetailContainer,
-  EducationDetail,
+  ContentContainer,
   Course,
+  DateContainer,
+  DateSeparator,
+  Dates,
+  DefaultTemplateContainer,
+  Description,
+  DetailsContentContainer,
+  DetailsTitle,
+  DetailsTitleContainer,
+  EducationDetail,
+  EducationDetailContainer,
+  EmploymentDetail,
+  EmploymentDetailsContainer,
+  HeaderCurrentRole,
+  HeaderName,
+  IconContainer,
+  JobTitle,
+  Month,
   School,
+  Summary,
+  SummaryContainer,
+  Template,
+  Year,
 } from './DefaultTemplate.styles';
 
-interface DefaultTemplateProps {
-  resumeInfo: ResumeInfoType;
-}
+const BasicInfoComponent: FC<{ basicInfo: BasicInfoType }> = ({
+  basicInfo,
+}) => (
+  <div>
+    <BasicsItemsContainer>
+      {basicInfo.firstName && (
+        <BasicsNameContainer>
+          <IconContainer>
+            <FaUser />
+          </IconContainer>
+          <BasicsItem>{basicInfo.firstName}</BasicsItem>
+          <BasicsItem>{basicInfo.lastName}</BasicsItem>
+        </BasicsNameContainer>
+      )}
+      {basicInfo.email && (
+        <BasicsNameContainer>
+          <IconContainer>
+            <FaEnvelope />
+          </IconContainer>
+          <BasicsItem>{basicInfo.email}</BasicsItem>
+        </BasicsNameContainer>
+      )}
+      {basicInfo.phoneNumber && (
+        <BasicsNameContainer>
+          <IconContainer>
+            <FaPhone />
+          </IconContainer>
+          <BasicsItem>{basicInfo.phoneNumber}</BasicsItem>
+        </BasicsNameContainer>
+      )}
+      {basicInfo.address && (
+        <BasicsNameContainer>
+          <IconContainer>
+            <FaHome />
+          </IconContainer>
+          <BasicsItem>{basicInfo.address}</BasicsItem>
+        </BasicsNameContainer>
+      )}
+      {basicInfo.linkedin && (
+        <BasicsNameContainer>
+          <IconContainer>
+            <FaLinkedin />
+          </IconContainer>
+          <BasicsItem>{basicInfo.linkedin}</BasicsItem>
+        </BasicsNameContainer>
+      )}
+      {basicInfo?.additionalLinks.map(link => (
+        <BasicsNameContainer key={link.id}>
+          <IconContainer>
+            <FaGlobe />
+          </IconContainer>
+          <a href={link.url}>
+            <BasicsItem>{link.url}</BasicsItem>
+          </a>
+        </BasicsNameContainer>
+      ))}
+    </BasicsItemsContainer>
+  </div>
+);
 
-const DefaultTemplate: FC<DefaultTemplateProps> = ({ resumeInfo }) => {
+const SkillsInfoComponent: FC<{ skillInfo: SkillType[] }> = ({ skillInfo }) => (
+  <div>
+    <DetailsContentContainer>
+      {skillInfo.map(skill => (
+        <div key={skill.id}>
+          <BasicsItem>{skill.name}</BasicsItem>
+        </div>
+      ))}
+    </DetailsContentContainer>
+  </div>
+);
+
+const LanguagesInfoComponent: FC<{ languageInfo: LanguageType[] }> = ({
+  languageInfo,
+}) => (
+  <div>
+    <DetailsContentContainer>
+      {languageInfo.map((language, index) => (
+        <div key={language.id}>
+          <BasicsItem>{language.name}</BasicsItem>
+        </div>
+      ))}
+    </DetailsContentContainer>
+  </div>
+);
+
+const EmploymentInfoComponent: FC<{
+  employmentInfo: ProfessionalExperienceType[];
+}> = ({ employmentInfo }) => (
+  <DetailsContentContainer>
+    {employmentInfo.map((info, index) => (
+      <div key={info.id}>
+        <EmploymentDetailsContainer>
+          <EmploymentDetail>
+            <JobTitle>{info.jobTitle}</JobTitle>
+            <Company>{info.company}</Company>
+          </EmploymentDetail>
+          {info.jobTitle && (
+            <DateContainer>
+              <Dates>
+                <Month>
+                  {info.startDate.month &&
+                  !isNaN(parseInt(info.startDate.month)) ? (
+                    <>
+                      {new Date(
+                        2022,
+                        parseInt(info.startDate.month) - 1,
+                      ).toLocaleString('default', {
+                        month: 'short',
+                      })}
+                    </>
+                  ) : (
+                    <>Jan</>
+                  )}
+                </Month>
+                <Year>{info.startDate.year || new Date().getFullYear()}</Year>
+              </Dates>
+              <DateSeparator> - </DateSeparator>
+              <Dates>
+                <Month>
+                  {info.endDate.month &&
+                  !isNaN(parseInt(info.endDate.month)) ? (
+                    <>
+                      {new Date(
+                        2022,
+                        parseInt(info.endDate.month) - 1,
+                      ).toLocaleString('default', {
+                        month: 'short',
+                      })}
+                    </>
+                  ) : (
+                    <>Jan</>
+                  )}
+                </Month>
+                <Year>{info.endDate.year || new Date().getFullYear()}</Year>
+              </Dates>
+            </DateContainer>
+          )}
+        </EmploymentDetailsContainer>
+
+        <Description>{info.jobDetails}</Description>
+      </div>
+    ))}
+  </DetailsContentContainer>
+);
+
+const EducationInfoComponent: FC<{ educationInfo: EducationType[] }> = ({
+  educationInfo,
+}) => (
+  <DetailsContentContainer>
+    {educationInfo.map((info, index) => (
+      <div key={info.id}>
+        <EducationDetailContainer>
+          <EducationDetail>
+            <Course>{info.course}</Course>
+            <School>{info.school}</School>
+          </EducationDetail>
+          {info.school && (
+            <DateContainer>
+              <Dates>
+                <Month>
+                  {info.startDate.month &&
+                  !isNaN(parseInt(info.startDate.month)) ? (
+                    <>
+                      {new Date(
+                        2022,
+                        parseInt(info.startDate.month) - 1,
+                      ).toLocaleString('default', {
+                        month: 'short',
+                      })}
+                    </>
+                  ) : (
+                    <>Jan</>
+                  )}
+                </Month>
+                <Year>{info.startDate.year || new Date().getFullYear()}</Year>
+              </Dates>
+              <DateSeparator> - </DateSeparator>
+
+              <Dates>
+                <Month>
+                  {info.endDate.month &&
+                  !isNaN(parseInt(info.endDate.month)) ? (
+                    <>
+                      {new Date(
+                        2022,
+                        parseInt(info.endDate.month) - 1,
+                      ).toLocaleString('default', {
+                        month: 'short',
+                      })}
+                    </>
+                  ) : (
+                    <>Jan</>
+                  )}
+                </Month>
+                <Year>{info.endDate.year || new Date().getFullYear()}</Year>
+              </Dates>
+            </DateContainer>
+          )}
+        </EducationDetailContainer>
+        <Description>{info.description}</Description>
+      </div>
+    ))}
+  </DetailsContentContainer>
+);
+
+// Define the Resume component
+const DefaultTemplate: FC<{ resumeInfo: ResumeInfoType }> = ({
+  resumeInfo,
+}) => {
   const basic = resumeInfo?.basic;
   const professional = resumeInfo?.professional;
   const educational = resumeInfo?.educational;
   const skills = resumeInfo?.skills;
   const languages = resumeInfo?.languages;
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleTemplateClick = () => {
-    setIsClicked(!isClicked);
-  };
 
   const shouldDisplayTitle =
     !!(
@@ -77,237 +285,114 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ resumeInfo }) => {
     ) ||
     !!(educational.education && educational.education.length > 1);
 
-  const templateClassName = isClicked ? 'clicked' : '';
-
-  // Debugging: Log skills and languages
-  console.log('Skills:', skills);
-  console.log('Languages:', languages);
+  // Check the amount of content and decide whether to render it in the current template or split it into a new one
+  const shouldSplit =
+    professional.work.length > 3 || educational.education.length > 3;
 
   return (
     <DefaultTemplateContainer>
-      <Template>
-        <BasicContentContainer>
-          <BasicsTitleContainer>
-            {shouldDisplayTitle && <BasicsTitle>Personal Details</BasicsTitle>}
-          </BasicsTitleContainer>
-          <BasicsItemsContainer>
-            {basic.firstName && (
-              <BasicsNameContainer>
-                <IconContainer>
-                  <FaUser />
-                </IconContainer>
-                <BasicsItem>{basic.firstName}</BasicsItem>
-                <BasicsItem>{basic.lastName}</BasicsItem>
-              </BasicsNameContainer>
-            )}
-            {basic.email && (
-              <BasicsNameContainer>
-                <IconContainer>
-                  <FaEnvelope />
-                </IconContainer>
-                <BasicsItem>{basic.email}</BasicsItem>
-              </BasicsNameContainer>
-            )}
-            {basic.phoneNumber && (
-              <BasicsNameContainer>
-                <IconContainer>
-                  <FaPhone />
-                </IconContainer>
-                <BasicsItem>{basic.phoneNumber}</BasicsItem>
-              </BasicsNameContainer>
-            )}
-            {basic.address && (
-              <BasicsNameContainer>
-                <IconContainer>
-                  <FaHome />
-                </IconContainer>
-                <BasicsItem>{basic.address}</BasicsItem>
-              </BasicsNameContainer>
-            )}
-            {basic.linkedin && (
-              <BasicsNameContainer>
-                <IconContainer>
-                  <FaLinkedin />
-                </IconContainer>
-                <BasicsItem>{basic.linkedin}</BasicsItem>
-              </BasicsNameContainer>
-            )}
-            {basic?.additionalLinks.map(link => (
-              <BasicsNameContainer key={link.id}>
-                <IconContainer>
-                  <FaGlobe />
-                </IconContainer>
-                <a href={link.url}>
-                  <BasicsItem>{link.url}</BasicsItem>
-                </a>
-              </BasicsNameContainer>
-            ))}
-          </BasicsItemsContainer>
-
-          {shouldDisplayTitle && (
-            <>
-              <BasicsTitleContainer> Skills</BasicsTitleContainer>
-
-              {skills.skill &&
-                skills?.skill.map(enteredSkill => (
-                  <BasicsItem key={enteredSkill.id}>
-                    <h3>{enteredSkill.name}</h3>
-                  </BasicsItem>
-                ))}
-              <BasicsTitleContainer> Languages</BasicsTitleContainer>
-              {languages.language &&
-                languages?.language.map(enteredLanguage => (
-                  <BasicsItem key={enteredLanguage.id}>
-                    <h3>{enteredLanguage.name}</h3>
-                  </BasicsItem>
-                ))}
-            </>
-          )}
-        </BasicContentContainer>
-        <ContentContainer>
-          <BasicsNameContainer>
-            <HeaderName>{basic.firstName}</HeaderName>
-            <HeaderName>{basic.lastName}</HeaderName>
-          </BasicsNameContainer>
-          <HeaderCurrentRole>{professional.currentRole}</HeaderCurrentRole>
-          <DetailsTitleContainer>
-            {shouldDisplayTitle && <DetailsTitle>Summary</DetailsTitle>}
-          </DetailsTitleContainer>
-          <SummaryContainer>
-            <Summary>{professional.summary}</Summary>
-          </SummaryContainer>
-          <DetailsTitleContainer>
-            {shouldDisplayTitle && <DetailsTitle>Employment</DetailsTitle>}
-          </DetailsTitleContainer>
-          {professional.work && (
-            <DetailsContentContainer>
-              {professional.work.map(experience => (
-                <div key={experience.id}>
-                  {experience.jobTitle && (
-                    <EmploymentDetailsContainer>
-                      <EmploymentDetail>
-                        <JobTitle>{experience.jobTitle}</JobTitle>
-                        <Company>{experience.company}</Company>
-                      </EmploymentDetail>
-                      <DateContainer>
-                        <Dates>
-                          <Month>
-                            {experience.startDate.month &&
-                            !isNaN(parseInt(experience.startDate.month)) ? (
-                              <>
-                                {new Date(
-                                  2022,
-                                  parseInt(experience.startDate.month) - 1,
-                                ).toLocaleString('default', {
-                                  month: 'short',
-                                })}
-                              </>
-                            ) : (
-                              <>Jan</>
-                            )}
-                          </Month>
-                          <Year>
-                            {experience.startDate.year ||
-                              new Date().getFullYear()}
-                          </Year>
-                        </Dates>
-                        <DateSeparator> - </DateSeparator>
-                        <Dates>
-                          <Month>
-                            {experience.endDate.month &&
-                            !isNaN(parseInt(experience.endDate.month)) ? (
-                              <>
-                                {new Date(
-                                  2022,
-                                  parseInt(experience.endDate.month) - 1,
-                                ).toLocaleString('default', {
-                                  month: 'short',
-                                })}
-                              </>
-                            ) : (
-                              <>Jan</>
-                            )}
-                          </Month>
-                          <Year>
-                            {experience.endDate.year ||
-                              new Date().getFullYear()}
-                          </Year>
-                        </Dates>
-                      </DateContainer>
-                    </EmploymentDetailsContainer>
-                  )}
-
-                  <Description>{experience.jobDetails}</Description>
-                </div>
-              ))}
-            </DetailsContentContainer>
-          )}
-
-          <DetailsTitleContainer>
-            {shouldDisplayTitle && <DetailsTitle>Education</DetailsTitle>}
-          </DetailsTitleContainer>
-          <DetailsContentContainer>
-            {educational.education.map(educ => (
-              <div key={educ.id}>
-                {educ.school && (
-                  <EducationDetailContainer>
-                    <EducationDetail>
-                      <Course>{educ.course}</Course>
-                      <School>{educ.school}</School>
-                    </EducationDetail>
-                    <DateContainer>
-                      <Dates>
-                        <Month>
-                          {educ.startDate.month &&
-                          !isNaN(parseInt(educ.startDate.month)) ? (
-                            <>
-                              {new Date(
-                                2022,
-                                parseInt(educ.startDate.month) - 1,
-                              ).toLocaleString('default', {
-                                month: 'short',
-                              })}
-                            </>
-                          ) : (
-                            <>Jan</>
-                          )}
-                        </Month>
-                        <Year>
-                          {educ.startDate.year || new Date().getFullYear()}
-                        </Year>
-                      </Dates>
-                      <DateSeparator> - </DateSeparator>
-
-                      <Dates>
-                        <Month>
-                          {educ.endDate.month &&
-                          !isNaN(parseInt(educ.endDate.month)) ? (
-                            <>
-                              {new Date(
-                                2022,
-                                parseInt(educ.endDate.month) - 1,
-                              ).toLocaleString('default', {
-                                month: 'short',
-                              })}
-                            </>
-                          ) : (
-                            <>Jan</>
-                          )}
-                        </Month>
-                        <Year>
-                          {educ.endDate.year || new Date().getFullYear()}
-                        </Year>
-                      </Dates>
-                    </DateContainer>
-                  </EducationDetailContainer>
+      {shouldSplit ? (
+        <>
+          <Template>
+            <BasicContentContainer>
+              <BasicsTitleContainer>
+                {shouldDisplayTitle && (
+                  <BasicsTitle>Personal Details</BasicsTitle>
                 )}
-
-                <Description>{educ.description}</Description>
+              </BasicsTitleContainer>
+              {basic && <BasicInfoComponent basicInfo={basic} />}
+              <BasicsTitleContainer>
+                {shouldDisplayTitle && <BasicsTitle>Skills</BasicsTitle>}
+              </BasicsTitleContainer>
+              {skills && <SkillsInfoComponent skillInfo={skills.skill} />}
+              <BasicsTitleContainer>
+                {shouldDisplayTitle && <BasicsTitle>Languages</BasicsTitle>}
+              </BasicsTitleContainer>
+              {languages && (
+                <LanguagesInfoComponent languageInfo={languages.language} />
+              )}
+            </BasicContentContainer>
+            <ContentContainer>
+              <BasicsNameContainer>
+                <HeaderName>{basic.firstName}</HeaderName>
+                <HeaderName>{basic.lastName}</HeaderName>
+              </BasicsNameContainer>
+              <HeaderCurrentRole>{professional.currentRole}</HeaderCurrentRole>
+              <DetailsTitleContainer>
+                {shouldDisplayTitle && <DetailsTitle>Summary</DetailsTitle>}
+              </DetailsTitleContainer>
+              <SummaryContainer>
+                <Summary>{professional.summary}</Summary>
+              </SummaryContainer>
+              <DetailsTitleContainer>
+                {shouldDisplayTitle && <DetailsTitle>Employment</DetailsTitle>}
+              </DetailsTitleContainer>
+              {professional.work.slice(0, 3).map((work, index) => (
+                <EmploymentInfoComponent key={index} employmentInfo={[work]} />
+              ))}
+            </ContentContainer>
+          </Template>
+          <Template>
+            <BasicContentContainer></BasicContentContainer>
+            <ContentContainer>
+              {professional.work.slice(3).map((work, index) => (
+                <EmploymentInfoComponent key={index} employmentInfo={[work]} />
+              ))}
+              <div>
+                <DetailsTitleContainer>
+                  {shouldDisplayTitle && <DetailsTitle>Education</DetailsTitle>}
+                </DetailsTitleContainer>
+                {educational.education.map((education, index) => (
+                  <EducationInfoComponent
+                    key={index}
+                    educationInfo={[education]}
+                  />
+                ))}
               </div>
+            </ContentContainer>
+          </Template>
+        </>
+      ) : (
+        <Template>
+          <BasicContentContainer>
+            <BasicsTitleContainer>
+              {shouldDisplayTitle && (
+                <BasicsTitle>Personal Details</BasicsTitle>
+              )}
+            </BasicsTitleContainer>
+            {basic && <BasicInfoComponent basicInfo={basic} />}
+            <BasicsTitleContainer>
+              {shouldDisplayTitle && <BasicsTitle>Skills</BasicsTitle>}
+            </BasicsTitleContainer>
+            {skills && <SkillsInfoComponent skillInfo={skills.skill} />}
+            <BasicsTitleContainer>
+              {shouldDisplayTitle && <BasicsTitle>Languages</BasicsTitle>}
+            </BasicsTitleContainer>
+            {languages && (
+              <LanguagesInfoComponent languageInfo={languages.language} />
+            )}
+          </BasicContentContainer>
+          <ContentContainer>
+            <BasicsNameContainer>
+              <HeaderName>{basic.firstName}</HeaderName>
+              <HeaderName>{basic.lastName}</HeaderName>
+            </BasicsNameContainer>
+            <HeaderCurrentRole>{professional.currentRole}</HeaderCurrentRole>
+            <DetailsTitleContainer>
+              {shouldDisplayTitle && <DetailsTitle>Summary</DetailsTitle>}
+            </DetailsTitleContainer>
+            <SummaryContainer>
+              <Summary>{professional.summary}</Summary>
+            </SummaryContainer>
+            <DetailsTitleContainer>
+              {shouldDisplayTitle && <DetailsTitle>Employment</DetailsTitle>}
+            </DetailsTitleContainer>
+            {professional.work.map((work, index) => (
+              <EmploymentInfoComponent key={index} employmentInfo={[work]} />
             ))}
-          </DetailsContentContainer>
-        </ContentContainer>
-      </Template>
+          </ContentContainer>
+        </Template>
+      )}
     </DefaultTemplateContainer>
   );
 };

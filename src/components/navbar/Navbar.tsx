@@ -67,6 +67,7 @@ const Navbar = () => {
 
   const handleSettings = () => {
     router.push('/joblys/settings');
+    setIsUserModalOpen(false);
   };
 
   return (

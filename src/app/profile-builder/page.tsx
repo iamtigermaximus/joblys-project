@@ -162,6 +162,7 @@ const ProfileBuilderPage: FC = () => {
           {/* <ResumeTemplate resumeInfo={resumeInfo} /> */}
           {/* <Minimalist resumeInfo={resumeInfo} /> */}
           <DefaultTemplate resumeInfo={resumeInfo} />
+          {/* <ATemplate resumeInfo={resumeInfo} /> */}
         </ResumeTemplateContainer>
       </FormViewerContainer>
     </ProfileBuilderContainer>

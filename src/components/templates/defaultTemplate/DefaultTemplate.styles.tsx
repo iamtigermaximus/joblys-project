@@ -1,3 +1,4 @@
+'use client';
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../../utils/layout';
 import colors from '../../../utils/colors';
@@ -23,6 +24,12 @@ export const Template = styled.div`
   height: 100%; */
   height: 800px;
 
+  @media print {
+    .page-break {
+      page-break-before: always;
+    }
+  }
+
   &.clicked {
     transform: scale(0.7);
     transition: transform 0.3s ease;
@@ -43,6 +50,12 @@ export const ContentContainer = styled.div`
   background-color: #fffffe;
   width: 65%;
   padding: 50px 20px;
+
+  @media print {
+    .page-break {
+      page-break-before: always;
+    }
+  }
 `;
 
 export const BasicsTitleContainer = styled.div`
