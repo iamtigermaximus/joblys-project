@@ -5,9 +5,9 @@ import {
   BrandContainer,
   ButtonsContainer,
   Container,
+  GetStartedButton,
   LoginButton,
   MenuContainer,
-  SignupButton,
 } from './LandingNavbar.styles';
 import Image from 'next/image';
 import NavLogo from '../../../assets/Joblys-logo-RGB-purple.png';
@@ -44,7 +44,9 @@ const LandingNavbar = () => {
         </BrandContainer>
         <ButtonsContainer>
           <LoginButton onClick={handleLogin}>Log in</LoginButton>
-          <SignupButton onClick={handleGetStarted}>Get started</SignupButton>
+          <GetStartedButton onClick={handleGetStarted}>
+            Get started
+          </GetStartedButton>
         </ButtonsContainer>
       </MenuContainer>
     </Container>

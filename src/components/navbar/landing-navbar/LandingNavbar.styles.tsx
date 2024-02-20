@@ -72,6 +72,7 @@ export const LoginButton = styled.button`
   width: 60px;
   font-weight: 700;
   margin-right: 5px;
+  white-space: nowrap;
 
   &:hover {
     background-color: ${colors.darkPurple};
@@ -85,7 +86,7 @@ export const LoginButton = styled.button`
   }
 `;
 
-export const SignupButton = styled.button`
+export const GetStartedButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -95,7 +96,7 @@ export const SignupButton = styled.button`
   border-radius: 5px;
   border: none;
   padding: 5px;
-  width: 60px;
+  width: 100%;
   font-weight: 700;
   margin-right: 5px;
   white-space: nowrap;
@@ -110,4 +111,9 @@ export const SignupButton = styled.button`
     padding: 0 10px;
     height: 40px;
   }
+`;
+
+export const LogoContainer = styled.div`
+  width: 200px;
+  height: 200px;
 `;

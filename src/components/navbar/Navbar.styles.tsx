@@ -9,6 +9,7 @@ export const NavbarContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   background-color: ${colors.purple};
   color: ${colors.white};
   height: 10vh;
@@ -16,7 +17,7 @@ export const NavbarContainer = styled.div`
 
   @media (min-width: ${bp.lg}) {
     flex-direction: column;
-    align-items: center;
+
     width: 20vw;
     height: 100vh;
     float: left;
@@ -26,10 +27,6 @@ export const NavbarContainer = styled.div`
 export const NavbarItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  /* align-items: center; */
-  /* justify-content: center; */
-  height: 100%;
 `;
 
 export const BrandContainer = styled.div`
@@ -340,23 +337,27 @@ export const MobileLogoutButton = styled.div`
 `;
 
 export const Menu = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  display: none;
+
+  @media (min-width: ${bp.lg}) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
 `;
 
 export const LoginContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100%;
-  padding: 0 20px;
-  height: 100%;
-  margin-bottom: 20px;
-
+  display: none;
   @media (min-width: ${bp.lg}) {
     flex-direction: column;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+    height: 100%;
+    margin-bottom: 20px;
   }
 `;
 
