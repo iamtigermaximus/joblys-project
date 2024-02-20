@@ -30,6 +30,7 @@ import SkillsForm from '../skills-details/SkillsForm';
 import LanguagesForm from '../languages-details/LanguagesForm';
 import ResumeTemplate from '../resume-template/ResumeTemplate';
 import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
+import { useRouter } from 'next/navigation';
 // import ResumeTemplate from '../resume-template/ResumeTemplate';
 
 interface ResumeFormProps {
@@ -50,7 +51,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     skills: false,
     languages: false,
   });
-
+  const router = useRouter();
   const [click, setClick] = useState(true);
   const resumeTemplate = () => setClick(!click);
 
@@ -79,6 +80,10 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   //   console.log('Final Form Data:', resumeInfo);
   //   // Add any additional logic for submitting to a server or performing final actions
   // };
+
+  const handleSignIn = () => {
+    router.push('/login');
+  };
   return (
     <Container>
       <TemplatePreview
@@ -95,7 +100,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             <HeaderItem>PREVIEW</HeaderItem>
           </TemplateHeaderItem>
           <TemplateHeaderItem>
-            <HeaderItem>
+            <HeaderItem onClick={handleSignIn}>
               <FaDownload />
             </HeaderItem>
           </TemplateHeaderItem>

@@ -70,6 +70,10 @@ const Navbar = () => {
     setIsUserModalOpen(false);
   };
 
+  const handleSignIn = () => {
+    router.push('/login');
+  };
+
   return (
     <NavbarContainer>
       <NavbarItemsContainer>
@@ -184,11 +188,26 @@ const Navbar = () => {
               Cover Letters
             </MobileMenuItem>
           </MobileMenuItemContainer>
-          <MobileMenuItemContainer>
-            <MobileLogoutButton onClick={handleSignOut}>
-              Logout
-            </MobileLogoutButton>
-          </MobileMenuItemContainer>
+          {session ? (
+            <>
+              <MobileMenuItemContainer>
+                <MobileMenuItem href="/joblys/settings">
+                  Settings
+                </MobileMenuItem>
+              </MobileMenuItemContainer>
+              <MobileMenuItemContainer>
+                <MobileLogoutButton onClick={handleSignOut}>
+                  Logout
+                </MobileLogoutButton>
+              </MobileMenuItemContainer>
+            </>
+          ) : (
+            <MobileMenuItemContainer>
+              <MobileLogoutButton onClick={handleSignIn}>
+                Login
+              </MobileLogoutButton>
+            </MobileMenuItemContainer>
+          )}
         </MobileMenuContainer>
       </BurgerMenu>
     </NavbarContainer>

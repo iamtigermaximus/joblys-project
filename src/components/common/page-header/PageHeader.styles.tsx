@@ -305,18 +305,18 @@ export const SidebarMenuContainer = styled.div`
 export const SidebarHeader = styled.div`
   background-color: ${colors.purple};
   color: ${colors.white};
-  height: 10.3vh;
-
+  height: 9.7vh;
   border-top: 0.3vh solid #fb5d20;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  padding: 0px 20px;
+  padding: 0 20px;
 
   @media (min-width: ${bp.lg}) {
-    padding: 0 20px;
+    padding: 20px;
+    height: 10vh;
   }
 `;
 
@@ -327,7 +327,7 @@ export const SidebarHeaderItem = styled.div`
   justify-content: center;
 
   @media (min-width: ${bp.lg}) {
-    padding: 20px;
+    /* padding: 20px; */
   }
 `;
 
