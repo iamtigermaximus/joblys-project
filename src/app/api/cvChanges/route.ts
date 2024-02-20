@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt'
-import { ProfessionalExperienceType, Resume, ResumeSchema } from '@/types/profile';
+import { Resume, ResumeSchema } from '@/types/profile';
 import prisma from '../../../lib/prisma';
 
 export async function POST(req: NextRequest) {
