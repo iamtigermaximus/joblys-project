@@ -1,45 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt'
-import { ProfessionalExperienceType, Resume } from '@/types/profile';
+import { ProfessionalExperienceType, Resume, ResumeSchema } from '@/types/profile';
 import prisma from '../../../lib/prisma';
-import { z } from 'zod';
-
-const resumeSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  phoneNumber: z.string(),
-  email: z.string(),
-  address: z.string(),
-  linkedin: z.string(),
-  additionalLinks: z.array(z.object({
-    id: z.string(),
-    url: z.string(),
-  })),
-  professional: z.array(z.object({
-    id: z.string(),
-    jobTitle: z.string(),
-    company: z.string(),
-    startDate: z.string(),
-    endDate: z.string(),
-    jobDetails: z.string(),
-  })),
-  education: z.array(z.object({
-    id: z.string(),
-    school: z.string(),
-    course: z.string(),
-    startDate: z.string(),
-    endDate: z.string(),
-    description: z.string(),
-  })),
-  skills: z.array(z.object({
-    id: z.string(),
-    name: z.string(),
-  })),
-  languages: z.array(z.object({
-    id: z.string(),
-    name: z.string(),
-  })),
-});
 
 export async function POST(req: NextRequest) {
   const token = await getToken({ req });
@@ -67,7 +29,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const isValidResume = resumeSchema.safeParse(resume);
+  const isValidResume = ResumeSchema.safeParse(resume);
   if (!isValidResume.success) {
     console.log(`Invalid resume: ${isValidResume.error}`);
     return NextResponse.json(

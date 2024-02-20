@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 // ResumeFormTypes.ts
 export interface AdditionalLinkType {
   id: string;
@@ -64,6 +66,43 @@ export interface Resume extends BasicInfoType {
   skills: SkillType[];
   languages: LanguageType[];
 }
+
+export const ResumeSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  phoneNumber: z.string(),
+  email: z.string(),
+  address: z.string(),
+  linkedin: z.string(),
+  additionalLinks: z.array(z.object({
+    id: z.string(),
+    url: z.string(),
+  })),
+  professional: z.array(z.object({
+    id: z.string(),
+    jobTitle: z.string(),
+    company: z.string(),
+    startDate: z.string(),
+    endDate: z.string(),
+    jobDetails: z.string(),
+  })),
+  education: z.array(z.object({
+    id: z.string(),
+    school: z.string(),
+    course: z.string(),
+    startDate: z.string(),
+    endDate: z.string(),
+    description: z.string(),
+  })),
+  skills: z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+  })),
+  languages: z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+  })),
+});
 
 export interface ResumeInfoType {
   id: string;
