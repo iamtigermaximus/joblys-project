@@ -8,8 +8,12 @@ export const DefaultTemplateContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 20px 30px;
+  padding: 20px 10px;
   gap: 20px;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 20px 30px;
+  }
 `;
 
 export const Template = styled.div`
@@ -18,18 +22,24 @@ export const Template = styled.div`
   background-color: white;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  height: 800px;
-
-  @media print {
-    .page-break {
-      page-break-before: always;
-    }
-  }
+  height: 500px;
 
   &.clicked {
     transform: scale(0.7);
     transition: transform 0.3s ease;
+  }
+
+  @media (min-width: ${bp.sm}) {
+    height: 600px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    height: 100vh;
+    width: 600px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    height: 800px;
   }
 `;
 export const BasicContentContainer = styled.div`
@@ -37,8 +47,12 @@ export const BasicContentContainer = styled.div`
   flex-direction: column;
   background-color: #232946;
   width: 35%;
-  padding: 50px 20px;
+  padding: 20px 10px;
   color: white;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 50px 20px;
+  }
 `;
 
 export const ContentContainer = styled.div`
@@ -46,12 +60,10 @@ export const ContentContainer = styled.div`
   flex-direction: column;
   background-color: #fffffe;
   width: 65%;
-  padding: 50px 20px;
+  padding: 20px 10px;
 
-  @media print {
-    .page-break {
-      page-break-before: always;
-    }
+  @media (min-width: ${bp.lg}) {
+    padding: 50px 20px;
   }
 `;
 
@@ -62,13 +74,22 @@ export const BasicsTitleContainer = styled.div`
 
 export const BasicsTitle = styled.h1`
   color: white;
-  font-size: 15px;
+  font-size: 10px;
+  white-space: nowrap;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 15px;
+  }
 `;
 
 export const BasicsNameContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 5px;
+
+  @media (min-width: ${bp.lg}) {
+    gap: 10px;
+  }
 `;
 
 export const BasicsItemsContainer = styled.div`
@@ -78,11 +99,15 @@ export const BasicsItemsContainer = styled.div`
 `;
 export const BasicsItem = styled.h1`
   color: white;
-  font-size: 12px;
+  font-size: 8px;
   max-width: 100%;
   word-break: break-all;
   white-space: wrap;
   padding: 5px 0;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 12px;
+  }
 `;
 
 export const IconContainer = styled.span`
@@ -90,24 +115,36 @@ export const IconContainer = styled.span`
   justify-content: center;
   align-items: center;
   padding-right: 5px;
-  font-size: 17px;
+  font-size: 8px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 17px;
+  }
 `;
 
 export const HeaderName = styled.h1`
-  color: #232946;
-  font-size: 30px;
-  max-width: 100%;
-  word-break: break-all;
-  white-space: wrap;
-  padding: 3px 0;
-`;
-
-export const HeaderCurrentRole = styled.h1`
   color: #232946;
   font-size: 15px;
   max-width: 100%;
   word-break: break-all;
   white-space: wrap;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 30px;
+    padding: 3px 0;
+  }
+`;
+
+export const HeaderCurrentRole = styled.h1`
+  color: #232946;
+  font-size: 12px;
+  max-width: 100%;
+  word-break: break-all;
+  white-space: wrap;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 15px;
+  }
 `;
 export const DetailsTitleContainer = styled.div`
   display: flex;
@@ -115,8 +152,12 @@ export const DetailsTitleContainer = styled.div`
 `;
 export const DetailsTitle = styled.h1`
   color: #232946;
-  font-size: 15px;
+  font-size: 10px;
   border-bottom: 0.5px solid #232946;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 15px;
+  }
 `;
 
 export const SummaryContainer = styled.div`
@@ -126,19 +167,27 @@ export const SummaryContainer = styled.div`
 
 export const Summary = styled.h1`
   color: #232946;
-  font-size: 12px;
+  font-size: 8px;
   max-width: 100%;
   word-break: break-all;
   white-space: wrap;
   padding: 5px 0;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 12px;
+  }
 `;
 
 export const DetailsContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-size: 12px;
+  font-size: 8px;
   padding: 5px 0;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 12px;
+  }
 `;
 
 export const EmploymentDetailsContainer = styled.div`
@@ -160,26 +209,54 @@ export const Dates = styled.div`
   flex-direction: row;
   gap: 5px;
 `;
-export const Month = styled.div``;
-export const Year = styled.div``;
+export const Month = styled.div`
+  font-size: 8px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
+`;
+export const Year = styled.div`
+  font-size: 8px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
+`;
 export const DateSeparator = styled.div`
-  font-size: 14px;
-  padding: 0 5px;
+  font-size: 8px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
 `;
 export const JobTitle = styled.div`
   width: 100%;
   font-weight: 700;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: 8px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
 `;
 export const Company = styled.div`
   width: 100%;
   font-weight: 700;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: 8px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
 `;
 export const Description = styled.div`
   padding: 5px 0;
+  font-size: 8px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
 `;
 
 export const EducationDetailContainer = styled.div`
@@ -192,14 +269,28 @@ export const Course = styled.div`
   width: 100%;
   font-weight: 700;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: 8px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
 `;
 
 export const School = styled.div`
   width: 100%;
   font-weight: 700;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: 8px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
 `;
 
-export const EducationDetail = styled.div``;
+export const EducationDetail = styled.div`
+  font-size: 8px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
+`;

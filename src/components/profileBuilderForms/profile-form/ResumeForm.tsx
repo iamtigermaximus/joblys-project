@@ -18,17 +18,18 @@ import {
   PreviewButtonSection,
   TemplateHeaderItem,
   TemplatePreview,
-  TemplatePreviewHeader
+  TemplatePreviewHeader,
 } from './ResumeForm.styles';
 import {
   FaArrowLeft,
   FaCircleChevronDown,
   FaCircleChevronUp,
-  FaDownload
+  FaDownload,
 } from 'react-icons/fa6';
 import SkillsForm from '../skills-details/SkillsForm';
 import LanguagesForm from '../languages-details/LanguagesForm';
 import ResumeTemplate from '../resume-template/ResumeTemplate';
+import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
 // import ResumeTemplate from '../resume-template/ResumeTemplate';
 
 interface ResumeFormProps {
@@ -47,7 +48,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     professional: false,
     educational: false,
     skills: false,
-    languages: false
+    languages: false,
   });
 
   const [click, setClick] = useState(true);
@@ -64,7 +65,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         professional: false,
         educational: false,
         skills: false,
-        languages: false
+        languages: false,
       };
 
       const isSameSection = prevState[section];
@@ -99,7 +100,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </HeaderItem>
           </TemplateHeaderItem>
         </TemplatePreviewHeader>
-        <ResumeTemplate resumeInfo={resumeInfo} />
+        <DefaultTemplate resumeInfo={resumeInfo} />
       </TemplatePreview>
 
       <AccordionContainer>
@@ -155,7 +156,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             <AccordionContent>
               <ProfessionalDetailsForm
                 resumeInfo={{
-                  professional: resumeInfo.professional
+                  professional: resumeInfo.professional,
                 }}
                 setResumeInfo={setResumeInfo}
                 refreshStoredResume={refreshStoredResume}
