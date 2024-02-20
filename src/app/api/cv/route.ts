@@ -311,41 +311,15 @@ export async function GET(req: NextRequest) {
   }
 
   if (!structuredCV || !structuredCV.content) {
-    console.log('No resume found, creating one...');
-    const emptyResume: Resume = {
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      email: '',
-      address: '',
-      linkedin: '',
-      additionalLinks: [],
-      professional: [],
-      education: [],
-      skills: [],
-      languages: [],
-    };
-    try {
-      structuredCV = await prisma.structuredCVs.create({
-        data: {
-          ownerId: user.id,
-          content: emptyResume,
-        },
-        select: {
-          id: true,
-          content: true,
-        },
-      });
-    } catch (err) {
-      console.log(`Creating resume: ${err}`);
-      return NextResponse.json(
-        {
-          body: {
-            message: 'internal server error',
-          },
-        },
-        { status: 500 });
-    }
+    console.log('No resume found');
+    return NextResponse.json(
+      {
+        body: {
+          message: 'no resume found',
+        }
+      },
+      { status: 404 }
+    );
   }
 
   return NextResponse.json(
