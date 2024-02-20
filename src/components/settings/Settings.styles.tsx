@@ -115,9 +115,13 @@ export const DownloadDataButton = styled.button`
 
 export const NameContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
   width: 100%;
+
+  @media (min-width: ${bp.md}) {
+    flex-direction: row;
+  }
 `;
