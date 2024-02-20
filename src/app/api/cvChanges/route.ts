@@ -2,20 +2,44 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt'
 import { ProfessionalExperienceType, Resume } from '@/types/profile';
 import prisma from '../../../lib/prisma';
+import { z } from 'zod';
 
-function isValid(resume: Resume) {
-  return resume.id &&
-    resume.content?.name &&
-    resume.content?.personal_information?.email &&
-    resume.content?.personal_information?.phone_number &&
-    resume.content?.personal_information?.about_me &&
-    resume.content?.work_experience &&
-    resume.content?.personal_projects &&
-    resume.content?.education &&
-    resume.content?.technical_skills &&
-    resume.content?.languages &&
-    resume.content?.interests;
-}
+const resumeSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  phoneNumber: z.string(),
+  email: z.string(),
+  address: z.string(),
+  linkedin: z.string(),
+  additionalLinks: z.array(z.object({
+    id: z.string(),
+    url: z.string(),
+  })),
+  professional: z.array(z.object({
+    id: z.string(),
+    jobTitle: z.string(),
+    company: z.string(),
+    startDate: z.string(),
+    endDate: z.string(),
+    jobDetails: z.string(),
+  })),
+  education: z.array(z.object({
+    id: z.string(),
+    school: z.string(),
+    course: z.string(),
+    startDate: z.string(),
+    endDate: z.string(),
+    description: z.string(),
+  })),
+  skills: z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+  })),
+  languages: z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+  })),
+});
 
 export async function POST(req: NextRequest) {
   const token = await getToken({ req });
@@ -37,6 +61,19 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'Resume or id not provided',
+        }
+      },
+      { status: 400 }
+    );
+  }
+
+  const isValidResume = resumeSchema.safeParse(resume);
+  if (!isValidResume.success) {
+    console.log(`Invalid resume: ${isValidResume.error}`);
+    return NextResponse.json(
+      {
+        body: {
+          message: 'invalid resume',
         }
       },
       { status: 400 }
