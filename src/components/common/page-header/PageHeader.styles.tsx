@@ -277,7 +277,7 @@ export const SidebarMenuContainer = styled.div`
   flex-direction: column;
   right: 0;
   top: 0;
-  width: 40%;
+  width: 100%;
   height: 100vh;
   background-color: white;
   transform: translateX(100%);
@@ -292,19 +292,32 @@ export const SidebarMenuContainer = styled.div`
     transform: translateX(0%);
     transition: transform 0.3s ease-in;
   }
+
+  @media (min-width: ${bp.md}) {
+    width: 50%;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    width: 40%;
+  }
 `;
 
 export const SidebarHeader = styled.div`
   background-color: ${colors.purple};
   color: ${colors.white};
   height: 10.3vh;
+
   border-top: 0.3vh solid #fb5d20;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  padding: 0 20px;
+  padding: 0px 20px;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 0 20px;
+  }
 `;
 
 export const SidebarHeaderItem = styled.div`
@@ -312,7 +325,10 @@ export const SidebarHeaderItem = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 20px;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 20px;
+  }
 `;
 
 export const SidebarHeaderClose = styled.div`
@@ -343,19 +359,29 @@ export const Input = styled.input`
 export const Label = styled.label`
   padding: 3px 0;
   color: black;
-  font-size: 13px;
+  font-size: 10px;
   display: flex;
   justify-content: flex-start;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
 `;
 
 export const TextContainer = styled.div`
   padding: 20px 0;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export const SidebarText = styled.p`
-  font-size: 20px;
+  font-size: 15px;
   color: black;
   font-weight: 700;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 20px;
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -379,6 +405,11 @@ export const Button = styled.button`
   color: ${colors.white};
   padding: 8px 12px;
   border-radius: 5px;
+  font-size: 10px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
 `;
 export const SeparatorContainer = styled.div`
   display: flex;
@@ -413,10 +444,14 @@ export const ProviderButton = styled.div`
   align-items: center;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 15px;
+  font-size: 10px;
   padding: 12px;
   border: 0.5px solid gray;
   background-color: ${colors.white};
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 15px;
+  }
 `;
 
 export const ProviderIcon = styled.span`
