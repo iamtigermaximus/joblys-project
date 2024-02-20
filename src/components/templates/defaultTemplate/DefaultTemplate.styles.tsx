@@ -9,7 +9,6 @@ export const DefaultTemplateContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 20px 30px;
-  /* overflow-y: auto; */
   gap: 20px;
 `;
 
@@ -19,9 +18,7 @@ export const Template = styled.div`
   background-color: white;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* margin-bottom: 20px; */
-  /* flex-grow: 1;
-  height: 100%; */
+
   height: 800px;
 
   @media print {

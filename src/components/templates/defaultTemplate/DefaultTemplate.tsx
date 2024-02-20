@@ -8,7 +8,6 @@ import {
   SkillType,
 } from '@/types/profile';
 import React, { FC } from 'react';
-import styled from 'styled-components';
 import {
   FaUser,
   FaEnvelope,
@@ -286,8 +285,9 @@ const DefaultTemplate: FC<{ resumeInfo: ResumeInfoType }> = ({
     !!(educational.education && educational.education.length > 1);
 
   // Check the amount of content and decide whether to render it in the current template or split it into a new one
+
   const shouldSplit =
-    professional.work.length > 3 || educational.education.length > 3;
+    professional.work.length > 2 || educational.education.length > 1;
 
   return (
     <DefaultTemplateContainer>
@@ -327,7 +327,7 @@ const DefaultTemplate: FC<{ resumeInfo: ResumeInfoType }> = ({
               <DetailsTitleContainer>
                 {shouldDisplayTitle && <DetailsTitle>Employment</DetailsTitle>}
               </DetailsTitleContainer>
-              {professional.work.slice(0, 3).map((work, index) => (
+              {professional.work.slice(0, 2).map((work, index) => (
                 <EmploymentInfoComponent key={index} employmentInfo={[work]} />
               ))}
             </ContentContainer>
@@ -335,7 +335,7 @@ const DefaultTemplate: FC<{ resumeInfo: ResumeInfoType }> = ({
           <Template>
             <BasicContentContainer></BasicContentContainer>
             <ContentContainer>
-              {professional.work.slice(3).map((work, index) => (
+              {professional.work.slice(2).map((work, index) => (
                 <EmploymentInfoComponent key={index} employmentInfo={[work]} />
               ))}
               <div>
@@ -390,6 +390,18 @@ const DefaultTemplate: FC<{ resumeInfo: ResumeInfoType }> = ({
             {professional.work.map((work, index) => (
               <EmploymentInfoComponent key={index} employmentInfo={[work]} />
             ))}
+
+            <div>
+              <DetailsTitleContainer>
+                {shouldDisplayTitle && <DetailsTitle>Education</DetailsTitle>}
+              </DetailsTitleContainer>
+              {educational.education.map((education, index) => (
+                <EducationInfoComponent
+                  key={index}
+                  educationInfo={[education]}
+                />
+              ))}
+            </div>
           </ContentContainer>
         </Template>
       )}
