@@ -4,6 +4,7 @@ import {
   Brand,
   BrandContainer,
   BurgerMenu,
+  CloseButton,
   LoginContainer,
   Menu,
   MenuContainer,
@@ -22,6 +23,8 @@ import {
   NavbarIcon,
   NavbarItemsContainer,
   TopNavbarLoginContainer,
+  TopNavbarModalContainer,
+  TopUserModal,
   UserModal,
 } from './Navbar.styles';
 import { useSession, signOut } from 'next-auth/react';
@@ -49,6 +52,10 @@ const Navbar = () => {
 
   const toggleUserModal = () => {
     setIsUserModalOpen(!isUserModalOpen);
+  };
+
+  const handleCloseModal = () => {
+    setIsUserModalOpen(false);
   };
 
   const [click, setClick] = useState(true);
@@ -179,6 +186,30 @@ const Navbar = () => {
         className={click ? 'category active' : 'category'}
         onClick={categoryMenu}
       >
+        <TopNavbarModalContainer>
+          {isUserModalOpen && (
+            <>
+              {session ? (
+                <TopUserModal>
+                  <ModalItemContainer>
+                    <IoSettingsSharp />
+                    <p onClick={handleSettings}>Settings</p>
+                  </ModalItemContainer>
+                  <ModalItemContainer>
+                    <FaArrowRightFromBracket />
+                    <p onClick={handleSignOut}>Log out</p>
+                  </ModalItemContainer>
+
+                  <CloseButton onClick={handleCloseModal}>Close</CloseButton>
+                </TopUserModal>
+              ) : (
+                <UserModal>
+                  <p>Log in</p>
+                </UserModal>
+              )}
+            </>
+          )}
+        </TopNavbarModalContainer>
         <MobileMenuItemContainer>
           <MobileMenuItem
             href="/joblys/dashboard"
@@ -252,9 +283,9 @@ const Navbar = () => {
 
       <TopNavbarLoginContainer>
         <NavbarIcon>
-          <FaQuestionCircle style={{ fontSize: '20px' }} />
+          <FaQuestionCircle />
         </NavbarIcon>
-        <NavbarIcon>
+        <NavbarIcon onClick={toggleUserModal}>
           <FaUser />
         </NavbarIcon>
       </TopNavbarLoginContainer>

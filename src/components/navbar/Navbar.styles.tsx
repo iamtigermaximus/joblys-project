@@ -279,6 +279,7 @@ export const MobileMenuItem = styled(Link)`
   font-size: 12px;
   max-width: 200px;
   padding: 5px;
+  width: 70px;
 
   &:hover {
     background-color: ${colors.orange};
@@ -461,11 +462,75 @@ export const NavbarIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   padding: 5px;
   text-decoration: none;
   border-radius: 50%;
   font-size: 20px;
   border: 1px solid white;
+
+  &:hover {
+    background-color: ${colors.orange};
+  }
+`;
+
+export const TopNavbarModalContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  white-space: nowrap;
+  width: 100%;
+
+  position: absolute;
+  top: calc(100% - 70px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+
+  @media (min-width: ${bp.lg}) {
+    display: none;
+  }
+`;
+
+export const TopUserModal = styled.div`
+  /* position: fixed;
+  bottom: 10%; */
+  /* left: 10%; */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform: translate(-10%, -10%);
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 9999;
+  gap: 5px;
+  width: 300px; */
+
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  color: black;
+  width: 350px;
+`;
+
+export const CloseButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: black;
+  padding: 8px 12px;
+  border: 0.5px solid gray;
+  border-radius: 5px;
+  margin: 10px 0;
 `;
