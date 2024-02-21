@@ -1,9 +1,13 @@
 'use client';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { breakpoints as bp } from '../../utils/layout';
 import colors from '../../utils/colors';
 import Link from 'next/link';
+
+interface BackdropProps {
+  $isVisible: boolean;
+}
 
 export const NavbarContainer = styled.div`
   display: flex;
@@ -282,12 +286,12 @@ export const MobileMenuItem = styled(Link)`
   width: 70px;
 
   &:hover {
-    background-color: ${colors.orange};
+    background-color: ${colors.darkPurple};
     color: ${colors.white};
   }
 
   &.active {
-    background-color: ${colors.orange};
+    background-color: ${colors.darkPurple};
     color: ${colors.white};
   }
 
@@ -471,7 +475,7 @@ export const NavbarIcon = styled.div`
   border: 1px solid white;
 
   &:hover {
-    background-color: ${colors.orange};
+    background-color: ${colors.darkPurple};
   }
 `;
 
@@ -518,7 +522,7 @@ export const TopUserModal = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 999;
+  z-index: 998;
   color: black;
   width: 350px;
 `;
@@ -533,4 +537,18 @@ export const CloseButton = styled.button`
   border: 0.5px solid gray;
   border-radius: 5px;
   margin: 10px 0;
+`;
+
+export const Backdrop = styled.div<BackdropProps>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(1px);
+  z-index: 999;
+  visibility: ${({ $isVisible }) => ($isVisible ? 'visible' : 'hidden')};
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  transition: visibility 0s, opacity 0.3s linear;
 `;

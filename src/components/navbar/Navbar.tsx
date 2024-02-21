@@ -1,6 +1,7 @@
 'use client';
 import React, { FormEvent, useEffect, useState } from 'react';
 import {
+  Backdrop,
   Brand,
   BrandContainer,
   BurgerMenu,
@@ -189,6 +190,8 @@ const Navbar = () => {
         className={click ? 'category active' : 'category'}
         onClick={categoryMenu}
       >
+        <Backdrop onClick={handleCloseModal} $isVisible={isUserModalOpen} />
+
         <TopNavbarModalContainer>
           {isUserModalOpen && (
             <>
