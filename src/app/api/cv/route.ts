@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt'
+import { Resume } from '@/types/profile';
 import mammoth from 'mammoth';
 import { v4 as uuidv4 } from 'uuid';
 import OpenAI from 'openai';
@@ -21,39 +22,6 @@ interface TextContextItem {
   str: string;
 }
 
-interface StructuredCV {
-  name: string;
-  personal_information: {
-    email: string;
-    phone_number: string;
-    about_me: string;
-  };
-  work_experience: {
-    id: string;
-    company_name: string;
-    position: string;
-    location: string;
-    start_date: string;
-    end_date: string;
-    responsibilities: string[];
-  }[];
-  personal_projects: {
-    name: string;
-    start_date: string;
-    end_date: string;
-  }[];
-  education: {
-    degree: string;
-    location: string;
-    start_date: string;
-    end_date: string;
-    grade: string;
-  }[];
-  technical_skills: string[];
-  languages: string[];
-  interests: string[];
-}
-
 enum FileType {
   PDF = 'application/pdf',
   DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -68,16 +36,19 @@ const openAI = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'],
 });
 
-const parserPromt = `You will be provided with extracted text from a {file_type} CV, and your task is to parse it and organize the text. Remove unrealted text regarding the CV. Use the same structure from top to down. Output the data in JSON format. Have the following fields in the top level JSON:
-- name (the CV holder's name)
-- personal_information, and under it keys email, phone_number, about_me
-- technical_skills (as an array of skills as strings)
-- languages (as an array of strings)
-- work_experience, and under it as an array of objects with keys: company_name (string), position (job title, string), location (location of the company, string), start_date (string), end_date (string), responsibilities (array of strings)
-- personal_projects, and under it as an array of objects with keys: name (string), start_date (string), end_date (string)
-- education, and under it as an array of objcts with keys: degree (string), location (string), start_date (string), end_date (string), grade (string)
-- interests (array of strings).
-If some field or data is missing or you cannot parse it, mark the field with n/a.`;
+const parserPromt = `You will be provided with extracted text from a {file_type} CV, and your task is to parse it and organize the text. Remove unrealted text regarding the CV. Output the data in JSON format. Have following structure for the JSON:
+- firstName (string)
+- lastName (string)
+- phoneNumber (string)
+- email (string)
+- address (string)
+- linkedin (string)
+- additionalLinks, and under it as an array of objects with keys: url (string)
+- prefessional, and under it as an array of objects with keys: company (string), jobTitle (string), startDate (object, and under it keys month (string) and year (string)), endDated (object, and under it keys month (string), year (string)) , jobDetails as an array of strings
+- education, and under it as an array of objects with keys: school (string), course (name of the degree, string), startDate (in format YYYY-MM-DD, string), endDate (in format YYYY-MM-DD, string), description (string)
+- skills (array of strings)
+- languages (array of strings)
+If some field or data is missing or you cannot parse it, just leave it as an empty string or array.`;
 
 function getParserPrompt(fileType: FileType) {
   let filePromtType: FilePromptType;
@@ -187,28 +158,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  console.log('Parsed the CV, persisting it...');
-  let parsedCV;
-  try {
-    parsedCV = await prisma.parsedCVs.create({
-      data: {
-        ownerId: user.id,
-        content: cvTextContent,
-        source: 'docx',
-      }
-    });
-  } catch (err) {
-    console.log('Create parsedCV: ' + err);
-    return NextResponse.json(
-      {
-        body: {
-          message: 'internal server error',
-        }
-      },
-      { status: 500 }
-    );
-  }
-
   console.log('Structuring the CV...');
   let chatResp;
   try {
@@ -241,7 +190,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let structuredCVContent: StructuredCV;
+  let structuredCVContent: Resume;
   try {
     structuredCVContent = JSON.parse(chatResp?.choices[0]?.message?.content!);
     if (!structuredCVContent) {
@@ -267,7 +216,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  structuredCVContent.work_experience.map((exp) => {
+  structuredCVContent.professional.map((exp) => {
     exp.id = uuidv4();
     return exp;
   });
@@ -277,7 +226,6 @@ export async function POST(req: NextRequest) {
     await prisma.structuredCVs.create({
       data: {
         ownerId: user.id,
-        parsedCVId: parsedCV.id,
         content: structuredCVContent as any,
       }
     });
@@ -346,6 +294,7 @@ export async function GET(req: NextRequest) {
         ownerId: user.id,
       },
       select: {
+        id: true,
         content: true,
       },
     });
@@ -362,20 +311,24 @@ export async function GET(req: NextRequest) {
   }
 
   if (!structuredCV || !structuredCV.content) {
+    console.log('No resume found');
     return NextResponse.json(
       {
         body: {
-          message: 'No stored profile',
-        },
+          message: 'no resume found',
+        }
       },
-      { status: 404 });
+      { status: 404 }
+    );
   }
 
   return NextResponse.json(
     {
       body: {
+        id: structuredCV?.id,
         profile: structuredCV?.content,
       },
     },
-    { status: 200 });
+    { status: 200 }
+  );
 }

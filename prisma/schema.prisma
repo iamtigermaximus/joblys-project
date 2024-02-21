@@ -56,7 +56,6 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  parsedCVs     ParsedCVs[]
   rewrittenCVs  RewrittenCVs[]
   StructuredCVs StructuredCVs[]
 
@@ -71,23 +70,8 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model ParsedCVs {
-  id            String          @id @default(cuid())
-  owner         User            @relation(fields: [ownerId], references: [id])
-  ownerId       String
-  content       String
-  source        String
-  createdAt     DateTime        @default(now()) @map(name: "created_at")
-  updatedAt     DateTime        @updatedAt @map(name: "updated_at")
-  StructuredCVs StructuredCVs[]
-
-  @@map(name: "parsed_cvs")
-}
-
 model StructuredCVs {
   id         String    @id @default(cuid())
-  ParsedCV   ParsedCVs @relation(fields: [parsedCVId], references: [id])
-  parsedCVId String
   owner      User      @relation(fields: [ownerId], references: [id])
   ownerId    String
   content    Json
