@@ -8,8 +8,8 @@ export const Container = styled.div`
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
-  padding: 30px;
+  /* overflow-y: scroll; */
+  padding: 30px 30px 500px;
 
   @media (min-width: ${bp.lg}) {
   }

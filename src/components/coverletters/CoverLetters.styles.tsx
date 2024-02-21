@@ -63,6 +63,8 @@ export const CoverLetterContainer = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 20px;
+
+  padding-bottom: 100px;
 `;
 
 export const CoverLetterCard = styled.div`

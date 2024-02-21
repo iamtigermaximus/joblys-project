@@ -63,6 +63,7 @@ export const ResumeContainer = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 20px;
+  padding-bottom: 100px;
 `;
 
 export const ResumeCard = styled.div`

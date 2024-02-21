@@ -11,6 +11,7 @@ import {
   MenuItemContainer,
   MenuItemIcon,
   MenuItemLogin,
+  MobileIconContainer,
   MobileLogoutButton,
   MobileMenuContainer,
   MobileMenuItem,
@@ -18,16 +19,21 @@ import {
   ModalContainer,
   ModalItemContainer,
   NavbarContainer,
+  NavbarIcon,
   NavbarItemsContainer,
+  TopNavbarLoginContainer,
   UserModal,
 } from './Navbar.styles';
 import { useSession, signOut } from 'next-auth/react';
-import { FaBars, FaTimes, FaUser } from 'react-icons/fa';
+import { FaBars, FaTimes, FaUser, FaQuestionCircle } from 'react-icons/fa';
 import { FaArrowRightFromBracket } from 'react-icons/fa6';
-import { IoSettingsSharp } from 'react-icons/io5';
+import { IoSettingsSharp, IoDocumentTextSharp } from 'react-icons/io5';
 import Image from 'next/image';
 import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
 import { usePathname, useRouter } from 'next/navigation';
+import { MdHomeFilled } from 'react-icons/md';
+import { ImProfile } from 'react-icons/im';
+import { RiFileUserFill } from 'react-icons/ri';
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -168,27 +174,60 @@ const Navbar = () => {
           </LoginContainer>
         </Menu>
       </NavbarItemsContainer>
-      <BurgerMenu onClick={categoryMenu}>
-        {click ? <FaBars /> : <FaTimes />}
-        <MobileMenuContainer
-          className={click ? 'category active' : 'category'}
-          onClick={categoryMenu}
-        >
-          <MobileMenuItemContainer>
-            <MobileMenuItem href="/joblys/dashboard">Dashboard</MobileMenuItem>
-          </MobileMenuItemContainer>
-          <MobileMenuItemContainer>
-            <MobileMenuItem href="/joblys/profile">Profile</MobileMenuItem>
-          </MobileMenuItemContainer>
-          <MobileMenuItemContainer>
-            <MobileMenuItem href="/joblys/resumes">CV/Resume</MobileMenuItem>
-          </MobileMenuItemContainer>
-          <MobileMenuItemContainer>
-            <MobileMenuItem href="/joblys/cover-letters">
-              Cover Letters
-            </MobileMenuItem>
-          </MobileMenuItemContainer>
-          {session ? (
+
+      <MobileMenuContainer
+        className={click ? 'category active' : 'category'}
+        onClick={categoryMenu}
+      >
+        <MobileMenuItemContainer>
+          <MobileMenuItem
+            href="/joblys/dashboard"
+            onClick={() => setActiveMenuItem('dashboard')}
+            className={activeMenuItem === 'dashboard' ? 'active' : ''}
+          >
+            <MobileIconContainer>
+              <MdHomeFilled />
+            </MobileIconContainer>
+            Dashboard
+          </MobileMenuItem>
+        </MobileMenuItemContainer>
+        <MobileMenuItemContainer>
+          <MobileMenuItem
+            href="/joblys/profile"
+            onClick={() => setActiveMenuItem('profile')}
+            className={activeMenuItem === 'profile' ? 'active' : ''}
+          >
+            <MobileIconContainer>
+              <RiFileUserFill />
+            </MobileIconContainer>
+            Profile
+          </MobileMenuItem>
+        </MobileMenuItemContainer>
+        <MobileMenuItemContainer>
+          <MobileMenuItem
+            href="/joblys/resumes"
+            onClick={() => setActiveMenuItem('resumes')}
+            className={activeMenuItem === 'resumes' ? 'active' : ''}
+          >
+            <MobileIconContainer>
+              <ImProfile />
+            </MobileIconContainer>
+            Resumes
+          </MobileMenuItem>
+        </MobileMenuItemContainer>
+        <MobileMenuItemContainer>
+          <MobileMenuItem
+            href="/joblys/cover-letters"
+            onClick={() => setActiveMenuItem('cover-letters')}
+            className={activeMenuItem === 'cover-letters' ? 'active' : ''}
+          >
+            <MobileIconContainer>
+              <IoDocumentTextSharp />
+            </MobileIconContainer>
+            Letters
+          </MobileMenuItem>
+        </MobileMenuItemContainer>
+        {/* {session ? (
             <>
               <MobileMenuItemContainer>
                 <MobileMenuItem href="/joblys/settings">
@@ -202,14 +241,23 @@ const Navbar = () => {
               </MobileMenuItemContainer>
             </>
           ) : (
-            <MobileMenuItemContainer>
-              <MobileLogoutButton onClick={handleSignIn}>
-                Login
-              </MobileLogoutButton>
-            </MobileMenuItemContainer>
-          )}
-        </MobileMenuContainer>
-      </BurgerMenu>
+            ''
+            // <MobileMenuItemContainer>
+            //   <MobileLogoutButton onClick={handleSignIn}>
+            //     Login
+            //   </MobileLogoutButton>
+            // </MobileMenuItemContainer>
+          )} */}
+      </MobileMenuContainer>
+
+      <TopNavbarLoginContainer>
+        <NavbarIcon>
+          <FaQuestionCircle style={{ fontSize: '20px' }} />
+        </NavbarIcon>
+        <NavbarIcon>
+          <FaUser />
+        </NavbarIcon>
+      </TopNavbarLoginContainer>
     </NavbarContainer>
   );
 };

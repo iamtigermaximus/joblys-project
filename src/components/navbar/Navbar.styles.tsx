@@ -123,13 +123,12 @@ export const MenuItem = styled.div`
 `;
 
 export const MenuItemLogin = styled.div`
-  display: none;
+  display: flex;
   justify-content: flex-start;
   color: ${colors.white};
   font-weight: 700;
 
   @media (min-width: ${bp.lg}) {
-    display: flex;
     min-width: 150px;
     flex-direction: row;
     font-size: 16px;
@@ -223,7 +222,7 @@ export const SignOut = styled(Link)`
  */
 
 export const MobileMenuContainer = styled.ul`
-  position: absolute;
+  /* position: absolute;
   display: flex;
   flex-direction: column;
   left: 0;
@@ -238,7 +237,18 @@ export const MobileMenuContainer = styled.ul`
   &.active {
     transform: translateX(-100%);
     transition: transform 0.3s ease-in;
-  }
+  } */
+  position: fixed; /* or position: absolute; */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around; /* Adjust as needed */
+  background-color: ${colors.purple};
+  /* padding: 20px 0; */
+  padding: 5px;
+  z-index: 1;
 
   @media (min-width: ${bp.lg}) {
     display: none;
@@ -262,9 +272,39 @@ export const BurgerMenu = styled.div`
 export const MobileMenuItem = styled(Link)`
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   text-decoration: none;
   color: ${colors.white};
-  font-size: 16px;
+  font-size: 12px;
+  max-width: 200px;
+  padding: 5px;
+
+  &:hover {
+    background-color: ${colors.orange};
+    color: ${colors.white};
+  }
+
+  &.active {
+    background-color: ${colors.orange};
+    color: ${colors.white};
+  }
+
+  @media (min-width: ${bp.md}) {
+    flex-direction: row;
+    width: 100px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    display: none;
+  }
+`;
+
+export const MobileIconContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  padding: 5px;
 
   @media (min-width: ${bp.lg}) {
     display: none;
@@ -318,7 +358,7 @@ export const MobileMenuItemContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  /* padding: 20px; */
   white-space: nowrap;
 
   @media (min-width: ${bp.lg}) {
@@ -402,4 +442,30 @@ export const ModalItemContainer = styled.div`
     color: ${colors.white};
     border-radius: 5px;
   }
+`;
+
+export const TopNavbarLoginContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 5px;
+
+  @media (min-width: ${bp.lg}) {
+    display: none;
+  }
+`;
+
+export const NavbarIcon = styled.div`
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  text-decoration: none;
+  border-radius: 50%;
+  font-size: 20px;
+  border: 1px solid white;
 `;
