@@ -29,7 +29,10 @@ import {
 } from './Navbar.styles';
 import { useSession, signOut } from 'next-auth/react';
 import { FaBars, FaTimes, FaUser, FaQuestionCircle } from 'react-icons/fa';
-import { FaArrowRightFromBracket } from 'react-icons/fa6';
+import {
+  FaArrowRightFromBracket,
+  FaArrowRightToBracket,
+} from 'react-icons/fa6';
 import { IoSettingsSharp, IoDocumentTextSharp } from 'react-icons/io5';
 import Image from 'next/image';
 import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
@@ -203,9 +206,14 @@ const Navbar = () => {
                   <CloseButton onClick={handleCloseModal}>Close</CloseButton>
                 </TopUserModal>
               ) : (
-                <UserModal>
-                  <p>Log in</p>
-                </UserModal>
+                <TopUserModal>
+                  <ModalItemContainer>
+                    <FaArrowRightToBracket />
+                    <p onClick={handleSignIn}>Log in</p>
+                  </ModalItemContainer>
+
+                  <CloseButton onClick={handleCloseModal}>Close</CloseButton>
+                </TopUserModal>
               )}
             </>
           )}
