@@ -7,6 +7,8 @@ import {
   Container,
   GetStartedButton,
   LoginButton,
+  LogoImage,
+  LogoImageContainer,
   MenuContainer,
 } from './LandingNavbar.styles';
 import Image from 'next/image';
@@ -33,13 +35,9 @@ const LandingNavbar = () => {
       <MenuContainer>
         <BrandContainer>
           <Brand>
-            <Image
-              src={NavLogo}
-              width={150}
-              height={50}
-              alt="hero-image"
-              priority
-            />
+            <LogoImageContainer>
+              <LogoImage src={NavLogo} alt="hero-image" priority />
+            </LogoImageContainer>
           </Brand>
         </BrandContainer>
         <ButtonsContainer>

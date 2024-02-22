@@ -10,6 +10,7 @@ import {
   Container,
   GetStartedButton,
   ImageContainer,
+  ValueProposition,
 } from './page.styles';
 import Image from 'next/image';
 import Image1 from '../assets/joblys-hero.png';
@@ -31,14 +32,14 @@ export default function Home() {
           <Box3>
             <BoxHeader>Seamless. Joblys.</BoxHeader>
             <BoxBody>
-              <p>
+              <ValueProposition>
                 AI-powered platform that helps job seekers find suitable job
                 opportunities more efficiently. The AI could analyze a
                 candidate&apos;s skills, experience, preferences, and career
                 goals to match them with relevant job listings. The platform
                 could also provide personalized job recommendations, based on
                 the user&apos;s profile and historical job search behavior.
-              </p>
+              </ValueProposition>
             </BoxBody>
             <BoxHeader>
               <GetStartedButton onClick={handleGetStartedClick}>

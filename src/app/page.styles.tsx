@@ -98,7 +98,7 @@ export const Box2 = styled.div`
 
 export const BoxHeader = styled.div`
   width: 100%;
-  padding: 20px;
+  padding: 10px 0;
   display: flex;
   align-items: center;
   font-size: 30px;
@@ -109,12 +109,13 @@ export const BoxHeader = styled.div`
 
   @media (min-width: ${bp.lg}) {
     font-size: 50px;
+    padding: 20px 0;
   }
 `;
 
 export const BoxBody = styled.div`
   width: 100%;
-  padding: 0 20px;
+  /* padding: 0 20px; */
   display: flex;
   align-items: center;
 `;
@@ -124,7 +125,7 @@ export const GetStartedButton = styled.button`
   padding: 10px 20px;
   white-space: nowrap;
   background-color: #232946;
-  border-radius: 10px;
+  border-radius: 5px;
   border: none;
   color: white;
   cursor: pointer;
@@ -211,5 +212,12 @@ export const ImageContainer = styled.div`
   @media (min-width: ${bp.md}) {
     width: 350px;
     height: 400px;
+  }
+`;
+
+export const ValueProposition = styled.p`
+  font-size: 14px;
+  @media (min-width: ${bp.lg}) {
+    font-size: 16px;
   }
 `;

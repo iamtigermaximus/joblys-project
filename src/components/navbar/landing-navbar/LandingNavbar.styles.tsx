@@ -4,6 +4,7 @@
 import { breakpoints as bp } from '../../../utils/layout';
 import styled from 'styled-components';
 import colors from '../../../utils/colors';
+import Image from 'next/image';
 
 export const Container = styled.div`
   width: 100%;
@@ -38,17 +39,17 @@ export const BrandContainer = styled.div`
 
 export const Brand = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-decoration: none;
   color: ${colors.white};
   /* font-size: 30px; */
-  padding: 0 10px;
   width: 100%;
 
   @media (min-width: ${bp.lg}) {
     flex-direction: column;
     letter-spacing: 1px;
+    padding: 0 10px;
   }
 `;
 
@@ -118,4 +119,25 @@ export const GetStartedButton = styled.button`
 export const LogoContainer = styled.div`
   width: 200px;
   height: 200px;
+`;
+
+export const LogoImageContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100px;
+  height: 30px;
+
+  @media (min-width: ${bp.lg}) {
+    width: 150px;
+    height: 50px;
+  }
+`;
+
+export const LogoImage = styled(Image)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 `;

@@ -37,7 +37,6 @@ import {
   FaArrowRightToBracket,
 } from 'react-icons/fa6';
 import { IoSettingsSharp, IoDocumentTextSharp } from 'react-icons/io5';
-import Image from 'next/image';
 import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
 import { usePathname, useRouter } from 'next/navigation';
 import { MdHomeFilled } from 'react-icons/md';
