@@ -7,6 +7,8 @@ import {
   BurgerMenu,
   CloseButton,
   LoginContainer,
+  LogoImage,
+  LogoImageContainer,
   Menu,
   MenuContainer,
   MenuItem,
@@ -97,14 +99,16 @@ const Navbar = () => {
         <MenuContainer>
           <BrandContainer>
             <Brand href="/joblys/dashboard">
-              <Image
-                src={NavLogo}
-                width={150}
-                height={50}
-                alt="hero-image"
-                priority
-                rel="preload"
-              />
+              <LogoImageContainer>
+                <LogoImage
+                  src={NavLogo}
+                  // width={150}
+                  // height={50}
+                  alt="hero-image"
+                  priority
+                  rel="preload"
+                />
+              </LogoImageContainer>
             </Brand>
           </BrandContainer>
         </MenuContainer>

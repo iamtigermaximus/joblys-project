@@ -13,7 +13,7 @@ export const Header = styled.div`
   background-color: ${colors.white};
 
   /* height: 100px; */
-  padding: 5px;
+  padding: 10px;
 
   @media (min-width: ${bp.lg}) {
     height: 10vh;
@@ -312,7 +312,7 @@ export const SidebarHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  padding: 0 20px;
+  padding: 20px;
 
   @media (min-width: ${bp.lg}) {
     padding: 20px;

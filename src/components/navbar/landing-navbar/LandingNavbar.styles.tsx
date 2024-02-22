@@ -73,6 +73,7 @@ export const LoginButton = styled.button`
   font-weight: 700;
   margin-right: 5px;
   white-space: nowrap;
+  height: 30px;
 
   &:hover {
     background-color: ${colors.darkPurple};
@@ -100,6 +101,7 @@ export const GetStartedButton = styled.button`
   font-weight: 700;
   margin-right: 5px;
   white-space: nowrap;
+  height: 30px;
 
   &:hover {
     background-color: ${colors.darkPurple};

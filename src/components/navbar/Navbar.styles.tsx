@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import { breakpoints as bp } from '../../utils/layout';
 import colors from '../../utils/colors';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface BackdropProps {
   $isVisible: boolean;
@@ -52,7 +53,7 @@ export const BrandContainer = styled.div`
 
 export const Brand = styled(Link)`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-decoration: none;
   color: ${colors.white};
@@ -551,4 +552,25 @@ export const Backdrop = styled.div<BackdropProps>`
   visibility: ${({ $isVisible }) => ($isVisible ? 'visible' : 'hidden')};
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
   transition: visibility 0s, opacity 0.3s linear;
+`;
+
+export const LogoImageContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100px;
+  height: 30px;
+
+  @media (min-width: ${bp.lg}) {
+    width: 150px;
+    height: 50px;
+  }
+`;
+
+export const LogoImage = styled(Image)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 `;
