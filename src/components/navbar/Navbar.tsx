@@ -156,6 +156,9 @@ const Navbar = () => {
                         <FaArrowRightFromBracket />
                         <p onClick={handleSignOut}>Log out</p>
                       </ModalItemContainer>
+                      <CloseButton onClick={handleCloseModal}>
+                        Close
+                      </CloseButton>
                     </UserModal>
                   ) : (
                     <UserModal>
