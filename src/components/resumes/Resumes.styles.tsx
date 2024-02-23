@@ -42,7 +42,7 @@ export const CreateResumeButton = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  max-width: calc(50% - 20px); /* Two cards per row with gap */
+  max-width: calc(50% - 20px);
 
   &:hover {
     color: #520668;
@@ -53,7 +53,7 @@ export const CreateResumeButton = styled.button`
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: calc(25% - 20px); /* Four cards per row with gap */
+    max-width: calc(25% - 20px);
     max-height: 350px;
   }
 `;
@@ -66,22 +66,6 @@ export const ButtonLabel = styled.h1`
     color: #520668;
   }
 `;
-
-// export const ResumeContainer = styled.div`
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: flex-start;
-//   gap: 20px;
-//   padding-bottom: 100px;
-// `;
-
-// export const ResumeCard = styled.div`
-//   border: 1px solid #ccc;
-//   border-radius: 5px;
-//   width: 250px;
-//   height: 350px;
-//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-// `;
 
 export const OuterContainer = styled.div`
   display: flex;
