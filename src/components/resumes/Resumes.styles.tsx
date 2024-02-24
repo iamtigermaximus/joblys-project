@@ -6,7 +6,6 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -16,14 +15,11 @@ export const Container = styled.div`
   }
 `;
 
-/** New CSS */
-
 export const HeaderContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  /* border: 1px solid gray; */
   padding-bottom: 20px;
 `;
 
@@ -53,7 +49,7 @@ export const CreateResumeButton = styled.button`
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: calc(25% - 20px); /* Four cards per row with gap */
+    max-width: calc(25% - 20px);
     height: 300px;
   }
 
@@ -89,17 +85,17 @@ export const ResumeContainer = styled.div`
 export const ResumeCard = styled.div`
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 100%; /* Adjust the width of the card to fit its container */
+  width: 100%;
   height: 250px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: calc(50% - 10px); /* Two cards per row with gap */
+  max-width: calc(50% - 10px);
 
   @media (min-width: ${bp.sm}) {
     height: 350px;
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: calc(25% - 20px); /* Four cards per row with gap */
+    max-width: calc(25% - 20px);
     height: 300px;
   }
 

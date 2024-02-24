@@ -6,7 +6,6 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -16,14 +15,11 @@ export const Container = styled.div`
   }
 `;
 
-/** New CSS */
-
 export const HeaderContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  /* border: 1px solid gray; */
   padding-bottom: 20px;
 `;
 
@@ -42,19 +38,23 @@ export const CreateCoverLetterButton = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  max-width: calc(50% - 20px);
+  max-width: calc(50% - 10px);
 
   &:hover {
     color: #520668;
     border: 1px dashed #520668;
   }
   @media (min-width: ${bp.sm}) {
-    height: 300px;
+    height: 350px;
   }
 
   @media (min-width: ${bp.md}) {
     max-width: calc(25% - 20px);
-    max-height: 350px;
+    height: 300px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    height: 350px;
   }
 `;
 
@@ -82,14 +82,18 @@ export const CoverLetterCard = styled.div`
   width: 100%;
   height: 250px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: calc(50% - 20px);
+  max-width: calc(50% - 10px);
 
   @media (min-width: ${bp.sm}) {
-    height: 300px;
+    height: 350px;
   }
 
   @media (min-width: ${bp.md}) {
     max-width: calc(25% - 20px);
-    max-height: 350px;
+    height: 300px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    height: 350px;
   }
 `;
