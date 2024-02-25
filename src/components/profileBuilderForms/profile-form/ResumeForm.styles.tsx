@@ -83,7 +83,7 @@ export const TemplatePreviewHeader = styled.div`
   color: ${colors.white};
   padding: 10px;
   width: 100%;
-  height: 8vh;
+  height: 6.3vh;
 `;
 
 export const TemplateHeaderItem = styled.div`

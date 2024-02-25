@@ -17,7 +17,7 @@ export const NavbarContainer = styled.div`
   align-items: center;
   background-color: ${colors.purple};
   color: ${colors.white};
-  height: 10vh;
+  height: 6vh;
   width: 100%;
 
   @media (min-width: ${bp.lg}) {
@@ -454,8 +454,8 @@ export const TopNavbarLoginContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  gap: 5px;
+  padding: 0 20px;
+  gap: 10px;
 
   @media (min-width: ${bp.lg}) {
     display: none;
