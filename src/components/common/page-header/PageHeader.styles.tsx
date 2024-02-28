@@ -317,7 +317,7 @@ export const SidebarHeader = styled.div`
 
   @media (min-width: ${bp.lg}) {
     padding: 20px;
-    height: 10.3vh;
+    height: 8.3vh;
   }
 `;
 

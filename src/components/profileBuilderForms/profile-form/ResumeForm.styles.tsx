@@ -138,3 +138,20 @@ export const PreviewButtonSection = styled.div`
     display: none;
   }
 `;
+
+export const CreateProfileButton = styled.button`
+  font-size: 14px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: ${colors.purple};
+  padding: 8px 12px;
+  height: 40px;
+  border: none;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+  }
+`;

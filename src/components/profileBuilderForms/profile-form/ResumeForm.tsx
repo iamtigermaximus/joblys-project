@@ -12,6 +12,7 @@ import {
   AccordionHeaderTitle,
   AccordionSection,
   Container,
+  CreateProfileButton,
   HeaderItem,
   IconContainer,
   PreviewButton,
@@ -31,6 +32,8 @@ import LanguagesForm from '../languages-details/LanguagesForm';
 import ResumeTemplate from '../resume-template/ResumeTemplate';
 import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+
 // import ResumeTemplate from '../resume-template/ResumeTemplate';
 
 interface ResumeFormProps {
@@ -54,6 +57,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const router = useRouter();
   const [click, setClick] = useState(true);
   const resumeTemplate = () => setClick(!click);
+  const { data: session } = useSession();
 
   const handleClosePreview = () => {
     setClick(false);
@@ -80,6 +84,44 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   //   console.log('Final Form Data:', resumeInfo);
   //   // Add any additional logic for submitting to a server or performing final actions
   // };
+  const handleFinalSubmit = async () => {
+    console.log('Final Form Data:', resumeInfo);
+    try {
+      if (!session) {
+        console.error('No session found');
+        // Handle the case where there's no session available (e.g., redirect to login)
+        return;
+      }
+      const token = localStorage.getItem('token');
+
+      console.log('Token:', token);
+
+      if (!token) {
+        console.error('No token found in localStorage');
+        // Handle the case where there's no token available (e.g., redirect to login)
+        return;
+      }
+
+      const response = await fetch('/api/cv', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(resumeInfo),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to submit resume');
+      }
+      console.log('Resume submitted successfully');
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error submitting resume:', error.message);
+      } else {
+        console.error('Unknown error:', error);
+      }
+    }
+  };
 
   const handleSignIn = () => {
     router.push('/login');
@@ -254,16 +296,17 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </AccordionContent>
           )}
         </AccordionSection>
-        {/* <AccordionSection>
+        <AccordionSection>
+          <PreviewButtonSection>
+            <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
+          </PreviewButtonSection>
           <AccordionHeader>
-            <AccordionHeaderTitle>Final Submit</AccordionHeaderTitle>
-            <button onClick={handleFinalSubmit}>Submit</button>
+            <AccordionHeaderTitle></AccordionHeaderTitle>
+            <CreateProfileButton onClick={handleFinalSubmit}>
+              Create Profile
+            </CreateProfileButton>
           </AccordionHeader>
-        </AccordionSection> */}
-
-        <PreviewButtonSection>
-          <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
-        </PreviewButtonSection>
+        </AccordionSection>
       </AccordionContainer>
     </Container>
   );
