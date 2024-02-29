@@ -86,41 +86,13 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   // };
   const handleFinalSubmit = async () => {
     console.log('Final Form Data:', resumeInfo);
-    try {
-      if (!session) {
-        console.error('No session found');
-        // Handle the case where there's no session available (e.g., redirect to login)
-        return;
-      }
-      const token = localStorage.getItem('token');
 
-      console.log('Token:', token);
+    const response = await fetch('/api/cv/upload', {
+      method: 'POST',
+      body: JSON.stringify({resume: resumeInfo}),
+    });
 
-      if (!token) {
-        console.error('No token found in localStorage');
-        // Handle the case where there's no token available (e.g., redirect to login)
-        return;
-      }
-
-      const response = await fetch('/api/cv', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(resumeInfo),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to submit resume');
-      }
-      console.log('Resume submitted successfully');
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error('Error submitting resume:', error.message);
-      } else {
-        console.error('Unknown error:', error);
-      }
-    }
+    console.log('response:', response);
   };
 
   const handleSignIn = () => {
