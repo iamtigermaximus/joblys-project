@@ -18,12 +18,12 @@ import {
   ButtonsContainer,
   TrashIcon,
 } from './EducationaDetailsForm.styles';
-import { EducationType, ResumeInfoType } from '@/types/profile';
+import { EducationType, Resume } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
 
 interface EducationalDetailsFormProps {
   resumeInfo: { educational: { education: EducationType[] } };
-  setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
+  setResumeInfo: Dispatch<SetStateAction<Resume>>;
 }
 
 const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({

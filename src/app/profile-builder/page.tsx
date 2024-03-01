@@ -9,13 +9,16 @@ import {
 } from '../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import ResumeForm from '@/components/profileBuilderForms/profile-form/ResumeForm';
-import ResumeTemplate from '@/components/profileBuilderForms/resume-template/ResumeTemplate';
-import { EducationType, LanguageType, ProfessionalExperienceType, Resume, ResumeInfoType } from '@/types/profile';
-import Minimalist from '@/components/templates/minimalist/Minimalist';
+import {
+  EducationType,
+  LanguageType,
+  ProfessionalExperienceType,
+  Resume,
+} from '@/types/profile';
 import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
 
 const ProfileBuilderPage: FC = () => {
-  const initialState: ResumeInfoType = {
+  const initialState: Resume = {
     id: '',
     basic: {
       firstName: '',
@@ -79,48 +82,55 @@ const ProfileBuilderPage: FC = () => {
     }
 
     const responseJson = await response.json();
+
     const resume = {
       id: responseJson.body.id,
       profile: responseJson.body.profile as Resume,
     };
-    
+
     if (!resume) {
       return;
     }
 
-    const works = resume?.profile.professional.map((exp: ProfessionalExperienceType) => ({
-      id: exp.id || uuidv4(),
-      jobTitle: exp.jobTitle || '',
-      company: exp.company || '',
-      startDate: exp.startDate || '',
-      endDate: exp.endDate || '',
-      jobDetails: exp.jobDetails || '',
-    }));
+    const works = resume?.profile.professional.work.map(
+      (exp: ProfessionalExperienceType) => ({
+        id: exp.id || uuidv4(),
+        jobTitle: exp.jobTitle || '',
+        company: exp.company || '',
+        startDate: exp.startDate || '',
+        endDate: exp.endDate || '',
+        jobDetails: exp.jobDetails || '',
+      }),
+    );
 
-    const educations = resume?.profile.education.map((edu: EducationType) => ({
-      id: edu.id || uuidv4(),
-      school: edu.school || '',
-      course: edu.course || '',
-      startDate: edu.startDate || '',
-      endDate: edu.endDate || '',
-      description: edu.description || '',
-    }));
+    const educations = resume?.profile.educational.education.map(
+      (edu: EducationType) => ({
+        id: edu.id || uuidv4(),
+        school: edu.school || '',
+        course: edu.course || '',
+        startDate: edu.startDate || '',
+        endDate: edu.endDate || '',
+        description: edu.description || '',
+      }),
+    );
 
-    const languages = resume?.profile.languages.map((lang: LanguageType) => ({
-      id: lang.id || uuidv4(),
-      name: lang.name || '',
-    }));
+    const languages = resume?.profile.languages.language.map(
+      (lang: LanguageType) => ({
+        id: lang.id || uuidv4(),
+        name: lang.name || '',
+      }),
+    );
 
     setResumeInfo({
       id: resume.id,
       basic: {
-        firstName: resume?.profile.firstName || '',
-        lastName: resume?.profile.lastName || '',
-        phoneNumber: resume?.profile.phoneNumber || '',
-        email: resume?.profile.email || '',
-        address: resume?.profile.address || '',
-        linkedin: resume?.profile.linkedin || '',
-        additionalLinks: resume?.profile.additionalLinks || [],
+        firstName: resume.profile.basic.firstName || '',
+        lastName: resume.profile.basic.lastName || '',
+        phoneNumber: resume.profile.basic.phoneNumber || '',
+        email: resume.profile.basic.email || '',
+        address: resume.profile.basic.address || '',
+        linkedin: resume.profile.basic.linkedin || '',
+        additionalLinks: resume.profile.basic.additionalLinks || [],
       },
       professional: {
         summary: '',
@@ -163,10 +173,7 @@ const ProfileBuilderPage: FC = () => {
           />
         </ResumeFormContainer>
         <ResumeTemplateContainer>
-          {/* <ResumeTemplate resumeInfo={resumeInfo} /> */}
-          {/* <Minimalist resumeInfo={resumeInfo} /> */}
           <DefaultTemplate resumeInfo={resumeInfo} />
-          {/* <ATemplate resumeInfo={resumeInfo} /> */}
         </ResumeTemplateContainer>
       </FormViewerContainer>
     </ProfileBuilderContainer>

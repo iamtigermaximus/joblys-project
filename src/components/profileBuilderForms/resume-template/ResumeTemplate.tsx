@@ -45,7 +45,7 @@ import {
   Month,
   DateSeparator,
 } from './ResumeTemplate.styles';
-import { ResumeInfoType } from '@/types/profile';
+import { Resume } from '@/types/profile';
 import {
   FaUser,
   FaEnvelope,
@@ -56,7 +56,7 @@ import {
 } from 'react-icons/fa';
 
 interface ResumeTemplateProps {
-  resumeInfo: ResumeInfoType;
+  resumeInfo: Resume;
 }
 
 const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {

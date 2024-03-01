@@ -19,7 +19,11 @@ import {
   WorkExperienceContainer,
   YearSelect,
 } from './ProfessionalDetailsForm.styles';
-import { ProfessionalExperienceType, ResumeInfoType } from '@/types/profile';
+import {
+  ProfessionalExperienceType,
+  Resume,
+  ResumeInfoType,
+} from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
 
 interface ProfessionalDetailsFormProps {
@@ -30,7 +34,7 @@ interface ProfessionalDetailsFormProps {
       work: ProfessionalExperienceType[];
     };
   };
-  setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
+  setResumeInfo: Dispatch<SetStateAction<Resume>>;
   refreshStoredResume: () => void;
 }
 

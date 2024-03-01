@@ -1,6 +1,6 @@
 'use client';
 
-import { ResumeInfoType, SkillType } from '@/types/profile';
+import { Resume, SkillType } from '@/types/profile';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   AddButton,
@@ -17,7 +17,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 interface SkillsFormProps {
   resumeInfo: { skills: { skill: SkillType[] } };
-  setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
+  setResumeInfo: Dispatch<SetStateAction<Resume>>;
 }
 
 const SkillsForm: FC<SkillsFormProps> = ({ resumeInfo, setResumeInfo }) => {

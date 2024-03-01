@@ -15,23 +15,6 @@ export interface BasicInfoType {
   additionalLinks: AdditionalLinkType[];
 }
 
-// export interface ProfessionalExperienceType {
-//   id: string;
-//   jobTitle: string;
-//   company: string;
-//   startDate: string;
-//   endDate: string;
-//   jobDetails: string;
-// }
-
-// export interface EducationType {
-//   id: string;
-//   school: string;
-//   course: string;
-//   startDate: string;
-//   endDate: string;
-//   description: string;
-// }
 export interface ProfessionalExperienceType {
   id: string;
   jobTitle: string;
@@ -60,11 +43,17 @@ export interface LanguageType {
   name: string;
 }
 
-export interface Resume extends BasicInfoType {
-  professional: ProfessionalExperienceType[];
-  education: EducationType[];
-  skills: SkillType[];
-  languages: LanguageType[];
+export interface Resume {
+  id: string;
+  basic: BasicInfoType;
+  professional: {
+    summary: string;
+    currentRole: string;
+    work: ProfessionalExperienceType[];
+  };
+  educational: { education: EducationType[] };
+  skills: { skill: SkillType[] };
+  languages: { language: LanguageType[] };
 }
 
 export const ResumeSchema = z.object({
@@ -74,34 +63,54 @@ export const ResumeSchema = z.object({
   email: z.string(),
   address: z.string(),
   linkedin: z.string(),
-  additionalLinks: z.array(z.object({
-    id: z.string(),
-    url: z.string(),
-  })),
-  professional: z.array(z.object({
-    id: z.string(),
-    jobTitle: z.string(),
-    company: z.string(),
-    startDate: z.object({ month: z.string(), year: z.string() }),
-    endDate: z.object({ month: z.string(), year: z.string() }),
-    jobDetails: z.string(),
-  })),
-  education: z.array(z.object({
-    id: z.string(),
-    school: z.string(),
-    course: z.string(),
-    startDate: z.object({ month: z.string(), year: z.string() }),
-    endDate: z.object({ month: z.string(), year: z.string() }),
-    description: z.string(),
-  })),
-  skills: z.array(z.object({
-    id: z.string(),
-    name: z.string(),
-  })),
-  languages: z.array(z.object({
-    id: z.string(),
-    name: z.string(),
-  })),
+  additionalLinks: z.array(
+    z.object({
+      id: z.string(),
+      url: z.string(),
+    }),
+  ),
+  professional: z.object({
+    summary: z.string(),
+    currentRole: z.string(),
+    work: z.array(
+      z.object({
+        id: z.string(),
+        jobTitle: z.string(),
+        company: z.string(),
+        startDate: z.object({ month: z.string(), year: z.string() }),
+        endDate: z.object({ month: z.string(), year: z.string() }),
+        jobDetails: z.string(),
+      }),
+    ),
+  }),
+  education: z.object({
+    education: z.array(
+      z.object({
+        id: z.string(),
+        school: z.string(),
+        course: z.string(),
+        startDate: z.object({ month: z.string(), year: z.string() }),
+        endDate: z.object({ month: z.string(), year: z.string() }),
+        description: z.string(),
+      }),
+    ),
+  }),
+  skills: z.object({
+    skill: z.array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      }),
+    ),
+  }),
+  languages: z.object({
+    language: z.array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      }),
+    ),
+  }),
 });
 
 export interface ResumeInfoType {
@@ -110,8 +119,6 @@ export interface ResumeInfoType {
   professional: {
     summary: string;
     currentRole: string;
-    // skills: SkillType[];
-    // languages: LanguageType[];
     work: ProfessionalExperienceType[];
   };
   educational: { education: EducationType[] };

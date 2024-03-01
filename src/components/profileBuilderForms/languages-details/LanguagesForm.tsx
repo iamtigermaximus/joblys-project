@@ -1,6 +1,6 @@
 'use client';
 
-import { ResumeInfoType, SkillType } from '@/types/profile';
+import { Resume, ResumeInfoType, SkillType } from '@/types/profile';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   AddButton,
@@ -17,7 +17,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 interface LanguagesFormProps {
   resumeInfo: { languages: { language: SkillType[] } };
-  setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
+  setResumeInfo: Dispatch<SetStateAction<Resume>>;
 }
 
 const LanguagesForm: FC<LanguagesFormProps> = ({

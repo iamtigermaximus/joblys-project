@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt'
+import { getToken } from 'next-auth/jwt';
 import { Resume } from '@/types/profile';
 import mammoth from 'mammoth';
 import { v4 as uuidv4 } from 'uuid';
@@ -67,16 +67,16 @@ function getParserPrompt(fileType: FileType) {
 }
 
 export async function POST(req: NextRequest) {
-  const token = await getToken({ req })
+  const token = await getToken({ req });
   if (!token) {
     console.log('invalid token');
     return NextResponse.json(
       {
         body: {
           message: 'invalid token',
-        }
+        },
       },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -92,9 +92,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'user not found',
-        }
+        },
       },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -109,9 +109,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'no file provided',
-        }
+        },
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -119,18 +119,21 @@ export async function POST(req: NextRequest) {
 
   switch (file.type) {
     case FileType.PDF:
-      const pdf = await pdfjs.getDocument({ data: await file.arrayBuffer() }).promise;
+      const pdf = await pdfjs.getDocument({ data: await file.arrayBuffer() })
+        .promise;
 
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const textContent = await page.getTextContent();
-        const pageText: string = textContent.items.map((c: TextContextItem) => c.str).join('\n');
+        const pageText: string = textContent.items
+          .map((c: TextContextItem) => c.str)
+          .join('\n');
         cvTextContent = cvTextContent.concat(pageText);
       }
       break;
     case FileType.DOCX:
       const txt = await mammoth.extractRawText({
-        buffer: Buffer.from(await file.arrayBuffer())
+        buffer: Buffer.from(await file.arrayBuffer()),
       });
       cvTextContent = txt.value;
       break;
@@ -140,9 +143,9 @@ export async function POST(req: NextRequest) {
         {
           body: {
             message: 'invalid file type',
-          }
+          },
         },
-        { status: 400 }
+        { status: 400 },
       );
   }
 
@@ -152,9 +155,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'unable to parse cv',
-        }
+        },
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -165,12 +168,12 @@ export async function POST(req: NextRequest) {
       model: 'gpt-3.5-turbo',
       messages: [
         {
-          'role': 'system',
-          'content': getParserPrompt(file.type as FileType),
+          role: 'system',
+          content: getParserPrompt(file.type as FileType),
         },
         {
-          'role': 'user',
-          'content': cvTextContent,
+          role: 'user',
+          content: cvTextContent,
         },
       ],
       stream: false,
@@ -184,9 +187,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'internal server error',
-        }
+        },
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -199,9 +202,9 @@ export async function POST(req: NextRequest) {
         {
           body: {
             message: 'no structured CV response',
-          }
+          },
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
   } catch (err) {
@@ -210,13 +213,13 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'internal server error',
-        }
+        },
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
-  structuredCVContent.professional.map((exp) => {
+  structuredCVContent.professional.work.map(exp => {
     exp.id = uuidv4();
     return exp;
   });
@@ -227,7 +230,7 @@ export async function POST(req: NextRequest) {
       data: {
         ownerId: user.id,
         content: structuredCVContent as any,
-      }
+      },
     });
   } catch (err) {
     console.log(`Update parsedCV: ${err}`);
@@ -235,9 +238,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'internal server error',
-        }
+        },
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -247,25 +250,25 @@ export async function POST(req: NextRequest) {
     {
       body: {
         message: 'parsing succeeded',
-      }
+      },
     },
-    { status: 200 }
+    { status: 200 },
   );
 }
 
 export async function GET(req: NextRequest) {
   console.log('Getting stored profile...');
 
-  const token = await getToken({ req })
+  const token = await getToken({ req });
   if (!token && token != null) {
     console.log('invalid token');
     return NextResponse.json(
       {
         body: {
           message: 'invalid token',
-        }
+        },
       },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -281,9 +284,9 @@ export async function GET(req: NextRequest) {
       {
         body: {
           message: 'user not found',
-        }
+        },
       },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -304,9 +307,9 @@ export async function GET(req: NextRequest) {
       {
         body: {
           message: 'internal server error',
-        }
+        },
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -316,9 +319,9 @@ export async function GET(req: NextRequest) {
       {
         body: {
           message: 'no resume found',
-        }
+        },
       },
-      { status: 404 }
+      { status: 404 },
     );
   }
 
@@ -329,6 +332,6 @@ export async function GET(req: NextRequest) {
         profile: structuredCV?.content,
       },
     },
-    { status: 200 }
+    { status: 200 },
   );
 }

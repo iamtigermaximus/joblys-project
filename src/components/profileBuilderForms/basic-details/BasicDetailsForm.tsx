@@ -13,13 +13,13 @@ import {
   NewLinkContainer,
   TrashIcon,
 } from './BasicDetailsForm.styles';
-import { BasicInfoType, ResumeInfoType } from '@/types/profile';
+import { BasicInfoType, Resume, ResumeInfoType } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
 import { FaTrash } from 'react-icons/fa';
 
 interface BasicDetailsFormProps {
   resumeInfo: { basic: BasicInfoType };
-  setResumeInfo: Dispatch<SetStateAction<ResumeInfoType>>;
+  setResumeInfo: Dispatch<SetStateAction<Resume>>;
 }
 
 const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
