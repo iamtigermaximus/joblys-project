@@ -19,33 +19,27 @@ import {
   WorkExperienceContainer,
   YearSelect,
 } from './ProfessionalDetailsForm.styles';
-import {
-  ProfessionalExperienceType,
-  Resume,
-  ResumeInfoType,
-} from '@/types/profile';
+import { ProfessionalExperienceType, Resume } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
 
 interface ProfessionalDetailsFormProps {
-  resumeInfo: {
-    professional: {
-      summary: string;
-      currentRole: string;
-      work: ProfessionalExperienceType[];
-    };
+  professional: {
+    summary: string;
+    currentRole: string;
+    work: ProfessionalExperienceType[];
   };
   setResumeInfo: Dispatch<SetStateAction<Resume>>;
   refreshStoredResume: () => void;
 }
 
 const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
-  resumeInfo,
+  professional,
   setResumeInfo,
   refreshStoredResume,
 }) => {
-  const [summary, setSummary] = useState(resumeInfo.professional.summary || '');
+  const [summary, setSummary] = useState(professional.summary || '');
   const [currentRole, setCurrentRole] = useState(
-    resumeInfo.professional.currentRole || '',
+    professional.currentRole || '',
   );
   const [applyJobDescription, setApplyJobDescription] = useState('');
 
@@ -99,7 +93,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             id: newId,
             jobTitle: '',
             company: '',
-            startDate: { month: '01', year: `${new Date().getFullYear()}` }, // Initial values
+            startDate: { month: '01', year: `${new Date().getFullYear()}` },
             endDate: { month: '01', year: `${new Date().getFullYear()}` },
             jobDetails: '',
           },
@@ -214,7 +208,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
           />
         </InputContainer>
         <InputLabel>Work Experience:</InputLabel>
-        {resumeInfo.professional.work.map(experience => (
+        {professional.work.map(experience => (
           <WorkExperienceContainer key={experience.id}>
             <InputRow>
               <InputContainer>

@@ -16,44 +16,34 @@ import { FaTrash } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 
 interface SkillsFormProps {
-  resumeInfo: { skills: { skill: SkillType[] } };
+  skills: SkillType[];
   setResumeInfo: Dispatch<SetStateAction<Resume>>;
 }
 
-const SkillsForm: FC<SkillsFormProps> = ({ resumeInfo, setResumeInfo }) => {
-  // const [newSkill, setNewSkill] = useState('');
-
+const SkillsForm: FC<SkillsFormProps> = ({ skills, setResumeInfo }) => {
   const handleInputChange = (id: string, value: string) => {
     setResumeInfo(prevInfo => ({
       ...prevInfo,
-      skills: {
-        ...prevInfo.skills,
-        skill: prevInfo.skills.skill.map(enteredSkill =>
-          enteredSkill.id === id
-            ? { ...enteredSkill, name: value }
-            : enteredSkill,
-        ),
-      },
+      skills: prevInfo.skills.map(enteredSkill =>
+        enteredSkill.id === id
+          ? { ...enteredSkill, name: value }
+          : enteredSkill,
+      ),
     }));
   };
+
   const handleAddMoreSkills = () => {
     const newId = uuidv4();
     setResumeInfo(prevInfo => ({
       ...prevInfo,
-      skills: {
-        ...prevInfo.skills,
-        skill: [...prevInfo.skills.skill, { id: newId, name: '' }],
-      },
+      skills: [...prevInfo.skills, { id: newId, name: '' }],
     }));
   };
 
   const handleDeleteSkill = (id: string) => {
     setResumeInfo(prevInfo => ({
       ...prevInfo,
-      skills: {
-        ...prevInfo.skills,
-        skill: prevInfo.skills.skill.filter(skill => skill.id !== id),
-      },
+      skills: prevInfo.skills.filter(skill => skill.id !== id),
     }));
   };
 
@@ -64,27 +54,29 @@ const SkillsForm: FC<SkillsFormProps> = ({ resumeInfo, setResumeInfo }) => {
   return (
     <Container>
       <SkillsDetailsContainer>
-        {resumeInfo.skills.skill.map(enteredSkill => (
-          <InputContainer key={enteredSkill.id}>
-            <InputLabel>Skill:</InputLabel>
-            <AddNewSkillContainer>
-              <Input
-                type="text"
-                placeholder="eg. Javascript"
-                value={enteredSkill.name}
-                onChange={e =>
-                  handleInputChange(
-                    enteredSkill.id,
-                    capitalizeFirstLetter(e.target.value),
-                  )
-                }
-              />
-              <TrashIcon onClick={() => handleDeleteSkill(enteredSkill.id)}>
-                <FaTrash />
-              </TrashIcon>
-            </AddNewSkillContainer>
-          </InputContainer>
-        ))}
+        {skills &&
+          skills.length > 0 &&
+          skills.map(enteredSkill => (
+            <InputContainer key={enteredSkill.id}>
+              <InputLabel>Skill:</InputLabel>
+              <AddNewSkillContainer>
+                <Input
+                  type="text"
+                  placeholder="eg. Javascript"
+                  value={enteredSkill.name}
+                  onChange={e =>
+                    handleInputChange(
+                      enteredSkill.id,
+                      capitalizeFirstLetter(e.target.value),
+                    )
+                  }
+                />
+                <TrashIcon onClick={() => handleDeleteSkill(enteredSkill.id)}>
+                  <FaTrash />
+                </TrashIcon>
+              </AddNewSkillContainer>
+            </InputContainer>
+          ))}
         <AddNewSkillContainer>
           <AddButton onClick={handleAddMoreSkills}>Add new skill</AddButton>
         </AddNewSkillContainer>

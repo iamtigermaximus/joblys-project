@@ -26,7 +26,6 @@ import {
   FirstName,
   Header,
   IconContainer,
-  JobName,
   JobTitle,
   LanguagesDetailsContent,
   LastName,
@@ -130,7 +129,7 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
           <PersonalDetailsContainer>
             <PersonalDetailsTitle>Skills</PersonalDetailsTitle>
             <SkillsDetailsContent>
-              {skills?.skill.map(enteredSkill => (
+              {skills?.map(enteredSkill => (
                 <EnteredSkillsContainer key={enteredSkill.id}>
                   <EnteredSkill>{enteredSkill.name}</EnteredSkill>
                 </EnteredSkillsContainer>
@@ -140,7 +139,7 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
           <PersonalDetailsContainer>
             <PersonalDetailsTitle>Languages</PersonalDetailsTitle>
             <LanguagesDetailsContent>
-              {languages?.language.map(enteredLanguage => (
+              {languages?.map(enteredLanguage => (
                 <EnteredLanguagesContainer key={enteredLanguage.id}>
                   <EnteredLanguage>{enteredLanguage.name}</EnteredLanguage>
                 </EnteredLanguagesContainer>
@@ -221,7 +220,7 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
 
           <EducationContainer>
             <EducationContainerTitle>Education</EducationContainerTitle>
-            {educational.education.map(educ => (
+            {educational.map(educ => (
               <div key={educ.id}>
                 <EducationDetailContainer>
                   <EducationDetail>

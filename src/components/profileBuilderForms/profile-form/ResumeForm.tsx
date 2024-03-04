@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import BasicDetailsForm from '../basic-details/BasicDetailsForm';
 import ProfessionalDetailsForm from '../professional-details/ProfessionalDetailsForm';
 import EducationalDetailsForm from '../education-details/EducationalDetailsForm';
-import { ResumeInfoType } from '@/types/profile';
+import { Resume } from '@/types/profile';
 import {
   AccordionContainer,
   AccordionContent,
@@ -29,16 +29,13 @@ import {
 } from 'react-icons/fa6';
 import SkillsForm from '../skills-details/SkillsForm';
 import LanguagesForm from '../languages-details/LanguagesForm';
-import ResumeTemplate from '../resume-template/ResumeTemplate';
 import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
-// import ResumeTemplate from '../resume-template/ResumeTemplate';
-
 interface ResumeFormProps {
-  resumeInfo: ResumeInfoType;
-  setResumeInfo: React.Dispatch<React.SetStateAction<ResumeInfoType>>;
+  resumeInfo: Resume;
+  setResumeInfo: React.Dispatch<React.SetStateAction<Resume>>;
   refreshStoredResume: () => void;
 }
 
@@ -155,7 +152,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           {accordionState.basic && (
             <AccordionContent>
               <BasicDetailsForm
-                resumeInfo={{ basic: resumeInfo.basic }}
+                basic={resumeInfo.basic}
                 setResumeInfo={setResumeInfo}
               />
             </AccordionContent>
@@ -184,9 +181,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           {accordionState.professional && (
             <AccordionContent>
               <ProfessionalDetailsForm
-                resumeInfo={{
-                  professional: resumeInfo.professional,
-                }}
+                professional={resumeInfo.professional}
                 setResumeInfo={setResumeInfo}
                 refreshStoredResume={refreshStoredResume}
               />
@@ -216,7 +211,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           {accordionState.educational && (
             <AccordionContent>
               <EducationalDetailsForm
-                resumeInfo={{ educational: resumeInfo.educational }}
+                educational={resumeInfo.educational}
                 setResumeInfo={setResumeInfo}
               />
             </AccordionContent>
@@ -244,7 +239,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           {accordionState.skills && (
             <AccordionContent>
               <SkillsForm
-                resumeInfo={{ skills: resumeInfo.skills }}
+                skills={resumeInfo.skills}
                 setResumeInfo={setResumeInfo}
               />
             </AccordionContent>
@@ -272,7 +267,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           {accordionState.languages && (
             <AccordionContent>
               <LanguagesForm
-                resumeInfo={{ languages: resumeInfo.languages }}
+                languages={resumeInfo.languages}
                 setResumeInfo={setResumeInfo}
               />
             </AccordionContent>

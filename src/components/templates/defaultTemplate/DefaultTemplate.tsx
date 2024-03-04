@@ -5,7 +5,6 @@ import {
   LanguageType,
   ProfessionalExperienceType,
   Resume,
-  ResumeInfoType,
   SkillType,
 } from '@/types/profile';
 import React, { FC } from 'react';
@@ -114,11 +113,13 @@ const BasicInfoComponent: FC<{ basicInfo: BasicInfoType }> = ({
 const SkillsInfoComponent: FC<{ skillInfo: SkillType[] }> = ({ skillInfo }) => (
   <div>
     <DetailsContentContainer>
-      {skillInfo.map(skill => (
-        <div key={skill.id}>
-          <BasicsItem>{skill.name}</BasicsItem>
-        </div>
-      ))}
+      {skillInfo &&
+        skillInfo.length > 0 &&
+        skillInfo.map(skill => (
+          <div key={skill.id}>
+            <BasicsItem>{skill.name}</BasicsItem>
+          </div>
+        ))}
     </DetailsContentContainer>
   </div>
 );
@@ -128,11 +129,12 @@ const LanguagesInfoComponent: FC<{ languageInfo: LanguageType[] }> = ({
 }) => (
   <div>
     <DetailsContentContainer>
-      {languageInfo.map((language, index) => (
-        <div key={language.id}>
-          <BasicsItem>{language.name}</BasicsItem>
-        </div>
-      ))}
+      {languageInfo &&
+        languageInfo.map((language, index) => (
+          <div key={language.id}>
+            <BasicsItem>{language.name}</BasicsItem>
+          </div>
+        ))}
     </DetailsContentContainer>
   </div>
 );
@@ -201,63 +203,64 @@ const EducationInfoComponent: FC<{ educationInfo: EducationType[] }> = ({
   educationInfo,
 }) => (
   <DetailsContentContainer>
-    {educationInfo.map((info, index) => (
-      <div key={info.id}>
-        <EducationDetailContainer>
-          <EducationDetail>
-            <Course>{info.course}</Course>
-            <School>{info.school}</School>
-          </EducationDetail>
-          {info.school && (
-            <DateContainer>
-              <Dates>
-                <Month>
-                  {info.startDate.month &&
-                  !isNaN(parseInt(info.startDate.month)) ? (
-                    <>
-                      {new Date(
-                        2022,
-                        parseInt(info.startDate.month) - 1,
-                      ).toLocaleString('default', {
-                        month: 'short',
-                      })}
-                    </>
-                  ) : (
-                    <>Jan</>
-                  )}
-                </Month>
-                <Year>{info.startDate.year || new Date().getFullYear()}</Year>
-              </Dates>
-              <DateSeparator> - </DateSeparator>
+    {educationInfo &&
+      educationInfo?.length > 0 &&
+      educationInfo.map((info, index) => (
+        <div key={info.id}>
+          <EducationDetailContainer>
+            <EducationDetail>
+              <Course>{info.course}</Course>
+              <School>{info.school}</School>
+            </EducationDetail>
+            {info.school && (
+              <DateContainer>
+                <Dates>
+                  <Month>
+                    {info.startDate.month &&
+                    !isNaN(parseInt(info.startDate.month)) ? (
+                      <>
+                        {new Date(
+                          2022,
+                          parseInt(info.startDate.month) - 1,
+                        ).toLocaleString('default', {
+                          month: 'short',
+                        })}
+                      </>
+                    ) : (
+                      <>Jan</>
+                    )}
+                  </Month>
+                  <Year>{info.startDate.year || new Date().getFullYear()}</Year>
+                </Dates>
+                <DateSeparator> - </DateSeparator>
 
-              <Dates>
-                <Month>
-                  {info.endDate.month &&
-                  !isNaN(parseInt(info.endDate.month)) ? (
-                    <>
-                      {new Date(
-                        2022,
-                        parseInt(info.endDate.month) - 1,
-                      ).toLocaleString('default', {
-                        month: 'short',
-                      })}
-                    </>
-                  ) : (
-                    <>Jan</>
-                  )}
-                </Month>
-                <Year>{info.endDate.year || new Date().getFullYear()}</Year>
-              </Dates>
-            </DateContainer>
-          )}
-        </EducationDetailContainer>
-        <Description>{info.description}</Description>
-      </div>
-    ))}
+                <Dates>
+                  <Month>
+                    {info.endDate.month &&
+                    !isNaN(parseInt(info.endDate.month)) ? (
+                      <>
+                        {new Date(
+                          2022,
+                          parseInt(info.endDate.month) - 1,
+                        ).toLocaleString('default', {
+                          month: 'short',
+                        })}
+                      </>
+                    ) : (
+                      <>Jan</>
+                    )}
+                  </Month>
+                  <Year>{info.endDate.year || new Date().getFullYear()}</Year>
+                </Dates>
+              </DateContainer>
+            )}
+          </EducationDetailContainer>
+          <Description>{info.description}</Description>
+        </div>
+      ))}
   </DetailsContentContainer>
 );
 
-// Define the Resume component
 const DefaultTemplate: FC<{ resumeInfo: Resume }> = ({ resumeInfo }) => {
   const basic = resumeInfo?.basic;
   const professional = resumeInfo?.professional;
@@ -275,18 +278,15 @@ const DefaultTemplate: FC<{ resumeInfo: Resume }> = ({ resumeInfo }) => {
       basic.linkedin ||
       (basic.additionalLinks && basic.additionalLinks.length > 0)
     ) ||
-    (skills && skills.skill && skills.skill.length > 1) ||
-    (languages && languages.language && languages.language.length > 1) ||
+    (skills && skills && skills.length > 1) ||
+    (languages && languages && languages.length > 1) ||
     !!(
       (professional.work && professional.work.length > 1) ||
       professional.summary
     ) ||
-    !!(educational.education && educational.education.length > 1);
+    !!(educational && educational.length > 1);
 
-  // Check the amount of content and decide whether to render it in the current template or split it into a new one
-
-  const shouldSplit =
-    professional.work.length > 2 || educational.education.length > 1;
+  const shouldSplit = professional.work.length > 2 || educational.length > 1;
 
   return (
     <DefaultTemplateContainer>
@@ -303,13 +303,11 @@ const DefaultTemplate: FC<{ resumeInfo: Resume }> = ({ resumeInfo }) => {
               <BasicsTitleContainer>
                 {shouldDisplayTitle && <BasicsTitle>Skills</BasicsTitle>}
               </BasicsTitleContainer>
-              {skills && <SkillsInfoComponent skillInfo={skills.skill} />}
+              {skills && <SkillsInfoComponent skillInfo={skills} />}
               <BasicsTitleContainer>
                 {shouldDisplayTitle && <BasicsTitle>Languages</BasicsTitle>}
               </BasicsTitleContainer>
-              {languages && (
-                <LanguagesInfoComponent languageInfo={languages.language} />
-              )}
+              {languages && <LanguagesInfoComponent languageInfo={languages} />}
             </BasicContentContainer>
             <ContentContainer>
               <BasicsNameContainer>
@@ -341,12 +339,14 @@ const DefaultTemplate: FC<{ resumeInfo: Resume }> = ({ resumeInfo }) => {
                 <DetailsTitleContainer>
                   {shouldDisplayTitle && <DetailsTitle>Education</DetailsTitle>}
                 </DetailsTitleContainer>
-                {educational.education.map((education, index) => (
-                  <EducationInfoComponent
-                    key={index}
-                    educationInfo={[education]}
-                  />
-                ))}
+                {educational &&
+                  educational.length > 0 &&
+                  educational.map((education, index) => (
+                    <EducationInfoComponent
+                      key={index}
+                      educationInfo={[education]}
+                    />
+                  ))}
               </div>
             </ContentContainer>
           </Template>
@@ -363,13 +363,11 @@ const DefaultTemplate: FC<{ resumeInfo: Resume }> = ({ resumeInfo }) => {
             <BasicsTitleContainer>
               {shouldDisplayTitle && <BasicsTitle>Skills</BasicsTitle>}
             </BasicsTitleContainer>
-            {skills && <SkillsInfoComponent skillInfo={skills.skill} />}
+            {skills && <SkillsInfoComponent skillInfo={skills} />}
             <BasicsTitleContainer>
               {shouldDisplayTitle && <BasicsTitle>Languages</BasicsTitle>}
             </BasicsTitleContainer>
-            {languages && (
-              <LanguagesInfoComponent languageInfo={languages.language} />
-            )}
+            {languages && <LanguagesInfoComponent languageInfo={languages} />}
           </BasicContentContainer>
           <ContentContainer>
             <BasicsNameContainer>
@@ -394,12 +392,14 @@ const DefaultTemplate: FC<{ resumeInfo: Resume }> = ({ resumeInfo }) => {
               <DetailsTitleContainer>
                 {shouldDisplayTitle && <DetailsTitle>Education</DetailsTitle>}
               </DetailsTitleContainer>
-              {educational.education.map((education, index) => (
-                <EducationInfoComponent
-                  key={index}
-                  educationInfo={[education]}
-                />
-              ))}
+              {educational &&
+                educational.length > 0 &&
+                educational.map((education, index) => (
+                  <EducationInfoComponent
+                    key={index}
+                    educationInfo={[education]}
+                  />
+                ))}
             </div>
           </ContentContainer>
         </Template>

@@ -51,24 +51,26 @@ export interface Resume {
     currentRole: string;
     work: ProfessionalExperienceType[];
   };
-  educational: { education: EducationType[] };
-  skills: { skill: SkillType[] };
-  languages: { language: LanguageType[] };
+  educational: EducationType[];
+  skills: SkillType[];
+  languages: LanguageType[];
 }
 
 export const ResumeSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  phoneNumber: z.string(),
-  email: z.string(),
-  address: z.string(),
-  linkedin: z.string(),
-  additionalLinks: z.array(
-    z.object({
-      id: z.string(),
-      url: z.string(),
-    }),
-  ),
+  basic: z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    phoneNumber: z.string(),
+    email: z.string(),
+    address: z.string(),
+    linkedin: z.string(),
+    additionalLinks: z.array(
+      z.object({
+        id: z.string(),
+        url: z.string(),
+      }),
+    ),
+  }),
   professional: z.object({
     summary: z.string(),
     currentRole: z.string(),
@@ -83,35 +85,42 @@ export const ResumeSchema = z.object({
       }),
     ),
   }),
-  education: z.object({
-    education: z.array(
-      z.object({
-        id: z.string(),
-        school: z.string(),
-        course: z.string(),
-        startDate: z.object({ month: z.string(), year: z.string() }),
-        endDate: z.object({ month: z.string(), year: z.string() }),
-        description: z.string(),
-      }),
-    ),
-  }),
-  skills: z.object({
-    skill: z.array(
-      z.object({
-        id: z.string(),
-        name: z.string(),
-      }),
-    ),
-  }),
-  languages: z.object({
-    language: z.array(
-      z.object({
-        id: z.string(),
-        name: z.string(),
-      }),
-    ),
-  }),
+  educational: z.array(
+    z.object({
+      id: z.string(),
+      school: z.string(),
+      course: z.string(),
+      startDate: z.object({ month: z.string(), year: z.string() }),
+      endDate: z.object({ month: z.string(), year: z.string() }),
+      description: z.string(),
+    }),
+  ),
+  skills: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+    }),
+  ),
+  languages: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+    }),
+  ),
 });
+
+export interface ResumeInfoType {
+  id: string;
+  basic: BasicInfoType;
+  professional: {
+    summary: string;
+    currentRole: string;
+    work: ProfessionalExperienceType[];
+  };
+  educational: { education: EducationType[] };
+  skills: { skill: SkillType[] };
+  languages: { language: LanguageType[] };
+}
 
 export interface ResumeInfoType {
   id: string;

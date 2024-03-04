@@ -1,6 +1,6 @@
 'use client';
 
-import { Resume, ResumeInfoType, SkillType } from '@/types/profile';
+import { LanguageType, Resume } from '@/types/profile';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   AddButton,
@@ -16,47 +16,37 @@ import { FaTrash } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 
 interface LanguagesFormProps {
-  resumeInfo: { languages: { language: SkillType[] } };
+  languages: LanguageType[];
   setResumeInfo: Dispatch<SetStateAction<Resume>>;
 }
 
 const LanguagesForm: FC<LanguagesFormProps> = ({
-  resumeInfo,
+  languages,
   setResumeInfo,
 }) => {
   const handleInputChange = (id: string, value: string) => {
     setResumeInfo(prevInfo => ({
       ...prevInfo,
-      languages: {
-        ...prevInfo.languages,
-        language: prevInfo.languages.language.map(enteredLanguage =>
-          enteredLanguage.id === id
-            ? { ...enteredLanguage, name: value }
-            : enteredLanguage,
-        ),
-      },
+      languages: prevInfo.languages.map(enteredLanguage =>
+        enteredLanguage.id === id
+          ? { ...enteredLanguage, name: value }
+          : enteredLanguage,
+      ),
     }));
   };
+
   const handleAddMoreLanguages = () => {
     const newId = uuidv4();
     setResumeInfo(prevInfo => ({
       ...prevInfo,
-      languages: {
-        ...prevInfo.languages,
-        language: [...prevInfo.languages.language, { id: newId, name: '' }],
-      },
+      languages: [...prevInfo.languages, { id: newId, name: '' }],
     }));
   };
 
   const handleDeleteLanguage = (id: string) => {
     setResumeInfo(prevInfo => ({
       ...prevInfo,
-      languages: {
-        ...prevInfo.languages,
-        language: prevInfo.languages.language.filter(
-          language => language.id !== id,
-        ),
-      },
+      languages: prevInfo.languages.filter(language => language.id !== id),
     }));
   };
 
@@ -67,7 +57,7 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
   return (
     <Container>
       <LanguagesDetailsContainer>
-        {resumeInfo.languages.language.map(enteredLanguage => (
+        {languages.map(enteredLanguage => (
           <InputContainer key={enteredLanguage.id}>
             <InputLabel>Language:</InputLabel>
             <AddNewLanguageContainer>

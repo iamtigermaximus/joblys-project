@@ -18,12 +18,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { FaTrash } from 'react-icons/fa';
 
 interface BasicDetailsFormProps {
-  resumeInfo: { basic: BasicInfoType };
+  basic: BasicInfoType;
   setResumeInfo: Dispatch<SetStateAction<Resume>>;
 }
 
 const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
-  resumeInfo,
+  basic,
   setResumeInfo,
 }) => {
   const [additionalLinks, setAdditionalLinks] = useState<string[]>(['']);
@@ -93,7 +93,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
             <Input
               type="text"
               placeholder="Your first name"
-              value={resumeInfo.basic.firstName}
+              value={basic.firstName}
               onChange={e =>
                 handleInputChange(
                   'firstName',
@@ -107,7 +107,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
             <Input
               type="text"
               placeholder="Your last name"
-              value={resumeInfo.basic.lastName}
+              value={basic.lastName}
               onChange={e =>
                 handleInputChange(
                   'lastName',
@@ -123,7 +123,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
             <Input
               type="tel"
               placeholder="Phone number"
-              value={resumeInfo.basic.phoneNumber}
+              value={basic.phoneNumber}
               onChange={e => handleInputChange('phoneNumber', e.target.value)}
             />
           </InputContainer>
@@ -132,7 +132,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
             <Input
               type="email"
               placeholder="Your email"
-              value={resumeInfo.basic.email}
+              value={basic.email}
               onChange={e => handleInputChange('email', e.target.value)}
             />
           </InputContainer>
@@ -143,7 +143,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
             <Input
               type="text"
               placeholder="Address"
-              value={resumeInfo.basic.address}
+              value={basic.address}
               onChange={e =>
                 handleInputChange(
                   'address',
@@ -159,12 +159,12 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
             <Input
               type="url"
               placeholder="https://example.com"
-              value={resumeInfo.basic.linkedin}
+              value={basic.linkedin}
               onChange={e => handleInputChange('linkedin', e.target.value)}
             />
           </InputContainer>
         </InputRow>
-        {resumeInfo.basic.additionalLinks.map(link => (
+        {basic.additionalLinks.map(link => (
           <InputContainer key={link.id}>
             <InputLabel>Additional Link</InputLabel>
             <NewLinkContainer>
