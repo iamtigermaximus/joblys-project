@@ -115,15 +115,20 @@ export const PreviewButton = styled.button`
   color: white;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   background-color: ${colors.purple};
   padding: 8px 12px;
   height: 40px;
   border: none;
   border-radius: 3px;
+  width: 110px;
 
   &:hover {
     background-color: ${colors.darkPurple};
+  }
+
+  @media (min-width: ${bp.lg}) {
+    display: none;
   }
 `;
 
@@ -131,12 +136,9 @@ export const PreviewButtonSection = styled.div`
   margin: 20px 0;
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-
-  @media (min-width: ${bp.lg}) {
-    display: none;
-  }
+  gap: 20px;
 `;
 
 export const CreateProfileButton = styled.button`
@@ -150,6 +152,7 @@ export const CreateProfileButton = styled.button`
   height: 40px;
   border: none;
   border-radius: 3px;
+  width: 110px;
 
   &:hover {
     background-color: ${colors.darkPurple};

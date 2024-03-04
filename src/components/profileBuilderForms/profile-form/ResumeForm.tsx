@@ -276,13 +276,13 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         <AccordionSection>
           <PreviewButtonSection>
             <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
-          </PreviewButtonSection>
-          <AccordionHeader>
-            <AccordionHeaderTitle></AccordionHeaderTitle>
             <CreateProfileButton onClick={handleFinalSubmit}>
               Create Profile
             </CreateProfileButton>
-          </AccordionHeader>
+          </PreviewButtonSection>
+          {/* <AccordionHeader>
+            <AccordionHeaderTitle></AccordionHeaderTitle>
+          </AccordionHeader> */}
         </AccordionSection>
       </AccordionContainer>
     </Container>
