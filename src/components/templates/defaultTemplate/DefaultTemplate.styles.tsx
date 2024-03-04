@@ -9,7 +9,8 @@ export const DefaultTemplateContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 20px 10px;
-  gap: 20px;
+  height: 100%;
+  /* border: 3px solid red; */
 
   @media (min-width: ${bp.lg}) {
     padding: 20px 30px;
@@ -22,7 +23,8 @@ export const Template = styled.div`
   background-color: white;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 500px;
+  min-height: 500px;
+  /* border: 3px solid green; */
 
   &.clicked {
     transform: scale(0.7);
@@ -30,16 +32,16 @@ export const Template = styled.div`
   }
 
   @media (min-width: ${bp.sm}) {
-    height: 600px;
+    min-height: 600px;
   }
 
   @media (min-width: ${bp.md}) {
-    height: 100vh;
     width: 600px;
+    min-height: 800px;
   }
 
   @media (min-width: ${bp.lg}) {
-    height: 800px;
+    min-height: 800px;
   }
 `;
 export const BasicContentContainer = styled.div`
