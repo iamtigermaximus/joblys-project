@@ -71,13 +71,16 @@ export const ContentContainer = styled.div`
 
 export const BasicsTitleContainer = styled.div`
   display: flex;
-  padding-bottom: 5px;
+  padding: 5px 0;
+  border-bottom: 0.5px solid white;
+  border-top: 0.5px solid white;
 `;
 
 export const BasicsTitle = styled.h1`
   color: white;
   font-size: 10px;
   white-space: nowrap;
+  letter-spacing: 1px;
 
   @media (min-width: ${bp.lg}) {
     font-size: 15px;
@@ -105,7 +108,7 @@ export const BasicsItem = styled.h1`
   max-width: 100%;
   word-break: break-all;
   white-space: wrap;
-  padding: 5px 0;
+  padding: 2px 0;
 
   @media (min-width: ${bp.lg}) {
     font-size: 12px;
