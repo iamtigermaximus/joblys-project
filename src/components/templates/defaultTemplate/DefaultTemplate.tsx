@@ -292,17 +292,28 @@ const DefaultTemplate: FC<{ resumeInfo: Resume }> = ({ resumeInfo }) => {
     <DefaultTemplateContainer>
       <Template>
         <BasicContentContainer>
-          <BasicsTitleContainer>
-            {shouldDisplayTitle && <BasicsTitle>Personal Details</BasicsTitle>}
-          </BasicsTitleContainer>
+          {shouldDisplayTitle && (
+            <BasicsTitleContainer>
+              <BasicsTitle>Personal Details</BasicsTitle>{' '}
+            </BasicsTitleContainer>
+          )}
+
           {basic && <BasicInfoComponent basicInfo={basic} />}
-          <BasicsTitleContainer>
-            {shouldDisplayTitle && <BasicsTitle>Skills</BasicsTitle>}
-          </BasicsTitleContainer>
+
+          {shouldDisplayTitle && (
+            <BasicsTitleContainer>
+              <BasicsTitle>Skills</BasicsTitle>{' '}
+            </BasicsTitleContainer>
+          )}
+
           {skills && <SkillsInfoComponent skillInfo={skills} />}
-          <BasicsTitleContainer>
-            {shouldDisplayTitle && <BasicsTitle>Languages</BasicsTitle>}
-          </BasicsTitleContainer>
+
+          {shouldDisplayTitle && (
+            <BasicsTitleContainer>
+              <BasicsTitle>Languages</BasicsTitle>{' '}
+            </BasicsTitleContainer>
+          )}
+
           {languages && <LanguagesInfoComponent languageInfo={languages} />}
         </BasicContentContainer>
         <ContentContainer>
