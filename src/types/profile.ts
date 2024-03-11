@@ -121,16 +121,3 @@ export interface ResumeInfoType {
   skills: { skill: SkillType[] };
   languages: { language: LanguageType[] };
 }
-
-export interface ResumeInfoType {
-  id: string;
-  basic: BasicInfoType;
-  professional: {
-    summary: string;
-    currentRole: string;
-    work: ProfessionalExperienceType[];
-  };
-  educational: { education: EducationType[] };
-  skills: { skill: SkillType[] };
-  languages: { language: LanguageType[] };
-}

@@ -59,14 +59,50 @@ export const TextArea = styled.textarea`
   }
 `;
 
+export const InputLabelContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 export const InputLabel = styled.label`
   font-size: 14px;
   color: ${colors.darkPurple};
   letter-spacing: 1px;
   padding: 5px 0;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
 
   @media (min-width: ${bp.md}) {
     margin: 5px 0;
+  }
+`;
+
+export const CheckboxInput = styled.input`
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid #000;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+
+  &:checked {
+    background-color: transparent;
+  }
+
+  &:checked::after {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 10px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    position: relative;
+    left: 2px;
+    bottom: 1px;
   }
 `;
 
@@ -204,4 +240,8 @@ export const EnhanceButton = styled.button`
 
   @media (min-width: ${bp.md}) {
   }
+`;
+
+export const SuccessAlert = styled.p`
+  color: #28a745;
 `;

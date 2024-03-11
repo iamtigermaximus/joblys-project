@@ -158,3 +158,8 @@ export const CreateProfileButton = styled.button`
     background-color: ${colors.darkPurple};
   }
 `;
+
+export const SuccessAlert = styled.p`
+  color: green;
+  font-size: 12px;
+`;

@@ -5,12 +5,14 @@ import {
   AddWorkExperienceButton,
   AddWorkExperienceContainer,
   ButtonsContainer,
+  CheckboxInput,
   Container,
   DropdownContainer,
   EnhanceButton,
   Input,
   InputContainer,
   InputLabel,
+  InputLabelContainer,
   InputRow,
   MonthSelect,
   ProfessionalDetailsContainer,
@@ -42,6 +44,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     professional.currentRole || '',
   );
   const [applyJobDescription, setApplyJobDescription] = useState('');
+  const [presentChecked, setPresentChecked] = useState(false);
 
   const handleSummaryChange = (newSummary: string) => {
     setSummary(newSummary);
@@ -79,6 +82,9 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
 
   const months = generateMonths();
   const years = generateYears();
+
+  const monthPlaceholderOption = <option value="">Month</option>;
+  const yearPlaceholderOption = <option value="">Year</option>;
 
   const handleAddWorkExperience = () => {
     const newId = uuidv4();
@@ -255,6 +261,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                       })
                     }
                   >
+                    {monthPlaceholderOption}
                     {months.map(month => (
                       <option key={month} value={month}>
                         {new Date(2022, parseInt(month) - 1).toLocaleString(
@@ -275,6 +282,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                       })
                     }
                   >
+                    {yearPlaceholderOption}
                     {years.map(year => (
                       <option key={year} value={year.toString()}>
                         {year}
@@ -284,44 +292,100 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                 </DropdownContainer>
               </InputContainer>
               <InputContainer>
-                <InputLabel>End date:</InputLabel>
-                <DropdownContainer>
-                  <MonthSelect
-                    value={experience.endDate.month}
-                    onChange={e =>
-                      handleInputChange(experience.id, 'endDate', {
-                        ...experience.endDate,
-                        month: e.target.value,
-                      })
-                    }
-                  >
-                    {months.map(month => (
-                      <option key={month} value={month}>
-                        {new Date(2022, parseInt(month) - 1).toLocaleString(
-                          'default',
-                          {
-                            month: 'long',
-                          },
-                        )}
-                      </option>
-                    ))}
-                  </MonthSelect>
-                  <YearSelect
-                    value={experience.endDate.year}
-                    onChange={e =>
-                      handleInputChange(experience.id, 'endDate', {
-                        ...experience.endDate,
-                        year: e.target.value,
-                      })
-                    }
-                  >
-                    {years.map(year => (
-                      <option key={year} value={year.toString()}>
-                        {year}
-                      </option>
-                    ))}
-                  </YearSelect>
-                </DropdownContainer>
+                <InputLabelContainer>
+                  <InputLabel>End date:</InputLabel>
+                  <InputLabel>
+                    <CheckboxInput
+                      type="checkbox"
+                      checked={presentChecked}
+                      onChange={() => setPresentChecked(!presentChecked)}
+                    />
+                    Present
+                  </InputLabel>
+                </InputLabelContainer>
+                {presentChecked ? (
+                  <DropdownContainer>
+                    <MonthSelect
+                      disabled
+                      value={experience.endDate.month}
+                      onChange={e =>
+                        handleInputChange(experience.id, 'endDate', {
+                          ...experience.endDate,
+                          month: e.target.value,
+                        })
+                      }
+                    >
+                      {monthPlaceholderOption}
+                      {months.map(month => (
+                        <option key={month} value={month}>
+                          {new Date(2022, parseInt(month) - 1).toLocaleString(
+                            'default',
+                            {
+                              month: 'long',
+                            },
+                          )}
+                        </option>
+                      ))}
+                    </MonthSelect>
+                    <YearSelect
+                      disabled
+                      value={experience.endDate.year}
+                      onChange={e =>
+                        handleInputChange(experience.id, 'endDate', {
+                          ...experience.endDate,
+                          year: e.target.value,
+                        })
+                      }
+                    >
+                      {yearPlaceholderOption}
+                      {years.map(year => (
+                        <option key={year} value={year.toString()}>
+                          {year}
+                        </option>
+                      ))}
+                    </YearSelect>
+                  </DropdownContainer>
+                ) : (
+                  <DropdownContainer>
+                    <MonthSelect
+                      value={experience.endDate.month}
+                      onChange={e =>
+                        handleInputChange(experience.id, 'endDate', {
+                          ...experience.endDate,
+                          month: e.target.value,
+                        })
+                      }
+                    >
+                      {monthPlaceholderOption}
+                      {months.map(month => (
+                        <option key={month} value={month}>
+                          {new Date(2022, parseInt(month) - 1).toLocaleString(
+                            'default',
+                            {
+                              month: 'long',
+                            },
+                          )}
+                        </option>
+                      ))}
+                    </MonthSelect>
+                    <YearSelect
+                      value={experience.endDate.year}
+                      onChange={e =>
+                        handleInputChange(experience.id, 'endDate', {
+                          ...experience.endDate,
+                          year: e.target.value,
+                        })
+                      }
+                    >
+                      {yearPlaceholderOption}
+                      {years.map(year => (
+                        <option key={year} value={year.toString()}>
+                          {year}
+                        </option>
+                      ))}
+                    </YearSelect>
+                  </DropdownContainer>
+                )}
               </InputContainer>
             </InputRow>
             <InputLabel>Job details:</InputLabel>

@@ -17,6 +17,7 @@ import {
   IconContainer,
   PreviewButton,
   PreviewButtonSection,
+  SuccessAlert,
   TemplateHeaderItem,
   TemplatePreview,
   TemplatePreviewHeader,
@@ -55,6 +56,8 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const [click, setClick] = useState(true);
   const resumeTemplate = () => setClick(!click);
   const { data: session } = useSession();
+  const [profileCreated, setProfileCreated] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleClosePreview = () => {
     setClick(false);
@@ -81,7 +84,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   //   console.log('Final Form Data:', resumeInfo);
   //   // Add any additional logic for submitting to a server or performing final actions
   // };
-  const handleFinalSubmit = async () => {
+  const handleSubmitResume = async () => {
     console.log('Final Form Data:', resumeInfo);
 
     try {
@@ -95,7 +98,13 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
       if (!response.ok) {
         throw new Error('Failed to upload resume');
       }
+      setProfileCreated(true);
+      setShowSuccessMessage(true);
 
+      // Hide success message after 3 seconds
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
       console.log('Resume uploaded successfully!');
     } catch (error: any) {
       console.error('Error uploading resume:', error.message);
@@ -134,6 +143,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           <AccordionHeader>
             <AccordionHeaderTitle
               style={{ color: accordionState.basic ? '' : 'gray' }}
+              onClick={() => toggleAccordion('basic')}
             >
               Personal Details
             </AccordionHeaderTitle>
@@ -163,6 +173,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           <AccordionHeader>
             <AccordionHeaderTitle
               style={{ color: accordionState.professional ? '' : 'gray' }}
+              onClick={() => toggleAccordion('professional')}
             >
               Professional Details
             </AccordionHeaderTitle>
@@ -193,6 +204,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           <AccordionHeader>
             <AccordionHeaderTitle
               style={{ color: accordionState.educational ? '' : 'gray' }}
+              onClick={() => toggleAccordion('educational')}
             >
               Educational Details
             </AccordionHeaderTitle>
@@ -221,6 +233,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           <AccordionHeader>
             <AccordionHeaderTitle
               style={{ color: accordionState.skills ? '' : 'gray' }}
+              onClick={() => toggleAccordion('skills')}
             >
               Skills
             </AccordionHeaderTitle>
@@ -249,6 +262,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           <AccordionHeader>
             <AccordionHeaderTitle
               style={{ color: accordionState.languages ? '' : 'gray' }}
+              onClick={() => toggleAccordion('languages')}
             >
               Languages
             </AccordionHeaderTitle>
@@ -276,10 +290,17 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         <AccordionSection>
           <PreviewButtonSection>
             <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
-            <CreateProfileButton onClick={handleFinalSubmit}>
+            <CreateProfileButton onClick={handleSubmitResume}>
               Create Profile
             </CreateProfileButton>
           </PreviewButtonSection>
+          {showSuccessMessage && (
+            <PreviewButtonSection>
+              <SuccessAlert>
+                You have successfully created a profile.
+              </SuccessAlert>
+            </PreviewButtonSection>
+          )}
           {/* <AccordionHeader>
             <AccordionHeaderTitle></AccordionHeaderTitle>
           </AccordionHeader> */}
