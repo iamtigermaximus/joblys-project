@@ -14,16 +14,14 @@ export const ResumeContainer = styled.div`
 `;
 
 export const ResumeCard = styled.div`
-  flex: 1 1 calc(50% - 10px); /* Initially, each card takes 50% width */
-  max-width: calc(50% - 10px); /* Maximum width of each card */
+  flex: 1 1 calc(50% - 10px);
+  max-width: calc(50% - 10px);
   height: 250px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   overflow: hidden;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  object-fit: cover;
 
   @media (min-width: ${bp.sm}) {
     height: 350px;
@@ -35,13 +33,47 @@ export const ResumeCard = styled.div`
   }
 
   @media (min-width: ${bp.lg}) {
-    max-width: calc(25% - 10px);
+    max-width: calc(25% - 15px);
+    height: 300px;
+  }
+
+  @media (min-width: ${bp.xl}) {
+    max-width: calc(25% - 20px);
+    height: 300px;
+  }
+`;
+
+export const ResumeContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: top;
+  position: relative;
+  top: 0;
+  width: 100%;
+  scale: 0.6;
+
+  @media (min-width: ${bp.sm}) {
+    scale: 0.9;
+  }
+
+  @media (min-width: ${bp.md}) {
+    scale: 0.65;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    scale: 0.32;
+    top: 0;
+  }
+
+  @media (min-width: ${bp.xl}) {
+    scale: 0.4;
   }
 `;
 
 export const CreateResumeButton = styled.button`
-  flex: 1 1 calc(50% - 10px); /* Initially, each card takes 50% width */
-  max-width: calc(50% - 10px); /* Maximum width of each card */
+  flex: 1 1 calc(50% - 10px);
+  max-width: calc(50% - 10px);
   height: 250px;
   border: 1px solid #ccc;
   overflow: hidden;
@@ -50,6 +82,7 @@ export const CreateResumeButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 
   @media (min-width: ${bp.sm}) {
     height: 350px;
@@ -61,7 +94,13 @@ export const CreateResumeButton = styled.button`
   }
 
   @media (min-width: ${bp.lg}) {
-    max-width: calc(25% - 50px);
+    max-width: calc(25% - 15px);
+    height: 300px;
+  }
+
+  @media (min-width: ${bp.xl}) {
+    max-width: calc(25% - 20px);
+    height: 300px;
   }
 `;
 
@@ -76,13 +115,15 @@ export const ButtonLabel = styled.h1`
 
 export const MiniDefault = styled(DefaultTemplate)`
   width: 100%;
+  min-height: 300px;
+  min-width: 250px;
 `;
 
 interface MiniResumeProps {
-  resumeInfo: Resume; // Declare the type of the resumeInfo prop
+  resumeInfo: Resume;
 }
 
-const MiniResume: React.FC<MiniResumeProps> = ({ resumeInfo }) => {
+const ResumePreview: React.FC<MiniResumeProps> = ({ resumeInfo }) => {
   const modifiedResumeInfo = { ...resumeInfo };
   const router = useRouter();
 
@@ -97,19 +138,27 @@ const MiniResume: React.FC<MiniResumeProps> = ({ resumeInfo }) => {
         </ButtonLabel>
       </CreateResumeButton>
       <ResumeCard>
-        <MiniDefault resumeInfo={modifiedResumeInfo} />
+        <ResumeContent>
+          <MiniDefault resumeInfo={modifiedResumeInfo} />
+        </ResumeContent>
       </ResumeCard>
       <ResumeCard>
-        <MiniDefault resumeInfo={modifiedResumeInfo} />
+        <ResumeContent>
+          <MiniDefault resumeInfo={modifiedResumeInfo} />
+        </ResumeContent>
       </ResumeCard>
       <ResumeCard>
-        <MiniDefault resumeInfo={modifiedResumeInfo} />
+        <ResumeContent>
+          <MiniDefault resumeInfo={modifiedResumeInfo} />
+        </ResumeContent>
       </ResumeCard>
       <ResumeCard>
-        <MiniDefault resumeInfo={modifiedResumeInfo} />
+        <ResumeContent>
+          <MiniDefault resumeInfo={modifiedResumeInfo} />
+        </ResumeContent>
       </ResumeCard>
     </ResumeContainer>
   );
 };
 
-export default MiniResume;
+export default ResumePreview;
