@@ -185,6 +185,7 @@ export const ResumeTemplateContainer = styled.div`
     /* height: 100vh; */
     background-color: #f8f8f8;
     overflow-y: auto;
+    padding: 20px 0;
   }
 `;
 

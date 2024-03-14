@@ -1,48 +1,51 @@
 'use client';
-
-import React from 'react';
-import {
-  Container,
-  HeaderContainer,
-  PageName,
-  CreateResumeButton,
-  ResumeContainer,
-  ResumeCard,
-  ButtonLabel,
-  OuterContainer,
-} from './Resumes.styles';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Resume } from '@/types/profile';
+import { Container, HeaderContainer, PageName } from './Resumes.styles';
+import MiniResume from '../templates/defaultTemplate/MiniResume';
 
 const Resumes = () => {
-  const router = useRouter();
+  const [profileData, setProfileData] = useState<Resume | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handleCreateNewResume = () => {
-    router.push('/profile-builder');
-  };
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get('/api/cv');
+
+        const profile = response.data.body.profile;
+
+        setProfileData(profile);
+        setIsLoading(false);
+      } catch (error: any) {
+        setError(error.message);
+        setIsLoading(false);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!profileData) {
+    return <div>No profile data available</div>;
+  }
+
   return (
     <Container>
       <HeaderContainer>
         <PageName>Resumes</PageName>
       </HeaderContainer>
-      <OuterContainer>
-        <ResumeContainer>
-          <CreateResumeButton>
-            <ButtonLabel onClick={handleCreateNewResume}>
-              Create new resume
-            </ButtonLabel>
-          </CreateResumeButton>
-          <ResumeCard>Resume 1</ResumeCard>
-          <ResumeCard>Resume 2</ResumeCard>
-          <ResumeCard>Resume 3</ResumeCard>
-          <ResumeCard>Resume 4</ResumeCard>
-          <ResumeCard>Resume 5</ResumeCard>
-          <ResumeCard>Resume 6</ResumeCard>
-          <ResumeCard>Resume 7</ResumeCard>
-          <ResumeCard>Resume 8</ResumeCard>
-          <ResumeCard>Resume 9</ResumeCard>
-          <ResumeCard>Resume 10</ResumeCard>
-        </ResumeContainer>
-      </OuterContainer>
+      <MiniResume resumeInfo={profileData} />
     </Container>
   );
 };
