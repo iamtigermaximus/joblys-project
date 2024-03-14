@@ -7,13 +7,16 @@ import { useRouter } from 'next/navigation';
 
 export const ResumeContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-bottom: 100px;
   align-items: flex-start;
-  gap: 10px;
 `;
 
 export const ResumeCard = styled.div`
+  flex: 1 1 calc(50% - 10px); /* Initially, each card takes 50% width */
+  max-width: calc(50% - 10px); /* Maximum width of each card */
   height: 250px;
-  max-width: calc(50% - 10px);
   border: 1px solid #ccc;
   overflow: hidden;
   border-radius: 5px;
@@ -21,49 +24,44 @@ export const ResumeCard = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
 
   @media (min-width: ${bp.sm}) {
     height: 350px;
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: calc(25% - 20px);
-    height: 300px;
+    max-width: calc(33.33% - 15px);
+    height: 350px;
   }
 
   @media (min-width: ${bp.lg}) {
-    height: 350px;
-    translate: scale(0.42);
+    max-width: calc(25% - 10px);
   }
 `;
 
 export const CreateResumeButton = styled.button`
-  border: 1px dashed gray;
-  width: 100%;
+  flex: 1 1 calc(50% - 10px); /* Initially, each card takes 50% width */
+  max-width: calc(50% - 10px); /* Maximum width of each card */
   height: 250px;
+  border: 1px solid #ccc;
+  overflow: hidden;
   border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  max-width: calc(50% - 10px);
 
-  &:hover {
-    color: #520668;
-    border: 1px dashed #520668;
-  }
   @media (min-width: ${bp.sm}) {
     height: 350px;
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: calc(25% - 20px);
-    height: 300px;
+    max-width: calc(33.33% - 15px);
+    height: 350px;
   }
 
   @media (min-width: ${bp.lg}) {
-    height: 350px;
+    max-width: calc(25% - 50px);
   }
 `;
 
@@ -98,6 +96,15 @@ const MiniResume: React.FC<MiniResumeProps> = ({ resumeInfo }) => {
           Create new resume
         </ButtonLabel>
       </CreateResumeButton>
+      <ResumeCard>
+        <MiniDefault resumeInfo={modifiedResumeInfo} />
+      </ResumeCard>
+      <ResumeCard>
+        <MiniDefault resumeInfo={modifiedResumeInfo} />
+      </ResumeCard>
+      <ResumeCard>
+        <MiniDefault resumeInfo={modifiedResumeInfo} />
+      </ResumeCard>
       <ResumeCard>
         <MiniDefault resumeInfo={modifiedResumeInfo} />
       </ResumeCard>

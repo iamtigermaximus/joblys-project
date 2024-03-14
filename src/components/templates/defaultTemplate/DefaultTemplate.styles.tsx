@@ -17,8 +17,10 @@ export const Template = styled.div`
   background-color: white;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  min-height: 500px;
+  /* min-height: 500px; */
   /* border: 3px solid green; */
+  transform-origin: top;
+  transform: scale(0.85);
 
   &.clicked {
     transform: scale(0.7);
@@ -27,15 +29,18 @@ export const Template = styled.div`
 
   @media (min-width: ${bp.sm}) {
     min-height: 600px;
+    transform: scale(0.8);
   }
 
   @media (min-width: ${bp.md}) {
     width: 600px;
     min-height: 800px;
+    transform: scale(0.7);
   }
 
   @media (min-width: ${bp.lg}) {
     min-height: 800px;
+    transform: scale(0.9);
   }
 `;
 export const BasicContentContainer = styled.div`
@@ -96,6 +101,7 @@ export const BasicsItemsContainer = styled.div`
   flex-direction: column;
   padding: 10px 0;
 `;
+
 export const BasicsItem = styled.h1`
   color: white;
   font-size: 8px;
@@ -103,6 +109,10 @@ export const BasicsItem = styled.h1`
   word-break: break-all;
   white-space: wrap;
   padding: 2px 0;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 10px;
+  }
 
   @media (min-width: ${bp.lg}) {
     font-size: 12px;
@@ -116,6 +126,10 @@ export const IconContainer = styled.span`
   padding-right: 5px;
   font-size: 8px;
 
+  @media (min-width: ${bp.sm}) {
+    font-size: 10px;
+  }
+
   @media (min-width: ${bp.lg}) {
     font-size: 17px;
   }
@@ -127,6 +141,10 @@ export const HeaderName = styled.h1`
   max-width: 100%;
   word-break: break-all;
   white-space: wrap;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 25px;
+  }
 
   @media (min-width: ${bp.lg}) {
     font-size: 30px;
@@ -141,6 +159,10 @@ export const HeaderCurrentRole = styled.h1`
   word-break: break-all;
   white-space: wrap;
 
+  @media (min-width: ${bp.sm}) {
+    font-size: 17px;
+  }
+
   @media (min-width: ${bp.lg}) {
     font-size: 15px;
   }
@@ -149,10 +171,15 @@ export const DetailsTitleContainer = styled.div`
   display: flex;
   padding: 5px 0;
 `;
+
 export const DetailsTitle = styled.h1`
   color: #232946;
   font-size: 10px;
   border-bottom: 0.5px solid #232946;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 13px;
+  }
 
   @media (min-width: ${bp.lg}) {
     font-size: 15px;
@@ -171,6 +198,10 @@ export const Summary = styled.h1`
   word-break: break-all;
   white-space: wrap;
   padding: 5px 0;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 10px;
+  }
 
   @media (min-width: ${bp.lg}) {
     font-size: 12px;
@@ -211,12 +242,21 @@ export const Dates = styled.div`
 export const Month = styled.div`
   font-size: 8px;
 
+  @media (min-width: ${bp.sm}) {
+    font-size: 10px;
+  }
+
   @media (min-width: ${bp.lg}) {
     font-size: 13px;
   }
 `;
+
 export const Year = styled.div`
   font-size: 8px;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 10px;
+  }
 
   @media (min-width: ${bp.lg}) {
     font-size: 13px;
@@ -224,6 +264,10 @@ export const Year = styled.div`
 `;
 export const DateSeparator = styled.div`
   font-size: 8px;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 10px;
+  }
 
   @media (min-width: ${bp.lg}) {
     font-size: 13px;
@@ -235,6 +279,10 @@ export const JobTitle = styled.div`
   white-space: nowrap;
   font-size: 8px;
 
+  @media (min-width: ${bp.sm}) {
+    font-size: 10px;
+  }
+
   @media (min-width: ${bp.lg}) {
     font-size: 13px;
   }
@@ -245,6 +293,10 @@ export const Company = styled.div`
   white-space: nowrap;
   font-size: 8px;
 
+  @media (min-width: ${bp.sm}) {
+    font-size: 10px;
+  }
+
   @media (min-width: ${bp.lg}) {
     font-size: 13px;
   }
@@ -252,6 +304,10 @@ export const Company = styled.div`
 export const Description = styled.div`
   padding: 5px 0;
   font-size: 8px;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 10px;
+  }
 
   @media (min-width: ${bp.lg}) {
     font-size: 13px;
@@ -270,6 +326,10 @@ export const Course = styled.div`
   white-space: nowrap;
   font-size: 8px;
 
+  @media (min-width: ${bp.sm}) {
+    font-size: 10px;
+  }
+
   @media (min-width: ${bp.lg}) {
     font-size: 13px;
   }
@@ -281,6 +341,10 @@ export const School = styled.div`
   white-space: nowrap;
   font-size: 8px;
 
+  @media (min-width: ${bp.sm}) {
+    font-size: 10px;
+  }
+
   @media (min-width: ${bp.lg}) {
     font-size: 13px;
   }
@@ -288,6 +352,10 @@ export const School = styled.div`
 
 export const EducationDetail = styled.div`
   font-size: 8px;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 10px;
+  }
 
   @media (min-width: ${bp.lg}) {
     font-size: 13px;
