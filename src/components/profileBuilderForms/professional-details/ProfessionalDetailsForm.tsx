@@ -44,7 +44,17 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     professional.currentRole || '',
   );
   const [applyJobDescription, setApplyJobDescription] = useState('');
-  const [presentChecked, setPresentChecked] = useState(false);
+  const [checkedWorkIds, setCheckedWorkIds] = useState<string[]>([]);
+
+  const handleCheckboxChange = (id: string) => {
+    setCheckedWorkIds(prevCheckedIds => {
+      if (prevCheckedIds.includes(id)) {
+        return prevCheckedIds.filter(checkedId => checkedId !== id);
+      } else {
+        return [...prevCheckedIds, id];
+      }
+    });
+  };
 
   const handleSummaryChange = (newSummary: string) => {
     setSummary(newSummary);
@@ -297,13 +307,13 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                   <InputLabel>
                     <CheckboxInput
                       type="checkbox"
-                      checked={presentChecked}
-                      onChange={() => setPresentChecked(!presentChecked)}
+                      checked={checkedWorkIds.includes(experience.id)}
+                      onChange={() => handleCheckboxChange(experience.id)}
                     />
                     Present
                   </InputLabel>
                 </InputLabelContainer>
-                {presentChecked ? (
+                {checkedWorkIds.includes(experience.id) ? (
                   <DropdownContainer>
                     <MonthSelect
                       disabled

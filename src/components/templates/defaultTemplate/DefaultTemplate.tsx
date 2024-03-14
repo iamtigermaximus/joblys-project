@@ -294,7 +294,7 @@ const DefaultTemplate: FC<{ resumeInfo: Resume }> = ({ resumeInfo }) => {
         <BasicContentContainer>
           {shouldDisplayTitle && (
             <BasicsTitleContainer>
-              <BasicsTitle>Personal Details</BasicsTitle>{' '}
+              <BasicsTitle>Personal Details</BasicsTitle>
             </BasicsTitleContainer>
           )}
 
@@ -331,16 +331,19 @@ const DefaultTemplate: FC<{ resumeInfo: Resume }> = ({ resumeInfo }) => {
           <DetailsTitleContainer>
             {shouldDisplayTitle && <DetailsTitle>Employment</DetailsTitle>}
           </DetailsTitleContainer>
-          {professional.work.slice(0, 2).map((work, index) => (
-            <EmploymentInfoComponent key={index} employmentInfo={[work]} />
+          {professional.work.map(work => (
+            <EmploymentInfoComponent key={work.id} employmentInfo={[work]} />
           ))}
           <DetailsTitleContainer>
             {shouldDisplayTitle && <DetailsTitle>Education</DetailsTitle>}
           </DetailsTitleContainer>
           {educational &&
             educational.length > 0 &&
-            educational.map((education, index) => (
-              <EducationInfoComponent key={index} educationInfo={[education]} />
+            educational.map(education => (
+              <EducationInfoComponent
+                key={education.id}
+                educationInfo={[education]}
+              />
             ))}
         </ContentContainer>
       </Template>
