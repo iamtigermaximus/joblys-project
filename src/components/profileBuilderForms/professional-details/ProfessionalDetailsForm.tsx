@@ -213,21 +213,21 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   return (
     <Container>
       <ProfessionalDetailsContainer>
-        <InputContainer>
+        {/* <InputContainer>
           <InputLabel>Job description</InputLabel>
           <TextArea
             placeholder="Paste job description here"
             value={applyJobDescription}
             onChange={e => handleApplyJobDescriptionChange(e.target.value)}
           />
-        </InputContainer>
-        <ButtonsContainer>
+        </InputContainer> */}
+        {/* <ButtonsContainer>
           <EnhanceButton
             onClick={() => handleCVMatchJobDescription(applyJobDescription)}
           >
             Enhance to match job ad
           </EnhanceButton>
-        </ButtonsContainer>
+        </ButtonsContainer> */}
         <InputContainer>
           <InputLabel>Summary:</InputLabel>
           <TextArea

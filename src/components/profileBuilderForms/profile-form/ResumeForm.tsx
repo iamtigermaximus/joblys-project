@@ -15,12 +15,15 @@ import {
   CreateProfileButton,
   HeaderItem,
   IconContainer,
+  InputContainer,
+  InputLabel,
   PreviewButton,
   PreviewButtonSection,
   SuccessAlert,
   TemplateHeaderItem,
   TemplatePreview,
   TemplatePreviewHeader,
+  TextArea,
 } from './ResumeForm.styles';
 import {
   FaArrowLeft,
@@ -58,6 +61,11 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const { data: session } = useSession();
   const [profileCreated, setProfileCreated] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [applyJobDescription, setApplyJobDescription] = useState('');
+
+  const handleApplyJobDescriptionChange = async (jobDescription: string) => {
+    setApplyJobDescription(jobDescription);
+  };
 
   const handleClosePreview = () => {
     setClick(false);
@@ -114,6 +122,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const handleSignIn = () => {
     router.push('/login');
   };
+
   return (
     <Container>
       <TemplatePreview
@@ -139,6 +148,19 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
       </TemplatePreview>
 
       <AccordionContainer>
+        <AccordionSection>
+          <AccordionHeader>
+            <AccordionHeaderTitle>Job Description</AccordionHeaderTitle>
+          </AccordionHeader>
+          <InputContainer>
+            <TextArea
+              placeholder="Paste job description here"
+              value={applyJobDescription}
+              onChange={e => handleApplyJobDescriptionChange(e.target.value)}
+            />
+          </InputContainer>
+        </AccordionSection>
+
         <AccordionSection>
           <AccordionHeader>
             <AccordionHeaderTitle

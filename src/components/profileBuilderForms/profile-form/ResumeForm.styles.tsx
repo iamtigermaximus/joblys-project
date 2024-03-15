@@ -164,3 +164,50 @@ export const SuccessAlert = styled.p`
   color: green;
   font-size: 12px;
 `;
+
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+export const TextArea = styled.textarea`
+  border-radius: 5px;
+  font-size: 14px;
+  height: 200px;
+  padding: 8px 12px;
+  background-color: #f5f5f5;
+  color: black;
+  border: none;
+  overflow-y: scroll;
+
+  &:focus {
+    outline: 0.5px solid gray;
+  }
+
+  @media (min-width: ${bp.md}) {
+    border: none;
+    margin-bottom: 20px;
+  }
+`;
+
+export const InputLabelContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const InputLabel = styled.label`
+  font-size: 14px;
+  color: ${colors.darkPurple};
+  letter-spacing: 1px;
+  padding: 5px 0;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+
+  @media (min-width: ${bp.md}) {
+    margin: 5px 0;
+  }
+`;
