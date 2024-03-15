@@ -10,8 +10,14 @@ import {
   HeaderContainer,
   PageName,
 } from './CoverLetters.styles';
+import { useRouter } from 'next/navigation';
 
 const CoverLetters = () => {
+  const router = useRouter();
+
+  const handleCreateNewCoverLetter = () => {
+    router.push('/coverletter-builder');
+  };
   return (
     <Container>
       <HeaderContainer>
@@ -19,7 +25,9 @@ const CoverLetters = () => {
       </HeaderContainer>
       <CoverLetterContainer>
         <CreateCoverLetterButton>
-          <ButtonLabel> Create new cover letter</ButtonLabel>
+          <ButtonLabel onClick={handleCreateNewCoverLetter}>
+            Create new cover letter
+          </ButtonLabel>
         </CreateCoverLetterButton>
         <CoverLetterCard>Cover letter 1</CoverLetterCard>
         <CoverLetterCard>Cover letter 2</CoverLetterCard>
@@ -36,4 +44,3 @@ const CoverLetters = () => {
   );
 };
 export default CoverLetters;
-

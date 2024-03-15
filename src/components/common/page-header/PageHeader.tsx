@@ -57,6 +57,9 @@ const PageHeader = () => {
   const router = useRouter();
   const pathname = usePathname();
   const isProfileBuilder = pathname === '/profile-builder';
+  const isCoverLetterBuilder = pathname === '/coverletter-builder';
+  console.log('Current pathname:', pathname);
+
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
 
   const { data: session, status } = useSession();
@@ -78,9 +81,18 @@ const PageHeader = () => {
     router.push('/joblys/resumes');
   };
 
+  const navigateToCoverLetter = () => {
+    router.push('/joblys/cover-letters');
+  };
+
   const getHeaderStyles = (): React.CSSProperties => {
     switch (pathname) {
       case '/profile-builder':
+        return {
+          backgroundColor: '#520668',
+          color: 'white',
+        };
+      case '/coverletter-builder':
         return {
           backgroundColor: '#520668',
           color: 'white',
@@ -109,215 +121,122 @@ const PageHeader = () => {
 
   return (
     <Header style={headerStyles}>
-      {/* <HeaderMenuContainer>
-        <MenuLinkButton>
-          <MenuLink href="/pages/header-links/discover-companies">
-            DISCOVER COMPANIES
-          </MenuLink>
-        </MenuLinkButton>
-        <MenuLinkButton>
-          <MenuLink href="/pages/header-links/career-advice">
-            CAREER ADVICE
-          </MenuLink>
-        </MenuLinkButton>
-        <MenuLinkButton>
-          <MenuLink href="/pages/header-links/resume-help">
-            RESUME HELP
-          </MenuLink>
-        </MenuLinkButton>
-      </HeaderMenuContainer> */}
-      {/* {pathname === '/profile-builder' ? (
-        <HeaderMenuContainer>
-          <LeftContainer>
+      <HeaderMenuContainer>
+        <LeftContainer>
+          {isProfileBuilder && (
             <ResumeButton onClick={navigateToResume}>
               <ResumeButtonIcon>
                 <FaArrowLeft />
               </ResumeButtonIcon>
               <ResumeButtonTitle> Resume</ResumeButtonTitle>
             </ResumeButton>
-          </LeftContainer>
-          {session ? (
-            <RightContainer>
-              <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
-              <LogoutButton onClick={handleSignOut}>Log out</LogoutButton>
-              <HeaderLinksContainer>
-                <IconContainer>
-                  <FaBell />
-                </IconContainer>
-              </HeaderLinksContainer>
-              <HeaderLinksContainer>
-                <IconContainer>
-                  <FaUser />
-                </IconContainer>
-              </HeaderLinksContainer>
-            </RightContainer>
-          ) : (
-            <RightContainer>
-              <SignInButton>Sign In</SignInButton>
-              <HeaderLinksContainer>
-                <IconContainer>
-                  <FaBell />
-                </IconContainer>
-              </HeaderLinksContainer>
-              <HeaderLinksContainer>
-                <IconContainer>
-                  <FaUser />
-                </IconContainer>
-              </HeaderLinksContainer>
-            </RightContainer>
           )}
-        </HeaderMenuContainer>
-      ) : (
-        <HeaderMenuContainer>
-          <LeftContainer>
-            <ResumeButton onClick={navigateToResume}>
+          {isCoverLetterBuilder && (
+            <ResumeButton onClick={navigateToCoverLetter}>
               <ResumeButtonIcon>
                 <FaArrowLeft />
               </ResumeButtonIcon>
-              <ResumeButtonTitle> Resume</ResumeButtonTitle>
+              <ResumeButtonTitle> Cover Letters</ResumeButtonTitle>
             </ResumeButton>
-          </LeftContainer>
-          {session ? (
-            <RightContainer>
-              <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
-              <LogoutButton onClick={handleSignOut}>Log out</LogoutButton>
-              <HeaderLinksContainer>
-                <IconContainer>
-                  <FaBell />
-                </IconContainer>
-              </HeaderLinksContainer>
-              <HeaderLinksContainer>
-                <IconContainer>
-                  <FaUser />
-                </IconContainer>
-              </HeaderLinksContainer>
-            </RightContainer>
-          ) : (
-            <RightContainer>
-              <SignInButton>Sign In</SignInButton>
-              <HeaderLinksContainer>
-                <IconContainer>
-                  <FaBell />
-                </IconContainer>
-              </HeaderLinksContainer>
-              <HeaderLinksContainer>
-                <IconContainer>
-                  <FaUser />
-                </IconContainer>
-              </HeaderLinksContainer>
-            </RightContainer>
           )}
-        </HeaderMenuContainer>
-      )} */}
-      {isProfileBuilder && (
-        <HeaderMenuContainer>
-          <LeftContainer>
-            <ResumeButton onClick={navigateToResume}>
-              <ResumeButtonIcon>
-                <FaArrowLeft />
-              </ResumeButtonIcon>
-              <ResumeButtonTitle> Resume</ResumeButtonTitle>
-            </ResumeButton>
-          </LeftContainer>
-          <RightContainer>
-            {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
+        </LeftContainer>
+        <RightContainer>
+          {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
               <LogoutButton onClick={handleSignOut}>Log out</LogoutButton> */}
-            <ResumeButton>
-              <ResumeButtonTitle onClick={categoryMenu}>
-                Download
-              </ResumeButtonTitle>
-              {click && (
-                <SidebarMenuContainer
-                  className={click ? 'category active' : 'category'}
-                >
-                  <SidebarHeader>
-                    <SidebarHeaderItem>
-                      <ResumeButton>
-                        <ResumeButtonTitle>Account</ResumeButtonTitle>
-                      </ResumeButton>
-                    </SidebarHeaderItem>
-                    <SidebarHeaderClose onClick={categoryMenu}>
-                      <IoCloseSharp />
-                    </SidebarHeaderClose>
-                  </SidebarHeader>
-                  <SidebarContentContainer>
-                    <TextContainer>
-                      <SidebarText>What is your email address?</SidebarText>
-                    </TextContainer>
-                    <InputContainer>
-                      <Label>Email address</Label>
-                      <Input placeholder="" />
-                    </InputContainer>
-                    <ButtonContainer>
-                      <Button>Next</Button>
-                    </ButtonContainer>
-                    <SeparatorContainer>
-                      <HorizontalLine></HorizontalLine>
-                      <div style={{ padding: '0 5px', color: 'gray' }}>or</div>
-                      <HorizontalLine></HorizontalLine>
-                    </SeparatorContainer>
-                    <ProvidersContainer>
-                      <Provider>
-                        <ProviderButton>
-                          <ProviderIcon>
-                            <FcGoogle />
-                          </ProviderIcon>
-                          Continue with Google
-                        </ProviderButton>
-                      </Provider>
-                      <Provider>
-                        <ProviderButton>
-                          <ProviderIcon>
-                            <FaLinkedin />
-                          </ProviderIcon>
-                          Continue with LinkedIn
-                        </ProviderButton>
-                      </Provider>
-                    </ProvidersContainer>
-                  </SidebarContentContainer>
-                </SidebarMenuContainer>
-              )}
-            </ResumeButton>
-            {/* <HeaderLinksContainer>
+          <ResumeButton>
+            <ResumeButtonTitle onClick={categoryMenu}>
+              Download
+            </ResumeButtonTitle>
+            {click && (
+              <SidebarMenuContainer
+                className={click ? 'category active' : 'category'}
+              >
+                <SidebarHeader>
+                  <SidebarHeaderItem>
+                    <ResumeButton>
+                      <ResumeButtonTitle>Account</ResumeButtonTitle>
+                    </ResumeButton>
+                  </SidebarHeaderItem>
+                  <SidebarHeaderClose onClick={categoryMenu}>
+                    <IoCloseSharp />
+                  </SidebarHeaderClose>
+                </SidebarHeader>
+                <SidebarContentContainer>
+                  <TextContainer>
+                    <SidebarText>What is your email address?</SidebarText>
+                  </TextContainer>
+                  <InputContainer>
+                    <Label>Email address</Label>
+                    <Input placeholder="" />
+                  </InputContainer>
+                  <ButtonContainer>
+                    <Button>Next</Button>
+                  </ButtonContainer>
+                  <SeparatorContainer>
+                    <HorizontalLine></HorizontalLine>
+                    <div style={{ padding: '0 5px', color: 'gray' }}>or</div>
+                    <HorizontalLine></HorizontalLine>
+                  </SeparatorContainer>
+                  <ProvidersContainer>
+                    <Provider>
+                      <ProviderButton>
+                        <ProviderIcon>
+                          <FcGoogle />
+                        </ProviderIcon>
+                        Continue with Google
+                      </ProviderButton>
+                    </Provider>
+                    <Provider>
+                      <ProviderButton>
+                        <ProviderIcon>
+                          <FaLinkedin />
+                        </ProviderIcon>
+                        Continue with LinkedIn
+                      </ProviderButton>
+                    </Provider>
+                  </ProvidersContainer>
+                </SidebarContentContainer>
+              </SidebarMenuContainer>
+            )}
+          </ResumeButton>
+          {/* <HeaderLinksContainer>
               <IconContainer>
                 <FaBell />
               </IconContainer>
             </HeaderLinksContainer> */}
-            <HeaderLinksContainer>
-              <IconContainer onClick={toggleUserModal}>
-                <FaUser />
-              </IconContainer>
+          <HeaderLinksContainer>
+            <IconContainer onClick={toggleUserModal}>
+              <FaUser />
+            </IconContainer>
 
-              {isUserModalOpen && (
-                <>
-                  {session ? (
-                    <UserModal>
-                      <ModalItemContainer>
-                        <IoSettingsSharp />
-                        <p>Settings</p>
-                      </ModalItemContainer>
-                      <ModalItemContainer>
-                        <FaArrowRightFromBracket />
-                        <p onClick={handleSignOut}>Log out</p>
-                      </ModalItemContainer>
-                    </UserModal>
-                  ) : (
-                    <UserModal>
-                      <ModalItemContainer onClick={handleSignIn}>
-                        <FaArrowRightToBracket />
-                        <p>Log in</p>
-                      </ModalItemContainer>
-                    </UserModal>
-                  )}
-                </>
-              )}
-            </HeaderLinksContainer>
-          </RightContainer>
-        </HeaderMenuContainer>
-      )}
+            {isUserModalOpen && (
+              <>
+                {session ? (
+                  <UserModal>
+                    <ModalItemContainer>
+                      <IoSettingsSharp />
+                      <p>Settings</p>
+                    </ModalItemContainer>
+                    <ModalItemContainer>
+                      <FaArrowRightFromBracket />
+                      <p onClick={handleSignOut}>Log out</p>
+                    </ModalItemContainer>
+                  </UserModal>
+                ) : (
+                  <UserModal>
+                    <ModalItemContainer onClick={handleSignIn}>
+                      <FaArrowRightToBracket />
+                      <p>Log in</p>
+                    </ModalItemContainer>
+                  </UserModal>
+                )}
+              </>
+            )}
+          </HeaderLinksContainer>
+        </RightContainer>
+      </HeaderMenuContainer>
     </Header>
   );
 };
 
 export default PageHeader;
-
