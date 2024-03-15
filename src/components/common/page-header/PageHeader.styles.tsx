@@ -286,8 +286,7 @@ export const SidebarMenuContainer = styled.div`
   border-top: 0.3vh solid #fb5d20;
   color: black;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-
-  /* z-index: 1; */
+  z-index: 1;
 
   &.active {
     transform: translateX(0%);
