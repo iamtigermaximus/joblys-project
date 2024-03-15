@@ -46,16 +46,6 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   const [applyJobDescription, setApplyJobDescription] = useState('');
   const [checkedWorkIds, setCheckedWorkIds] = useState<string[]>([]);
 
-  const handleCheckboxChange = (id: string) => {
-    setCheckedWorkIds(prevCheckedIds => {
-      if (prevCheckedIds.includes(id)) {
-        return prevCheckedIds.filter(checkedId => checkedId !== id);
-      } else {
-        return [...prevCheckedIds, id];
-      }
-    });
-  };
-
   const handleSummaryChange = (newSummary: string) => {
     setSummary(newSummary);
     setResumeInfo(prevInfo => ({
@@ -123,15 +113,31 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     field: keyof ProfessionalExperienceType,
     value: string | { month: string; year: string },
   ) => {
-    setResumeInfo(prevInfo => ({
-      ...prevInfo,
-      professional: {
-        ...prevInfo.professional,
-        work: prevInfo.professional.work.map(experience =>
-          experience.id === id ? { ...experience, [field]: value } : experience,
-        ),
-      },
-    }));
+    if (typeof value === 'string') {
+      setResumeInfo(prevInfo => ({
+        ...prevInfo,
+        professional: {
+          ...prevInfo.professional,
+          work: prevInfo.professional.work.map(experience =>
+            experience.id === id
+              ? { ...experience, [field]: value }
+              : experience,
+          ),
+        },
+      }));
+    } else {
+      setResumeInfo(prevInfo => ({
+        ...prevInfo,
+        professional: {
+          ...prevInfo.professional,
+          work: prevInfo.professional.work.map(experience =>
+            experience.id === id
+              ? { ...experience, [field]: value }
+              : experience,
+          ),
+        },
+      }));
+    }
   };
 
   const handleJobDesciptionEnhance = async (id: string) => {
@@ -159,6 +165,26 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
         ),
       },
     }));
+  };
+
+  const handleCheckboxChange = (
+    isChecked: boolean,
+    experience: ProfessionalExperienceType,
+  ) => {
+    setCheckedWorkIds(prevCheckedIds => {
+      if (isChecked) {
+        handleInputChange(experience.id, 'endDate', 'present');
+      } else {
+        handleInputChange(experience.id, 'endDate', {
+          ...(typeof experience.endDate === 'string'
+            ? { month: '', year: '' }
+            : experience.endDate),
+        });
+      }
+      return isChecked
+        ? [...prevCheckedIds, experience.id]
+        : prevCheckedIds.filter(id => id !== experience.id);
+    });
   };
 
   const handleApplyJobDescriptionChange = async (jobDescription: string) => {
@@ -308,7 +334,10 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                     <CheckboxInput
                       type="checkbox"
                       checked={checkedWorkIds.includes(experience.id)}
-                      onChange={() => handleCheckboxChange(experience.id)}
+                      onChange={e => {
+                        const isChecked = e.target.checked;
+                        handleCheckboxChange(isChecked, experience);
+                      }}
                     />
                     Present
                   </InputLabel>
@@ -317,10 +346,16 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                   <DropdownContainer>
                     <MonthSelect
                       disabled
-                      value={experience.endDate.month}
+                      value={
+                        typeof experience.endDate === 'string'
+                          ? ''
+                          : experience.endDate.month
+                      }
                       onChange={e =>
                         handleInputChange(experience.id, 'endDate', {
-                          ...experience.endDate,
+                          ...(typeof experience.endDate === 'string'
+                            ? { month: '', year: '' }
+                            : experience.endDate),
                           month: e.target.value,
                         })
                       }
@@ -339,10 +374,16 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                     </MonthSelect>
                     <YearSelect
                       disabled
-                      value={experience.endDate.year}
+                      value={
+                        typeof experience.endDate === 'string'
+                          ? ''
+                          : experience.endDate.year
+                      }
                       onChange={e =>
                         handleInputChange(experience.id, 'endDate', {
-                          ...experience.endDate,
+                          ...(typeof experience.endDate === 'string'
+                            ? { month: '', year: '' }
+                            : experience.endDate),
                           year: e.target.value,
                         })
                       }
@@ -358,10 +399,16 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                 ) : (
                   <DropdownContainer>
                     <MonthSelect
-                      value={experience.endDate.month}
+                      value={
+                        typeof experience.endDate === 'string'
+                          ? ''
+                          : experience.endDate.month
+                      }
                       onChange={e =>
                         handleInputChange(experience.id, 'endDate', {
-                          ...experience.endDate,
+                          ...(typeof experience.endDate === 'string'
+                            ? { month: '', year: '' }
+                            : experience.endDate),
                           month: e.target.value,
                         })
                       }
@@ -379,10 +426,16 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                       ))}
                     </MonthSelect>
                     <YearSelect
-                      value={experience.endDate.year}
+                      value={
+                        typeof experience.endDate === 'string'
+                          ? ''
+                          : experience.endDate.year
+                      }
                       onChange={e =>
                         handleInputChange(experience.id, 'endDate', {
-                          ...experience.endDate,
+                          ...(typeof experience.endDate === 'string'
+                            ? { month: '', year: '' }
+                            : experience.endDate),
                           year: e.target.value,
                         })
                       }

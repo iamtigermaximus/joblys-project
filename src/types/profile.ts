@@ -20,7 +20,7 @@ export interface ProfessionalExperienceType {
   jobTitle: string;
   company: string;
   startDate: { month: string; year: string };
-  endDate: { month: string; year: string };
+  endDate: { month: string; year: string } | string;
   jobDetails: string;
 }
 
@@ -56,6 +56,11 @@ export interface Resume {
   languages: LanguageType[];
 }
 
+const MonthYearObject = z.object({
+  month: z.string(),
+  year: z.string(),
+});
+
 export const ResumeSchema = z.object({
   basic: z.object({
     firstName: z.string(),
@@ -80,7 +85,7 @@ export const ResumeSchema = z.object({
         jobTitle: z.string(),
         company: z.string(),
         startDate: z.object({ month: z.string(), year: z.string() }),
-        endDate: z.object({ month: z.string(), year: z.string() }),
+        endDate: z.union([MonthYearObject, z.string()]),
         jobDetails: z.string(),
       }),
     ),
@@ -109,15 +114,15 @@ export const ResumeSchema = z.object({
   ),
 });
 
-export interface ResumeInfoType {
-  id: string;
-  basic: BasicInfoType;
-  professional: {
-    summary: string;
-    currentRole: string;
-    work: ProfessionalExperienceType[];
-  };
-  educational: { education: EducationType[] };
-  skills: { skill: SkillType[] };
-  languages: { language: LanguageType[] };
-}
+// export interface ResumeInfoType {
+//   id: string;
+//   basic: BasicInfoType;
+//   professional: {
+//     summary: string;
+//     currentRole: string;
+//     work: ProfessionalExperienceType[];
+//   };
+//   educational: { education: EducationType[] };
+//   skills: { skill: SkillType[] };
+//   languages: { language: LanguageType[] };
+// }

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC, useState } from 'react';
-import { ResumeInfoType } from '@/types/profile';
+import { Resume } from '@/types/profile';
 import {
   BasicDetail,
   BasicNameContainer,
@@ -45,7 +45,7 @@ import {
 } from './Minimalist.styles';
 
 interface Resume2TemplateProps {
-  resumeInfo: ResumeInfoType;
+  resumeInfo: Resume;
 }
 const Minimalist: FC<Resume2TemplateProps> = ({ resumeInfo }) => {
   const basic = resumeInfo?.basic;
@@ -173,22 +173,31 @@ const Minimalist: FC<Resume2TemplateProps> = ({ resumeInfo }) => {
                       <DateSeparator> - </DateSeparator>
                       <Dates>
                         <Month>
-                          {experience.endDate.month &&
-                          !isNaN(parseInt(experience.endDate.month)) ? (
-                            <>
-                              {new Date(
-                                2022,
-                                parseInt(experience.endDate.month) - 1,
-                              ).toLocaleString('default', {
-                                month: 'short',
-                              })}
-                            </>
-                          ) : (
-                            <>Jan</>
-                          )}
+                          {typeof experience.endDate === 'string' ||
+                          (typeof experience.endDate === 'object' &&
+                            'month' in experience.endDate)
+                            ? typeof experience.endDate === 'string'
+                              ? experience.endDate === 'Present'
+                                ? 'Present'
+                                : 'Present'
+                              : new Date(
+                                  2022,
+                                  parseInt(experience.endDate.month) - 1,
+                                ).toLocaleString('default', {
+                                  month: 'short',
+                                })
+                            : 'Jan'}
                         </Month>
                         <Year>
-                          {experience.endDate.year || new Date().getFullYear()}
+                          {typeof experience.endDate === 'string' ||
+                          (typeof experience.endDate === 'object' &&
+                            'year' in experience.endDate)
+                            ? typeof experience.endDate === 'string'
+                              ? experience.endDate === 'Present'
+                                ? ''
+                                : ''
+                              : experience.endDate.year
+                            : ''}
                         </Year>
                       </Dates>
                     </DateContainer>
@@ -212,7 +221,7 @@ const Minimalist: FC<Resume2TemplateProps> = ({ resumeInfo }) => {
             <PersonalDetailsTitle>Education</PersonalDetailsTitle>
           </PersonalDetailsContainer>
           <ContentContainer>
-            {educational.education.map(educ => (
+            {educational.map(educ => (
               <Item key={educ.id}>
                 <ContentContainerA>
                   <Detail>
@@ -283,7 +292,7 @@ const Minimalist: FC<Resume2TemplateProps> = ({ resumeInfo }) => {
             <Item>
               <ContentContainerA>
                 <SkillsDetailsContent>
-                  {skills?.skill.map(enteredSkill => (
+                  {skills?.map(enteredSkill => (
                     <EnteredSkillsContainer key={enteredSkill.id}>
                       <EnteredSkill>{enteredSkill.name}</EnteredSkill>
                     </EnteredSkillsContainer>
@@ -300,7 +309,7 @@ const Minimalist: FC<Resume2TemplateProps> = ({ resumeInfo }) => {
             <Item>
               <ContentContainerA>
                 <LanguagesDetailsContent>
-                  {languages?.language.map(enteredLanguage => (
+                  {languages?.map(enteredLanguage => (
                     <EnteredLanguagesContainer key={enteredLanguage.id}>
                       <EnteredLanguage>{enteredLanguage.name}</EnteredLanguage>
                     </EnteredLanguagesContainer>

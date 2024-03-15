@@ -191,22 +191,31 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
                     <DateSeparator> - </DateSeparator>
                     <Dates>
                       <Month>
-                        {experience.endDate.month &&
-                        !isNaN(parseInt(experience.endDate.month)) ? (
-                          <>
-                            {new Date(
-                              2022,
-                              parseInt(experience.endDate.month) - 1,
-                            ).toLocaleString('default', {
-                              month: 'short',
-                            })}
-                          </>
-                        ) : (
-                          <>Jan</>
-                        )}
+                        {typeof experience.endDate === 'string' ||
+                        (typeof experience.endDate === 'object' &&
+                          'month' in experience.endDate)
+                          ? typeof experience.endDate === 'string'
+                            ? experience.endDate === 'Present'
+                              ? 'Present'
+                              : 'Present'
+                            : new Date(
+                                2022,
+                                parseInt(experience.endDate.month) - 1,
+                              ).toLocaleString('default', {
+                                month: 'short',
+                              })
+                          : 'Jan'}
                       </Month>
                       <Year>
-                        {experience.endDate.year || new Date().getFullYear()}
+                        {typeof experience.endDate === 'string' ||
+                        (typeof experience.endDate === 'object' &&
+                          'year' in experience.endDate)
+                          ? typeof experience.endDate === 'string'
+                            ? experience.endDate === 'Present'
+                              ? ''
+                              : ''
+                            : experience.endDate.year
+                          : ''}
                       </Year>
                     </Dates>
                   </DateContainer>
