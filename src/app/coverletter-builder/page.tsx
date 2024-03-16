@@ -16,9 +16,10 @@ import {
   Resume,
   SkillType,
 } from '@/types/profile';
-import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
 import CoverLetterForm from '@/components/coverLettersForm/CoverLetterForm';
 import CoverLetterTemplate from '@/components/templates/coverletterTemplate/CoverLetterTemplate';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const CoverLetterBuilderPage: FC = () => {
   const initialBasicInfo: BasicInfoType = {
@@ -101,12 +102,72 @@ const CoverLetterBuilderPage: FC = () => {
     handleStoredResumeUpdate();
   }, []);
 
+  const captureToCanvas = async () => {
+    try {
+      const element = document.getElementById('coverletter-template');
+
+      if (!element) {
+        console.error("Element with id 'coverletter-template' not found");
+        return null;
+      }
+
+      const canvas = await html2canvas(element);
+      return canvas;
+    } catch (error) {
+      console.error('Error capturing canvas:', error);
+      return null;
+    }
+  };
+
+  const convertCanvasToPDF = async (canvas: HTMLCanvasElement | null) => {
+    try {
+      if (!canvas) {
+        console.error('Canvas is null');
+        return null;
+      }
+
+      const pdf = new jsPDF();
+      pdf.addImage(
+        canvas.toDataURL('image/png'),
+        'PNG',
+        0,
+        0,
+        pdf.internal.pageSize.getWidth(),
+        pdf.internal.pageSize.getHeight(),
+      );
+      return pdf;
+    } catch (error) {
+      console.error('Error converting canvas to PDF:', error);
+      return null;
+    }
+  };
+
+  const downloadPDF = (pdf: any) => {
+    try {
+      if (pdf) {
+        pdf.save('document.pdf');
+      }
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+    }
+  };
+
+  const handleDownloadPDF = async () => {
+    try {
+      const canvas = await captureToCanvas();
+      const pdf = await convertCanvasToPDF(canvas);
+      downloadPDF(pdf);
+    } catch (error) {
+      console.error('Error handling download PDF:', error);
+    }
+  };
+
   return (
     <ProfileBuilderContainer>
       <div>
         <title>Cover Letter Builder Page</title>
       </div>
-      <PageHeader />
+      <PageHeader handleDownloadPDF={handleDownloadPDF} />
       <FormViewerContainer>
         <ResumeFormContainer>
           <CoverLetterForm
@@ -116,7 +177,7 @@ const CoverLetterBuilderPage: FC = () => {
           />
         </ResumeFormContainer>
         <ResumeTemplateContainer>
-          <CoverLetterTemplate />
+          <CoverLetterTemplate id="coverletter-template" />
         </ResumeTemplateContainer>
       </FormViewerContainer>
     </ProfileBuilderContainer>

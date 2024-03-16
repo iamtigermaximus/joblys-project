@@ -146,7 +146,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
             </HeaderItem>
           </TemplateHeaderItem>
         </TemplatePreviewHeader>
-        <CoverLetterTemplate />
+        <CoverLetterTemplate id="coverletter-template" />
       </TemplatePreview>
 
       <AccordionContainer>

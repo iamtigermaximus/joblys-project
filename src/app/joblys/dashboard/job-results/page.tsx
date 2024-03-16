@@ -9,7 +9,7 @@ const JobResultsPage = () => {
       <div>
         <title>JOB SEARCH RESULTS</title>
       </div>
-      <PageHeader />
+      {/* <PageHeader /> */}
       <JobSearchResults />
     </Container>
   );

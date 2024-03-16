@@ -44,10 +44,10 @@ export const Template = styled.div`
   }
 `;
 
-const CoverLetterTemplate = () => {
+const CoverLetterTemplate = ({ id }: { id: string }) => {
   return (
     <CoverLetterTemplateContainer>
-      <Template>Cover Letter Template</Template>
+      <Template id={id}>Cover Letter Template</Template>
     </CoverLetterTemplateContainer>
   );
 };

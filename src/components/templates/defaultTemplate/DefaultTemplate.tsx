@@ -270,7 +270,10 @@ const EducationInfoComponent: FC<{ educationInfo: EducationType[] }> = ({
   </DetailsContentContainer>
 );
 
-const DefaultTemplate: FC<{ resumeInfo: Resume }> = ({ resumeInfo }) => {
+const DefaultTemplate: FC<{ id: string; resumeInfo: Resume }> = ({
+  id,
+  resumeInfo,
+}) => {
   const basic = resumeInfo?.basic;
   const professional = resumeInfo?.professional;
   const educational = resumeInfo?.educational;
@@ -299,7 +302,7 @@ const DefaultTemplate: FC<{ resumeInfo: Resume }> = ({ resumeInfo }) => {
 
   return (
     <DefaultTemplateContainer>
-      <Template>
+      <Template id={id}>
         <BasicContentContainer>
           {shouldDisplayTitle && (
             <BasicsTitleContainer>

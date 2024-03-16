@@ -144,7 +144,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </HeaderItem>
           </TemplateHeaderItem>
         </TemplatePreviewHeader>
-        <DefaultTemplate resumeInfo={resumeInfo} />
+        <DefaultTemplate id="default-template" resumeInfo={resumeInfo} />
       </TemplatePreview>
 
       <AccordionContainer>

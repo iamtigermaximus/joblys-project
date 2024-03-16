@@ -1,5 +1,5 @@
 'use client';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FC, FormEvent, useEffect, useState } from 'react';
 import {
   Button,
   ButtonContainer,
@@ -53,12 +53,15 @@ import {
 import { IoCloseSharp, IoSettingsSharp } from 'react-icons/io5';
 import { FcGoogle } from 'react-icons/fc';
 
-const PageHeader = () => {
+interface PageHeaderProps {
+  handleDownloadPDF: () => Promise<void>;
+}
+
+const PageHeader: FC<PageHeaderProps> = ({ handleDownloadPDF }) => {
   const router = useRouter();
   const pathname = usePathname();
   const isProfileBuilder = pathname === '/profile-builder';
   const isCoverLetterBuilder = pathname === '/coverletter-builder';
-  console.log('Current pathname:', pathname);
 
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
 
@@ -141,9 +144,12 @@ const PageHeader = () => {
           )}
         </LeftContainer>
         <RightContainer>
+          <ResumeButton onClick={handleDownloadPDF}>
+            <ResumeButtonTitle>Download</ResumeButtonTitle>
+          </ResumeButton>
           {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
               <LogoutButton onClick={handleSignOut}>Log out</LogoutButton> */}
-          <ResumeButton>
+          {/* <ResumeButton>
             <ResumeButtonTitle onClick={categoryMenu}>
               Download
             </ResumeButtonTitle>
@@ -198,7 +204,7 @@ const PageHeader = () => {
                 </SidebarContentContainer>
               </SidebarMenuContainer>
             )}
-          </ResumeButton>
+          </ResumeButton> */}
           {/* <HeaderLinksContainer>
               <IconContainer>
                 <FaBell />

@@ -121,9 +121,10 @@ export const MiniDefault = styled(DefaultTemplate)`
 
 interface MiniResumeProps {
   resumeInfo: Resume;
+  id?: string;
 }
 
-const ResumePreview: React.FC<MiniResumeProps> = ({ resumeInfo }) => {
+const ResumePreview: React.FC<MiniResumeProps> = ({ id, resumeInfo }) => {
   const modifiedResumeInfo = { ...resumeInfo };
   const router = useRouter();
 
@@ -139,22 +140,22 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumeInfo }) => {
       </CreateResumeButton>
       <ResumeCard>
         <ResumeContent>
-          <MiniDefault resumeInfo={modifiedResumeInfo} />
+          <MiniDefault id="default-template" resumeInfo={modifiedResumeInfo} />
         </ResumeContent>
       </ResumeCard>
       <ResumeCard>
         <ResumeContent>
-          <MiniDefault resumeInfo={modifiedResumeInfo} />
+          <MiniDefault id="default-template" resumeInfo={modifiedResumeInfo} />
         </ResumeContent>
       </ResumeCard>
       <ResumeCard>
         <ResumeContent>
-          <MiniDefault resumeInfo={modifiedResumeInfo} />
+          <MiniDefault id="default-template" resumeInfo={modifiedResumeInfo} />
         </ResumeContent>
       </ResumeCard>
       <ResumeCard>
         <ResumeContent>
-          <MiniDefault resumeInfo={modifiedResumeInfo} />
+          <MiniDefault id="default-template" resumeInfo={modifiedResumeInfo} />
         </ResumeContent>
       </ResumeCard>
     </ResumeContainer>

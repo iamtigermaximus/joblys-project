@@ -70,7 +70,7 @@ export const TemplatePreview = styled.div`
   }
 
   @media (min-width: ${bp.lg}) {
-    display: none;
+    /* display: none; */
   }
 `;
 
