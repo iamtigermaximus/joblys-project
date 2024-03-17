@@ -89,15 +89,11 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   };
 
   const handleSubmitResume = async () => {
-    console.log('Final Form Data:', resumeInfo);
-
     try {
       const response = await fetch('/api/cv/upload', {
         method: 'POST',
         body: JSON.stringify({ resume: resumeInfo }),
       });
-
-      console.log('response:', response);
 
       if (!response.ok) {
         throw new Error('Failed to upload resume');
