@@ -130,8 +130,29 @@ interface MiniResumeProps {
 const ResumePreview: React.FC<MiniResumeProps> = (miniResumeProps) => {
   const router = useRouter();
 
-  const handleCreateNewResume = () => {
-    router.push('/profile-builder');
+  const handleCreateNewResume = async () => {
+    try {
+      const response = await fetch('/api/cv/upload', {
+        method: 'POST',
+        body: JSON.stringify({ resume: initialResume() }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload resume');
+      }
+
+      console.log('Resume uploaded successfully!');
+
+      const respJson = await response.json();
+      const id = respJson?.body?.id;
+      if (!id) {
+        throw new Error('Did not receive resume id from server');
+      }
+
+      router.push(`/profile-builder/resumes/${id}`);
+    } catch (error: any) {
+      console.error('Error uploading resume:', error.message);
+    }
   };
 
   return (
