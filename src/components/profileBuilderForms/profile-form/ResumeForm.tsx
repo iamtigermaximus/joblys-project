@@ -88,10 +88,6 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     });
   };
 
-  // const handleFinalSubmit = () => {
-  //   console.log('Final Form Data:', resumeInfo);
-  //   // Add any additional logic for submitting to a server or performing final actions
-  // };
   const handleSubmitResume = async () => {
     console.log('Final Form Data:', resumeInfo);
 
