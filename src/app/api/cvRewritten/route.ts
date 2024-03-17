@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
+import { Resume } from '@/types/profile';
 
 const parserPromt = `Please rewrite the following three job responsibilities to enhance their professional appeal for a CV, while preserving their original meaning.
 Each rewritten responsibility should be a more professional and concise version of the original, suitable for a CV. List your responsibilities in a bullet or numbered format, ensuring that the essence of each task remains the same, without introducing new facts or figures.
@@ -16,21 +17,6 @@ Developed and optimized back-end APIs for a large-scale e-commerce platform, lea
 Designed and executed a comprehensive digital marketing strategy, substantially increasing online brand presence and social media engagement.
 Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.
 Led cross-functional teams to foster collaboration and effective communication, successfully meeting project milestones.`;
-
-
-interface ResumeData {
-  work_experience: Position[];
-}
-
-interface Position {
-  id: string;
-  position: string;
-  company_name: string;
-  location: string;
-  start_date: string;
-  end_date: string;
-  responsibilities: string[];
-}
 
 const openAI = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
@@ -51,13 +37,13 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { id: jobId } = await req.json();
+  const { resumeId, id: jobId } = await req.json();
 
-  if (!jobId) {
+  if (!jobId || !resumeId) {
     return NextResponse.json(
       {
         body: {
-          message: 'ID not provided',
+          message: 'IDs not provided',
         }
       },
       { status: 400 }
@@ -66,11 +52,10 @@ export async function POST(req: NextRequest) {
 
   let structuredCV;
   try {
-    structuredCV = await prisma.structuredCVs.findFirst({
+    structuredCV = await prisma.structuredCVs.findUnique({
       where: {
-        owner: {
-          id: token.sub,
-        }
+        ownerId: token.sub,
+        id: resumeId,
       },
       select: {
         id: true,
@@ -89,7 +74,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let resumeData: ResumeData;
+  let resumeData: Resume;
   if (!structuredCV?.content) {
     return NextResponse.json(
       {
@@ -101,11 +86,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  resumeData = structuredCV.content as any as ResumeData;
+  resumeData = structuredCV.content as any as Resume;
 
   const workExperienceToRewrite = resumeData
-    .work_experience
-    .filter((position) => position.id === jobId);
+    .professional
+    .work
+    .filter((work: { id: string }) => work.id === jobId);
 
   if (workExperienceToRewrite.length === 0) {
     return NextResponse.json(
@@ -129,13 +115,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const formattedResponsibilities = workExperienceToRewrite[0].responsibilities
-    .map((responsibility: string) => `- ${responsibility}`)
-    .join('\n');
+  const formattedResponsibilities = workExperienceToRewrite[0].jobDetails
+    .split('.');
 
   const replacementMap: Record<string, string> = {
-    '{number_sentences}': (workExperienceToRewrite[0].responsibilities).length.toString(),
-    '{original_responsibilities}': formattedResponsibilities,
+    '{number_sentences}': formattedResponsibilities.length.toString(),
+    '{original_responsibilities}': formattedResponsibilities.join('. '),
   };
 
   const modifiedPrompt = parserPromt.replace(
@@ -161,12 +146,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const rewrittenResponsibilities = responseContent
-    .trim()
-    .split('\n')
-    .map((line: string) => line.trim());
-
-  workExperienceToRewrite[0].responsibilities = rewrittenResponsibilities;
+  workExperienceToRewrite[0].jobDetails = responseContent.trim();
 
   try {
     await prisma.structuredCVs.update({
@@ -188,7 +168,7 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
-
+  
   return NextResponse.json(
     {
       body: {

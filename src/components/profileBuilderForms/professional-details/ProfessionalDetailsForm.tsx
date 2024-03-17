@@ -25,6 +25,7 @@ import { ProfessionalExperienceType, Resume } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
 
 interface ProfessionalDetailsFormProps {
+  resumeId: string;
   professional: {
     summary: string;
     currentRole: string;
@@ -35,6 +36,7 @@ interface ProfessionalDetailsFormProps {
 }
 
 const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
+  resumeId,
   professional,
   setResumeInfo,
   refreshStoredResume,
@@ -144,6 +146,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     const resp = await fetch('/api/cvRewritten', {
       method: 'POST',
       body: JSON.stringify({
+        resumeId,
         id,
       }),
     });

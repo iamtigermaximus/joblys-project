@@ -210,6 +210,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           {accordionState.professional && (
             <AccordionContent>
               <ProfessionalDetailsForm
+                resumeId={resumeId}
                 professional={resumeInfo.professional}
                 setResumeInfo={setResumeInfo}
                 refreshStoredResume={refreshStoredResume}
