@@ -11,12 +11,7 @@ import {
 import PageHeader from '@/components/common/page-header/PageHeader';
 import ResumeForm from '@/components/profileBuilderForms/profile-form/ResumeForm';
 import {
-  BasicInfoType,
-  EducationType,
-  LanguageType,
-  ProfessionalExperienceType,
   Resume,
-  SkillType,
   initialResume,
 } from '@/types/profile';
 import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
