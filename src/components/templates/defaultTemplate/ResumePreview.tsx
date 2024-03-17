@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Resume } from '@/types/profile';
 import { breakpoints as bp } from '../../../utils/layout';
 import { useRouter } from 'next/navigation';
+import { initialResume } from '@/types/profile';
 
 export const ResumeContainer = styled.div`
   display: flex;
@@ -120,17 +121,19 @@ export const MiniDefault = styled(DefaultTemplate)`
 `;
 
 interface MiniResumeProps {
-  resumeInfo: Resume;
-  id?: string;
+  resumes: {
+    id: string;
+    resumeInfo: Resume;
+  }[];
 }
 
-const ResumePreview: React.FC<MiniResumeProps> = ({ id, resumeInfo }) => {
-  const modifiedResumeInfo = { ...resumeInfo };
+const ResumePreview: React.FC<MiniResumeProps> = (miniResumeProps) => {
   const router = useRouter();
 
   const handleCreateNewResume = () => {
     router.push('/profile-builder');
   };
+
   return (
     <ResumeContainer>
       <CreateResumeButton>
@@ -138,26 +141,15 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ id, resumeInfo }) => {
           Create new resume
         </ButtonLabel>
       </CreateResumeButton>
-      <ResumeCard>
-        <ResumeContent>
-          <MiniDefault id="default-template" resumeInfo={modifiedResumeInfo} />
-        </ResumeContent>
-      </ResumeCard>
-      <ResumeCard>
-        <ResumeContent>
-          <MiniDefault id="default-template" resumeInfo={modifiedResumeInfo} />
-        </ResumeContent>
-      </ResumeCard>
-      <ResumeCard>
-        <ResumeContent>
-          <MiniDefault id="default-template" resumeInfo={modifiedResumeInfo} />
-        </ResumeContent>
-      </ResumeCard>
-      <ResumeCard>
-        <ResumeContent>
-          <MiniDefault id="default-template" resumeInfo={modifiedResumeInfo} />
-        </ResumeContent>
-      </ResumeCard>
+      {miniResumeProps.resumes.map((resume) => (
+        <ResumeCard key={resume.id}>
+          <ResumeContent>
+            <MiniDefault
+              id={resume.id}
+              resumeInfo={resume.resumeInfo}
+            />
+          </ResumeContent>
+        </ResumeCard>))}
     </ResumeContainer>
   );
 };

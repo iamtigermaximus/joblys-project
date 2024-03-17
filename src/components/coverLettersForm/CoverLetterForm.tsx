@@ -216,6 +216,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
           {accordionState.professional && (
             <AccordionContent>
               <ProfessionalDetailsForm
+                resumeId=''
                 professional={resumeInfo.professional}
                 setResumeInfo={setResumeInfo}
                 refreshStoredResume={refreshStoredResume}
