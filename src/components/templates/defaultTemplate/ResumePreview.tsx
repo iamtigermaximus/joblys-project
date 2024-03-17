@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Resume } from '@/types/profile';
 import { breakpoints as bp } from '../../../utils/layout';
 import { useRouter } from 'next/navigation';
+import { initialResume } from '@/types/profile';
 
 export const ResumeContainer = styled.div`
   display: flex;
@@ -120,17 +121,40 @@ export const MiniDefault = styled(DefaultTemplate)`
 `;
 
 interface MiniResumeProps {
-  resumeInfo: Resume;
-  id?: string;
+  resumes: {
+    id: string;
+    resumeInfo: Resume;
+  }[];
 }
 
-const ResumePreview: React.FC<MiniResumeProps> = ({ id, resumeInfo }) => {
-  const modifiedResumeInfo = { ...resumeInfo };
+const ResumePreview: React.FC<MiniResumeProps> = (miniResumeProps) => {
   const router = useRouter();
 
-  const handleCreateNewResume = () => {
-    router.push('/profile-builder');
+  const handleCreateNewResume = async () => {
+    try {
+      const response = await fetch('/api/cv/upload', {
+        method: 'POST',
+        body: JSON.stringify({ resume: initialResume() }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload resume');
+      }
+
+      console.log('Resume uploaded successfully!');
+
+      const respJson = await response.json();
+      const id = respJson?.body?.id;
+      if (!id) {
+        throw new Error('Did not receive resume id from server');
+      }
+
+      router.push(`/profile-builder/resumes/${id}`);
+    } catch (error: any) {
+      console.error('Error uploading resume:', error.message);
+    }
   };
+
   return (
     <ResumeContainer>
       <CreateResumeButton>
@@ -138,26 +162,15 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ id, resumeInfo }) => {
           Create new resume
         </ButtonLabel>
       </CreateResumeButton>
-      <ResumeCard>
-        <ResumeContent>
-          <MiniDefault id="default-template" resumeInfo={modifiedResumeInfo} />
-        </ResumeContent>
-      </ResumeCard>
-      <ResumeCard>
-        <ResumeContent>
-          <MiniDefault id="default-template" resumeInfo={modifiedResumeInfo} />
-        </ResumeContent>
-      </ResumeCard>
-      <ResumeCard>
-        <ResumeContent>
-          <MiniDefault id="default-template" resumeInfo={modifiedResumeInfo} />
-        </ResumeContent>
-      </ResumeCard>
-      <ResumeCard>
-        <ResumeContent>
-          <MiniDefault id="default-template" resumeInfo={modifiedResumeInfo} />
-        </ResumeContent>
-      </ResumeCard>
+      {miniResumeProps.resumes.map((resume) => (
+        <ResumeCard key={resume.id}>
+          <ResumeContent>
+            <MiniDefault
+              id={resume.id}
+              resumeInfo={resume.resumeInfo}
+            />
+          </ResumeContent>
+        </ResumeCard>))}
     </ResumeContainer>
   );
 };

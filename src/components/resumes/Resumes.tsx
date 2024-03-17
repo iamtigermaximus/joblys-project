@@ -6,7 +6,7 @@ import { Container, HeaderContainer, PageName } from './Resumes.styles';
 import ResumePreview from '../templates/defaultTemplate/ResumePreview';
 
 const Resumes = () => {
-  const [profileData, setProfileData] = useState<Resume | null>(null);
+  const [profileData, setProfileData] = useState<{ id: string, resumeInfo: Resume }[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -14,10 +14,16 @@ const Resumes = () => {
     const fetchProfileData = async () => {
       try {
         const response = await axios.get('/api/cv');
+        const resumes = response.data.body.resumes;
 
-        const profile = response.data.body.profile;
-
-        setProfileData(profile);
+        const data = resumes.map((resume: { id: string, content: any }) => {
+          return {
+            id: resume.id,
+            resumeInfo: resume.content,
+          };
+        });
+        console.log(data);
+        setProfileData(data);
         setIsLoading(false);
       } catch (error: any) {
         setError(error.message);
@@ -45,7 +51,7 @@ const Resumes = () => {
       <HeaderContainer>
         <PageName>Resumes</PageName>
       </HeaderContainer>
-      <ResumePreview resumeInfo={profileData} />
+      <ResumePreview resumes={profileData} />
     </Container>
   );
 };

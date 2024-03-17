@@ -255,3 +255,54 @@ export async function POST(req: NextRequest) {
     { status: 200 },
   );
 }
+
+export async function GET(req: NextRequest) {
+  console.log('Getting all profiles...');
+
+  const token = await getToken({ req });
+  if (!token && token != null) {
+    console.log('invalid token');
+    return NextResponse.json(
+      {
+        body: {
+          message: 'invalid token',
+        },
+      },
+      { status: 401 },
+    );
+  }
+
+  let structuredCVs = [];
+  try {
+    structuredCVs = await prisma.structuredCVs.findMany({
+      where: {
+        ownerId: token?.sub,
+      },
+      select: {
+        id: true,
+        content: true,
+      },
+    });
+  } catch (err) {
+    console.log(`Fetching parsed CV: ${err}`);
+    return NextResponse.json(
+      {
+        body: {
+          message: 'internal server error',
+        },
+      },
+      { status: 500 },
+    );
+  }
+
+  const resumes = structuredCVs.map(cv => cv);
+
+  return NextResponse.json(
+    {
+      body: {
+        resumes,
+      },
+    },
+    { status: 200 },
+  );
+}
