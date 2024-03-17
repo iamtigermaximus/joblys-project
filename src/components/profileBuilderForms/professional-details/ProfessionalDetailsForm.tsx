@@ -149,7 +149,8 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     });
 
     if (resp.status !== 201) {
-      console.log('Error' + resp.status);
+      console.log('Error ' + resp.status);
+      return;
     }
 
     refreshStoredResume();
