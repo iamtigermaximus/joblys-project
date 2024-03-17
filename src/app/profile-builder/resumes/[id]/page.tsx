@@ -6,7 +6,7 @@ import {
   ProfileBuilderContainer,
   ResumeFormContainer,
   ResumeTemplateContainer,
-} from '../page.styles';
+} from '../../../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import ResumeForm from '@/components/profileBuilderForms/profile-form/ResumeForm';
 import {
@@ -16,72 +16,14 @@ import {
   ProfessionalExperienceType,
   Resume,
   SkillType,
+  initialResume,
 } from '@/types/profile';
 import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
 const ProfileBuilderPage: FC = () => {
-  const initialBasicInfo: BasicInfoType = {
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    email: '',
-    address: '',
-    linkedin: '',
-    additionalLinks: [],
-  };
-
-  const initialProfessionalExperience: ProfessionalExperienceType[] = [
-    {
-      id: '',
-      jobTitle: '',
-      company: '',
-      startDate: { month: '', year: '' },
-      endDate: { month: '', year: '' },
-      jobDetails: '',
-    },
-  ];
-
-  const initialEducation: EducationType[] = [
-    {
-      id: '',
-      school: '',
-      course: '',
-      startDate: { month: '', year: '' },
-      endDate: { month: '', year: '' },
-      description: '',
-    },
-  ];
-
-  const initialSkills: SkillType[] = [
-    {
-      id: '',
-      name: '',
-    },
-  ];
-
-  const initialLanguages: LanguageType[] = [
-    {
-      id: '',
-      name: '',
-    },
-  ];
-
-  const initialState: Resume = {
-    id: '',
-    basic: initialBasicInfo,
-    professional: {
-      summary: '',
-      currentRole: '',
-      work: initialProfessionalExperience,
-    },
-    educational: initialEducation,
-    skills: initialSkills,
-    languages: initialLanguages,
-  };
-
-  const [resumeInfo, setResumeInfo] = useState(initialState);
+  const [resumeInfo, setResumeInfo] = useState(initialResume());
 
   const handleStoredResumeUpdate = async () => {
     const response = await fetch('/api/cv');
