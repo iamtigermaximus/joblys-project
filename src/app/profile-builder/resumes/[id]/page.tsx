@@ -1,5 +1,6 @@
 'use client';
 import React, { FC, useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 import {
   FormViewerContainer,
@@ -23,10 +24,11 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
 const ProfileBuilderPage: FC = () => {
+  const params = useParams() as { id: string };
   const [resumeInfo, setResumeInfo] = useState(initialResume());
 
   const handleStoredResumeUpdate = async () => {
-    const response = await fetch('/api/cv');
+    const response = await fetch(`/api/cv/${params.id}`);
     if (response.status !== 200) {
       return;
     }
