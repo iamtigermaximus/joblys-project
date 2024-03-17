@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   BuildProfileButton,
-  Container,
   CreateProfileSection,
   InputContainer,
   ProfileBuildSection,
