@@ -16,7 +16,6 @@ import {
   HeaderItem,
   IconContainer,
   InputContainer,
-  InputLabel,
   PreviewButton,
   PreviewButtonSection,
   SuccessAlert,
