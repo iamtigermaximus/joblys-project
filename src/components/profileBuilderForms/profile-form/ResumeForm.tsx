@@ -37,12 +37,14 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 interface ResumeFormProps {
+  resumeId: string;
   resumeInfo: Resume;
   setResumeInfo: React.Dispatch<React.SetStateAction<Resume>>;
   refreshStoredResume: () => void;
 }
 
 const ResumeForm: React.FC<ResumeFormProps> = ({
+  resumeId,
   resumeInfo,
   setResumeInfo,
   refreshStoredResume,
@@ -89,9 +91,12 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
 
   const handleSubmitResume = async () => {
     try {
-      const response = await fetch('/api/cv/upload', {
+      const response = await fetch('/api/cvChanges', {
         method: 'POST',
-        body: JSON.stringify({ resume: resumeInfo }),
+        body: JSON.stringify({
+          id: resumeId,
+          resume: resumeInfo
+        }),
       });
 
       if (!response.ok) {

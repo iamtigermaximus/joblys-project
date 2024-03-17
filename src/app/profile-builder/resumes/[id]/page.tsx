@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -22,7 +22,7 @@ const ProfileBuilderPage: FC = () => {
   const params = useParams() as { id: string };
   const [resumeInfo, setResumeInfo] = useState(initialResume());
 
-  const handleStoredResumeUpdate = async () => {
+  const handleStoredResumeUpdate = useCallback(async () => {
     const response = await fetch(`/api/cv/${params.id}`);
     if (response.status !== 200) {
       return;
@@ -35,11 +35,11 @@ const ProfileBuilderPage: FC = () => {
     }
 
     setResumeInfo(resumeProfile);
-  };
+  }, [params.id]);
 
   useEffect(() => {
     handleStoredResumeUpdate();
-  }, []);
+  }, [handleStoredResumeUpdate]);
 
   const captureToCanvas = async () => {
     const element = document.getElementById('default-template');
@@ -96,6 +96,7 @@ const ProfileBuilderPage: FC = () => {
       <FormViewerContainer>
         <ResumeFormContainer>
           <ResumeForm
+            resumeId={params.id}
             resumeInfo={resumeInfo}
             setResumeInfo={setResumeInfo}
             refreshStoredResume={handleStoredResumeUpdate}
