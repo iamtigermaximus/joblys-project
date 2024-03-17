@@ -16,7 +16,6 @@ import {
   HeaderItem,
   IconContainer,
   InputContainer,
-  InputLabel,
   PreviewButton,
   PreviewButtonSection,
   SuccessAlert,
@@ -38,12 +37,14 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 interface ResumeFormProps {
+  resumeId: string;
   resumeInfo: Resume;
   setResumeInfo: React.Dispatch<React.SetStateAction<Resume>>;
   refreshStoredResume: () => void;
 }
 
 const ResumeForm: React.FC<ResumeFormProps> = ({
+  resumeId,
   resumeInfo,
   setResumeInfo,
   refreshStoredResume,
@@ -88,20 +89,15 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     });
   };
 
-  // const handleFinalSubmit = () => {
-  //   console.log('Final Form Data:', resumeInfo);
-  //   // Add any additional logic for submitting to a server or performing final actions
-  // };
   const handleSubmitResume = async () => {
-    console.log('Final Form Data:', resumeInfo);
-
     try {
-      const response = await fetch('/api/cv/upload', {
+      const response = await fetch('/api/cvChanges', {
         method: 'POST',
-        body: JSON.stringify({ resume: resumeInfo }),
+        body: JSON.stringify({
+          id: resumeId,
+          resume: resumeInfo
+        }),
       });
-
-      console.log('response:', response);
 
       if (!response.ok) {
         throw new Error('Failed to upload resume');

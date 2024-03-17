@@ -1,90 +1,29 @@
 'use client';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useCallback } from 'react';
+import { useParams } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 import {
   FormViewerContainer,
   ProfileBuilderContainer,
   ResumeFormContainer,
   ResumeTemplateContainer,
-} from '../page.styles';
+} from '../../../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import ResumeForm from '@/components/profileBuilderForms/profile-form/ResumeForm';
 import {
-  BasicInfoType,
-  EducationType,
-  LanguageType,
-  ProfessionalExperienceType,
   Resume,
-  SkillType,
+  initialResume,
 } from '@/types/profile';
 import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
 const ProfileBuilderPage: FC = () => {
-  const initialBasicInfo: BasicInfoType = {
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    email: '',
-    address: '',
-    linkedin: '',
-    additionalLinks: [],
-  };
+  const params = useParams() as { id: string };
+  const [resumeInfo, setResumeInfo] = useState(initialResume());
 
-  const initialProfessionalExperience: ProfessionalExperienceType[] = [
-    {
-      id: '',
-      jobTitle: '',
-      company: '',
-      startDate: { month: '', year: '' },
-      endDate: { month: '', year: '' },
-      jobDetails: '',
-    },
-  ];
-
-  const initialEducation: EducationType[] = [
-    {
-      id: '',
-      school: '',
-      course: '',
-      startDate: { month: '', year: '' },
-      endDate: { month: '', year: '' },
-      description: '',
-    },
-  ];
-
-  const initialSkills: SkillType[] = [
-    {
-      id: '',
-      name: '',
-    },
-  ];
-
-  const initialLanguages: LanguageType[] = [
-    {
-      id: '',
-      name: '',
-    },
-  ];
-
-  const initialState: Resume = {
-    id: '',
-    basic: initialBasicInfo,
-    professional: {
-      summary: '',
-      currentRole: '',
-      work: initialProfessionalExperience,
-    },
-    educational: initialEducation,
-    skills: initialSkills,
-    languages: initialLanguages,
-  };
-
-  const [resumeInfo, setResumeInfo] = useState(initialState);
-
-  const handleStoredResumeUpdate = async () => {
-    const response = await fetch('/api/cv');
+  const handleStoredResumeUpdate = useCallback(async () => {
+    const response = await fetch(`/api/cv/${params.id}`);
     if (response.status !== 200) {
       return;
     }
@@ -96,11 +35,11 @@ const ProfileBuilderPage: FC = () => {
     }
 
     setResumeInfo(resumeProfile);
-  };
+  }, [params.id]);
 
   useEffect(() => {
     handleStoredResumeUpdate();
-  }, []);
+  }, [handleStoredResumeUpdate]);
 
   const captureToCanvas = async () => {
     const element = document.getElementById('default-template');
@@ -157,6 +96,7 @@ const ProfileBuilderPage: FC = () => {
       <FormViewerContainer>
         <ResumeFormContainer>
           <ResumeForm
+            resumeId={params.id}
             resumeInfo={resumeInfo}
             setResumeInfo={setResumeInfo}
             refreshStoredResume={handleStoredResumeUpdate}
