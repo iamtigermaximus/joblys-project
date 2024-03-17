@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { v4 as uuidv4 } from 'uuid';
 
 // ResumeFormTypes.ts
 export interface AdditionalLinkType {
@@ -127,7 +128,7 @@ export function initialResume(): Resume {
 
   const professionalExperience: ProfessionalExperienceType[] = [
     {
-      id: '',
+      id: uuidv4(),
       jobTitle: '',
       company: '',
       startDate: { month: '', year: '' },
@@ -138,7 +139,7 @@ export function initialResume(): Resume {
 
   const education: EducationType[] = [
     {
-      id: '',
+      id: uuidv4(),
       school: '',
       course: '',
       startDate: { month: '', year: '' },
@@ -149,20 +150,20 @@ export function initialResume(): Resume {
 
   const skills: SkillType[] = [
     {
-      id: '',
+      id: uuidv4(),
       name: '',
     },
   ];
 
   const languages: LanguageType[] = [
     {
-      id: '',
+      id: uuidv4(),
       name: '',
     },
   ];
 
   const resume: Resume = {
-    id: '',
+    id: uuidv4(),
     basic: basicInfo,
     professional: {
       summary: '',
