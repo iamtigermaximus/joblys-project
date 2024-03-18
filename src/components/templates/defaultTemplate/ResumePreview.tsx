@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DefaultTemplate from './DefaultTemplate'; // Assuming this is the path to your DefaultTemplate component
 import styled from 'styled-components';
 import { Resume } from '@/types/profile';
 import { breakpoints as bp } from '../../../utils/layout';
+import colors from '../../../utils/colors';
 import { useRouter } from 'next/navigation';
 import { initialResume } from '@/types/profile';
+import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
+import { CiMenuKebab } from 'react-icons/ci';
 
 export const ResumeContainer = styled.div`
   display: flex;
@@ -18,11 +21,11 @@ export const ResumeCard = styled.div`
   flex: 1 1 calc(50% - 10px);
   max-width: calc(50% - 10px);
   height: 250px;
-  /* border: 1px solid #ccc; */
   overflow: hidden;
   border-radius: 5px;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   object-fit: cover;
+  position: relative;
+  width: 100%;
 
   @media (min-width: ${bp.sm}) {
     height: 350px;
@@ -53,6 +56,7 @@ export const ResumeContent = styled.div`
   top: 0;
   width: 100%;
   scale: 0.6;
+  position: relative;
 
   @media (min-width: ${bp.sm}) {
     scale: 0.9;
@@ -72,7 +76,7 @@ export const ResumeContent = styled.div`
   }
 `;
 
-export const CreateResumeButton = styled.button`
+export const CreateResumeButton = styled.div`
   flex: 1 1 calc(50% - 10px);
   max-width: calc(50% - 10px);
   height: 250px;
@@ -84,6 +88,7 @@ export const CreateResumeButton = styled.button`
   justify-content: center;
   align-items: center;
   width: 100%;
+  position: relative;
 
   @media (min-width: ${bp.sm}) {
     height: 350px;
@@ -120,6 +125,73 @@ export const MiniDefault = styled(DefaultTemplate)`
   min-width: 250px;
 `;
 
+export const EditModalOverlay = styled.div`
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+export const EditModalContent = styled.div`
+  background-color: white;
+  padding: 10px;
+  border-radius: 3px;
+  gap: 10px;
+  width: 100%;
+`;
+
+export const EditContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5vh;
+  z-index: 99;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: transparent;
+  padding: 10px;
+
+  @media (min-width: ${bp.md}) {
+    padding: 10px 20px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    padding: 10px 30px;
+  }
+`;
+
+export const EditButton = styled.button`
+  background-color: white;
+  /* border: 1px solid green; */
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border: 0.5px solid #f1f1f1;
+
+  &:hover {
+    background-color: #f1f1f1;
+  }
+
+  &:focus,
+  &:active {
+    border-color: ${colors.darkPurple};
+  }
+`;
+
+export const EditContent = styled.div`
+  color: gray;
+  display: flex;
+  padding: 5px 0;
+`;
+
 interface MiniResumeProps {
   resumes: {
     id: string;
@@ -127,8 +199,9 @@ interface MiniResumeProps {
   }[];
 }
 
-const ResumePreview: React.FC<MiniResumeProps> = (miniResumeProps) => {
+const ResumePreview: React.FC<MiniResumeProps> = miniResumeProps => {
   const router = useRouter();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const handleCreateNewResume = async () => {
     try {
@@ -155,6 +228,14 @@ const ResumePreview: React.FC<MiniResumeProps> = (miniResumeProps) => {
     }
   };
 
+  const handleEditButtonClick = () => {
+    setIsEditModalOpen(prevState => !prevState);
+  };
+
+  const handleEditModalClose = () => {
+    setIsEditModalOpen(false);
+  };
+
   return (
     <ResumeContainer>
       <CreateResumeButton>
@@ -162,15 +243,36 @@ const ResumePreview: React.FC<MiniResumeProps> = (miniResumeProps) => {
           Create new resume
         </ButtonLabel>
       </CreateResumeButton>
-      {miniResumeProps.resumes.map((resume) => (
+      {miniResumeProps.resumes.map(resume => (
         <ResumeCard key={resume.id}>
           <ResumeContent>
-            <MiniDefault
-              id={resume.id}
-              resumeInfo={resume.resumeInfo}
-            />
+            <MiniDefault id={resume.id} resumeInfo={resume.resumeInfo} />
           </ResumeContent>
-        </ResumeCard>))}
+          <EditContainer>
+            <EditButton onClick={handleEditButtonClick}>
+              <CiMenuKebab />
+            </EditButton>
+            {isEditModalOpen && (
+              <EditModalOverlay>
+                <EditModalContent>
+                  <EditContent>
+                    <FaRegEdit style={{ marginRight: '5px' }} />
+                    Edit
+                  </EditContent>
+                  <EditContent>
+                    <FaDownload style={{ marginRight: '5px' }} />
+                    Download
+                  </EditContent>
+                  <EditContent>
+                    <FaTrashAlt style={{ marginRight: '5px' }} />
+                    Delete
+                  </EditContent>
+                </EditModalContent>
+              </EditModalOverlay>
+            )}
+          </EditContainer>
+        </ResumeCard>
+      ))}
     </ResumeContainer>
   );
 };
