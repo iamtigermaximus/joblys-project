@@ -8,7 +8,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 50px 30px;
+  padding: 30px;
   overflow-y: scroll;
 
   @media (min-width: ${bp.md}) {
@@ -29,6 +29,7 @@ export const TitleContainer = styled.div`
 export const PageTitle = styled.div`
   font-size: 20px;
   color: ${colors.blueGray};
+  margin-bottom: 10px;
 
   @media (min-width: ${bp.lg}) {
     font-size: 25px;
@@ -46,7 +47,7 @@ export const CreateProfileContainer = styled.div`
   width: 100%;
   border-radius: 5px;
   /* margin: 30px 0 30px; */
-  padding: 30px 20px;
+  padding: 10px 20px;
 
   @media (min-width: ${bp.md}) {
     flex-direction: row;

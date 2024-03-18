@@ -21,10 +21,12 @@ export const Container = styled.div`
 export const SectionTitleContainer = styled.div`
   display: flex;
   justify-content: center;
+  padding: 10px;
 `;
 
 export const SectionTitle = styled.h2`
   color: ${colors.purple};
+  font-size: 18px;
 `;
 
 export const SectionSubTitle = styled.h4`
