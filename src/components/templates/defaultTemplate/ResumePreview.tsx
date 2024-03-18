@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { initialResume } from '@/types/profile';
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
 import { CiMenuKebab } from 'react-icons/ci';
+import { IoCloseSharp } from 'react-icons/io5';
 
 export const ResumeContainer = styled.div`
   display: flex;
@@ -148,7 +149,7 @@ export const EditContainer = styled.div`
   left: 0;
   width: 100%;
   height: 5vh;
-  z-index: 99;
+  z-index: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -192,6 +193,152 @@ export const EditContent = styled.div`
   padding: 5px 0;
 `;
 
+export const SidebarMenuContainer = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  transform: translateX(100%);
+  transition: transform 0.5s ease-out;
+  border-top: 0.3vh solid #fb5d20;
+  color: black;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  z-index: 99;
+
+  &.active {
+    transform: translateX(0%);
+    transition: transform 0.5s ease-in;
+  }
+
+  @media (min-width: ${bp.md}) {
+    width: 50%;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    width: 40%;
+  }
+`;
+
+export const SidebarHeader = styled.div`
+  background-color: ${colors.purple};
+  color: ${colors.white};
+  height: 6.3vh;
+  border-top: 0.3vh solid #fb5d20;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 20px;
+    height: 8.3vh;
+  }
+`;
+
+export const SidebarHeaderItem = styled.div`
+  color: ${colors.white};
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  @media (min-width: ${bp.lg}) {
+    /* padding: 20px; */
+  }
+`;
+
+export const ResumeButton = styled.button`
+  /* Common button styles go here */
+  padding: 8px 16px;
+  height: 40px;
+  font-size: 16px;
+  border: 1px solid white;
+  cursor: pointer;
+  color: white;
+  background-color: transparent;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+export const ResumeButtonTitle = styled.h1`
+  font-size: 16px;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+`;
+
+export const SidebarHeaderClose = styled.div`
+  color: ${colors.white};
+  border: 1px solid white;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+`;
+
+export const SidebarContentContainer = styled.div`
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  gap: 10px;
+`;
+
+export const ActionContainer = styled.div`
+  padding: 10px;
+  height: 10vh;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const PreviewEditButton = styled.button`
+  padding: 10px;
+  border: 0.5px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: transparent;
+`;
+
+export const PreviewDownloadButton = styled.button`
+  padding: 10px;
+  border: none;
+  background-color: ${colors.purple};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  color: white;
+`;
+
+export const ContentContainer = styled.div`
+  padding: 10px;
+  height: 100%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 interface MiniResumeProps {
   resumes: {
     id: string;
@@ -202,6 +349,9 @@ interface MiniResumeProps {
 const ResumePreview: React.FC<MiniResumeProps> = miniResumeProps => {
   const router = useRouter();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const [click, setClick] = useState(false);
+  const editMenu = () => setClick(!click);
 
   const handleCreateNewResume = async () => {
     try {
@@ -228,7 +378,10 @@ const ResumePreview: React.FC<MiniResumeProps> = miniResumeProps => {
     }
   };
 
-  const handleEditButtonClick = () => {
+  const handleEditButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.stopPropagation();
     setIsEditModalOpen(prevState => !prevState);
   };
 
@@ -237,43 +390,68 @@ const ResumePreview: React.FC<MiniResumeProps> = miniResumeProps => {
   };
 
   return (
-    <ResumeContainer>
-      <CreateResumeButton>
-        <ButtonLabel onClick={handleCreateNewResume}>
-          Create new resume
-        </ButtonLabel>
-      </CreateResumeButton>
-      {miniResumeProps.resumes.map(resume => (
-        <ResumeCard key={resume.id}>
-          <ResumeContent>
-            <MiniDefault id={resume.id} resumeInfo={resume.resumeInfo} />
-          </ResumeContent>
-          <EditContainer>
-            <EditButton onClick={handleEditButtonClick}>
-              <CiMenuKebab />
-            </EditButton>
-            {isEditModalOpen && (
-              <EditModalOverlay>
-                <EditModalContent>
-                  <EditContent>
-                    <FaRegEdit style={{ marginRight: '5px' }} />
-                    Edit
-                  </EditContent>
-                  <EditContent>
-                    <FaDownload style={{ marginRight: '5px' }} />
-                    Download
-                  </EditContent>
-                  <EditContent>
-                    <FaTrashAlt style={{ marginRight: '5px' }} />
-                    Delete
-                  </EditContent>
-                </EditModalContent>
-              </EditModalOverlay>
-            )}
-          </EditContainer>
-        </ResumeCard>
-      ))}
-    </ResumeContainer>
+    <>
+      {click && (
+        <SidebarMenuContainer
+          className={click ? 'category active' : 'category'}
+        >
+          <SidebarHeader>
+            <SidebarHeaderItem>
+              <ResumeButton>
+                <ResumeButtonTitle>Resume</ResumeButtonTitle>
+              </ResumeButton>
+            </SidebarHeaderItem>
+            <SidebarHeaderClose onClick={editMenu}>
+              <IoCloseSharp />
+            </SidebarHeaderClose>
+          </SidebarHeader>
+          <SidebarContentContainer>
+            <ContentContainer>RESUME PREVIEW</ContentContainer>
+            <ActionContainer>
+              <PreviewEditButton>Edit</PreviewEditButton>
+              <PreviewDownloadButton>Download</PreviewDownloadButton>
+            </ActionContainer>
+          </SidebarContentContainer>
+        </SidebarMenuContainer>
+      )}
+      <ResumeContainer>
+        <CreateResumeButton>
+          <ButtonLabel onClick={handleCreateNewResume}>
+            Create new resume
+          </ButtonLabel>
+        </CreateResumeButton>
+        {miniResumeProps.resumes.map(resume => (
+          <ResumeCard key={resume.id} onClick={editMenu}>
+            <ResumeContent>
+              <MiniDefault id={resume.id} resumeInfo={resume.resumeInfo} />
+            </ResumeContent>
+            <EditContainer>
+              <EditButton onClick={event => handleEditButtonClick(event)}>
+                <CiMenuKebab />
+              </EditButton>
+              {isEditModalOpen && (
+                <EditModalOverlay>
+                  <EditModalContent>
+                    <EditContent onClick={e => e.stopPropagation()}>
+                      <FaRegEdit style={{ marginRight: '5px' }} />
+                      Edit
+                    </EditContent>
+                    <EditContent onClick={e => e.stopPropagation()}>
+                      <FaDownload style={{ marginRight: '5px' }} />
+                      Download
+                    </EditContent>
+                    <EditContent onClick={e => e.stopPropagation()}>
+                      <FaTrashAlt style={{ marginRight: '5px' }} />
+                      Delete
+                    </EditContent>
+                  </EditModalContent>
+                </EditModalOverlay>
+              )}
+            </EditContainer>
+          </ResumeCard>
+        ))}
+      </ResumeContainer>
+    </>
   );
 };
 
