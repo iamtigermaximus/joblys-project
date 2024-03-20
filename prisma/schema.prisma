@@ -56,7 +56,6 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  rewrittenCVs  RewrittenCVs[]
   StructuredCVs StructuredCVs[]
 
   @@map(name: "users")
@@ -80,16 +79,4 @@ model StructuredCVs {
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
   @@map(name: "structured_cvs")
-}
-
-model RewrittenCVs {
-  id        String   @id @default(cuid())
-  owner     User     @relation(fields: [ownerId], references: [id])
-  ownerId   String
-  content   String
-  source    String
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-
-  @@map(name: "rewritten_cvs")
 }
