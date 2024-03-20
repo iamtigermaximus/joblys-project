@@ -57,6 +57,7 @@ model User {
   sessions      Session[]
 
   StructuredCVs StructuredCVs[]
+  CoverLetters  CoverLetters[]
 
   @@map(name: "users")
 }
@@ -79,4 +80,16 @@ model StructuredCVs {
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
   @@map(name: "structured_cvs")
+}
+
+model CoverLetters {
+  id         String  @id @default(cuid())
+  owner      User    @relation(fields: [ownerId], references: [id])
+  ownerId    String
+  content    Json
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  @@map(name: "cover_letters")  
 }
