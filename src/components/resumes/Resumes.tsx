@@ -4,9 +4,12 @@ import axios from 'axios';
 import { Resume } from '@/types/profile';
 import { Container, HeaderContainer, PageName } from './Resumes.styles';
 import ResumePreview from '../templates/defaultTemplate/ResumePreview';
+import Loader from '../common/loader/Loader';
 
 const Resumes = () => {
-  const [profileData, setProfileData] = useState<{ id: string, resumeInfo: Resume }[] | null>(null);
+  const [profileData, setProfileData] = useState<
+    { id: string; resumeInfo: Resume }[] | null
+  >(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -16,7 +19,7 @@ const Resumes = () => {
         const response = await axios.get('/api/cv');
         const resumes = response.data.body.resumes;
 
-        const data = resumes.map((resume: { id: string, content: any }) => {
+        const data = resumes.map((resume: { id: string; content: any }) => {
           return {
             id: resume.id,
             resumeInfo: resume.content,
@@ -35,7 +38,7 @@ const Resumes = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (error) {

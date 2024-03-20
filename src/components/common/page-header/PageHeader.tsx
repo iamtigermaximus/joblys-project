@@ -55,12 +55,13 @@ import { FcGoogle } from 'react-icons/fc';
 
 interface PageHeaderProps {
   handleDownloadPDF: () => Promise<void>;
+  id: string;
 }
 
-const PageHeader: FC<PageHeaderProps> = ({ handleDownloadPDF }) => {
+const PageHeader: FC<PageHeaderProps> = ({ handleDownloadPDF, id }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const isProfileBuilder = pathname === '/profile-builder';
+  const isProfileBuilder = pathname === `/profile-builder/resumes/${id}`;
   const isCoverLetterBuilder = pathname === '/coverletter-builder';
 
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
@@ -90,7 +91,7 @@ const PageHeader: FC<PageHeaderProps> = ({ handleDownloadPDF }) => {
 
   const getHeaderStyles = (): React.CSSProperties => {
     switch (pathname) {
-      case '/profile-builder':
+      case `/profile-builder/resumes/${id}`:
         return {
           backgroundColor: '#520668',
           color: 'white',

@@ -20,8 +20,11 @@ import CoverLetterForm from '@/components/coverLettersForm/CoverLetterForm';
 import CoverLetterTemplate from '@/components/templates/coverletterTemplate/CoverLetterTemplate';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { useParams } from 'next/navigation';
 
 const CoverLetterBuilderPage: FC = () => {
+  const params = useParams() as { id: string };
+
   const initialBasicInfo: BasicInfoType = {
     firstName: '',
     lastName: '',
@@ -167,7 +170,7 @@ const CoverLetterBuilderPage: FC = () => {
       <div>
         <title>Cover Letter Builder Page</title>
       </div>
-      <PageHeader handleDownloadPDF={handleDownloadPDF} />
+      <PageHeader id={params.id} handleDownloadPDF={handleDownloadPDF} />
       <FormViewerContainer>
         <ResumeFormContainer>
           <CoverLetterForm

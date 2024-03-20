@@ -9,6 +9,10 @@ export const DefaultTemplateContainer = styled.div`
   width: 100%;
   height: 100%; */
   /* border: 3px solid red; */
+  @media (min-width: ${bp.lg}) {
+    min-height: 800px;
+    height: 100vh;
+  }
 `;
 
 export const Template = styled.div`
@@ -21,6 +25,7 @@ export const Template = styled.div`
   /* border: 3px solid green; */
   transform-origin: top;
   transform: scale(0.85);
+  height: 100vh;
 
   &.clicked {
     transform: scale(0.7);
@@ -33,7 +38,7 @@ export const Template = styled.div`
   }
 
   @media (min-width: ${bp.md}) {
-    width: 600px;
+    min-width: 600px;
     min-height: 800px;
     transform: scale(0.7);
   }
@@ -41,6 +46,12 @@ export const Template = styled.div`
   @media (min-width: ${bp.lg}) {
     min-height: 800px;
     transform: scale(0.9);
+    height: 100vh;
+  }
+
+  @media (min-width: ${bp.xl}) {
+    min-width: 600px;
+    min-height: 800px;
   }
 `;
 export const BasicContentContainer = styled.div`
@@ -50,9 +61,13 @@ export const BasicContentContainer = styled.div`
   width: 35%;
   padding: 20px 10px;
   color: white;
+  min-width: 100px;
+  height: 100%;
 
   @media (min-width: ${bp.lg}) {
     padding: 50px 20px;
+    min-height: 800px;
+    height: 100%;
   }
 `;
 
@@ -62,9 +77,13 @@ export const ContentContainer = styled.div`
   background-color: #fffffe;
   width: 65%;
   padding: 20px 10px;
+  min-width: 250px;
+  height: 100%;
 
   @media (min-width: ${bp.lg}) {
     padding: 50px 20px;
+    min-height: 800px;
+    height: 100%;
   }
 `;
 

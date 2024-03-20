@@ -27,7 +27,7 @@ export const Loaders = styled.div`
   justify-content: center;
   margin: 100px;
 
-  height: 100vh;
+  /* height: 100vh; */
 `;
 
 export const Span = styled.span`
@@ -74,7 +74,7 @@ export const Span = styled.span`
 `;
 
 export const TextContainer = styled.div`
-  position: absolute; /* Position the text relative to the Loaders container */
+  /* position: absolute;  */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); /* Center the text */

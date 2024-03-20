@@ -10,10 +10,7 @@ import {
 } from '../../../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import ResumeForm from '@/components/profileBuilderForms/profile-form/ResumeForm';
-import {
-  Resume,
-  initialResume,
-} from '@/types/profile';
+import { Resume, initialResume } from '@/types/profile';
 import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -92,7 +89,7 @@ const ProfileBuilderPage: FC = () => {
       <div>
         <title>Profile Builder Page</title>
       </div>
-      <PageHeader handleDownloadPDF={handleDownloadPDF} />
+      <PageHeader id={params.id} handleDownloadPDF={handleDownloadPDF} />
       <FormViewerContainer>
         <ResumeFormContainer>
           <ResumeForm

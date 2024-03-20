@@ -142,7 +142,7 @@ export const EditContainer = styled.div`
   left: 0;
   width: 100%;
   height: 5vh;
-  z-index: 1;
+  z-index: 99;
   display: flex;
   justify-content: flex-end;
   align-items: center;
