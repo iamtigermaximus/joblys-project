@@ -142,7 +142,7 @@ export const EditContainer = styled.div`
   left: 0;
   width: 100%;
   height: 5vh;
-  z-index: 99;
+  z-index: 88;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -196,7 +196,7 @@ export const SidebarMenuContainer = styled.div`
   height: 100%;
   background-color: white;
   transform: translateX(100%);
-  transition: transform 0.5s ease-out;
+  transition: transform 0.3s ease-out;
   border-top: 0.3vh solid #fb5d20;
   color: black;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -204,7 +204,7 @@ export const SidebarMenuContainer = styled.div`
 
   &.active {
     transform: translateX(0%);
-    transition: transform 0.5s ease-in;
+    transition: transform 0.3s ease-in;
   }
 
   @media (min-width: ${bp.md}) {

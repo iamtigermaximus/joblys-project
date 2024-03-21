@@ -37,12 +37,10 @@ interface MiniResumeProps {
   }[];
 }
 
-const ResumePreview: React.FC<MiniResumeProps> = miniResumeProps => {
+const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
   const router = useRouter();
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
-  const [click, setClick] = useState(false);
-  const editMenu = () => setClick(!click);
+  const [editModalOpenId, setEditModalOpenId] = useState<string | null>(null);
+  const [activeElement, setActiveElement] = useState<string | null>(null);
 
   const handleCreateNewResume = async () => {
     try {
@@ -71,78 +69,87 @@ const ResumePreview: React.FC<MiniResumeProps> = miniResumeProps => {
 
   const handleEditButtonClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: string,
   ) => {
     event.stopPropagation();
-    setIsEditModalOpen(prevState => !prevState);
+    setEditModalOpenId(id === editModalOpenId ? null : id);
+    setActiveElement('editModal');
   };
 
-  const handleEditModalClose = () => {
-    setIsEditModalOpen(false);
+  const handleResumeCardClick = (id: string) => {
+    setActiveElement('sidebarMenu');
+    setEditModalOpenId(id);
+  };
+
+  const handleCloseEditModal = () => {
+    setEditModalOpenId(null);
+    setActiveElement(null);
   };
 
   return (
-    <>
-      {click && (
-        <SidebarMenuContainer
-          className={click ? 'category active' : 'category'}
-        >
-          <SidebarHeader>
-            <SidebarHeaderItem>
-              <ResumeButton>
-                <ResumeButtonTitle>Resume</ResumeButtonTitle>
-              </ResumeButton>
-            </SidebarHeaderItem>
-            <SidebarHeaderClose onClick={editMenu}>
-              <IoCloseSharp />
-            </SidebarHeaderClose>
-          </SidebarHeader>
-          <SidebarContentContainer>
-            <ContentContainer>RESUME PREVIEW</ContentContainer>
-            <ActionContainer>
-              <PreviewEditButton>Edit</PreviewEditButton>
-              <PreviewDownloadButton>Download</PreviewDownloadButton>
-            </ActionContainer>
-          </SidebarContentContainer>
-        </SidebarMenuContainer>
-      )}
-      <ResumeContainer>
-        <CreateResumeButton>
-          <ButtonLabel onClick={handleCreateNewResume}>
-            Create new resume
-          </ButtonLabel>
-        </CreateResumeButton>
-        {miniResumeProps.resumes.map(resume => (
-          <ResumeCard key={resume.id} onClick={editMenu}>
+    <ResumeContainer>
+      <CreateResumeButton>
+        <ButtonLabel onClick={handleCreateNewResume}>
+          Create new resume
+        </ButtonLabel>
+      </CreateResumeButton>
+      {resumes.map(resume => (
+        <React.Fragment key={resume.id}>
+          <ResumeCard onClick={() => handleResumeCardClick(resume.id)}>
             <ResumeContent>
               <MiniDefault id={resume.id} resumeInfo={resume.resumeInfo} />
             </ResumeContent>
             <EditContainer>
-              <EditButton onClick={event => handleEditButtonClick(event)}>
+              <EditButton
+                onClick={event => handleEditButtonClick(event, resume.id)}
+              >
                 <CiMenuKebab />
               </EditButton>
-              {isEditModalOpen && (
-                <EditModalOverlay>
-                  <EditModalContent>
-                    <EditContent onClick={e => e.stopPropagation()}>
-                      <FaRegEdit style={{ marginRight: '5px' }} />
-                      Edit
-                    </EditContent>
-                    <EditContent onClick={e => e.stopPropagation()}>
-                      <FaDownload style={{ marginRight: '5px' }} />
-                      Download
-                    </EditContent>
-                    <EditContent onClick={e => e.stopPropagation()}>
-                      <FaTrashAlt style={{ marginRight: '5px' }} />
-                      Delete
-                    </EditContent>
-                  </EditModalContent>
-                </EditModalOverlay>
-              )}
+              {editModalOpenId === resume.id &&
+                activeElement === 'editModal' && (
+                  <EditModalOverlay onClick={handleCloseEditModal}>
+                    <EditModalContent>
+                      <EditContent onClick={e => e.stopPropagation()}>
+                        <FaRegEdit style={{ marginRight: '5px' }} />
+                        Edit
+                      </EditContent>
+                      <EditContent onClick={e => e.stopPropagation()}>
+                        <FaDownload style={{ marginRight: '5px' }} />
+                        Download
+                      </EditContent>
+                      <EditContent onClick={e => e.stopPropagation()}>
+                        <FaTrashAlt style={{ marginRight: '5px' }} />
+                        Delete
+                      </EditContent>
+                    </EditModalContent>
+                  </EditModalOverlay>
+                )}
             </EditContainer>
           </ResumeCard>
-        ))}
-      </ResumeContainer>
-    </>
+          {editModalOpenId === resume.id && activeElement === 'sidebarMenu' && (
+            <SidebarMenuContainer key={resume.id} className={'category active'}>
+              <SidebarHeader>
+                <SidebarHeaderItem>
+                  <ResumeButton>
+                    <ResumeButtonTitle>Resume</ResumeButtonTitle>
+                  </ResumeButton>
+                </SidebarHeaderItem>
+                <SidebarHeaderClose onClick={handleCloseEditModal}>
+                  <IoCloseSharp />
+                </SidebarHeaderClose>
+              </SidebarHeader>
+              <SidebarContentContainer>
+                <ContentContainer>RESUME PREVIEW</ContentContainer>
+                <ActionContainer>
+                  <PreviewEditButton>Edit</PreviewEditButton>
+                  <PreviewDownloadButton>Download</PreviewDownloadButton>
+                </ActionContainer>
+              </SidebarContentContainer>
+            </SidebarMenuContainer>
+          )}
+        </React.Fragment>
+      ))}
+    </ResumeContainer>
   );
 };
 
