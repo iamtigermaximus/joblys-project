@@ -91,3 +91,62 @@ export async function GET(req: NextRequest) {
     { status: 200 },
   );
 }
+
+export async function DELETE(req: NextRequest) {
+  const token = await getToken({ req });
+  if (!token) {
+    console.log('invalid token');
+    return NextResponse.json(
+      {
+        body: {
+          message: 'invalid token',
+        },
+      },
+      { status: 401 },
+    );
+  }
+
+  const cvId = req.nextUrl.pathname.split('/').pop();
+  if (!cvId) {
+    console.log('No CV ID provided');
+    return NextResponse.json(
+      {
+        body: {
+          message: 'no CV ID provided',
+        },
+      },
+      { status: 400 },
+    );
+  }
+
+  console.log(`Deleting profile id: ${cvId}`);
+
+  try {
+    await prisma.structuredCVs.delete({
+      where: {
+        id: cvId,
+      },
+    });
+  } catch (err) {
+    console.log(`Error deleting CV: ${err}`);
+    return NextResponse.json(
+      {
+        body: {
+          message: 'internal server error',
+        },
+      },
+      { status: 500 },
+    );
+  }
+
+  console.log('Successfully deleted the CV');
+
+  return NextResponse.json(
+    {
+      body: {
+        message: 'CV deleted successfully',
+      },
+    },
+    { status: 200 },
+  );
+}

@@ -9,10 +9,12 @@ import {
   ActionContainer,
   ButtonLabel,
   ContentContainer,
+  ContentItem,
   CreateResumeButton,
   EditButton,
   EditContainer,
   EditContent,
+  EditContentItem,
   EditModalContent,
   EditModalOverlay,
   MiniDefault,
@@ -41,6 +43,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
   const router = useRouter();
   const [editModalOpenId, setEditModalOpenId] = useState<string | null>(null);
   const [activeElement, setActiveElement] = useState<string | null>(null);
+  const [resumesList, setResumesList] = useState(resumes);
 
   const handleCreateNewResume = async () => {
     try {
@@ -86,6 +89,26 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
     setActiveElement(null);
   };
 
+  const handleDeleteResume = async (id: string) => {
+    try {
+      const response = await fetch(`/api/cv/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete resume');
+      }
+
+      const updatedResumes = resumesList.filter(resume => resume.id !== id);
+
+      setResumesList(updatedResumes);
+
+      console.log('Resume deleted successfully!');
+    } catch (error: any) {
+      console.error('Error deleting resume:', error.message);
+    }
+  };
+
   return (
     <ResumeContainer>
       <CreateResumeButton>
@@ -93,7 +116,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
           Create new resume
         </ButtonLabel>
       </CreateResumeButton>
-      {resumes.map(resume => (
+      {resumesList.map(resume => (
         <React.Fragment key={resume.id}>
           <ResumeCard onClick={() => handleResumeCardClick(resume.id)}>
             <ResumeContent>
@@ -110,16 +133,30 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
                   <EditModalOverlay onClick={handleCloseEditModal}>
                     <EditModalContent>
                       <EditContent onClick={e => e.stopPropagation()}>
-                        <FaRegEdit style={{ marginRight: '5px' }} />
-                        Edit
+                        <EditContentItem>
+                          <ContentItem>
+                            <FaRegEdit style={{ marginRight: '5px' }} />
+                          </ContentItem>
+                          <ContentItem> Edit</ContentItem>
+                        </EditContentItem>
                       </EditContent>
                       <EditContent onClick={e => e.stopPropagation()}>
-                        <FaDownload style={{ marginRight: '5px' }} />
-                        Download
+                        <EditContentItem>
+                          <ContentItem>
+                            <FaDownload style={{ marginRight: '5px' }} />
+                          </ContentItem>
+                          <ContentItem> Download</ContentItem>
+                        </EditContentItem>
                       </EditContent>
                       <EditContent onClick={e => e.stopPropagation()}>
-                        <FaTrashAlt style={{ marginRight: '5px' }} />
-                        Delete
+                        <EditContentItem
+                          onClick={() => handleDeleteResume(resume.id)}
+                        >
+                          <ContentItem>
+                            <FaTrashAlt style={{ marginRight: '5px' }} />
+                          </ContentItem>
+                          <ContentItem> Delete</ContentItem>
+                        </EditContentItem>
                       </EditContent>
                     </EditModalContent>
                   </EditModalOverlay>

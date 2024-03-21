@@ -182,8 +182,25 @@ export const EditButton = styled.button`
 
 export const EditContent = styled.div`
   color: gray;
-  display: flex;
   padding: 5px 0;
+`;
+
+export const EditContentItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  /* gap: 5px; */
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+    color: white;
+  }
+`;
+
+export const ContentItem = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
 `;
 
 export const SidebarMenuContainer = styled.div`
