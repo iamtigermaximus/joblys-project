@@ -44,6 +44,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
   const [editModalOpenId, setEditModalOpenId] = useState<string | null>(null);
   const [activeElement, setActiveElement] = useState<string | null>(null);
   const [resumesList, setResumesList] = useState(resumes);
+  const [selectedResume, setSelectedResume] = useState<Resume | null>(null);
 
   const handleCreateNewResume = async () => {
     try {
@@ -79,14 +80,16 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
     setActiveElement('editModal');
   };
 
-  const handleResumeCardClick = (id: string) => {
+  const handleResumeCardClick = (id: string, resumeInfo: Resume) => {
     setActiveElement('sidebarMenu');
     setEditModalOpenId(id);
+    setSelectedResume(resumeInfo);
   };
 
   const handleCloseEditModal = () => {
     setEditModalOpenId(null);
     setActiveElement(null);
+    setSelectedResume(null);
   };
 
   const handleDeleteResume = async (id: string) => {
@@ -118,7 +121,9 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
       </CreateResumeButton>
       {resumesList.map(resume => (
         <React.Fragment key={resume.id}>
-          <ResumeCard onClick={() => handleResumeCardClick(resume.id)}>
+          <ResumeCard
+            onClick={() => handleResumeCardClick(resume.id, resume.resumeInfo)}
+          >
             <ResumeContent>
               <MiniDefault id={resume.id} resumeInfo={resume.resumeInfo} />
             </ResumeContent>
@@ -176,12 +181,19 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
                 </SidebarHeaderClose>
               </SidebarHeader>
               <SidebarContentContainer>
-                <ContentContainer>RESUME PREVIEW</ContentContainer>
-                <ActionContainer>
-                  <PreviewEditButton>Edit</PreviewEditButton>
-                  <PreviewDownloadButton>Download</PreviewDownloadButton>
-                </ActionContainer>
+                <ContentContainer>
+                  {selectedResume && (
+                    <MiniDefault
+                      id={selectedResume.id}
+                      resumeInfo={selectedResume}
+                    />
+                  )}
+                </ContentContainer>
               </SidebarContentContainer>
+              <ActionContainer>
+                <PreviewEditButton>Edit</PreviewEditButton>
+                <PreviewDownloadButton>Download</PreviewDownloadButton>
+              </ActionContainer>
             </SidebarMenuContainer>
           )}
         </React.Fragment>

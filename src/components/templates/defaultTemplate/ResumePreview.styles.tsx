@@ -298,7 +298,6 @@ export const SidebarHeaderClose = styled.div`
 `;
 
 export const SidebarContentContainer = styled.div`
-  padding: 20px;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -306,16 +305,42 @@ export const SidebarContentContainer = styled.div`
   align-items: center;
   flex: 1;
   gap: 10px;
+  overflow-y: auto;
+  position: relative;
+`;
+
+export const ContentContainer = styled.div`
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  scale: 0.9;
+  overflow-y: auto;
+
+  @media (min-width: ${bp.lg}) {
+    scale: 0.7;
+    padding: 20px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    scale: 0.9;
+    padding: 20px;
+  }
 `;
 
 export const ActionContainer = styled.div`
   padding: 10px;
-  height: 10vh;
+  height: 8vh;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top: 0.5px solid gray;
+  background-color: white;
 `;
 
 export const PreviewEditButton = styled.button`
@@ -337,14 +362,4 @@ export const PreviewDownloadButton = styled.button`
   align-items: center;
   border-radius: 5px;
   color: white;
-`;
-
-export const ContentContainer = styled.div`
-  padding: 10px;
-  height: 100%;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
