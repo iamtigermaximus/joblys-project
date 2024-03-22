@@ -17,11 +17,11 @@ import Image1 from '../assets/joblys-hero.png';
 import { useRouter } from 'next/navigation';
 import LandingNavbar from '@/components/navbar/landing-navbar/LandingNavbar';
 
-export default function Home() {
+export default function Home({ id }: any) {
   const router = useRouter();
 
   const handleGetStartedClick = () => {
-    router.push('/profile-builder');
+    router.push(`/profile-builder/resumes/${id}`);
   };
 
   return (

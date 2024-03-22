@@ -14,16 +14,18 @@ import {
 import Image from 'next/image';
 import NavLogo from '../../../assets/Joblys-logo-RGB-purple.png';
 import { useRouter } from 'next/navigation';
+import { v4 as uuidv4 } from 'uuid';
 
 const LandingNavbar = () => {
   const router = useRouter();
+  const id = uuidv4();
 
   const handleLogin = () => {
     router.push('/login');
   };
 
   const handleGetStarted = () => {
-    router.push('/profile-builder');
+    router.push(`/profile-builder/resumes/${id}`);
   };
 
   // const handleSignup = () => {
