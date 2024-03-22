@@ -4,22 +4,28 @@ import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
 import { Resume } from '@/types/profile';
 
-const parserPromt = `Please rewrite the following three job responsibilities to enhance their professional appeal for a CV, while preserving their original meaning.
-Each rewritten responsibility should be a more professional and concise version of the original, suitable for a CV. List your responsibilities in a bullet or numbered format, ensuring that the essence of each task remains the same, without introducing new facts or figures.
-Each rewritten responsibility should correspond directly to the original ones provided, maintaining a concise length suitable for a CV. Focus on using a variety of dynamic action verbs and professional terminology, especially if your experience is in a specific industry. For clarity, see the examples provided after the original responsibilities. 
-Please provide exactly {number_sentences} rewritten sentences, one corresponding to each of the following original responsibilities:
+const parserPromt = `Please refine the following job responsibilities to enhance their professional appeal for a CV, while maintaining their original meaning.
+
+Each refined responsibility should be a more polished and succinct version of the original, suitable for inclusion in a CV. Ensure that the essence of each task remains unchanged, without introducing new facts or figures.
+
+
+Please provide refined versions of the responsibilities {type_of_list}.
+
+Please provide refined versions of the responsibilities without adding any numbering, bullet points, or dash.
+
+Provide exactly {number_sentences} refined sentences, each corresponding to one of the following original responsibilities:
 
 Original Responsibilities:
 {original_responsibilities}
-Focus on using a variety of dynamic action verbs and professional terminology, especially if your experience is in a specific industry (please mention if so). For clarity, see the examples below:
 
-Developed and optimized back-end APIs for a large-scale e-commerce platform, leading to significant improvements in response time.
-Designed and executed a comprehensive digital marketing strategy, substantially increasing online brand presence and social media engagement.
-Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.
-Led cross-functional teams to foster collaboration and effective communication, successfully meeting project milestones.`;
+Focus on incorporating dynamic action verbs and professional terminology, tailored to specific industries if applicable. Refer to the examples provided below for clarity.
+    Developed and optimized back-end APIs for a large-scale e-commerce platform, leading to significant improvements in response time.
+    Designed and executed a comprehensive digital marketing strategy, substantially increasing online brand presence and social media engagement.
+    Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.
+    Led cross-functional teams to foster collaboration and effective communication, successfully meeting project milestones.`;
 
 const openAI = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(req: NextRequest) {
@@ -31,9 +37,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'invalid token',
-        }
+        },
       },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -44,9 +50,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'IDs not provided',
-        }
+        },
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -60,7 +66,7 @@ export async function POST(req: NextRequest) {
       select: {
         id: true,
         content: true,
-      }
+      },
     });
   } catch (err) {
     console.log(`Fetching structuredCV: ${err}`);
@@ -68,9 +74,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'internal server error',
-        }
+        },
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -80,27 +86,26 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'CV not found or missing Work Experience',
-        }
+        },
       },
-      { status: 404 }
+      { status: 404 },
     );
   }
 
   resumeData = structuredCV.content as any as Resume;
 
-  const workExperienceToRewrite = resumeData
-    .professional
-    .work
-    .filter((work: { id: string }) => work.id === jobId);
+  const workExperienceToRewrite = resumeData.professional.work.filter(
+    (work: { id: string }) => work.id === jobId,
+  );
 
   if (workExperienceToRewrite.length === 0) {
     return NextResponse.json(
       {
         body: {
           message: 'Position not found',
-        }
+        },
       },
-      { status: 404 }
+      { status: 404 },
     );
   }
 
@@ -109,16 +114,42 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'Multiple positions found',
-        }
+        },
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
-  const formattedResponsibilities = workExperienceToRewrite[0].jobDetails
-    .split('.');
+  const formattedResponsibilities =
+    workExperienceToRewrite[0].jobDetails.split('.');
+
+  if (formattedResponsibilities.length == 0) {
+    return NextResponse.json(
+      {
+        body: {
+          message: 'There is no sentence to rewrite',
+        },
+      },
+      { status: 500 },
+    );
+  }
+
+  const value_type_of_list: string =
+    formattedResponsibilities.length > 0 &&
+    formattedResponsibilities[0].trim().startsWith('-')
+      ? 'bullet_list'
+      : formattedResponsibilities.length > 0 &&
+          /^\s*\d+\./.test(formattedResponsibilities[0])
+        ? 'numbered_list'
+        : 'empty_list';
 
   const replacementMap: Record<string, string> = {
+    '{type_of_list}':
+      value_type_of_list === 'bullet_list'
+        ? 'with bullet list'
+        : value_type_of_list === 'numbered_list'
+          ? 'with numbered list'
+          : 'without adding any numbering, bullet points, or dash.',
     '{number_sentences}': formattedResponsibilities.length.toString(),
     '{original_responsibilities}': formattedResponsibilities.join('. '),
   };
@@ -140,9 +171,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'Unable to rewrite CV',
-        }
+        },
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -155,7 +186,7 @@ export async function POST(req: NextRequest) {
       },
       data: {
         content: resumeData as any,
-      }
+      },
     });
   } catch (err) {
     console.log(`Updating structuredCV: ${err}`);
@@ -163,18 +194,18 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'internal server error',
-        }
+        },
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
-  
+
   return NextResponse.json(
     {
       body: {
         message: 'Successful rewrite of CV',
-      }
+      },
     },
-    { status: 201 }
+    { status: 201 },
   );
 }
