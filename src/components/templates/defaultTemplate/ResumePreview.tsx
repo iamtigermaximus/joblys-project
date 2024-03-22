@@ -112,6 +112,10 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
     }
   };
 
+  const handleEditResume = (id: string) => {
+    router.push(`/profile-builder/resumes/${id}`);
+  };
+
   return (
     <ResumeContainer>
       <CreateResumeButton>
@@ -191,7 +195,9 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
                 </ContentContainer>
               </SidebarContentContainer>
               <ActionContainer>
-                <PreviewEditButton>Edit</PreviewEditButton>
+                <PreviewEditButton onClick={() => handleEditResume(resume.id)}>
+                  Edit
+                </PreviewEditButton>
                 <PreviewDownloadButton>Download</PreviewDownloadButton>
               </ActionContainer>
             </SidebarMenuContainer>

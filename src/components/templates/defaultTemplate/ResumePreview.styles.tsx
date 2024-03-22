@@ -351,6 +351,11 @@ export const PreviewEditButton = styled.button`
   align-items: center;
   border-radius: 5px;
   background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f1f1f1;
+  }
 `;
 
 export const PreviewDownloadButton = styled.button`
@@ -362,4 +367,9 @@ export const PreviewDownloadButton = styled.button`
   align-items: center;
   border-radius: 5px;
   color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+  }
 `;
