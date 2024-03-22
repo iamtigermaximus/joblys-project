@@ -5,16 +5,9 @@ import OpenAI from 'openai';
 import { Resume } from '@/types/profile';
 
 const parserPromt = `Please refine the following job responsibilities to enhance their professional appeal for a CV, while maintaining their original meaning.
-
 Each refined responsibility should be a more polished and succinct version of the original, suitable for inclusion in a CV. Ensure that the essence of each task remains unchanged, without introducing new facts or figures.
-
-
 Please provide refined versions of the responsibilities {type_of_list}.
-
-Please provide refined versions of the responsibilities without adding any numbering, bullet points, or dash.
-
 Provide exactly {number_sentences} refined sentences, each corresponding to one of the following original responsibilities:
-
 Original Responsibilities:
 {original_responsibilities}
 
