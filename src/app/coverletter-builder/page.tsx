@@ -180,7 +180,8 @@ const CoverLetterBuilderPage: FC = () => {
           />
         </ResumeFormContainer>
         <ResumeTemplateContainer>
-          <CoverLetterTemplate id="coverletter-template" />
+          {/* <CoverLetterTemplate id="coverletter-template" /> */}
+          <CoverLetterTemplate />
         </ResumeTemplateContainer>
       </FormViewerContainer>
     </ProfileBuilderContainer>

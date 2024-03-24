@@ -146,9 +146,9 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
             </HeaderItem>
           </TemplateHeaderItem>
         </TemplatePreviewHeader>
-        <CoverLetterTemplate id="coverletter-template" />
+        {/* <CoverLetterTemplate id="coverletter-template" /> */}
+        <CoverLetterTemplate />
       </TemplatePreview>
-
       <AccordionContainer>
         <AccordionSection>
           <AccordionHeader>
@@ -216,7 +216,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
           {accordionState.professional && (
             <AccordionContent>
               <ProfessionalDetailsForm
-                resumeId=''
+                resumeId=""
                 professional={resumeInfo.professional}
                 setResumeInfo={setResumeInfo}
                 refreshStoredResume={refreshStoredResume}
