@@ -96,10 +96,8 @@ export const TemplateHeaderItem = styled.div`
 `;
 
 export const HeaderItem = styled.h1`
-  /* Common button styles go here */
-  padding: 8px 16px;
-  height: 40px;
-  font-size: 16px;
+  font-size: 13px;
+  padding: 5px;
   border: 1px solid white;
   cursor: pointer;
   color: white;

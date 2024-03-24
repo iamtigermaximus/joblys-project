@@ -165,19 +165,19 @@ export const SignInButton = styled.div`
 
 export const HeaderLinksContainer = styled.div`
   color: black;
-  /* border: 1px solid red; */
   font-weight: 700;
   height: 50px;
   width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px 3px;
+  padding: 10px;
 
   @media (min-width: ${bp.lg}) {
     flex-direction: row;
     font-size: 20px;
     letter-spacing: 1px;
+    padding: 5px 3px;
   }
 `;
 
@@ -202,10 +202,7 @@ export const IconContainer = styled.div`
 `;
 
 export const ResumeButton = styled.button`
-  /* Common button styles go here */
-  padding: 8px 16px;
-  height: 40px;
-  font-size: 16px;
+  padding: 5px;
   border: 1px solid white;
   cursor: pointer;
   color: white;
@@ -215,14 +212,25 @@ export const ResumeButton = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  white-space: nowrap;
+
+  @media (min-width: ${bp.lg}) {
+    height: 40px;
+    font-size: 16px;
+    padding: 8px 16px;
+  }
 `;
 
 export const ResumeButtonTitle = styled.h1`
-  font-size: 16px;
+  font-size: 13px;
   color: white;
   display: flex;
   align-items: center;
   padding: 0 5px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 16px;
+  }
 `;
 
 export const ResumeButtonIcon = styled.span`
