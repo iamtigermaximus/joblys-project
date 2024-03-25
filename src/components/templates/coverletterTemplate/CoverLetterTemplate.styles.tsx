@@ -15,11 +15,13 @@ export const Template = styled.div`
   flex-direction: row;
   background-color: white;
   width: 100%;
+  height: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-height: 500px;
   /* border: 3px solid green; */
   transform-origin: top;
   transform: scale(0.85);
+  min-width: 300px;
 
   &.clicked {
     transform: scale(0.7);

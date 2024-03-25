@@ -105,11 +105,16 @@ export const CreateCoverLetterButton = styled.div`
 `;
 
 export const ButtonLabel = styled.h1`
-  font-size: 16px;
+  font-size: 13px;
   color: #b0b0b0;
+  white-space: nowrap;
 
   &:hover {
     color: #520668;
+  }
+
+  @media (min-width: ${bp.md}) {
+    font-size: 16px;
   }
 `;
 
@@ -142,7 +147,7 @@ export const EditContainer = styled.div`
   left: 0;
   width: 100%;
   height: 5vh;
-  z-index: 88;
+  /* z-index: 88; */
   display: flex;
   justify-content: flex-end;
   align-items: center;

@@ -16,7 +16,6 @@ export const ResumeCard = styled.div`
   max-width: calc(50% - 10px);
   height: 250px;
   overflow: hidden;
-  border-radius: 5px;
   object-fit: cover;
   position: relative;
   width: 100%;
@@ -142,7 +141,7 @@ export const EditContainer = styled.div`
   left: 0;
   width: 100%;
   height: 5vh;
-  z-index: 88;
+  /* z-index: 88; */
   display: flex;
   justify-content: flex-end;
   align-items: center;
