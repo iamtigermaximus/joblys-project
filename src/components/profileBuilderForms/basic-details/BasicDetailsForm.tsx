@@ -16,6 +16,7 @@ import {
 import { BasicInfoType, Resume } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
 import { FaTrash } from 'react-icons/fa';
+import { capitalizeFirstLetter } from '@/components/helpers/formHelpers';
 
 interface BasicDetailsFormProps {
   basic: BasicInfoType;
@@ -78,10 +79,6 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
         },
       }));
     }
-  };
-
-  const capitalizeFirstLetter = (value: string) => {
-    return value.charAt(0).toUpperCase() + value.slice(1);
   };
 
   return (

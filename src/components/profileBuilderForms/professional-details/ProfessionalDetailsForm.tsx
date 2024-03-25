@@ -23,6 +23,7 @@ import {
 } from './ProfessionalDetailsForm.styles';
 import { ProfessionalExperienceType, Resume } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
+import { capitalizeFirstLetter } from '@/components/helpers/formHelpers';
 
 interface ProfessionalDetailsFormProps {
   resumeId: string;
@@ -208,10 +209,6 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     }
 
     refreshStoredResume();
-  };
-
-  const capitalizeFirstLetter = (value: string) => {
-    return value.charAt(0).toUpperCase() + value.slice(1);
   };
 
   return (

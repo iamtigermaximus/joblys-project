@@ -14,6 +14,7 @@ import {
 } from './SkillForm.styles';
 import { FaTrash } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
+import { capitalizeFirstLetter } from '@/components/helpers/formHelpers';
 
 interface SkillsFormProps {
   skills: SkillType[];
@@ -45,10 +46,6 @@ const SkillsForm: FC<SkillsFormProps> = ({ skills, setResumeInfo }) => {
       ...prevInfo,
       skills: prevInfo.skills.filter(skill => skill.id !== id),
     }));
-  };
-
-  const capitalizeFirstLetter = (value: string) => {
-    return value.charAt(0).toUpperCase() + value.slice(1);
   };
 
   return (

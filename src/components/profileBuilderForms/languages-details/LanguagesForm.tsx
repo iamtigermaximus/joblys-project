@@ -14,6 +14,7 @@ import {
 } from './LanguagesForm.styles';
 import { FaTrash } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
+import { capitalizeFirstLetter } from '@/components/helpers/formHelpers';
 
 interface LanguagesFormProps {
   languages: LanguageType[];
@@ -48,10 +49,6 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
       ...prevInfo,
       languages: prevInfo.languages.filter(language => language.id !== id),
     }));
-  };
-
-  const capitalizeFirstLetter = (value: string) => {
-    return value.charAt(0).toUpperCase() + value.slice(1);
   };
 
   return (
