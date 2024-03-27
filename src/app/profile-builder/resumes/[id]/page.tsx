@@ -20,7 +20,7 @@ const ProfileBuilderPage: FC = () => {
   const [resumeInfo, setResumeInfo] = useState(initialResume());
 
   const handleStoredResumeUpdate = useCallback(async () => {
-    const response = await fetch(`/api/cv/${params.id}`);
+    const response = await fetch(`/api/coverletters/${params.id}`);
     if (response.status !== 200) {
       return;
     }

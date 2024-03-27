@@ -6,7 +6,7 @@ import {
   ProfileBuilderContainer,
   ResumeFormContainer,
   ResumeTemplateContainer,
-} from '../page.styles';
+} from '../../../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import {
   BasicInfoType,

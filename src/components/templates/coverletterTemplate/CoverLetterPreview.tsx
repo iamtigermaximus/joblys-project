@@ -56,8 +56,7 @@ const CoverLetterPreview = () => {
 
       console.log('Coverletter uploaded successfully with id:', id);
 
-      //router.push(`/coverletter-builder/coverletters/${id}`);
-      router.push('/coverletter-builder');
+      router.push(`/coverletter-builder/coverletters/${id}`);
     } catch (error: any) {
       console.error('Error uploading resume:', error.message);
     }
