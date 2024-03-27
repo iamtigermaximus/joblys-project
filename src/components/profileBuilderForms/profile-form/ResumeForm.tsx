@@ -95,7 +95,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         method: 'POST',
         body: JSON.stringify({
           id: resumeId,
-          resume: resumeInfo
+          resume: resumeInfo,
         }),
       });
 
@@ -112,6 +112,37 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
       console.log('Resume uploaded successfully!');
     } catch (error: any) {
       console.error('Error uploading resume:', error.message);
+    }
+  };
+
+  const handleSubmitResumeLocally = () => {
+    try {
+      // Cache the resume locally
+      const cachedResumes = JSON.parse(
+        localStorage.getItem('cachedResumes') || '[]',
+      );
+      const updatedResumes = [...cachedResumes, resumeInfo];
+      localStorage.setItem('cachedResumes', JSON.stringify(updatedResumes));
+
+      setProfileCreated(true);
+      setShowSuccessMessage(true);
+
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
+      console.log('Resume data saved locally!');
+    } catch (error) {
+      console.error('Error saving resume data:', error);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (session) {
+      // User is authenticated, submit resume to server
+      await handleSubmitResume();
+    } else {
+      // User is not authenticated, save resume locally
+      handleSubmitResumeLocally();
     }
   };
 
@@ -309,7 +340,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         <AccordionSection>
           <PreviewButtonSection>
             <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
-            <CreateProfileButton onClick={handleSubmitResume}>
+            <CreateProfileButton onClick={handleSubmit}>
               Create Profile
             </CreateProfileButton>
           </PreviewButtonSection>
@@ -320,9 +351,6 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
               </SuccessAlert>
             </PreviewButtonSection>
           )}
-          {/* <AccordionHeader>
-            <AccordionHeaderTitle></AccordionHeaderTitle>
-          </AccordionHeader> */}
         </AccordionSection>
       </AccordionContainer>
     </Container>
