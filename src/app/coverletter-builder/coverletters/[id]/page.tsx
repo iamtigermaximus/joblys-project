@@ -1,12 +1,12 @@
 'use client';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {
   FormViewerContainer,
   ProfileBuilderContainer,
   ResumeFormContainer,
   ResumeTemplateContainer,
-} from '../page.styles';
+} from '../../../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import {
   BasicInfoType,
@@ -14,6 +14,7 @@ import {
   LanguageType,
   ProfessionalExperienceType,
   Resume,
+  Coverletter,
   SkillType,
 } from '@/types/profile';
 import CoverLetterForm from '@/components/coverLettersForm/CoverLetterForm';
@@ -86,24 +87,24 @@ const CoverLetterBuilderPage: FC = () => {
 
   const [resumeInfo, setResumeInfo] = useState(initialState);
 
-  const handleStoredResumeUpdate = async () => {
-    const response = await fetch('/api/cv');
+  const handleStoredResumeUpdate = useCallback(async () => {
+    const response = await fetch(`/api/coverletter/${params.id}`);
     if (response.status !== 200) {
       return;
     }
     const responseJson = await response.json();
-    const resumeProfile: Resume | undefined = responseJson.body.profile;
+    const resumeProfile: Coverletter | undefined = responseJson.body.coverletter;
 
-    if (!resumeProfile) {
-      return;
-    }
+    //if (!resumeProfile) {
+    //  return;
+    //}
 
-    setResumeInfo(resumeProfile);
-  };
+    //setResumeInfo(resumeProfile);
+  }, [params.id]);
 
   useEffect(() => {
     handleStoredResumeUpdate();
-  }, []);
+  }, [handleStoredResumeUpdate]);
 
   const captureToCanvas = async () => {
     try {
@@ -174,6 +175,7 @@ const CoverLetterBuilderPage: FC = () => {
       <FormViewerContainer>
         <ResumeFormContainer>
           <CoverLetterForm
+            coverletterId={params.id}
             resumeInfo={resumeInfo}
             setResumeInfo={setResumeInfo}
             refreshStoredResume={handleStoredResumeUpdate}

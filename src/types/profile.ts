@@ -178,6 +178,18 @@ export function initialResume(): Resume {
   return resume;
 }
 
+export interface Coverletter {
+  content: string;
+}
+
+export const CoverletterSchema = z.object({
+  content: z.string(),
+});
+
+export function initialCoverletter(): Coverletter {
+  return { content: '' };
+}
+
 // export interface ResumeInfoType {
 //   id: string;
 //   basic: BasicInfoType;
