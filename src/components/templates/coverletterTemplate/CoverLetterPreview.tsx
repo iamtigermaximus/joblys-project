@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
 import { CiMenuKebab } from 'react-icons/ci';
 import { IoCloseSharp } from 'react-icons/io5';
+import { initialCoverletter } from '@/types/profile';
 import {
   ActionContainer,
   ButtonLabel,
@@ -36,8 +37,30 @@ const CoverLetterPreview = () => {
   const [activeElement, setActiveElement] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const handleCreateNewCoverLetter = () => {
-    router.push('/coverletter-builder');
+  const handleCreateNewCoverLetter = async () => {
+    try {
+      const response = await fetch('/api/resume/upload', {
+        method: 'POST',
+        body: JSON.stringify({ coverletter: initialCoverletter() }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload resume');
+      }
+
+      const respJson = await response.json();
+      const id = respJson?.body?.id;
+      if (!id) {
+        throw new Error('Did not receive resume id from server');
+      }
+
+      console.log('Coverletter uploaded successfully with id:', id);
+
+      //router.push(`/coverletter-builder/coverletters/${id}`);
+      router.push('/coverletter-builder');
+    } catch (error: any) {
+      console.error('Error uploading resume:', error.message);
+    }
   };
 
   const handleEditCoverLetter = () => {
