@@ -87,12 +87,12 @@ const CoverLetterBuilderPage: FC = () => {
   const [resumeInfo, setResumeInfo] = useState(initialState);
 
   const handleStoredResumeUpdate = async () => {
-    const response = await fetch('/api/cv');
+    const response = await fetch(`/api/coverletter/${params.id}`);
     if (response.status !== 200) {
       return;
     }
     const responseJson = await response.json();
-    const resumeProfile: Resume | undefined = responseJson.body.profile;
+    const resumeProfile: Coverletter | undefined = responseJson.body.coverletter;
 
     if (!resumeProfile) {
       return;
@@ -174,6 +174,7 @@ const CoverLetterBuilderPage: FC = () => {
       <FormViewerContainer>
         <ResumeFormContainer>
           <CoverLetterForm
+            coverletterId={params.id}
             resumeInfo={resumeInfo}
             setResumeInfo={setResumeInfo}
             refreshStoredResume={handleStoredResumeUpdate}

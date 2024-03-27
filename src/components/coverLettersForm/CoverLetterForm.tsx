@@ -40,12 +40,14 @@ import LanguagesForm from '../profileBuilderForms/languages-details/LanguagesFor
 import CoverLetterTemplate from '../templates/coverletterTemplate/CoverLetterTemplate';
 
 interface CoverLetterFormProps {
+  coverletterId: string;
   resumeInfo: Resume;
   setResumeInfo: React.Dispatch<React.SetStateAction<Resume>>;
   refreshStoredResume: () => void;
 }
 
 const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
+  coverletterId,
   resumeInfo,
   setResumeInfo,
   refreshStoredResume,
@@ -90,20 +92,15 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
     });
   };
 
-  // const handleFinalSubmit = () => {
-  //   console.log('Final Form Data:', resumeInfo);
-  //   // Add any additional logic for submitting to a server or performing final actions
-  // };
   const handleSubmitResume = async () => {
-    console.log('Final Form Data:', resumeInfo);
-
     try {
-      const response = await fetch('/api/cv/upload', {
+      const response = await fetch('/api/coverletterChanges', {
         method: 'POST',
-        body: JSON.stringify({ resume: resumeInfo }),
+        body: JSON.stringify({
+          id: coverletterId,
+          coverletter: resumeInfo,
+        }),
       });
-
-      console.log('response:', response);
 
       if (!response.ok) {
         throw new Error('Failed to upload resume');
@@ -115,9 +112,9 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
       setTimeout(() => {
         setShowSuccessMessage(false);
       }, 3000);
-      console.log('Resume uploaded successfully!');
+      console.log('Coverletter uploaded successfully!');
     } catch (error: any) {
-      console.error('Error uploading resume:', error.message);
+      console.error('Error uploading coverletter:', error.message);
     }
   };
 
