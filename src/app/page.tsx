@@ -16,12 +16,18 @@ import Image from 'next/image';
 import Image1 from '../assets/joblys-hero.png';
 import { useRouter } from 'next/navigation';
 import LandingNavbar from '@/components/navbar/landing-navbar/LandingNavbar';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Home({ id }: any) {
   const router = useRouter();
 
   const handleGetStartedClick = () => {
-    router.push(`/profile-builder/resumes/${id}`);
+    if (!id) {
+      const newId = uuidv4();
+      router.push(`/profile-builder/resumes/${newId}`);
+    } else {
+      router.push(`/profile-builder/resumes/${id}`);
+    }
   };
 
   return (

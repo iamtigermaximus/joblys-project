@@ -25,12 +25,13 @@ const LandingNavbar = () => {
   };
 
   const handleGetStarted = () => {
-    router.push(`/profile-builder/resumes/${id}`);
+    if (!id) {
+      const newId = uuidv4();
+      router.push(`/profile-builder/resumes/${newId}`);
+    } else {
+      router.push(`/profile-builder/resumes/${id}`);
+    }
   };
-
-  // const handleSignup = () => {
-  //   router.push('/signup');
-  // };
 
   return (
     <Container>
