@@ -25,7 +25,6 @@ const Resumes = () => {
             resumeInfo: resume.content,
           };
         });
-        console.log(data);
         setProfileData(data);
         setIsLoading(false);
       } catch (error: any) {
