@@ -44,7 +44,7 @@ const UploadCV = () => {
         const data = await resp.json();
         router.push(`/profile-builder/resumes/${data.body.resumeId}`);
       } else {
-        console.log('Uploading CV failed', resp.status);
+        console.log('Uploading resume failed', resp.status);
       }
     }
   }
