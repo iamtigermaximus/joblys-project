@@ -25,8 +25,6 @@ const BuildProfileSection = () => {
         throw new Error('Failed to upload resume');
       }
 
-      console.log('Resume uploaded successfully!');
-
       const respJson = await response.json();
       const id = respJson?.body?.id;
       if (!id) {

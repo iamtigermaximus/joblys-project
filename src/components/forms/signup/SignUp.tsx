@@ -83,8 +83,6 @@ const SignUp = () => {
         }),
       });
 
-      console.log('Form Data:', response);
-
       if (response.ok) {
         router.push('/login');
       } else {
