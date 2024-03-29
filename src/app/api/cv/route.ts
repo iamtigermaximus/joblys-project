@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import { Resume } from '@/types/profile';
+import { Resume, ResumeSchema } from '@/types/profile';
 import mammoth from 'mammoth';
 import { v4 as uuidv4 } from 'uuid';
 import OpenAI from 'openai';
@@ -37,17 +37,19 @@ const openAI = new OpenAI({
 });
 
 const parserPromt = `You will be provided with extracted text from a {file_type} CV, and your task is to parse it and organize the text. Remove unrealted text regarding the CV. Output the data in JSON format. Have following structure for the JSON:
-- firstName (string)
-- lastName (string)
-- phoneNumber (string)
-- email (string)
-- address (string)
-- linkedin (string)
-- additionalLinks, and under it as an array of objects with keys: url (string)
-- prefessional, and under it as an array of objects with keys: company (string), jobTitle (string), startDate (object, and under it keys month (string) and year (string)), endDated (object, and under it keys month (string), year (string)) , jobDetails as an array of strings
-- education, and under it as an array of objects with keys: school (string), course (name of the degree, string), startDate (in format YYYY-MM-DD, string), endDate (in format YYYY-MM-DD, string), description (string)
-- skills (array of strings)
-- languages (array of strings)
+- field named basic, which contains the following fiels:
+  - firstName (string)
+  - lastName (string)
+  - phoneNumber (string)
+  - email (string)
+  - address (string)
+  - linkedin (string)
+  - additionalLinks, and under it as an array of objects with keys: url (string)
+- and then there is the following fields under the root:
+- professional, and under it a field called work and under it as an array of objects with fields: company (string), jobTitle (string), startDate (object, and under it keys month (string) and year (string)), endDated (object, and under it keys month (string), year (string)), jobDetails as an string
+- educational, and under it as an array of objects with keys: school (string), course (name of the degree, string), startDate and under it keys month (string) and year (string)), endDated (object, and under it keys month (string), year (string)), description (string)
+- skills, array of objects, where each object has a field called name (strings) which tells the name of the skill
+- languages, array of objects, where each object has a field called name (strings) which tells the name of the language
 If some field or data is missing or you cannot parse it, just leave it as an empty string or array.`;
 
 function getParserPrompt(fileType: FileType) {
@@ -219,17 +221,57 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  structuredCVContent.professional.summary = '';
+  structuredCVContent.professional.currentRole = '';
+
   structuredCVContent.professional.work.map(exp => {
     exp.id = uuidv4();
     return exp;
   });
 
+  structuredCVContent.educational.map(edu => {
+    edu.id = uuidv4();
+    return edu;
+  });
+
+  structuredCVContent.skills.map(skill => {
+    skill.id = uuidv4();
+    return skill;
+  });
+
+  structuredCVContent.languages.map(language => {
+    language.id = uuidv4();
+    return language;
+  });
+
+  structuredCVContent.basic.additionalLinks.map(link => {
+    link.id = uuidv4();
+    return link;
+  });
+
+  const isValidResume = ResumeSchema.safeParse(structuredCVContent);
+  if (!isValidResume.success) {
+    console.log(`Invalid resume: ${isValidResume.error}`);
+    return NextResponse.json(
+      {
+        body: {
+          message: 'resume structure is invalid',
+        },
+      },
+      { status: 400 },
+    );
+  }
+
   console.log('Stuctured the CV, persisting it...');
+  let createdStructuredCV;
   try {
-    await prisma.structuredCVs.create({
+   createdStructuredCV = await prisma.structuredCVs.create({
       data: {
         ownerId: user.id,
         content: structuredCVContent as any,
+      },
+      select: {
+        id: true,
       },
     });
   } catch (err) {
@@ -250,6 +292,7 @@ export async function POST(req: NextRequest) {
     {
       body: {
         message: 'parsing succeeded',
+        resumeId: createdStructuredCV.id,
       },
     },
     { status: 200 },
