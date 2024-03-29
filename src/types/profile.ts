@@ -189,16 +189,3 @@ export const CoverletterSchema = z.object({
 export function initialCoverletter(): Coverletter {
   return { content: '' };
 }
-
-// export interface ResumeInfoType {
-//   id: string;
-//   basic: BasicInfoType;
-//   professional: {
-//     summary: string;
-//     currentRole: string;
-//     work: ProfessionalExperienceType[];
-//   };
-//   educational: { education: EducationType[] };
-//   skills: { skill: SkillType[] };
-//   languages: { language: LanguageType[] };
-// }
