@@ -54,8 +54,6 @@ const CoverLetterPreview = () => {
         throw new Error('Did not receive resume id from server');
       }
 
-      console.log('Coverletter uploaded successfully with id:', id);
-
       router.push(`/coverletter-builder/coverletters/${id}`);
     } catch (error: any) {
       console.error('Error uploading resume:', error.message);

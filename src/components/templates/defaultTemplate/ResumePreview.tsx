@@ -57,8 +57,6 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
         throw new Error('Failed to upload resume');
       }
 
-      console.log('Resume uploaded successfully!');
-
       const respJson = await response.json();
       const id = respJson?.body?.id;
       if (!id) {
@@ -103,10 +101,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
       }
 
       const updatedResumes = resumesList.filter(resume => resume.id !== id);
-
       setResumesList(updatedResumes);
-
-      console.log('Resume deleted successfully!');
     } catch (error: any) {
       console.error('Error deleting resume:', error.message);
     }

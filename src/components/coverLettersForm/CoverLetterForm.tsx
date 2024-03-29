@@ -112,7 +112,6 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
       setTimeout(() => {
         setShowSuccessMessage(false);
       }, 3000);
-      console.log('Coverletter uploaded successfully!');
     } catch (error: any) {
       console.error('Error uploading coverletter:', error.message);
     }

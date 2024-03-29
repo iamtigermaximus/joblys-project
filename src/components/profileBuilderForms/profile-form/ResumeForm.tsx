@@ -109,7 +109,6 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
       setTimeout(() => {
         setShowSuccessMessage(false);
       }, 3000);
-      console.log('Resume uploaded successfully!');
     } catch (error: any) {
       console.error('Error uploading resume:', error.message);
     }
