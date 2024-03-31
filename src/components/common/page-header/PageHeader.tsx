@@ -62,7 +62,8 @@ const PageHeader: FC<PageHeaderProps> = ({ handleDownloadPDF, id }) => {
   const router = useRouter();
   const pathname = usePathname();
   const isProfileBuilder = pathname === `/profile-builder/resumes/${id}`;
-  const isCoverLetterBuilder = pathname === '/coverletter-builder';
+  const isCoverLetterBuilder =
+    pathname === `/coverletter-builder/coverletters/${id}`;
 
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
 
@@ -96,7 +97,7 @@ const PageHeader: FC<PageHeaderProps> = ({ handleDownloadPDF, id }) => {
           backgroundColor: '#520668',
           color: 'white',
         };
-      case '/coverletter-builder':
+      case `/coverletter-builder/coverletters/${id}`:
         return {
           backgroundColor: '#520668',
           color: 'white',
@@ -247,4 +248,3 @@ const PageHeader: FC<PageHeaderProps> = ({ handleDownloadPDF, id }) => {
 };
 
 export default PageHeader;
-
