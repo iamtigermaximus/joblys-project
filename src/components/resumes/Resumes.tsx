@@ -5,6 +5,7 @@ import { Resume } from '@/types/profile';
 import { Container, HeaderContainer, PageName } from './Resumes.styles';
 import ResumePreview from '../templates/defaultTemplate/ResumePreview';
 import Loader from '../common/loader/Loader';
+import { useSession } from 'next-auth/react';
 
 const Resumes = () => {
   const [profileData, setProfileData] = useState<
@@ -12,8 +13,26 @@ const Resumes = () => {
   >(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { data: session } = useSession();
 
   useEffect(() => {
+    if (session) {
+      console.log('user logged in');
+    } else {
+      console.log('user not logged in');
+      const resumes = localStorage.getItem('cachedResumes') || '[]';
+      const resumesParsed = JSON.parse(resumes);
+      const data = resumesParsed.map((resume: any) => {
+        return {
+          id: resume.id,
+          resumeInfo: resume,
+        };
+      });
+      console.log('data', data);
+      setProfileData(data);
+      setIsLoading(false);
+      return;
+    }
     const fetchProfileData = async () => {
       try {
         const response = await axios.get('/api/cv');
