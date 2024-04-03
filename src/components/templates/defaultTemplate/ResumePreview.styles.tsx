@@ -13,12 +13,13 @@ export const ResumeContainer = styled.div`
 
 export const ResumeCard = styled.div`
   flex: 1 1 calc(50% - 10px);
-  max-width: calc(50% - 10px);
+  max-width: calc(50%-10px);
   height: 250px;
   overflow: hidden;
   object-fit: cover;
   position: relative;
-  width: 100%;
+  /* width: 100%; */
+  top: 0;
 
   @media (min-width: ${bp.sm}) {
     height: 350px;
@@ -47,26 +48,26 @@ export const ResumeContent = styled.div`
   transform-origin: top;
   position: relative;
   top: 0;
-  width: 100%;
-  scale: 0.6;
+  /* width: 100%; */
+  /* scale: 0.6; */
   position: relative;
-
+  transform: scale(0.5);
+  /* 
   @media (min-width: ${bp.sm}) {
     scale: 0.9;
   }
 
   @media (min-width: ${bp.md}) {
     scale: 0.65;
-  }
+  } */
 
-  @media (min-width: ${bp.lg}) {
-    scale: 0.32;
+  /* @media (min-width: ${bp.lg}) {
     top: 0;
   }
 
   @media (min-width: ${bp.xl}) {
     scale: 0.4;
-  }
+  } */
 `;
 
 export const CreateResumeButton = styled.div`
