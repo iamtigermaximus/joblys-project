@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
     wordBreak: 'break-all',
     whiteSpace: 'wrap',
   },
+  basicsItemContainer: {
+    padding: '2px 0 ',
+    maxWidth: '100%',
+  },
 });
 
 export const LanguagesInfoComponent: FC<{ languageInfo: LanguageType[] }> = ({
@@ -28,9 +32,9 @@ export const LanguagesInfoComponent: FC<{ languageInfo: LanguageType[] }> = ({
     <View style={styles.detailsContentContainer}>
       {languageInfo &&
         languageInfo.map((language, index) => (
-          <div key={language.id}>
+          <View style={styles.basicsItemContainer} key={language.id}>
             <Text style={styles.basicsItem}>{language.name}</Text>
-          </div>
+          </View>
         ))}
     </View>
   </div>

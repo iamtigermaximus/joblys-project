@@ -56,10 +56,11 @@ const styles = StyleSheet.create({
   basicTitleContainer: {
     display: 'flex',
     padding: '5px 0',
+    borderBottom: '.5px solid white',
   },
   basicsTitle: {
     color: 'white',
-    fontSize: '15px',
+    fontSize: '17px',
   },
   contentContainer: {
     display: 'flex',

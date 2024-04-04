@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
     wordBreak: 'break-all',
     whiteSpace: 'wrap',
   },
+  basicsItemContainer: {
+    padding: '2px 0 ',
+    maxWidth: '100%',
+  },
 });
 export const SkillsInfoComponent: FC<{ skillInfo: SkillType[] }> = ({
   skillInfo,
@@ -28,9 +32,9 @@ export const SkillsInfoComponent: FC<{ skillInfo: SkillType[] }> = ({
       {skillInfo &&
         skillInfo.length > 0 &&
         skillInfo.map(skill => (
-          <div key={skill.id}>
+          <View style={styles.basicsItemContainer} key={skill.id}>
             <Text style={styles.basicsItem}>{skill.name}</Text>
-          </div>
+          </View>
         ))}
     </View>
   </div>

@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     gap: 2,
+    padding: '5px 0',
   },
   course: {
     width: '100%',
