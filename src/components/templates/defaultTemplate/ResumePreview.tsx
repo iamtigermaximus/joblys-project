@@ -31,6 +31,7 @@ import {
   SidebarHeaderItem,
   SidebarMenuContainer,
 } from './ResumePreview.styles';
+import DownloadPDFButton from './DownloadPDFButton';
 
 interface MiniResumeProps {
   resumes: {
@@ -149,7 +150,9 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
                           <ContentItem>
                             <FaDownload style={{ marginRight: '5px' }} />
                           </ContentItem>
-                          <ContentItem> Download</ContentItem>
+                          <ContentItem>
+                            <DownloadPDFButton resumeInfo={resume.resumeInfo} />
+                          </ContentItem>
                         </EditContentItem>
                       </EditContent>
                       <EditContent onClick={e => e.stopPropagation()}>
@@ -193,7 +196,9 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
                 <PreviewEditButton onClick={() => handleEditResume(resume.id)}>
                   Edit
                 </PreviewEditButton>
-                <PreviewDownloadButton>Download</PreviewDownloadButton>
+                <PreviewDownloadButton>
+                  <DownloadPDFButton resumeInfo={resume.resumeInfo} />
+                </PreviewDownloadButton>
               </ActionContainer>
             </SidebarMenuContainer>
           )}

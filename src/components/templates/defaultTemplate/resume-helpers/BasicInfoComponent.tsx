@@ -14,63 +14,97 @@ import {
   IconContainer,
   BasicsItem,
 } from '../DefaultTemplate.styles';
+import { StyleSheet, Page, View, Text, Svg } from '@react-pdf/renderer';
+
+const styles = StyleSheet.create({
+  basicsItemsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    // padding: '10px ',
+  },
+  basicsNameContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 2,
+  },
+  iconContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '5px 0',
+    fontSize: '17px',
+    color: 'white',
+  },
+  basicsItem: {
+    fontSize: '12px',
+    padding: '5px 0 ',
+    maxWidth: '100%',
+    color: 'white',
+    wordBreak: 'break-all',
+    whiteSpace: 'wrap',
+  },
+  basicsTitle: {
+    color: 'white',
+    fontSize: '15px',
+  },
+});
 
 export const BasicInfoComponent: FC<{ basicInfo: BasicInfoType }> = ({
   basicInfo,
 }) => (
   <div>
-    <BasicsItemsContainer>
+    <View style={styles.basicsItemsContainer}>
       {basicInfo.firstName && (
-        <BasicsNameContainer>
-          <IconContainer>
+        <View style={styles.basicsNameContainer}>
+          {/* <Text style={styles.iconContainer}>
             <FaUser />
-          </IconContainer>
-          <BasicsItem>{basicInfo.firstName}</BasicsItem>
-          <BasicsItem>{basicInfo.lastName}</BasicsItem>
-        </BasicsNameContainer>
+          </Text> */}
+          <Text style={styles.basicsItem}>{basicInfo.firstName}</Text>
+          <Text style={styles.basicsItem}>{basicInfo.lastName}</Text>
+        </View>
       )}
       {basicInfo.email && (
-        <BasicsNameContainer>
-          <IconContainer>
+        <View style={styles.basicsNameContainer}>
+          {/* <Text style={styles.iconContainer}>
             <FaEnvelope />
-          </IconContainer>
-          <BasicsItem>{basicInfo.email}</BasicsItem>
-        </BasicsNameContainer>
+          </Text> */}
+          <Text style={styles.basicsItem}>{basicInfo.email}</Text>
+        </View>
       )}
       {basicInfo.phoneNumber && (
-        <BasicsNameContainer>
-          <IconContainer>
+        <View style={styles.basicsNameContainer}>
+          {/* <Text style={styles.iconContainer}>
             <FaPhone />
-          </IconContainer>
-          <BasicsItem>{basicInfo.phoneNumber}</BasicsItem>
-        </BasicsNameContainer>
+          </Text> */}
+          <Text style={styles.basicsItem}>{basicInfo.phoneNumber}</Text>
+        </View>
       )}
       {basicInfo.address && (
-        <BasicsNameContainer>
-          <IconContainer>
+        <View style={styles.basicsNameContainer}>
+          {/* <Text style={styles.iconContainer}>
             <FaHome />
-          </IconContainer>
-          <BasicsItem>{basicInfo.address}</BasicsItem>
-        </BasicsNameContainer>
+          </Text> */}
+          <Text style={styles.basicsItem}>{basicInfo.address}</Text>
+        </View>
       )}
       {basicInfo.linkedin && (
-        <BasicsNameContainer>
-          <IconContainer>
+        <View style={styles.basicsNameContainer}>
+          {/* <Text style={styles.iconContainer}>
             <FaLinkedin />
-          </IconContainer>
-          <BasicsItem>{basicInfo.linkedin}</BasicsItem>
-        </BasicsNameContainer>
+          </Text> */}
+          <Text style={styles.basicsItem}>{basicInfo.linkedin}</Text>
+        </View>
       )}
       {basicInfo?.additionalLinks.map(link => (
-        <BasicsNameContainer key={link.id}>
-          <IconContainer>
+        <View style={styles.basicsNameContainer} key={link.id}>
+          {/* <Text style={styles.iconContainer}>
             <FaGlobe />
-          </IconContainer>
+          </Text> */}
           <a href={link.url}>
-            <BasicsItem>{link.url}</BasicsItem>
+            <Text style={styles.basicsItem}>{link.url}</Text>
           </a>
-        </BasicsNameContainer>
+        </View>
       ))}
-    </BasicsItemsContainer>
+    </View>
   </div>
 );

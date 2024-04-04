@@ -89,7 +89,7 @@ const ProfileBuilderPage: FC = () => {
       <div>
         <title>Profile Builder Page</title>
       </div>
-      <PageHeader id={params.id} handleDownloadPDF={handleDownloadPDF} />
+      <PageHeader id={params.id} resumeInfo={resumeInfo} />
       <FormViewerContainer>
         <ResumeFormContainer>
           <ResumeForm

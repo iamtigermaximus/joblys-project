@@ -13,22 +13,66 @@ import {
   Month,
   Year,
 } from '../DefaultTemplate.styles';
+import { StyleSheet, Page, View, Text } from '@react-pdf/renderer';
+
+const styles = StyleSheet.create({
+  detailsContentContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    fontSize: '12px',
+    width: '100%',
+    padding: '5px 0',
+  },
+  employmentDetailsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  employmentDetail: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 2,
+  },
+  jobTitle: {
+    width: '100%',
+    fontWeight: 700,
+    whiteSpace: 'nowrap',
+    fontSize: '13px',
+  },
+  company: {
+    width: '100%',
+    fontWeight: 700,
+    whiteSpace: 'nowrap',
+    fontSize: '13px',
+  },
+  dateContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    width: '100%',
+  },
+  dates: { display: 'flex', flexDirection: 'row', gap: 5 },
+  month: { fontSize: '13px' },
+  year: { fontSize: '13px' },
+  dateSeparator: { fontSize: '13px' },
+  description: { fontSize: '12px', padding: '5px 0' },
+});
 
 export const EmploymentInfoComponent: FC<{
   employmentInfo: ProfessionalExperienceType[];
 }> = ({ employmentInfo }) => (
-  <DetailsContentContainer>
+  <View style={styles.detailsContentContainer}>
     {employmentInfo.map(info => (
       <div key={info.id}>
-        <EmploymentDetailsContainer>
-          <EmploymentDetail>
-            <JobTitle>{info.jobTitle}</JobTitle>
-            <Company>{info.company}</Company>
-          </EmploymentDetail>
+        <View style={styles.employmentDetailsContainer}>
+          <View style={styles.employmentDetail}>
+            <Text style={styles.jobTitle}>{info.jobTitle}</Text>
+            <Text style={styles.company}>{info.company}</Text>
+          </View>
           {info.jobTitle && (
-            <DateContainer>
-              <Dates>
-                <Month>
+            <View style={styles.dateContainer}>
+              <View style={styles.dates}>
+                <Text style={styles.month}>
                   {info.startDate.month &&
                   !isNaN(parseInt(info.startDate.month)) ? (
                     <>
@@ -42,12 +86,14 @@ export const EmploymentInfoComponent: FC<{
                   ) : (
                     <>Jan</>
                   )}
-                </Month>
-                <Year>{info.startDate.year || new Date().getFullYear()}</Year>
-              </Dates>
-              <DateSeparator> - </DateSeparator>
-              <Dates>
-                <Month>
+                </Text>
+                <Text style={styles.year}>
+                  {info.startDate.year || new Date().getFullYear()}
+                </Text>
+              </View>
+              <Text style={styles.dateSeparator}> - </Text>
+              <View style={styles.dates}>
+                <Text style={styles.month}>
                   {typeof info.endDate === 'string' ||
                   (typeof info.endDate === 'object' && 'month' in info.endDate)
                     ? typeof info.endDate === 'string'
@@ -61,8 +107,8 @@ export const EmploymentInfoComponent: FC<{
                           month: 'short',
                         })
                     : 'Jan'}
-                </Month>
-                <Year>
+                </Text>
+                <Text style={styles.year}>
                   {typeof info.endDate === 'string' ||
                   (typeof info.endDate === 'object' && 'year' in info.endDate)
                     ? typeof info.endDate === 'string'
@@ -71,14 +117,14 @@ export const EmploymentInfoComponent: FC<{
                         : ''
                       : info.endDate.year
                     : ''}
-                </Year>
-              </Dates>
-            </DateContainer>
+                </Text>
+              </View>
+            </View>
           )}
-        </EmploymentDetailsContainer>
+        </View>
 
-        <Description>{info.jobDetails}</Description>
+        <Text style={styles.description}>{info.jobDetails}</Text>
       </div>
     ))}
-  </DetailsContentContainer>
+  </View>
 );

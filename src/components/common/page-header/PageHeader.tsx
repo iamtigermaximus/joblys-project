@@ -52,13 +52,15 @@ import {
 } from 'react-icons/fa6';
 import { IoCloseSharp, IoSettingsSharp } from 'react-icons/io5';
 import { FcGoogle } from 'react-icons/fc';
+import DownloadPDFButton from '@/components/templates/defaultTemplate/DownloadPDFButton';
+import { Resume } from '@/types/profile';
 
 interface PageHeaderProps {
-  handleDownloadPDF: () => Promise<void>;
   id: string;
+  resumeInfo: Resume;
 }
 
-const PageHeader: FC<PageHeaderProps> = ({ handleDownloadPDF, id }) => {
+const PageHeader: FC<PageHeaderProps> = ({ id, resumeInfo }) => {
   const router = useRouter();
   const pathname = usePathname();
   const isProfileBuilder = pathname === `/profile-builder/resumes/${id}`;
@@ -146,8 +148,8 @@ const PageHeader: FC<PageHeaderProps> = ({ handleDownloadPDF, id }) => {
           )}
         </LeftContainer>
         <RightContainer>
-          <ResumeButton onClick={handleDownloadPDF}>
-            <ResumeButtonTitle>Download</ResumeButtonTitle>
+          <ResumeButton>
+            <DownloadPDFButton resumeInfo={resumeInfo} />
           </ResumeButton>
           {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
               <LogoutButton onClick={handleSignOut}>Log out</LogoutButton> */}

@@ -21,11 +21,95 @@ import { EmploymentInfoComponent } from './resume-helpers/EmploymentInfoComponen
 import { SkillsInfoComponent } from './resume-helpers/SkillsInfoComponent';
 import { LanguagesInfoComponent } from './resume-helpers/LanguagesInfoComponent';
 import { EducationInfoComponent } from './resume-helpers/EducationInfoComponent';
+import { StyleSheet, Page, View, Text, Document } from '@react-pdf/renderer';
 
-const DefaultTemplate: FC<{ id: string; resumeInfo: Resume }> = ({
-  id,
-  resumeInfo,
-}) => {
+interface DefaultTemplateProps {
+  id: string;
+  resumeInfo: Resume;
+}
+
+const styles = StyleSheet.create({
+  document: {
+    flexDirection: 'column',
+    display: 'flex',
+    width: '100%',
+    gap: 20,
+  },
+  page: {
+    flexDirection: 'row',
+    display: 'flex',
+    minHeight: '800px',
+    width: '100%',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+  },
+  basicContentContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#232946',
+    width: '35%',
+    padding: '50px 20px',
+    color: 'white',
+    minWidth: '100px',
+    height: '100%',
+    minHeight: '800px',
+  },
+  basicTitleContainer: {
+    display: 'flex',
+    padding: '5px 0',
+  },
+  basicsTitle: {
+    color: 'white',
+    fontSize: '15px',
+  },
+  contentContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fffffe',
+    width: '65%',
+    padding: '50px 20px',
+    height: '100%',
+    minHeight: '800px',
+  },
+  basicsNameContainer: { display: 'flex', flexDirection: 'row', gap: 2 },
+  headerName: {
+    color: '#232946',
+    fontSize: '30px',
+    maxWidth: '100%',
+    wordBreak: 'break-all',
+    whiteSpace: 'wrap',
+  },
+  headerCurrentRole: {
+    color: '#232946',
+    fontSize: '17px',
+    maxWidth: '100%',
+    wordBreak: 'break-all',
+    whiteSpace: 'wrap',
+  },
+  detailsTitleContainer: {
+    display: 'flex',
+    padding: '5px 0',
+  },
+  detailsTitle: {
+    color: '#232946',
+    fontSize: '15px',
+    paddingBottom: '5px',
+    borderBottom: '0.5px solid #232946',
+  },
+  summaryContainer: {
+    display: 'flex',
+    width: '100%',
+  },
+  summary: {
+    color: '#232946',
+    maxWidth: '100%',
+    fontSize: '12px',
+    wordBreak: 'break-all',
+    whiteSpace: 'wrap',
+    padding: '5px 0',
+  },
+});
+
+const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
   const basic = resumeInfo?.basic;
   const professional = resumeInfo?.professional;
   const educational = resumeInfo?.educational;
@@ -53,65 +137,67 @@ const DefaultTemplate: FC<{ id: string; resumeInfo: Resume }> = ({
   const shouldSplit = professional.work.length > 3 || educational.length > 4;
 
   return (
-    <DefaultTemplateContainer>
+    <Document style={styles.document}>
       {shouldSplit ? (
         <>
-          <Template id={id}>
-            <BasicContentContainer>
+          <Page id="resume-template" size="A4" style={styles.page}>
+            <View style={styles.basicContentContainer}>
               {shouldDisplayTitle && (
-                <BasicsTitleContainer>
-                  <BasicsTitle>Personal Details</BasicsTitle>
-                </BasicsTitleContainer>
+                <View style={styles.basicTitleContainer}>
+                  <Text style={styles.basicsTitle}>Personal Details</Text>
+                </View>
               )}
               {basic && <BasicInfoComponent basicInfo={basic} />}
               {shouldDisplayTitle && (
-                <BasicsTitleContainer>
-                  <BasicsTitle>Skills</BasicsTitle>
-                </BasicsTitleContainer>
+                <View style={styles.basicTitleContainer}>
+                  <Text style={styles.basicsTitle}>Skills</Text>
+                </View>
               )}
               {skills && <SkillsInfoComponent skillInfo={skills} />}
               {shouldDisplayTitle && (
-                <BasicsTitleContainer>
-                  <BasicsTitle>Languages</BasicsTitle>
-                </BasicsTitleContainer>
+                <View style={styles.basicTitleContainer}>
+                  <Text style={styles.basicsTitle}>Languages</Text>
+                </View>
               )}
               {languages && <LanguagesInfoComponent languageInfo={languages} />}
-            </BasicContentContainer>
-            <ContentContainer>
-              <BasicsNameContainer>
-                <HeaderName>{basic.firstName}</HeaderName>
-                <HeaderName>{basic.lastName}</HeaderName>
-              </BasicsNameContainer>
-              <HeaderCurrentRole>{professional.currentRole}</HeaderCurrentRole>
+            </View>
+            <View style={styles.contentContainer}>
+              <View style={styles.basicsNameContainer}>
+                <Text style={styles.headerName}>{basic.firstName}</Text>
+                <Text style={styles.headerName}>{basic.lastName}</Text>
+              </View>
+              <Text style={styles.headerCurrentRole}>
+                {professional.currentRole}
+              </Text>
               {shouldDisplayTitle && (
-                <DetailsTitleContainer>
-                  <DetailsTitle>Summary</DetailsTitle>
-                </DetailsTitleContainer>
+                <View style={styles.detailsTitleContainer}>
+                  <Text style={styles.detailsTitle}>Summary</Text>
+                </View>
               )}
-              <SummaryContainer>
-                <Summary>{professional.summary}</Summary>
-              </SummaryContainer>
+              <View style={styles.summaryContainer}>
+                <Text style={styles.summary}>{professional.summary}</Text>
+              </View>
               {shouldDisplayTitle && (
-                <DetailsTitleContainer>
-                  <DetailsTitle>Employment</DetailsTitle>
-                </DetailsTitleContainer>
+                <View style={styles.detailsTitleContainer}>
+                  <Text style={styles.detailsTitle}>Employment</Text>
+                </View>
               )}
               {professional.work.slice(0, 3).map((work, index) => (
                 <EmploymentInfoComponent key={index} employmentInfo={[work]} />
               ))}
-            </ContentContainer>
-          </Template>
-          <Template id={id}>
-            <BasicContentContainer></BasicContentContainer>
-            <ContentContainer>
+            </View>
+          </Page>
+          <Page id="resume-template" style={styles.page}>
+            <View style={styles.basicContentContainer}></View>
+            <View style={styles.contentContainer}>
               {professional.work.slice(3).map((work, index) => (
                 <EmploymentInfoComponent key={index} employmentInfo={[work]} />
               ))}
               <div>
                 {shouldDisplayTitle && (
-                  <DetailsTitleContainer>
-                    <DetailsTitle>Education</DetailsTitle>
-                  </DetailsTitleContainer>
+                  <View style={styles.detailsTitleContainer}>
+                    <Text style={styles.detailsTitle}>Education</Text>
+                  </View>
                 )}
                 {educational &&
                   educational.length > 0 &&
@@ -122,49 +208,61 @@ const DefaultTemplate: FC<{ id: string; resumeInfo: Resume }> = ({
                     />
                   ))}
               </div>
-            </ContentContainer>
-          </Template>
+            </View>
+          </Page>
         </>
       ) : (
-        <Template id={id}>
-          <BasicContentContainer>
-            <BasicsTitleContainer>
-              {shouldDisplayTitle && (
-                <BasicsTitle>Personal Details</BasicsTitle>
-              )}
-            </BasicsTitleContainer>
+        <Page id="resume-template" style={styles.page}>
+          <View style={styles.basicContentContainer}>
+            {shouldDisplayTitle && (
+              <View style={styles.basicTitleContainer}>
+                <Text style={styles.basicsTitle}>Personal Details</Text>
+              </View>
+            )}
             {basic && <BasicInfoComponent basicInfo={basic} />}
-            <BasicsTitleContainer>
-              {shouldDisplayTitle && <BasicsTitle>Skills</BasicsTitle>}
-            </BasicsTitleContainer>
+            {shouldDisplayTitle && (
+              <View style={styles.basicTitleContainer}>
+                <Text style={styles.basicsTitle}>Skills</Text>
+              </View>
+            )}
             {skills && <SkillsInfoComponent skillInfo={skills} />}
-            <BasicsTitleContainer>
-              {shouldDisplayTitle && <BasicsTitle>Languages</BasicsTitle>}
-            </BasicsTitleContainer>
+            {shouldDisplayTitle && (
+              <View style={styles.basicTitleContainer}>
+                <Text style={styles.basicsTitle}>Languages</Text>
+              </View>
+            )}
             {languages && <LanguagesInfoComponent languageInfo={languages} />}
-          </BasicContentContainer>
-          <ContentContainer>
-            <BasicsNameContainer>
-              <HeaderName>{basic.firstName}</HeaderName>
-              <HeaderName>{basic.lastName}</HeaderName>
-            </BasicsNameContainer>
-            <HeaderCurrentRole>{professional.currentRole}</HeaderCurrentRole>
-            <DetailsTitleContainer>
-              {shouldDisplayTitle && <DetailsTitle>Summary</DetailsTitle>}
-            </DetailsTitleContainer>
-            <SummaryContainer>
-              <Summary>{professional.summary}</Summary>
-            </SummaryContainer>
-            <DetailsTitleContainer>
-              {shouldDisplayTitle && <DetailsTitle>Employment</DetailsTitle>}
-            </DetailsTitleContainer>
+          </View>
+          <View style={styles.contentContainer}>
+            <View style={styles.basicsNameContainer}>
+              <Text style={styles.headerName}>{basic.firstName}</Text>
+              <Text style={styles.headerName}>{basic.lastName}</Text>
+            </View>
+            <Text style={styles.headerCurrentRole}>
+              {professional.currentRole}
+            </Text>
+            {shouldDisplayTitle && (
+              <View style={styles.detailsTitleContainer}>
+                <Text style={styles.detailsTitle}>Summary</Text>
+              </View>
+            )}
+            <View style={styles.summaryContainer}>
+              <Text style={styles.summary}>{professional.summary}</Text>
+            </View>
+            {shouldDisplayTitle && (
+              <View style={styles.detailsTitleContainer}>
+                <Text style={styles.detailsTitle}>Employment</Text>
+              </View>
+            )}
             {professional.work.map((work, index) => (
               <EmploymentInfoComponent key={index} employmentInfo={[work]} />
             ))}
             <div>
-              <DetailsTitleContainer>
-                {shouldDisplayTitle && <DetailsTitle>Education</DetailsTitle>}
-              </DetailsTitleContainer>
+              {shouldDisplayTitle && (
+                <View style={styles.detailsTitleContainer}>
+                  <Text style={styles.detailsTitle}>Education</Text>
+                </View>
+              )}
               {educational &&
                 educational.length > 0 &&
                 educational.map((education, index) => (
@@ -174,10 +272,10 @@ const DefaultTemplate: FC<{ id: string; resumeInfo: Resume }> = ({
                   />
                 ))}
             </div>
-          </ContentContainer>
-        </Template>
+          </View>
+        </Page>
       )}
-    </DefaultTemplateContainer>
+    </Document>
   );
 };
 

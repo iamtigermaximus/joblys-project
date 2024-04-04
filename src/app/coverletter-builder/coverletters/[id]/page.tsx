@@ -93,7 +93,8 @@ const CoverLetterBuilderPage: FC = () => {
       return;
     }
     const responseJson = await response.json();
-    const resumeProfile: Coverletter | undefined = responseJson.body.coverletter;
+    const resumeProfile: Coverletter | undefined =
+      responseJson.body.coverletter;
 
     //if (!resumeProfile) {
     //  return;
@@ -171,7 +172,7 @@ const CoverLetterBuilderPage: FC = () => {
       <div>
         <title>Cover Letter Builder Page</title>
       </div>
-      <PageHeader id={params.id} handleDownloadPDF={handleDownloadPDF} />
+      <PageHeader id={params.id} resumeInfo={resumeInfo} />
       <FormViewerContainer>
         <ResumeFormContainer>
           <CoverLetterForm
