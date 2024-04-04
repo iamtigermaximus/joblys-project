@@ -48,10 +48,10 @@ export const ResumeContent = styled.div`
   transform-origin: top;
   position: relative;
   top: 0;
+  left: 0;
+  transform: scale(0.6);
   /* width: 100%; */
   /* scale: 0.6; */
-  position: relative;
-  transform: scale(0.5);
   /* 
   @media (min-width: ${bp.sm}) {
     scale: 0.9;
@@ -114,9 +114,11 @@ export const ButtonLabel = styled.h1`
 `;
 
 export const MiniDefault = styled(DefaultTemplate)`
-  width: 100%;
+  /* width: 100%;
   min-height: 300px;
-  min-width: 250px;
+  min-width: 250px; */
+  width: 100%;
+  height: 100%;
 `;
 
 export const EditModalOverlay = styled.div`

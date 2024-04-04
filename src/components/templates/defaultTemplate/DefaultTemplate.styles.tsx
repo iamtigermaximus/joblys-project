@@ -12,12 +12,15 @@ export const DefaultTemplateContainer = styled(Document)`
   /* border: 3px solid red; */
   display: flex;
   flex-direction: column;
+  width: 100%;
+  gap: 20px;
 `;
 
 export const Template = styled(Page)`
   display: flex;
   flex-direction: row;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-height: 800px;
 
   /* display: flex;
   flex-direction: row;
@@ -96,8 +99,8 @@ export const ContentContainer = styled(View)`
 export const BasicsTitleContainer = styled(View)`
   display: flex;
   padding: 5px 0;
-  border-bottom: 0.5px solid white;
-  border-top: 0.5px solid white;
+  /* border-bottom: 0.5px solid white; */
+  /* border-top: 0.5px solid white; */
 `;
 
 export const BasicsTitle = styled(Text)`
@@ -114,10 +117,9 @@ export const BasicsTitle = styled(Text)`
 export const BasicsNameContainer = styled(View)`
   display: flex;
   flex-direction: row;
-  gap: 5px;
+  gap: 2px;
 
   @media (min-width: ${bp.lg}) {
-    gap: 10px;
   }
 `;
 
@@ -133,7 +135,7 @@ export const BasicsItem = styled(Text)`
   max-width: 100%;
   word-break: break-all;
   white-space: wrap;
-  padding: 2px 0;
+  padding: 5px;
 
   @media (min-width: ${bp.sm}) {
     font-size: 10px;
@@ -150,6 +152,7 @@ export const IconContainer = styled(View)`
   align-items: center;
   padding-right: 5px;
   font-size: 8px;
+  padding: 5px;
 
   @media (min-width: ${bp.sm}) {
     font-size: 10px;

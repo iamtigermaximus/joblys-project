@@ -50,67 +50,133 @@ const DefaultTemplate: FC<{ id: string; resumeInfo: Resume }> = ({
     ) ||
     !!(educational && educational.length > 1);
 
-  // const shouldSplit = professional.work.length > 2 || educational.length > 1;
+  const shouldSplit = professional.work.length > 3 || educational.length > 4;
 
   return (
     <DefaultTemplateContainer>
-      <Template id={id}>
-        <BasicContentContainer>
-          {shouldDisplayTitle && (
+      {shouldSplit ? (
+        <>
+          <Template id={id}>
+            <BasicContentContainer>
+              {shouldDisplayTitle && (
+                <BasicsTitleContainer>
+                  <BasicsTitle>Personal Details</BasicsTitle>
+                </BasicsTitleContainer>
+              )}
+              {basic && <BasicInfoComponent basicInfo={basic} />}
+              {shouldDisplayTitle && (
+                <BasicsTitleContainer>
+                  <BasicsTitle>Skills</BasicsTitle>
+                </BasicsTitleContainer>
+              )}
+              {skills && <SkillsInfoComponent skillInfo={skills} />}
+              {shouldDisplayTitle && (
+                <BasicsTitleContainer>
+                  <BasicsTitle>Languages</BasicsTitle>
+                </BasicsTitleContainer>
+              )}
+              {languages && <LanguagesInfoComponent languageInfo={languages} />}
+            </BasicContentContainer>
+            <ContentContainer>
+              <BasicsNameContainer>
+                <HeaderName>{basic.firstName}</HeaderName>
+                <HeaderName>{basic.lastName}</HeaderName>
+              </BasicsNameContainer>
+              <HeaderCurrentRole>{professional.currentRole}</HeaderCurrentRole>
+              {shouldDisplayTitle && (
+                <DetailsTitleContainer>
+                  <DetailsTitle>Summary</DetailsTitle>
+                </DetailsTitleContainer>
+              )}
+              <SummaryContainer>
+                <Summary>{professional.summary}</Summary>
+              </SummaryContainer>
+              {shouldDisplayTitle && (
+                <DetailsTitleContainer>
+                  <DetailsTitle>Employment</DetailsTitle>
+                </DetailsTitleContainer>
+              )}
+              {professional.work.slice(0, 3).map((work, index) => (
+                <EmploymentInfoComponent key={index} employmentInfo={[work]} />
+              ))}
+            </ContentContainer>
+          </Template>
+          <Template id={id}>
+            <BasicContentContainer></BasicContentContainer>
+            <ContentContainer>
+              {professional.work.slice(3).map((work, index) => (
+                <EmploymentInfoComponent key={index} employmentInfo={[work]} />
+              ))}
+              <div>
+                {shouldDisplayTitle && (
+                  <DetailsTitleContainer>
+                    <DetailsTitle>Education</DetailsTitle>
+                  </DetailsTitleContainer>
+                )}
+                {educational &&
+                  educational.length > 0 &&
+                  educational.map((education, index) => (
+                    <EducationInfoComponent
+                      key={index}
+                      educationInfo={[education]}
+                    />
+                  ))}
+              </div>
+            </ContentContainer>
+          </Template>
+        </>
+      ) : (
+        <Template id={id}>
+          <BasicContentContainer>
             <BasicsTitleContainer>
-              <BasicsTitle>Personal Details</BasicsTitle>
+              {shouldDisplayTitle && (
+                <BasicsTitle>Personal Details</BasicsTitle>
+              )}
             </BasicsTitleContainer>
-          )}
-
-          {basic && <BasicInfoComponent basicInfo={basic} />}
-
-          {shouldDisplayTitle && (
+            {basic && <BasicInfoComponent basicInfo={basic} />}
             <BasicsTitleContainer>
-              <BasicsTitle>Skills</BasicsTitle>{' '}
+              {shouldDisplayTitle && <BasicsTitle>Skills</BasicsTitle>}
             </BasicsTitleContainer>
-          )}
-
-          {skills && <SkillsInfoComponent skillInfo={skills} />}
-
-          {shouldDisplayTitle && (
+            {skills && <SkillsInfoComponent skillInfo={skills} />}
             <BasicsTitleContainer>
-              <BasicsTitle>Languages</BasicsTitle>{' '}
+              {shouldDisplayTitle && <BasicsTitle>Languages</BasicsTitle>}
             </BasicsTitleContainer>
-          )}
-
-          {languages && <LanguagesInfoComponent languageInfo={languages} />}
-        </BasicContentContainer>
-        <ContentContainer>
-          <BasicsNameContainer>
-            <HeaderName>{basic.firstName}</HeaderName>
-            <HeaderName>{basic.lastName}</HeaderName>
-          </BasicsNameContainer>
-          <HeaderCurrentRole>{professional.currentRole}</HeaderCurrentRole>
-          <DetailsTitleContainer>
-            {shouldDisplayTitle && <DetailsTitle>Summary</DetailsTitle>}
-          </DetailsTitleContainer>
-          <SummaryContainer>
-            <Summary>{professional.summary}</Summary>
-          </SummaryContainer>
-          <DetailsTitleContainer>
-            {shouldDisplayTitle && <DetailsTitle>Employment</DetailsTitle>}
-          </DetailsTitleContainer>
-          {professional.work.map(work => (
-            <EmploymentInfoComponent key={work.id} employmentInfo={[work]} />
-          ))}
-          <DetailsTitleContainer>
-            {shouldDisplayTitle && <DetailsTitle>Education</DetailsTitle>}
-          </DetailsTitleContainer>
-          {educational &&
-            educational.length > 0 &&
-            educational.map(education => (
-              <EducationInfoComponent
-                key={education.id}
-                educationInfo={[education]}
-              />
+            {languages && <LanguagesInfoComponent languageInfo={languages} />}
+          </BasicContentContainer>
+          <ContentContainer>
+            <BasicsNameContainer>
+              <HeaderName>{basic.firstName}</HeaderName>
+              <HeaderName>{basic.lastName}</HeaderName>
+            </BasicsNameContainer>
+            <HeaderCurrentRole>{professional.currentRole}</HeaderCurrentRole>
+            <DetailsTitleContainer>
+              {shouldDisplayTitle && <DetailsTitle>Summary</DetailsTitle>}
+            </DetailsTitleContainer>
+            <SummaryContainer>
+              <Summary>{professional.summary}</Summary>
+            </SummaryContainer>
+            <DetailsTitleContainer>
+              {shouldDisplayTitle && <DetailsTitle>Employment</DetailsTitle>}
+            </DetailsTitleContainer>
+            {professional.work.map((work, index) => (
+              <EmploymentInfoComponent key={index} employmentInfo={[work]} />
             ))}
-        </ContentContainer>
-      </Template>
+            <div>
+              <DetailsTitleContainer>
+                {shouldDisplayTitle && <DetailsTitle>Education</DetailsTitle>}
+              </DetailsTitleContainer>
+              {educational &&
+                educational.length > 0 &&
+                educational.map((education, index) => (
+                  <EducationInfoComponent
+                    key={index}
+                    educationInfo={[education]}
+                  />
+                ))}
+            </div>
+          </ContentContainer>
+        </Template>
+      )}
     </DefaultTemplateContainer>
   );
 };
