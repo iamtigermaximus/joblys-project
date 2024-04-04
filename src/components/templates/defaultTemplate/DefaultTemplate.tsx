@@ -188,7 +188,7 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
               ))}
             </View>
           </Page>
-          <Page id="resume-template" style={styles.page}>
+          <Page id="resume-template" size="A4" style={styles.page}>
             <View style={styles.basicContentContainer}></View>
             <View style={styles.contentContainer}>
               {professional.work.slice(3).map((work, index) => (
@@ -213,7 +213,7 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
           </Page>
         </>
       ) : (
-        <Page id="resume-template" style={styles.page}>
+        <Page id="resume-template" size="A4" style={styles.page}>
           <View style={styles.basicContentContainer}>
             {shouldDisplayTitle && (
               <View style={styles.basicTitleContainer}>

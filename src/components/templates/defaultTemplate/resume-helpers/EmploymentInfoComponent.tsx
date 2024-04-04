@@ -35,15 +35,15 @@ const styles = StyleSheet.create({
     padding: '5px 0',
   },
   jobTitle: {
-    width: '100%',
+    width: '300px',
     fontWeight: 700,
-    whiteSpace: 'nowrap',
+    // whiteSpace: 'nowrap',
     fontSize: '13px',
   },
   company: {
-    width: '100%',
+    width: '300px',
     fontWeight: 700,
-    whiteSpace: 'nowrap',
+    // whiteSpace: 'nowrap',
     fontSize: '13px',
   },
   dateContainer: {
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     width: '100%',
+    padding: '5px 0',
   },
   dates: { display: 'flex', flexDirection: 'row', gap: 5 },
   month: { fontSize: '13px' },
