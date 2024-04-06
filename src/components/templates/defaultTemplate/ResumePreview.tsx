@@ -142,7 +142,11 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
                           <ContentItem>
                             <FaRegEdit style={{ marginRight: '5px' }} />
                           </ContentItem>
-                          <ContentItem> Edit</ContentItem>
+                          <ContentItem
+                            onClick={() => handleEditResume(resume.id)}
+                          >
+                            Edit
+                          </ContentItem>
                         </EditContentItem>
                       </EditContent>
                       <EditContent onClick={e => e.stopPropagation()}>
@@ -197,7 +201,10 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
                   Edit
                 </PreviewEditButton>
                 <PreviewDownloadButton>
-                  <DownloadPDFButton resumeInfo={resume.resumeInfo} />
+                  <DownloadPDFButton
+                    resumeInfo={resume.resumeInfo}
+                    color="white"
+                  />
                 </PreviewDownloadButton>
               </ActionContainer>
             </SidebarMenuContainer>

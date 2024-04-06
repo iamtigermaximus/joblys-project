@@ -4,10 +4,9 @@ import DefaultTemplate from './DefaultTemplate';
 import { Resume } from '@/types/profile';
 import styled from 'styled-components';
 
-// Styled component for the PDFDownloadLink
 const PDFDownload = styled(PDFDownloadLink)`
   text-decoration: none;
-  color: gray;
+  color: ${props => props.color || 'gray'};
 
   &:hover {
     color: white;
@@ -16,23 +15,31 @@ const PDFDownload = styled(PDFDownloadLink)`
 
 interface DownloadPDFButtonProps {
   resumeInfo: Resume;
+  color?: string;
 }
 
 const DownloadPDFButton: React.FC<DownloadPDFButtonProps> = ({
   resumeInfo,
-}) => (
-  <div>
-    <PDFDownload
-      document={
-        <DefaultTemplate resumeInfo={resumeInfo} id="resume-template" />
-      }
-      fileName="resume.pdf"
-    >
-      {({ blob, url, loading, error }) =>
-        loading ? 'Loading document...' : 'Download'
-      }
-    </PDFDownload>
-  </div>
-);
+  color = 'gray',
+}) => {
+  // Combine firstName and lastName to generate the file name
+  const fileName = `${resumeInfo.basic.firstName}${resumeInfo.basic.lastName}Resume.pdf`;
+
+  return (
+    <div>
+      <PDFDownload
+        document={
+          <DefaultTemplate resumeInfo={resumeInfo} id="resume-template" />
+        }
+        fileName={fileName}
+        color={color}
+      >
+        {({ blob, url, loading, error }) =>
+          loading ? 'Loading document...' : 'Download'
+        }
+      </PDFDownload>
+    </div>
+  );
+};
 
 export default DownloadPDFButton;

@@ -149,7 +149,7 @@ const PageHeader: FC<PageHeaderProps> = ({ id, resumeInfo }) => {
         </LeftContainer>
         <RightContainer>
           <ResumeButton>
-            <DownloadPDFButton resumeInfo={resumeInfo} />
+            <DownloadPDFButton resumeInfo={resumeInfo} color="white" />
           </ResumeButton>
           {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
               <LogoutButton onClick={handleSignOut}>Log out</LogoutButton> */}

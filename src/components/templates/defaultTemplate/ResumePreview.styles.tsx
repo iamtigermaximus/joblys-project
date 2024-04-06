@@ -203,6 +203,7 @@ export const ContentItem = styled.div`
   justify-content: center;
   align-items: center;
   padding: 5px;
+  cursor: pointer;
 `;
 
 export const SidebarMenuContainer = styled.div`
