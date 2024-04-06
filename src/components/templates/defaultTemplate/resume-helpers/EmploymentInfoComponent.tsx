@@ -33,15 +33,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 2,
     padding: '5px 0',
+    width: '100%',
+    height: '100%',
   },
   jobTitle: {
-    width: '300px',
     fontWeight: 700,
     // whiteSpace: 'nowrap',
     fontSize: '13px',
   },
   company: {
-    width: '300px',
     fontWeight: 700,
     // whiteSpace: 'nowrap',
     fontSize: '13px',
