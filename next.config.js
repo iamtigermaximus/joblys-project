@@ -15,6 +15,14 @@ const nextConfig = {
     };
     return config;
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/cvChanges2',
+        destination: 'https://joblys-api-xb4umqr3cq-lz.a.run.app/api/cvChanges2',
+      },
+    ]
+  },
 };
 
 module.exports = nextConfig;

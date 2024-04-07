@@ -91,7 +91,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
 
   const handleSubmitResume = async () => {
     try {
-      const response = await fetch('/api/cvChanges', {
+      const response = await fetch('/api/cvChanges2', {
         method: 'POST',
         body: JSON.stringify({
           id: resumeId,
