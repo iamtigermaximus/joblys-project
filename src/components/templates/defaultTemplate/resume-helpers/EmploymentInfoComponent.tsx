@@ -1,19 +1,6 @@
 import { ProfessionalExperienceType } from '@/types/profile';
 import { FC } from 'react';
-import {
-  Company,
-  DateContainer,
-  DateSeparator,
-  Dates,
-  Description,
-  DetailsContentContainer,
-  EmploymentDetail,
-  EmploymentDetailsContainer,
-  JobTitle,
-  Month,
-  Year,
-} from '../DefaultTemplate.styles';
-import { StyleSheet, Page, View, Text } from '@react-pdf/renderer';
+import { StyleSheet, View, Text } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   detailsContentContainer: {

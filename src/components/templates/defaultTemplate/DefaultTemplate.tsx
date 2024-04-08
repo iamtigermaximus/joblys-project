@@ -1,21 +1,6 @@
 'use client';
 import { Resume } from '@/types/profile';
 import React, { FC } from 'react';
-import {
-  BasicContentContainer,
-  BasicsNameContainer,
-  BasicsTitle,
-  BasicsTitleContainer,
-  ContentContainer,
-  DefaultTemplateContainer,
-  DetailsTitle,
-  DetailsTitleContainer,
-  HeaderCurrentRole,
-  HeaderName,
-  Summary,
-  SummaryContainer,
-  Template,
-} from './DefaultTemplate.styles';
 import { BasicInfoComponent } from './resume-helpers/BasicInfoComponent';
 import { EmploymentInfoComponent } from './resume-helpers/EmploymentInfoComponent';
 import { SkillsInfoComponent } from './resume-helpers/SkillsInfoComponent';

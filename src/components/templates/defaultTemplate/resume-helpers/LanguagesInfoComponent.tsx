@@ -1,7 +1,6 @@
 import { LanguageType } from '@/types/profile';
 import { FC } from 'react';
-import { DetailsContentContainer, BasicsItem } from '../DefaultTemplate.styles';
-import { StyleSheet, Page, View, Text } from '@react-pdf/renderer';
+import { StyleSheet, View, Text } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   detailsContentContainer: {

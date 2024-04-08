@@ -1,19 +1,6 @@
 import { EducationType } from '@/types/profile';
 import { FC } from 'react';
-import {
-  DetailsContentContainer,
-  EducationDetailContainer,
-  EducationDetail,
-  Course,
-  School,
-  DateContainer,
-  Dates,
-  Month,
-  Year,
-  DateSeparator,
-  Description,
-} from '../DefaultTemplate.styles';
-import { StyleSheet, Page, View, Text } from '@react-pdf/renderer';
+import { StyleSheet, View, Text } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   detailsContentContainer: {

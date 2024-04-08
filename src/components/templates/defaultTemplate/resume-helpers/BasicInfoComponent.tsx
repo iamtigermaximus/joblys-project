@@ -8,19 +8,12 @@ import {
   FaLinkedin,
   FaGlobe,
 } from 'react-icons/fa';
-import {
-  BasicsItemsContainer,
-  BasicsNameContainer,
-  IconContainer,
-  BasicsItem,
-} from '../DefaultTemplate.styles';
-import { StyleSheet, Page, View, Text, Svg } from '@react-pdf/renderer';
+import { StyleSheet, View, Text } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   basicsItemsContainer: {
     display: 'flex',
     flexDirection: 'column',
-    // padding: '10px ',
   },
   basicsNameContainer: {
     display: 'flex',
