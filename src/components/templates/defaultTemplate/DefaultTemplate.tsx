@@ -194,7 +194,7 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
               {professional.work.slice(3).map((work, index) => (
                 <EmploymentInfoComponent key={index} employmentInfo={[work]} />
               ))}
-              <div>
+              <View>
                 {shouldDisplayTitle && (
                   <View style={styles.detailsTitleContainer}>
                     <Text style={styles.detailsTitle}>Education</Text>
@@ -208,7 +208,7 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
                       educationInfo={[education]}
                     />
                   ))}
-              </div>
+              </View>
             </View>
           </Page>
         </>
@@ -258,7 +258,7 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
             {professional.work.map((work, index) => (
               <EmploymentInfoComponent key={index} employmentInfo={[work]} />
             ))}
-            <div>
+            <View>
               {shouldDisplayTitle && (
                 <View style={styles.detailsTitleContainer}>
                   <Text style={styles.detailsTitle}>Education</Text>
@@ -272,7 +272,7 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
                     educationInfo={[education]}
                   />
                 ))}
-            </div>
+            </View>
           </View>
         </Page>
       )}

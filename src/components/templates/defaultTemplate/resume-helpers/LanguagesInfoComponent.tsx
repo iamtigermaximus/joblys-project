@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 export const LanguagesInfoComponent: FC<{ languageInfo: LanguageType[] }> = ({
   languageInfo,
 }) => (
-  <div>
+  <View>
     <View style={styles.detailsContentContainer}>
       {languageInfo &&
         languageInfo.map((language, index) => (
@@ -37,5 +37,5 @@ export const LanguagesInfoComponent: FC<{ languageInfo: LanguageType[] }> = ({
           </View>
         ))}
     </View>
-  </div>
+  </View>
 );

@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 export const BasicInfoComponent: FC<{ basicInfo: BasicInfoType }> = ({
   basicInfo,
 }) => (
-  <div>
+  <View>
     <View style={styles.basicsItemsContainer}>
       {basicInfo.firstName && (
         <View style={styles.basicsNameContainer}>
@@ -106,5 +106,5 @@ export const BasicInfoComponent: FC<{ basicInfo: BasicInfoType }> = ({
         </View>
       ))}
     </View>
-  </div>
+  </View>
 );

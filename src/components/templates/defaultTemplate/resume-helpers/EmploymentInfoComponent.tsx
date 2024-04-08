@@ -65,7 +65,7 @@ export const EmploymentInfoComponent: FC<{
 }> = ({ employmentInfo }) => (
   <View style={styles.detailsContentContainer}>
     {employmentInfo.map(info => (
-      <div key={info.id}>
+      <View key={info.id}>
         <View style={styles.employmentDetailsContainer}>
           <View style={styles.employmentDetail}>
             <Text style={styles.jobTitle}>{info.jobTitle}</Text>
@@ -126,7 +126,7 @@ export const EmploymentInfoComponent: FC<{
         </View>
 
         <Text style={styles.description}>{info.jobDetails}</Text>
-      </div>
+      </View>
     ))}
   </View>
 );

@@ -3,6 +3,7 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import DefaultTemplate from './DefaultTemplate';
 import { Resume } from '@/types/profile';
 import styled from 'styled-components';
+import { StyleSheet, Page, View, Text, Document } from '@react-pdf/renderer';
 
 const PDFDownload = styled(PDFDownloadLink)`
   text-decoration: none;
@@ -26,7 +27,7 @@ const DownloadPDFButton: React.FC<DownloadPDFButtonProps> = ({
   const fileName = `${resumeInfo.basic.firstName}${resumeInfo.basic.lastName}Resume.pdf`;
 
   return (
-    <div>
+    <View>
       <PDFDownload
         document={
           <DefaultTemplate resumeInfo={resumeInfo} id="resume-template" />
@@ -34,11 +35,13 @@ const DownloadPDFButton: React.FC<DownloadPDFButtonProps> = ({
         fileName={fileName}
         color={color}
       >
-        {({ blob, url, loading, error }) =>
-          loading ? 'Loading document...' : 'Download'
-        }
+        {({ blob, url, loading, error }) => (
+          <View>
+            {loading ? <Text>Loading document...</Text> : <Text>Download</Text>}
+          </View>
+        )}
       </PDFDownload>
-    </div>
+    </View>
   );
 };
 

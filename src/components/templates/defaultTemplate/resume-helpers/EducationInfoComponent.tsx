@@ -67,7 +67,7 @@ export const EducationInfoComponent: FC<{ educationInfo: EducationType[] }> = ({
     {educationInfo &&
       educationInfo?.length > 0 &&
       educationInfo.map((info, index) => (
-        <div key={info.id}>
+        <View key={info.id}>
           <View style={styles.educationDetailContainer}>
             <View style={styles.educationDetail}>
               <Text style={styles.course}>{info.course}</Text>
@@ -121,7 +121,7 @@ export const EducationInfoComponent: FC<{ educationInfo: EducationType[] }> = ({
             )}
           </View>
           <Text style={styles.description}>{info.description}</Text>
-        </div>
+        </View>
       ))}
   </View>
 );

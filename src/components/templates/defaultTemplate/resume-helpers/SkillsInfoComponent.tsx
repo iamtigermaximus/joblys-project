@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 export const SkillsInfoComponent: FC<{ skillInfo: SkillType[] }> = ({
   skillInfo,
 }) => (
-  <div>
+  <View>
     <View style={styles.detailsContentContainer}>
       {skillInfo &&
         skillInfo.length > 0 &&
@@ -37,5 +37,5 @@ export const SkillsInfoComponent: FC<{ skillInfo: SkillType[] }> = ({
           </View>
         ))}
     </View>
-  </div>
+  </View>
 );
