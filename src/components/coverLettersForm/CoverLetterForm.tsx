@@ -159,7 +159,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
           </InputContainer>
         </AccordionSection>
 
-        <AccordionSection>
+        {/* <AccordionSection>
           <AccordionHeader>
             <AccordionHeaderTitle
               style={{ color: accordionState.basic ? '' : 'gray' }}
@@ -307,7 +307,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
               />
             </AccordionContent>
           )}
-        </AccordionSection>
+        </AccordionSection> */}
         <AccordionSection>
           <PreviewButtonSection>
             <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
