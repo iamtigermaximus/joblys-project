@@ -68,7 +68,7 @@ export const ResumeContent = styled.div`
   }
 
   @media (min-width: ${bp.xl}) {
-    transform: scale(1, 0.35);
+    transform: scale(0.9, 0.35);
   }
 `;
 
@@ -85,6 +85,7 @@ export const CreateResumeButton = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  cursor: pointer;
 
   @media (min-width: ${bp.sm}) {
     max-width: calc(33.33% - 15px);
@@ -300,6 +301,7 @@ export const SidebarHeaderClose = styled.div`
   align-items: center;
   font-size: 16px;
   font-weight: 700;
+  cursor: pointer;
 `;
 
 export const SidebarContentContainer = styled.div`
