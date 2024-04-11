@@ -107,7 +107,7 @@ export const EducationInfoComponent: FC<{ educationInfo: EducationType[] }> = ({
               </View>
             )}
           </View>
-          <Text style={styles.description}>{info.description}</Text>
+          {/* <Text style={styles.description}>{info.description}</Text> */}
         </View>
       ))}
   </View>

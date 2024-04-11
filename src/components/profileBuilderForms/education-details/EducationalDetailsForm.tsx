@@ -209,7 +209,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                 </InputContainer>
               </InputRow>
               <InputLabel>Description:</InputLabel>
-              <TextArea
+              {/* <TextArea
                 placeholder="Describe your role and achievements"
                 value={educ.description}
                 onChange={e =>
@@ -219,7 +219,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                     capitalizeFirstLetter(e.target.value),
                   )
                 }
-              />
+              /> */}
               <ButtonsContainer>
                 <TrashIcon onClick={() => handleDeleteEducation(educ.id)}>
                   Remove

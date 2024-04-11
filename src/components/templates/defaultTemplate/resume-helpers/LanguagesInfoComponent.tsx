@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   basicsItem: {
     fontSize: '12px',
-    padding: '5px 0 ',
+    padding: '3px 0 ',
     maxWidth: '100%',
     color: 'white',
     wordBreak: 'break-all',

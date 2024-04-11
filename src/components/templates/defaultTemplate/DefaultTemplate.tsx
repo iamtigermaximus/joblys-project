@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   summaryContainer: {
     display: 'flex',
     width: '100%',
+    paddingBottom: '10px',
   },
   summary: {
     color: '#232946',
@@ -120,7 +121,7 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
     ) ||
     !!(educational && educational.length > 1);
 
-  const shouldSplit = professional.work.length > 3 || educational.length > 4;
+  const shouldSplit = professional.work.length > 2;
 
   return (
     <Document style={styles.document}>
@@ -163,22 +164,6 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
               <View style={styles.summaryContainer}>
                 <Text style={styles.summary}>{professional.summary}</Text>
               </View>
-              {shouldDisplayTitle && (
-                <View style={styles.detailsTitleContainer}>
-                  <Text style={styles.detailsTitle}>Employment</Text>
-                </View>
-              )}
-              {professional.work.slice(0, 3).map((work, index) => (
-                <EmploymentInfoComponent key={index} employmentInfo={[work]} />
-              ))}
-            </View>
-          </Page>
-          <Page id="resume-template" size="A4" style={styles.page}>
-            <View style={styles.basicContentContainer}></View>
-            <View style={styles.contentContainer}>
-              {professional.work.slice(3).map((work, index) => (
-                <EmploymentInfoComponent key={index} employmentInfo={[work]} />
-              ))}
               <View>
                 {shouldDisplayTitle && (
                   <View style={styles.detailsTitleContainer}>
@@ -186,7 +171,6 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
                   </View>
                 )}
                 {educational &&
-                  educational.length > 0 &&
                   educational.map((education, index) => (
                     <EducationInfoComponent
                       key={index}
@@ -194,6 +178,22 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
                     />
                   ))}
               </View>
+              {shouldDisplayTitle && (
+                <View style={styles.detailsTitleContainer}>
+                  <Text style={styles.detailsTitle}>Employment</Text>
+                </View>
+              )}
+              {professional.work.slice(0, 2).map((work, index) => (
+                <EmploymentInfoComponent key={index} employmentInfo={[work]} />
+              ))}
+            </View>
+          </Page>
+          <Page id="resume-template" size="A4" style={styles.page}>
+            <View style={styles.basicContentContainer}></View>
+            <View style={styles.contentContainer}>
+              {professional.work.slice(2).map((work, index) => (
+                <EmploymentInfoComponent key={index} employmentInfo={[work]} />
+              ))}
             </View>
           </Page>
         </>
@@ -235,6 +235,20 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
             <View style={styles.summaryContainer}>
               <Text style={styles.summary}>{professional.summary}</Text>
             </View>
+            <View>
+              {shouldDisplayTitle && (
+                <View style={styles.detailsTitleContainer}>
+                  <Text style={styles.detailsTitle}>Education</Text>
+                </View>
+              )}
+              {educational &&
+                educational.map((education, index) => (
+                  <EducationInfoComponent
+                    key={index}
+                    educationInfo={[education]}
+                  />
+                ))}
+            </View>
             {shouldDisplayTitle && (
               <View style={styles.detailsTitleContainer}>
                 <Text style={styles.detailsTitle}>Employment</Text>
@@ -243,21 +257,6 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
             {professional.work.map((work, index) => (
               <EmploymentInfoComponent key={index} employmentInfo={[work]} />
             ))}
-            <View>
-              {shouldDisplayTitle && (
-                <View style={styles.detailsTitleContainer}>
-                  <Text style={styles.detailsTitle}>Education</Text>
-                </View>
-              )}
-              {educational &&
-                educational.length > 0 &&
-                educational.map((education, index) => (
-                  <EducationInfoComponent
-                    key={index}
-                    educationInfo={[education]}
-                  />
-                ))}
-            </View>
           </View>
         </Page>
       )}

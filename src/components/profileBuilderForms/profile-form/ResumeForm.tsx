@@ -216,6 +216,35 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </AccordionContent>
           )}
         </AccordionSection>
+        <AccordionSection>
+          <AccordionHeader>
+            <AccordionHeaderTitle
+              style={{ color: accordionState.educational ? '' : 'gray' }}
+              onClick={() => toggleAccordion('educational')}
+            >
+              Educational Details
+            </AccordionHeaderTitle>
+            <span onClick={() => toggleAccordion('educational')}>
+              {accordionState.educational ? (
+                <IconContainer style={{ fontSize: '24px' }}>
+                  <FaCircleChevronUp />
+                </IconContainer>
+              ) : (
+                <IconContainer style={{ fontSize: '24px' }}>
+                  <FaCircleChevronDown />
+                </IconContainer>
+              )}
+            </span>
+          </AccordionHeader>
+          {accordionState.educational && (
+            <AccordionContent>
+              <EducationalDetailsForm
+                educational={resumeInfo.educational}
+                setResumeInfo={setResumeInfo}
+              />
+            </AccordionContent>
+          )}
+        </AccordionSection>
 
         <AccordionSection>
           <AccordionHeader>
@@ -249,35 +278,6 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           )}
         </AccordionSection>
 
-        <AccordionSection>
-          <AccordionHeader>
-            <AccordionHeaderTitle
-              style={{ color: accordionState.educational ? '' : 'gray' }}
-              onClick={() => toggleAccordion('educational')}
-            >
-              Educational Details
-            </AccordionHeaderTitle>
-            <span onClick={() => toggleAccordion('educational')}>
-              {accordionState.educational ? (
-                <IconContainer style={{ fontSize: '24px' }}>
-                  <FaCircleChevronUp />
-                </IconContainer>
-              ) : (
-                <IconContainer style={{ fontSize: '24px' }}>
-                  <FaCircleChevronDown />
-                </IconContainer>
-              )}
-            </span>
-          </AccordionHeader>
-          {accordionState.educational && (
-            <AccordionContent>
-              <EducationalDetailsForm
-                educational={resumeInfo.educational}
-                setResumeInfo={setResumeInfo}
-              />
-            </AccordionContent>
-          )}
-        </AccordionSection>
         <AccordionSection>
           <AccordionHeader>
             <AccordionHeaderTitle
