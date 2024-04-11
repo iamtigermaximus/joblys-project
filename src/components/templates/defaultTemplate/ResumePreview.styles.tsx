@@ -37,37 +37,33 @@ export const ResumeCard = styled.div`
 
   @media (min-width: ${bp.xl}) {
     max-width: calc(25% - 20px);
-    height: 300px;
+    height: 350px;
   }
 `;
 
 export const ResumeContent = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  transform-origin: top;
+  transform-origin: left top;
   position: relative;
   top: 0;
   left: 0;
-  transform: scale(0.95, 0.35);
+  transform: scale(0.8, 0.2);
 
-  /* width: 100%; */
-  /* scale: 0.6; */
-  /* 
-  /* @media (min-width: ${bp.sm}) {
-    scale: 0.9;
-  } */
+  @media (min-width: ${bp.sm}) {
+    transform: scale(0.9, 0.3);
+  }
 
   @media (min-width: ${bp.md}) {
-    transform: scale(0.95, 0.35);
+    transform: scale(1, 0.3);
   }
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(1, 0.25);
+    transform: scale(0.85, 0.25);
   }
 
   @media (min-width: ${bp.xl}) {
-    transform: scale(0.9, 0.35);
+    transform: scale(1, 0.4);
   }
 `;
 
@@ -102,7 +98,7 @@ export const CreateResumeButton = styled.div`
 
   @media (min-width: ${bp.xl}) {
     max-width: calc(25% - 20px);
-    height: 300px;
+    height: 350px;
   }
 `;
 
