@@ -9,17 +9,17 @@ export const ResumeContainer = styled.div`
   gap: 20px;
   padding-bottom: 100px;
   align-items: flex-start;
+  justify-content: flex-start;
 `;
 
 export const ResumeCard = styled.div`
-  flex: 1 1 calc(50% - 10px);
+  /* flex: 1 1 calc(50% - 10px); */
   max-width: calc(50%-10px);
-  height: 250px;
+  height: 200px;
+  width: 150px;
   overflow: hidden;
-  object-fit: cover;
-  position: relative;
-  /* width: 100%; */
   top: 0;
+  position: relative;
 
   @media (min-width: ${bp.sm}) {
     height: 350px;
@@ -27,12 +27,13 @@ export const ResumeCard = styled.div`
 
   @media (min-width: ${bp.md}) {
     max-width: calc(33.33% - 15px);
-    height: 350px;
+    height: 300px;
+    width: 100%;
   }
 
   @media (min-width: ${bp.lg}) {
     max-width: calc(25% - 15px);
-    height: 300px;
+    height: 250px;
   }
 
   @media (min-width: ${bp.xl}) {
@@ -49,31 +50,33 @@ export const ResumeContent = styled.div`
   position: relative;
   top: 0;
   left: 0;
-  transform: scale(0.6);
+  transform: scale(0.95, 0.35);
+
   /* width: 100%; */
   /* scale: 0.6; */
   /* 
-  @media (min-width: ${bp.sm}) {
+  /* @media (min-width: ${bp.sm}) {
     scale: 0.9;
-  }
-
-  @media (min-width: ${bp.md}) {
-    scale: 0.65;
   } */
 
-  /* @media (min-width: ${bp.lg}) {
-    top: 0;
+  @media (min-width: ${bp.md}) {
+    transform: scale(0.95, 0.35);
+  }
+
+  @media (min-width: ${bp.lg}) {
+    transform: scale(1, 0.25);
   }
 
   @media (min-width: ${bp.xl}) {
-    scale: 0.4;
-  } */
+    transform: scale(1, 0.35);
+  }
 `;
 
 export const CreateResumeButton = styled.div`
-  flex: 1 1 calc(50% - 10px);
+  /* flex: 1 1 calc(50% - 10px); */
   max-width: calc(50% - 10px);
-  height: 250px;
+  height: 200px;
+  width: 100%;
   border: 1px solid #ccc;
   overflow: hidden;
   border-radius: 5px;
@@ -81,21 +84,23 @@ export const CreateResumeButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   position: relative;
 
   @media (min-width: ${bp.sm}) {
+    max-width: calc(33.33% - 15px);
+
     height: 350px;
   }
 
   @media (min-width: ${bp.md}) {
     max-width: calc(33.33% - 15px);
     height: 350px;
+    width: 100%;
   }
 
   @media (min-width: ${bp.lg}) {
     max-width: calc(25% - 15px);
-    height: 300px;
+    height: 250px;
   }
 
   @media (min-width: ${bp.xl}) {
@@ -114,9 +119,6 @@ export const ButtonLabel = styled.h1`
 `;
 
 export const MiniDefault = styled(DefaultTemplate)`
-  /* width: 100%;
-  min-height: 300px;
-  min-width: 250px; */
   width: 100%;
   height: 100%;
 `;
@@ -156,7 +158,7 @@ export const EditContainer = styled.div`
   }
 
   @media (min-width: ${bp.lg}) {
-    padding: 10px 30px;
+    padding: 10px;
   }
 `;
 

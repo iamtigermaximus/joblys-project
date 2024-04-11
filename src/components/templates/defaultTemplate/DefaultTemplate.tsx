@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     padding: '50px 20px',
     color: 'white',
     minWidth: '100px',
-    height: '100%',
+    // height: '100vh',
     minHeight: '800px',
   },
   basicTitleContainer: {
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   basicsNameContainer: { display: 'flex', flexDirection: 'row', gap: 2 },
   headerName: {
     color: '#232946',
-    fontSize: '30px',
+    fontSize: '25px',
     maxWidth: '100%',
     wordBreak: 'break-all',
     whiteSpace: 'wrap',
