@@ -62,7 +62,7 @@ export const TemplatePreview = styled.div`
   transform: translateX(0%);
   transition: transform 0.3s ease-out;
   z-index: 1;
-  overflow-y: hidden;
+  overflow: scroll;
 
   &.active {
     transform: translateX(-100%);
@@ -70,7 +70,18 @@ export const TemplatePreview = styled.div`
   }
 
   @media (min-width: ${bp.lg}) {
-    /* display: none; */
+    display: none;
+  }
+`;
+
+export const PreviewResumeContainer = styled.div`
+  transform: scale(0.9);
+  transform-origin: top;
+  top: 0;
+  padding: 0 10px 10px;
+
+  @media (min-width: ${bp.md}) {
+    transform: scale(0.7, 0.8);
   }
 `;
 

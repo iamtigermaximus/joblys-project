@@ -13,22 +13,21 @@ export const ResumeContainer = styled.div`
 `;
 
 export const ResumeCard = styled.div`
-  /* flex: 1 1 calc(50% - 10px); */
+  flex: 1 1 calc(50% - 10px);
   max-width: calc(50%-10px);
-  height: 200px;
-  width: 150px;
+  height: 250px;
   overflow: hidden;
   top: 0;
   position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   @media (min-width: ${bp.sm}) {
-    height: 350px;
+    max-width: calc(50%-10px);
+    height: 300px;
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: calc(33.33% - 15px);
-    height: 300px;
-    width: 100%;
+    height: 400px;
   }
 
   @media (min-width: ${bp.lg}) {
@@ -73,10 +72,10 @@ export const ResumeContent = styled.div`
 `;
 
 export const CreateResumeButton = styled.div`
-  /* flex: 1 1 calc(50% - 10px); */
-  max-width: calc(50% - 10px);
-  height: 200px;
-  width: 100%;
+  flex: 1 1 calc(50% - 10px);
+  max-width: calc(50%-10px);
+  height: 250px;
+  /* min-width: 150px; */
   border: 1px solid #ccc;
   overflow: hidden;
   border-radius: 5px;
@@ -88,15 +87,12 @@ export const CreateResumeButton = styled.div`
   cursor: pointer;
 
   @media (min-width: ${bp.sm}) {
-    max-width: calc(33.33% - 15px);
-
-    height: 350px;
+    max-width: calc(50%-10px);
+    height: 300px;
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: calc(33.33% - 15px);
-    height: 350px;
-    width: 100%;
+    height: 400px;
   }
 
   @media (min-width: ${bp.lg}) {
@@ -314,6 +310,9 @@ export const SidebarContentContainer = styled.div`
   gap: 10px;
   overflow-y: auto;
   position: relative;
+
+  padding-bottom: 50px;
+  overflow-y: auto;
 `;
 
 export const ContentContainer = styled.div`
@@ -321,17 +320,18 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  scale: 0.9;
-  overflow-y: auto;
+  transform: scale(0.95, 0.55);
+
+  transform-origin: top;
+  top: 0;
+  padding-top: 10px;
 
   @media (min-width: ${bp.lg}) {
-    scale: 0.7;
-    padding: 20px;
+    transform: scale(0.7, 0.8);
   }
 
   @media (min-width: ${bp.lg}) {
-    scale: 0.9;
-    padding: 20px;
+    transform: scale(0.9);
   }
 `;
 

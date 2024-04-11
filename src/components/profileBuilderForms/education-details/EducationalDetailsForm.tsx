@@ -208,8 +208,8 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                   </DropdownContainer>
                 </InputContainer>
               </InputRow>
-              <InputLabel>Description:</InputLabel>
-              {/* <TextArea
+              {/* <InputLabel>Description:</InputLabel>
+             <TextArea
                 placeholder="Describe your role and achievements"
                 value={educ.description}
                 onChange={e =>

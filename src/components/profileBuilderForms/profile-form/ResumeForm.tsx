@@ -18,6 +18,7 @@ import {
   InputContainer,
   PreviewButton,
   PreviewButtonSection,
+  PreviewResumeContainer,
   SuccessAlert,
   TemplateHeaderItem,
   TemplatePreview,
@@ -170,7 +171,9 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </HeaderItem>
           </TemplateHeaderItem>
         </TemplatePreviewHeader>
-        <DefaultTemplate id="default-template" resumeInfo={resumeInfo} />
+        <PreviewResumeContainer>
+          <DefaultTemplate id="default-template" resumeInfo={resumeInfo} />
+        </PreviewResumeContainer>
       </TemplatePreview>
 
       <AccordionContainer>
