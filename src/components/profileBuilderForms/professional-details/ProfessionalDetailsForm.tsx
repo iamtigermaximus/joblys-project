@@ -237,6 +237,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             onChange={e =>
               handleSummaryChange(capitalizeFirstLetter(e.target.value))
             }
+            maxLength={600}
           />
         </InputContainer>
         <InputContainer>
@@ -463,6 +464,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                   capitalizeFirstLetter(e.target.value),
                 )
               }
+              maxLength={600}
             />
             <ButtonsContainer>
               <EnhanceButton
