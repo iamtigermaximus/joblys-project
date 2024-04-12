@@ -1,10 +1,6 @@
 'use client';
 
 import React from 'react';
-import {
-  CoverLetterTemplateContainer,
-  Template,
-} from './CoverLetterTemplate.styles';
 import { StyleSheet, Page, View, Text, Document } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
@@ -20,8 +16,8 @@ const styles = StyleSheet.create({
     minHeight: '800px',
     width: '100%',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    backgroundColor: 'gray',
-    color: 'white',
+    backgroundColor: 'white',
+    color: '#232946',
     justifyContent: 'center',
   },
 });
