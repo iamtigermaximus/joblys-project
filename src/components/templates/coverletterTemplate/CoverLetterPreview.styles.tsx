@@ -11,69 +11,68 @@ export const CoverLetterContainer = styled.div`
   align-items: flex-start;
 `;
 
-export const CoverLetterCard = styled.div`
-  flex: 1 1 calc(50% - 10px);
-  max-width: calc(50% - 10px);
+export const CoverLetterCard = styled.div<{ isLast?: boolean }>`
+  flex: ${({ isLast }) =>
+    isLast ? '0 1 calc(50% - 10px)' : '1 1 calc(50% - 10px)'};
+  max-width: calc(50%-10px);
   height: 250px;
   overflow: hidden;
-  border-radius: 5px;
-  object-fit: cover;
+  top: 0;
   position: relative;
-  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   @media (min-width: ${bp.sm}) {
-    height: 350px;
+    max-width: calc(50%-10px);
+    height: 300px;
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: calc(33.33% - 15px);
-    height: 350px;
+    height: 400px;
   }
 
   @media (min-width: ${bp.lg}) {
     max-width: calc(25% - 15px);
-    height: 300px;
+    height: 250px;
   }
 
   @media (min-width: ${bp.xl}) {
     max-width: calc(25% - 20px);
-    height: 300px;
+    height: 350px;
   }
 `;
 
 export const CoverLetterContent = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  transform-origin: top;
+  transform-origin: left top;
   position: relative;
   top: 0;
-  width: 100%;
-  scale: 0.6;
-  position: relative;
+  left: 0;
+  transform: scale(1, 1);
+
+  /* transform: scale(0.8, 0.2);
 
   @media (min-width: ${bp.sm}) {
-    scale: 0.9;
+    transform: scale(0.9, 0.3);
   }
 
   @media (min-width: ${bp.md}) {
-    scale: 0.65;
+    transform: scale(1, 0.3);
   }
 
   @media (min-width: ${bp.lg}) {
-    scale: 0.32;
-    top: 0;
+    transform: scale(0.85, 0.25);
   }
 
   @media (min-width: ${bp.xl}) {
-    scale: 0.4;
-  }
+    transform: scale(1, 1);
+  } */
 `;
-
 export const CreateCoverLetterButton = styled.div`
   flex: 1 1 calc(50% - 10px);
-  max-width: calc(50% - 10px);
+  max-width: calc(50%-10px);
   height: 250px;
+  /* min-width: 150px; */
   border: 1px solid #ccc;
   overflow: hidden;
   border-radius: 5px;
@@ -81,26 +80,26 @@ export const CreateCoverLetterButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   position: relative;
+  cursor: pointer;
 
   @media (min-width: ${bp.sm}) {
-    height: 350px;
+    max-width: calc(50%-10px);
+    height: 300px;
   }
 
   @media (min-width: ${bp.md}) {
-    max-width: calc(33.33% - 15px);
-    height: 350px;
+    height: 400px;
   }
 
   @media (min-width: ${bp.lg}) {
     max-width: calc(25% - 15px);
-    height: 300px;
+    height: 250px;
   }
 
   @media (min-width: ${bp.xl}) {
     max-width: calc(25% - 20px);
-    height: 300px;
+    height: 350px;
   }
 `;
 
@@ -120,8 +119,7 @@ export const ButtonLabel = styled.h1`
 
 export const MiniCoverLetter = styled(CoverLetterTemplate)`
   width: 100%;
-  min-height: 300px;
-  min-width: 250px;
+  height: 100%;
 `;
 
 export const EditModalOverlay = styled.div`
