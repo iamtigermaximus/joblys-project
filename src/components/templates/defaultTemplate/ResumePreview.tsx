@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Resume } from '@/types/profile';
 import { useRouter } from 'next/navigation';
 import { initialResume } from '@/types/profile';
@@ -46,6 +46,33 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
   const [activeElement, setActiveElement] = useState<string | null>(null);
   const [resumesList, setResumesList] = useState(resumes);
   const [selectedResume, setSelectedResume] = useState<Resume | null>(null);
+
+  const sidebarMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sidebarMenuRef.current &&
+        !sidebarMenuRef.current.contains(event.target as Node)
+      ) {
+        // Clicked outside the sidebar menu container
+        handleCloseSidebarMenu();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleCloseSidebarMenu = () => {
+    // Close the sidebar menu container
+    setEditModalOpenId(null);
+    setActiveElement(null);
+    setSelectedResume(null);
+  };
 
   const handleCreateNewResume = async () => {
     try {
@@ -176,7 +203,11 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
             </EditContainer>
           </ResumeCard>
           {editModalOpenId === resume.id && activeElement === 'sidebarMenu' && (
-            <SidebarMenuContainer key={resume.id} className={'category active'}>
+            <SidebarMenuContainer
+              key={resume.id}
+              className={'category active'}
+              ref={sidebarMenuRef}
+            >
               <SidebarHeader>
                 <SidebarHeaderItem>
                   <ResumeButton>
