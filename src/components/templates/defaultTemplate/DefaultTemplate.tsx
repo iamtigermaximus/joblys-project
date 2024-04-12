@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
     display: 'flex',
-    minHeight: '800px',
+    minHeight: '100vh',
     width: '100%',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   },
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     color: 'white',
     minWidth: '100px',
     // height: '100vh',
-    minHeight: '800px',
+    // minHeight: '800px',
   },
   basicTitleContainer: {
     display: 'flex',
@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fffffe',
     width: '65%',
     padding: '50px 20px',
-    height: '100%',
-    minHeight: '800px',
+    // height: '100%',
+    // minHeight: '800px',
   },
   basicsNameContainer: { display: 'flex', flexDirection: 'row', gap: 2 },
   headerName: {

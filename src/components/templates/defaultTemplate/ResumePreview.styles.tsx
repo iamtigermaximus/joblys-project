@@ -12,8 +12,9 @@ export const ResumeContainer = styled.div`
   justify-content: flex-start;
 `;
 
-export const ResumeCard = styled.div`
-  flex: 1 1 calc(50% - 10px);
+export const ResumeCard = styled.div<{ isLast?: boolean }>`
+  flex: ${({ isLast }) =>
+    isLast ? '0 1 calc(50% - 10px)' : '1 1 calc(50% - 10px)'};
   max-width: calc(50%-10px);
   height: 250px;
   overflow: hidden;

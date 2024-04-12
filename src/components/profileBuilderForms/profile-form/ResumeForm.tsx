@@ -24,6 +24,7 @@ import {
   TemplatePreview,
   TemplatePreviewHeader,
   TextArea,
+  ResumeContent,
 } from './ResumeForm.styles';
 import {
   FaArrowLeft,
@@ -36,6 +37,7 @@ import LanguagesForm from '../languages-details/LanguagesForm';
 import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import DownloadPDFButton from '@/components/templates/defaultTemplate/DownloadPDFButton';
 
 interface ResumeFormProps {
   resumeId: string;
@@ -166,16 +168,17 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             <HeaderItem>PREVIEW</HeaderItem>
           </TemplateHeaderItem>
           <TemplateHeaderItem>
-            <HeaderItem onClick={handleSignIn}>
-              <FaDownload />
+            <HeaderItem>
+              <DownloadPDFButton resumeInfo={resumeInfo} color="white" />
             </HeaderItem>
           </TemplateHeaderItem>
         </TemplatePreviewHeader>
         <PreviewResumeContainer>
-          <DefaultTemplate id="default-template" resumeInfo={resumeInfo} />
+          <ResumeContent>
+            <DefaultTemplate id="default-template" resumeInfo={resumeInfo} />
+          </ResumeContent>
         </PreviewResumeContainer>
       </TemplatePreview>
-
       <AccordionContainer>
         <AccordionSection>
           <AccordionHeader>

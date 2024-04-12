@@ -68,21 +68,22 @@ export const TemplatePreview = styled.div`
     transform: translateX(-100%);
     transition: transform 0.3s ease-in;
   }
-
-  @media (min-width: ${bp.lg}) {
-    display: none;
-  }
 `;
 
 export const PreviewResumeContainer = styled.div`
-  transform: scale(0.9);
-  transform-origin: top;
-  top: 0;
+  margin: auto;
   padding: 0 10px 10px;
+  display: flex;
+  align-items: center;
 
-  @media (min-width: ${bp.md}) {
-    transform: scale(0.7, 0.8);
+  @media (max-width: ${bp.lg}) {
+    padding: 10px 100px;
   }
+`;
+
+export const ResumeContent = styled.div`
+  transform: scale(0.95, 0.45);
+  transform-origin: top;
 `;
 
 export const TemplatePreviewHeader = styled.div`

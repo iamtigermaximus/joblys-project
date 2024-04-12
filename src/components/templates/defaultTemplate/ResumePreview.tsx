@@ -123,6 +123,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
         <React.Fragment key={resume.id}>
           <ResumeCard
             onClick={() => handleResumeCardClick(resume.id, resume.resumeInfo)}
+            isLast={true}
           >
             <ResumeContent>
               <MiniDefault id={resume.id} resumeInfo={resume.resumeInfo} />
