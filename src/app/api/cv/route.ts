@@ -265,7 +265,7 @@ export async function POST(req: NextRequest) {
   console.log('Stuctured the CV, persisting it...');
   let createdStructuredCV;
   try {
-   createdStructuredCV = await prisma.structuredCVs.create({
+    createdStructuredCV = await prisma.structuredCVs.create({
       data: {
         ownerId: user.id,
         content: structuredCVContent as any,
@@ -324,6 +324,8 @@ export async function GET(req: NextRequest) {
       select: {
         id: true,
         content: true,
+        createdAt: true,
+        updatedAt: true,
       },
     });
   } catch (err) {

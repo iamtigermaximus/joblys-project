@@ -28,6 +28,7 @@
     "bcryptjs": "^2.4.3",
     "bufferutil": "^4.0.7",
     "canvas": "^2.11.2",
+    "date-fns": "^3.6.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.17",
     "html2canvas": "^1.4.1",

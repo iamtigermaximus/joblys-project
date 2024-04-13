@@ -12,11 +12,38 @@ export const ResumeContainer = styled.div`
   justify-content: flex-start;
 `;
 
+export const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  /* border: 1px solid red; */
+  max-width: calc(25% - 20px);
+`;
+
+export const FilenameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  /* border: 1px solid green; */
+  padding: 5px 0;
+`;
+
+export const Timestamp = styled.h1`
+  font-size: 13px;
+  color: gray;
+`;
+
+export const Filename = styled.h1`
+  font-size: 16px;
+  color: black;
+  font-weight: bolder;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 export const ResumeCard = styled.div<{ isLast?: boolean }>`
-  flex: ${({ isLast }) =>
-    isLast ? '0 1 calc(50% - 10px)' : '1 1 calc(50% - 10px)'};
-  max-width: calc(50%-10px);
-  height: 250px;
+  /* height: 250px;
   overflow: hidden;
   top: 0;
   position: relative;
@@ -39,7 +66,12 @@ export const ResumeCard = styled.div<{ isLast?: boolean }>`
   @media (min-width: ${bp.xl}) {
     max-width: calc(25% - 20px);
     height: 350px;
-  }
+  } */
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 0px 8px;
 `;
 
 export const ResumeContent = styled.div`

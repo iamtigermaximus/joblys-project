@@ -8,7 +8,8 @@ import Loader from '../common/loader/Loader';
 
 const Resumes = () => {
   const [profileData, setProfileData] = useState<
-    { id: string; resumeInfo: Resume }[] | null
+    | { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
+    | null
   >(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,14 +20,24 @@ const Resumes = () => {
         const response = await axios.get('/api/cv');
         const resumes = response.data.body.resumes;
 
-        const data = resumes.map((resume: { id: string; content: any }) => {
-          return {
-            id: resume.id,
-            resumeInfo: resume.content,
-          };
-        });
+        const data = resumes.map(
+          (resume: {
+            id: string;
+            content: any;
+            createdAt: string;
+            updatedAt: string;
+          }) => {
+            return {
+              id: resume.id,
+              resumeInfo: resume.content,
+              createdAt: resume.createdAt,
+              updatedAt: resume.updatedAt,
+            };
+          },
+        );
         setProfileData(data);
         setIsLoading(false);
+        console.log('DATA', data);
       } catch (error: any) {
         setError(error.message);
         setIsLoading(false);
