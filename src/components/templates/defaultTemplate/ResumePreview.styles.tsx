@@ -16,63 +16,90 @@ export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  /* border: 1px solid red; */
-  max-width: calc(25% - 20px);
-  /* max-width: calc(50%-10px); */
+  max-width: calc(50% - 10px);
+  height: 300px;
+  overflow: hidden;
+
+  @media (min-width: ${bp.sm}) {
+    max-width: calc(50%-10px);
+    height: 350px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    max-width: calc(33.33% - 15px);
+  }
+
+  @media (min-width: ${bp.lg}) {
+    max-width: calc(25% - 15px);
+    height: 300px;
+  }
+
+  @media (min-width: ${bp.xl}) {
+    max-width: calc(25% - 20px);
+    height: 400px;
+  }
 `;
 
 export const FilenameContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2px;
-  /* border: 1px solid green; */
   padding: 5px 0;
 `;
 
 export const Timestamp = styled.h1`
-  font-size: 13px;
+  font-size: 10px;
   color: gray;
+  font-size: 10px;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 12px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
 `;
 
 export const Filename = styled.h1`
-  font-size: 16px;
   color: black;
   font-weight: bolder;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`;
-
-export const ResumeCard = styled.div<{ isLast?: boolean }>`
-  /* height: 250px;
-  overflow: hidden;
-  top: 0;
-  position: relative;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 12px;
 
   @media (min-width: ${bp.sm}) {
-    max-width: calc(50%-10px);
-    height: 300px;
-  }
-
-  @media (min-width: ${bp.md}) {
-    height: 400px;
+    font-size: 14px;
   }
 
   @media (min-width: ${bp.lg}) {
-    max-width: calc(25% - 15px);
-    height: 250px;
+    font-size: 16px;
   }
+`;
 
-  @media (min-width: ${bp.xl}) {
-    max-width: calc(25% - 20px);
-    height: 350px;
-  } */
-  height: 350px;
+export const ResumeCard = styled.div<{ isLast?: boolean }>`
+  height: 250px;
   overflow: hidden;
   position: relative;
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
+
+  @media (min-width: ${bp.sm}) {
+    height: 300px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    height: 300px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    height: 250px;
+  }
+
+  @media (min-width: ${bp.xl}) {
+    height: 350px;
+  }
 `;
 
 export const ResumeContent = styled.div`
@@ -82,19 +109,18 @@ export const ResumeContent = styled.div`
   position: relative;
   top: 0;
   left: 0;
-  transform: scale(0.8, 0.2);
-  height: 100%;
+  transform: scale(0.8, 0.3);
 
   @media (min-width: ${bp.sm}) {
     transform: scale(0.9, 0.3);
   }
 
   @media (min-width: ${bp.md}) {
-    transform: scale(1, 0.3);
+    transform: scale(1, 0.4);
   }
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(0.85, 0.25);
+    transform: scale(0.85, 0.35);
   }
 
   @media (min-width: ${bp.xl}) {
@@ -106,7 +132,6 @@ export const CreateResumeButton = styled.div`
   flex: 1 1 calc(50% - 10px);
   max-width: calc(50%-10px);
   height: 250px;
-  /* min-width: 150px; */
   border: 1px solid #ccc;
   overflow: hidden;
   border-radius: 5px;
@@ -123,7 +148,8 @@ export const CreateResumeButton = styled.div`
   }
 
   @media (min-width: ${bp.md}) {
-    height: 400px;
+    max-width: calc(33.33% - 15px);
+    height: 300px;
   }
 
   @media (min-width: ${bp.lg}) {
