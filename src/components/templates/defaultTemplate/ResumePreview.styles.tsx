@@ -18,6 +18,7 @@ export const CardContainer = styled.div`
   gap: 5px;
   /* border: 1px solid red; */
   max-width: calc(25% - 20px);
+  /* max-width: calc(50%-10px); */
 `;
 
 export const FilenameContainer = styled.div`
@@ -82,6 +83,7 @@ export const ResumeContent = styled.div`
   top: 0;
   left: 0;
   transform: scale(0.8, 0.2);
+  height: 100%;
 
   @media (min-width: ${bp.sm}) {
     transform: scale(0.9, 0.3);
@@ -96,7 +98,7 @@ export const ResumeContent = styled.div`
   }
 
   @media (min-width: ${bp.xl}) {
-    transform: scale(1, 0.4);
+    transform: scale(1, 0.5);
   }
 `;
 
@@ -330,37 +332,55 @@ export const SidebarHeaderClose = styled.div`
 `;
 
 export const SidebarContentContainer = styled.div`
-  height: 100vh;
+  /* height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex: 1;
   gap: 10px;
-  overflow-y: auto;
-  position: relative;
+  width: 100%; */
+  /* overflow-y: auto; */
+  /* position: relative; */
 
-  padding-bottom: 50px;
+  /* padding-bottom: 50px;
+  overflow-y: auto; */
+  /* background-color: pink;
+  display: flex;
+  justify-content: center;
+  overflow-y: auto; */
   overflow-y: auto;
+  padding-bottom: 200px;
 `;
 
 export const ContentContainer = styled.div`
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transform: scale(0.95, 0.55);
+  align-items: center; */
+  /* transform: scale(0.95, 0.55);
 
   transform-origin: top;
   top: 0;
-  padding-top: 10px;
+  padding-top: 10px; */
+  /* width: 100%;
+  padding: 10px;
+  transform-origin: left top;
+  top: 0;
+  transform: scale(0.7, 0.7); */
+  /* width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 100%; */
 
+  padding: 10px 20px;
   @media (min-width: ${bp.lg}) {
-    transform: scale(0.7, 0.8);
+    /* transform: scale(0.7, 0.8); */
   }
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(0.9);
+    /* transform: scale(0.9); */
   }
 `;
 
@@ -408,4 +428,25 @@ export const PreviewDownloadButton = styled.button`
   &:hover {
     background-color: ${colors.darkPurple};
   }
+`;
+
+export const SidebarTimestampContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 0;
+`;
+
+export const TimestampContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 0.5px solid gray;
+`;
+
+export const TimestampItem = styled.h1`
+  font-size: 16px;
+  font-weight: bolder;
+  color: gray;
 `;

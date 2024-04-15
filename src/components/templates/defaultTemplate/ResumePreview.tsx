@@ -33,7 +33,10 @@ import {
   SidebarHeaderClose,
   SidebarHeaderItem,
   SidebarMenuContainer,
+  SidebarTimestampContainer,
   Timestamp,
+  TimestampContainer,
+  TimestampItem,
 } from './ResumePreview.styles';
 import DownloadPDFButton from './DownloadPDFButton';
 import { formatDistanceToNow } from 'date-fns';
@@ -253,6 +256,20 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
                       resumeInfo={selectedResume}
                     />
                   )}
+                  <SidebarTimestampContainer>
+                    <TimestampContainer>
+                      <TimestampItem>Created</TimestampItem>
+                      <TimestampItem>
+                        {formatTimestamp(resume.createdAt)}
+                      </TimestampItem>
+                    </TimestampContainer>
+                    <TimestampContainer>
+                      <TimestampItem>Edited</TimestampItem>
+                      <TimestampItem>
+                        {formatTimestamp(resume.updatedAt)}
+                      </TimestampItem>
+                    </TimestampContainer>
+                  </SidebarTimestampContainer>
                 </ContentContainer>
               </SidebarContentContainer>
               <ActionContainer>
