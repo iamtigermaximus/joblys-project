@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   detailsContentContainer: {
     display: 'flex',
     flexDirection: 'column',
-    fontSize: '12px',
+    // fontSize: '12px',
     width: '100%',
     padding: '5px 0',
   },
@@ -18,33 +18,32 @@ const styles = StyleSheet.create({
   educationDetail: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 2,
+    // gap: 2,
     padding: '5px 0',
     width: '100%',
-    height: '100%',
   },
   course: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
-    fontSize: '13px',
+    fontSize: '12px',
   },
   school: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
-    fontSize: '13px',
+    fontSize: '12px',
   },
   dateContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
     width: '100%',
-    padding: '5px 0',
+    padding: '2px 0',
   },
   dates: { display: 'flex', flexDirection: 'row', gap: 5 },
-  month: { fontSize: '13px' },
-  year: { fontSize: '13px' },
-  dateSeparator: { fontSize: '13px' },
-  description: { fontSize: '12px', padding: '5px 0' },
+  month: { fontSize: '12px' },
+  year: { fontSize: '12px' },
+  dateSeparator: { fontSize: '12px' },
+  description: { fontSize: '12px', padding: '5px 0', lineHeight: '1.2' },
 });
 
 export const EducationInfoComponent: FC<{ educationInfo: EducationType[] }> = ({

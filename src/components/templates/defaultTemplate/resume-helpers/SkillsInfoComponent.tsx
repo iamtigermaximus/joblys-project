@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   detailsContentContainer: {
     display: 'flex',
     flexDirection: 'column',
-    fontSize: '12px',
+    // fontSize: '12px',
     width: '100%',
     padding: '5px 0',
   },

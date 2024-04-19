@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   basicsTitle: {
     color: 'white',
-    fontSize: '15px',
+    fontSize: '13px',
   },
 });
 

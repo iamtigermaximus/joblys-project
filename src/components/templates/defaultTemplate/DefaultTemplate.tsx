@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#232946',
     width: '35%',
-    padding: '50px 20px',
+    padding: '50px 15px',
     color: 'white',
     minWidth: '100px',
     // height: '100%',
@@ -45,28 +45,28 @@ const styles = StyleSheet.create({
   },
   basicsTitle: {
     color: 'white',
-    fontSize: '17px',
+    fontSize: '14px',
   },
   contentContainer: {
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fffffe',
     width: '65%',
-    padding: '50px 20px',
+    padding: '50px 15px',
     height: '100%',
     minHeight: '800px',
   },
   basicsNameContainer: { display: 'flex', flexDirection: 'row', gap: 2 },
   headerName: {
     color: '#232946',
-    fontSize: '25px',
+    // fontSize: '25px',
     maxWidth: '100%',
     wordBreak: 'break-all',
     whiteSpace: 'wrap',
   },
   headerCurrentRole: {
     color: '#232946',
-    fontSize: '17px',
+    fontSize: '14px',
     maxWidth: '100%',
     wordBreak: 'break-all',
     whiteSpace: 'wrap',
@@ -77,14 +77,14 @@ const styles = StyleSheet.create({
   },
   detailsTitle: {
     color: '#232946',
-    fontSize: '15px',
+    fontSize: '13px',
     paddingBottom: '5px',
     borderBottom: '0.5px solid #232946',
   },
   summaryContainer: {
     display: 'flex',
     width: '100%',
-    paddingBottom: '10px',
+    // paddingBottom: '10px',
   },
   summary: {
     color: '#232946',
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     wordBreak: 'break-all',
     whiteSpace: 'wrap',
     padding: '5px 0',
+    lineHeight: '1.2',
   },
 });
 
@@ -156,13 +157,15 @@ const DefaultTemplate: FC<DefaultTemplateProps> = ({ id, resumeInfo }) => {
               <Text style={styles.headerCurrentRole}>
                 {professional.currentRole}
               </Text>
-              {shouldDisplayTitle && (
-                <View style={styles.detailsTitleContainer}>
-                  <Text style={styles.detailsTitle}>Summary</Text>
+              <View>
+                {shouldDisplayTitle && (
+                  <View style={styles.detailsTitleContainer}>
+                    <Text style={styles.detailsTitle}>Summary</Text>
+                  </View>
+                )}
+                <View style={styles.summaryContainer}>
+                  <Text style={styles.summary}>{professional.summary}</Text>
                 </View>
-              )}
-              <View style={styles.summaryContainer}>
-                <Text style={styles.summary}>{professional.summary}</Text>
               </View>
               <View>
                 {shouldDisplayTitle && (

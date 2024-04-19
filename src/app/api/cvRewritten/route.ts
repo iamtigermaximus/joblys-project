@@ -132,17 +132,17 @@ export async function POST(req: NextRequest) {
     formattedResponsibilities[0].trim().startsWith('-')
       ? 'bullet_list'
       : formattedResponsibilities.length > 0 &&
-          /^\s*\d+\./.test(formattedResponsibilities[0])
-        ? 'numbered_list'
-        : 'empty_list';
+        /^\s*\d+\./.test(formattedResponsibilities[0])
+      ? 'numbered_list'
+      : 'empty_list';
 
   const replacementMap: Record<string, string> = {
     '{type_of_list}':
       value_type_of_list === 'bullet_list'
         ? 'with bullet list'
         : value_type_of_list === 'numbered_list'
-          ? 'with numbered list'
-          : 'without adding any numbering, bullet points, or dash.',
+        ? 'with numbered list'
+        : 'without adding any numbering, bullet points, or dash.',
     '{number_sentences}': formattedResponsibilities.length.toString(),
     '{original_responsibilities}': formattedResponsibilities.join('. '),
   };
@@ -155,7 +155,7 @@ export async function POST(req: NextRequest) {
   const openaiResponse = await openAI.completions.create({
     model: 'gpt-3.5-turbo-instruct',
     prompt: modifiedPrompt,
-    max_tokens: 2050,
+    max_tokens: 650,
   });
 
   const responseContent = openaiResponse?.choices?.[0]?.text;
