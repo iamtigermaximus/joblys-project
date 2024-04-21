@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Resume } from '@/types/profile';
 import {
@@ -38,6 +38,9 @@ import EducationalDetailsForm from '../profileBuilderForms/education-details/Edu
 import SkillsForm from '../profileBuilderForms/skills-details/SkillsForm';
 import LanguagesForm from '../profileBuilderForms/languages-details/LanguagesForm';
 import CoverLetterTemplate from '../templates/coverletterTemplate/CoverLetterTemplate';
+import axios from 'axios';
+import ResumePreview from '../templates/defaultTemplate/ResumePreview';
+import ResumesDropdown from '../resumes/ResumesDropdown';
 
 interface CoverLetterFormProps {
   coverletterId: string;
@@ -66,6 +69,51 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   const [profileCreated, setProfileCreated] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [applyJobDescription, setApplyJobDescription] = useState('');
+
+  const [profileData, setProfileData] = useState<
+    | { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
+    | null
+  >(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get('/api/cv');
+        const resumes = response.data.body.resumes;
+
+        const data = resumes.map(
+          (resume: {
+            id: string;
+            content: any;
+            createdAt: string;
+            updatedAt: string;
+          }) => {
+            return {
+              id: resume.id,
+              resumeInfo: resume.content,
+              createdAt: resume.createdAt,
+              updatedAt: resume.updatedAt,
+            };
+          },
+        );
+        setProfileData(data);
+        console.log('DATA', data);
+      } catch (error: any) {
+        setError(error.message);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!profileData) {
+    return <div>No profile data available</div>;
+  }
 
   const handleApplyJobDescriptionChange = async (jobDescription: string) => {
     setApplyJobDescription(jobDescription);
@@ -142,7 +190,6 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
             </HeaderItem>
           </TemplateHeaderItem>
         </TemplatePreviewHeader>
-        {/* <CoverLetterTemplate id="coverletter-template" /> */}
         <CoverLetterTemplate />
       </TemplatePreview>
       <AccordionContainer>
@@ -158,156 +205,14 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
             />
           </InputContainer>
         </AccordionSection>
-
-        {/* <AccordionSection>
+        <AccordionSection>
           <AccordionHeader>
-            <AccordionHeaderTitle
-              style={{ color: accordionState.basic ? '' : 'gray' }}
-              onClick={() => toggleAccordion('basic')}
-            >
-              Personal Details
-            </AccordionHeaderTitle>
-            <span onClick={() => toggleAccordion('basic')}>
-              {accordionState.basic ? (
-                <IconContainer>
-                  <FaCircleChevronUp style={{ fontSize: '24px' }} />
-                </IconContainer>
-              ) : (
-                <IconContainer>
-                  <FaCircleChevronDown style={{ fontSize: '24px' }} />
-                </IconContainer>
-              )}
-            </span>
+            <AccordionHeaderTitle>Resumes</AccordionHeaderTitle>
           </AccordionHeader>
-          {accordionState.basic && (
-            <AccordionContent>
-              <BasicDetailsForm
-                basic={resumeInfo.basic}
-                setResumeInfo={setResumeInfo}
-              />
-            </AccordionContent>
-          )}
         </AccordionSection>
 
-        <AccordionSection>
-          <AccordionHeader>
-            <AccordionHeaderTitle
-              style={{ color: accordionState.professional ? '' : 'gray' }}
-              onClick={() => toggleAccordion('professional')}
-            >
-              Professional Details
-            </AccordionHeaderTitle>
-            <span onClick={() => toggleAccordion('professional')}>
-              {accordionState.professional ? (
-                <IconContainer>
-                  <FaCircleChevronUp style={{ fontSize: '24px' }} />
-                </IconContainer>
-              ) : (
-                <IconContainer>
-                  <FaCircleChevronDown style={{ fontSize: '24px' }} />
-                </IconContainer>
-              )}
-            </span>
-          </AccordionHeader>
-          {accordionState.professional && (
-            <AccordionContent>
-              <ProfessionalDetailsForm
-                resumeId=""
-                professional={resumeInfo.professional}
-                setResumeInfo={setResumeInfo}
-                refreshStoredResume={refreshStoredResume}
-              />
-            </AccordionContent>
-          )}
-        </AccordionSection>
+        <ResumesDropdown resumes={profileData} />
 
-        <AccordionSection>
-          <AccordionHeader>
-            <AccordionHeaderTitle
-              style={{ color: accordionState.educational ? '' : 'gray' }}
-              onClick={() => toggleAccordion('educational')}
-            >
-              Educational Details
-            </AccordionHeaderTitle>
-            <span onClick={() => toggleAccordion('educational')}>
-              {accordionState.educational ? (
-                <IconContainer style={{ fontSize: '24px' }}>
-                  <FaCircleChevronUp />
-                </IconContainer>
-              ) : (
-                <IconContainer style={{ fontSize: '24px' }}>
-                  <FaCircleChevronDown />
-                </IconContainer>
-              )}
-            </span>
-          </AccordionHeader>
-          {accordionState.educational && (
-            <AccordionContent>
-              <EducationalDetailsForm
-                educational={resumeInfo.educational}
-                setResumeInfo={setResumeInfo}
-              />
-            </AccordionContent>
-          )}
-        </AccordionSection>
-        <AccordionSection>
-          <AccordionHeader>
-            <AccordionHeaderTitle
-              style={{ color: accordionState.skills ? '' : 'gray' }}
-              onClick={() => toggleAccordion('skills')}
-            >
-              Skills
-            </AccordionHeaderTitle>
-            <span onClick={() => toggleAccordion('skills')}>
-              {accordionState.skills ? (
-                <IconContainer style={{ fontSize: '24px' }}>
-                  <FaCircleChevronUp />
-                </IconContainer>
-              ) : (
-                <IconContainer style={{ fontSize: '24px' }}>
-                  <FaCircleChevronDown />
-                </IconContainer>
-              )}
-            </span>
-          </AccordionHeader>
-          {accordionState.skills && (
-            <AccordionContent>
-              <SkillsForm
-                skills={resumeInfo.skills}
-                setResumeInfo={setResumeInfo}
-              />
-            </AccordionContent>
-          )}
-        </AccordionSection>
-        <AccordionSection>
-          <AccordionHeader>
-            <AccordionHeaderTitle
-              style={{ color: accordionState.languages ? '' : 'gray' }}
-              onClick={() => toggleAccordion('languages')}
-            >
-              Languages
-            </AccordionHeaderTitle>
-            <span onClick={() => toggleAccordion('languages')}>
-              {accordionState.languages ? (
-                <IconContainer style={{ fontSize: '24px' }}>
-                  <FaCircleChevronUp />
-                </IconContainer>
-              ) : (
-                <IconContainer style={{ fontSize: '24px' }}>
-                  <FaCircleChevronDown />
-                </IconContainer>
-              )}
-            </span>
-          </AccordionHeader>
-          {accordionState.languages && (
-            <AccordionContent>
-              <LanguagesForm
-                languages={resumeInfo.languages}
-                setResumeInfo={setResumeInfo}
-              />
-            </AccordionContent>
-          )}
-        </AccordionSection> */}
         <AccordionSection>
           <PreviewButtonSection>
             <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
@@ -322,9 +227,6 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
               </SuccessAlert>
             </PreviewButtonSection>
           )}
-          {/* <AccordionHeader>
-            <AccordionHeaderTitle></AccordionHeaderTitle>
-          </AccordionHeader> */}
         </AccordionSection>
       </AccordionContainer>
     </Container>

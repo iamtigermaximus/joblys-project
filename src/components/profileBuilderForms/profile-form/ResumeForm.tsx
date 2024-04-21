@@ -94,11 +94,19 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
 
   const handleSubmitResume = async () => {
     try {
+      const generatedFilename = () => {
+        const firstName = resumeInfo.basic.firstName || 'FirstName';
+        const lastName = resumeInfo.basic.lastName || 'LastName';
+        const filename = `${firstName}_${lastName}_Profile`;
+        return filename;
+      };
+      console.log('Generated Filename:', generatedFilename);
       const response = await fetch('/api/cvChanges', {
         method: 'POST',
         body: JSON.stringify({
           id: resumeId,
           resume: resumeInfo,
+          filename: generatedFilename,
         }),
       });
 
