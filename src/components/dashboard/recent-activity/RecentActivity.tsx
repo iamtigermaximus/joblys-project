@@ -2,6 +2,7 @@ import React from 'react';
 import {
   ActivitiesContainer,
   ActivityContainer,
+  ActivityTexts,
   Button,
   ButtonsContainer,
   Container,
@@ -22,11 +23,12 @@ const RecentActivity = () => {
         </ButtonsContainer>
         <ActivitiesContainer>
           <ActivityContainer>
-            <div>Software developer Helsinki</div>
+            <ActivityTexts>Software developer Helsinki</ActivityTexts>
             <ReviewButton>Review</ReviewButton>
           </ActivityContainer>
           <ActivityContainer>
-            <div>Developer Tampere</div> <ReviewButton>Review</ReviewButton>
+            <ActivityTexts>Developer Tampere</ActivityTexts>{' '}
+            <ReviewButton>Review</ReviewButton>
           </ActivityContainer>
         </ActivitiesContainer>
       </RecentActivitySection>

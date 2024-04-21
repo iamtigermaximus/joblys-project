@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const RecentActivitySection = styled.div`
-  padding: 20px;
+  padding: 10px 20px;
 
   @media (min-width: ${bp.lg}) {
     padding: 40px;
@@ -42,7 +42,6 @@ export const ActivityContainer = styled.div`
   border: 2px solid ${colors.ashGray};
   padding: 10px;
   margin: 5px 0;
-  font-size: 18px;
   font-weight: 700;
 `;
 
@@ -53,17 +52,20 @@ export const Button = styled.button`
   padding: 5px;
   margin-right: 10px;
   width: 100px;
-  height: 40px;
   border: none;
-  letter-spacing: 1px;
+  font-size: 13px;
 `;
 
 export const ReviewButton = styled.button`
   background-color: ${colors.orange};
   color: ${colors.white};
   border-radius: 3px;
-  padding: 10px;
-  width: 100px;
+  padding: 5px;
+  width: 80px;
   border: none;
   letter-spacing: 1px;
+`;
+
+export const ActivityTexts = styled.div`
+  font-size: 13px;
 `;

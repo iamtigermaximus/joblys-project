@@ -35,6 +35,7 @@ export const InputContainer = styled.div`
   position: relative;
   border: 1px solid ${colors.ashGray};
   border-radius: 3px;
+  height: 40px;
 
   @media (min-width: ${bp.lg}) {
     flex-direction: row;
@@ -46,18 +47,18 @@ export const Icon = styled.i`
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 20px;
+  font-size: 13px;
   color: #777;
 `;
 
 export const Input = styled.input`
   width: 100%;
-  height: 50px;
   border-radius: 3px 0 0 3px;
   font-size: 13px;
   background-color: ${colors.ashGray};
   border: 1px solid ${colors.ashGray};
-  padding: 10px;
+  padding: 5px;
+  height: 100%;
 
   &::placeholder {
     color: ${colors.blueGray};
@@ -78,7 +79,7 @@ export const SearchButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 40px;
   padding: 5px 0;
   border-radius: 5px;
   border: none;
@@ -94,7 +95,8 @@ export const SearchButton = styled.button`
 
 export const SearchSectionTitle = styled.h2`
   color: ${colors.purple};
-  margin: 0 0 20px;
+  margin: 0 0 10px;
+  font-size: 16px;
 `;
 
 // export const SearchContainer = styled.div`

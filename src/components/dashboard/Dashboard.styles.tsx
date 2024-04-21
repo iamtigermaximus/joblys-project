@@ -41,13 +41,21 @@ export const HeaderTextContainer = styled.div`
 export const HeadingTexts = styled.h1`
   color: ${colors.purple};
   margin: 5px 0;
+  font-size: 16px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 30px;
+  }
 `;
 
 export const HeadingSubTexts = styled.p`
-  line-height: 1.5;
-  letter-spacing: 1px;
   text-align: justify;
   margin: 5px 0;
+  font-size: 13px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 16px;
+  }
 `;
 
 export const ActivitySection = styled.div`
