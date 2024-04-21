@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   summary: {
     color: '#232946',
     maxWidth: '100%',
-    fontSize: '12px',
+    fontSize: '10px',
     wordBreak: 'break-all',
     whiteSpace: 'wrap',
     padding: '5px 0',

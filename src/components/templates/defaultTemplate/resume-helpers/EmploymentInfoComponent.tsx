@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   year: { fontSize: '12px' },
   dateSeparator: { fontSize: '12px' },
   description: {
-    fontSize: '12px',
+    fontSize: '10px',
     padding: '5px 0',
     lineHeight: '1.2',
   },

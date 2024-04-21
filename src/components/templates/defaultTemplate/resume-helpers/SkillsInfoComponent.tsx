@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     padding: '5px 0',
   },
   basicsItem: {
-    fontSize: '12px',
+    fontSize: '10px',
     padding: '3px 0 ',
     maxWidth: '100%',
     color: 'white',
