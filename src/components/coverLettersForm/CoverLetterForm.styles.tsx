@@ -211,3 +211,32 @@ export const InputLabel = styled.label`
     margin: 5px 0;
   }
 `;
+
+export const PreviewCoverLetterContainer = styled.div`
+  margin: auto;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: ${bp.md}) {
+    width: 375px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    width: 640px;
+  }
+`;
+
+export const CoverLetterContent = styled.div`
+  transform: scale(0.95, 0.45);
+  transform-origin: top;
+
+  @media (min-width: ${bp.md}) {
+    transform: scale(1);
+  }
+
+  @media (min-width: ${bp.lg}) {
+    transform: scale(0.9);
+  }
+`;
+

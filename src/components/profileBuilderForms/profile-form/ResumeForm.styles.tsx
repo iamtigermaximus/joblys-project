@@ -68,22 +68,38 @@ export const TemplatePreview = styled.div`
     transform: translateX(-100%);
     transition: transform 0.3s ease-in;
   }
+
+  @media (min-width: ${bp.lg}) {
+    display: none;
+  }
 `;
 
 export const PreviewResumeContainer = styled.div`
   margin: auto;
-  padding: 0 10px 10px;
+  padding: 10px;
   display: flex;
   align-items: center;
 
-  @media (max-width: ${bp.lg}) {
-    padding: 10px 100px;
+  @media (max-width: ${bp.md}) {
+    width: 375px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    width: 640px;
   }
 `;
 
 export const ResumeContent = styled.div`
   transform: scale(0.95, 0.45);
   transform-origin: top;
+
+  @media (min-width: ${bp.md}) {
+    transform: scale(1);
+  }
+
+  @media (min-width: ${bp.lg}) {
+    transform: scale(0.9);
+  }
 `;
 
 export const TemplatePreviewHeader = styled.div`

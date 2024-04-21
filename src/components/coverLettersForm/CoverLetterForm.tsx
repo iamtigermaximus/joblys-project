@@ -5,41 +5,28 @@ import React, { useEffect, useState } from 'react';
 import { Resume } from '@/types/profile';
 import {
   AccordionContainer,
-  AccordionContent,
   AccordionHeader,
   AccordionHeaderTitle,
   AccordionSection,
   Container,
+  CoverLetterContent,
   GenerateButton,
   HeaderItem,
-  IconContainer,
   InputContainer,
-  InputLabel,
   PreviewButton,
   PreviewButtonSection,
+  PreviewCoverLetterContainer,
   SuccessAlert,
   TemplateHeaderItem,
   TemplatePreview,
   TemplatePreviewHeader,
   TextArea,
 } from './CoverLetterForm.styles';
-import {
-  FaArrowLeft,
-  FaCircleChevronDown,
-  FaCircleChevronUp,
-  FaDownload,
-} from 'react-icons/fa6';
-import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
+import { FaArrowLeft, FaDownload } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import BasicDetailsForm from '../profileBuilderForms/basic-details/BasicDetailsForm';
-import ProfessionalDetailsForm from '../profileBuilderForms/professional-details/ProfessionalDetailsForm';
-import EducationalDetailsForm from '../profileBuilderForms/education-details/EducationalDetailsForm';
-import SkillsForm from '../profileBuilderForms/skills-details/SkillsForm';
-import LanguagesForm from '../profileBuilderForms/languages-details/LanguagesForm';
 import CoverLetterTemplate from '../templates/coverletterTemplate/CoverLetterTemplate';
 import axios from 'axios';
-import ResumePreview from '../templates/defaultTemplate/ResumePreview';
 import ResumesDropdown from '../resumes/ResumesDropdown';
 
 interface CoverLetterFormProps {
@@ -190,7 +177,11 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
             </HeaderItem>
           </TemplateHeaderItem>
         </TemplatePreviewHeader>
-        <CoverLetterTemplate />
+        <PreviewCoverLetterContainer>
+          <CoverLetterContent>
+            <CoverLetterTemplate />
+          </CoverLetterContent>
+        </PreviewCoverLetterContainer>
       </TemplatePreview>
       <AccordionContainer>
         <AccordionSection>
