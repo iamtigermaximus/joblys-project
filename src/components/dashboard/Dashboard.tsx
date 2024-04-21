@@ -22,9 +22,10 @@ const Dashboard = () => {
         <HeaderTextContainer>
           <HeadingTexts>Hello!</HeadingTexts>
           <HeadingSubTexts>
-            <strong>Welcome to Joblys!</strong> Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed et urna nec libero gravida
-            tincidunt. Nullam non.
+            Welcome to Joblys, your all-in-one career companion! From crafting
+            tailored resumes to discovering personalized job recommendations,
+            your journey to career success starts here. Let&apos;s navigate the
+            job market together seamlessly. Happy exploring!
           </HeadingSubTexts>
         </HeaderTextContainer>
       </HeaderContainer>

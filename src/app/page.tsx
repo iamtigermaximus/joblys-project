@@ -39,12 +39,12 @@ export default function Home({ id }: any) {
             <BoxHeader>Seamless. Joblys.</BoxHeader>
             <BoxBody>
               <ValueProposition>
-                AI-powered platform that helps job seekers find suitable job
-                opportunities more efficiently. The AI could analyze a
-                candidate&apos;s skills, experience, preferences, and career
-                goals to match them with relevant job listings. The platform
-                could also provide personalized job recommendations, based on
-                the user&apos;s profile and historical job search behavior.
+                Simplify the job application process with Joblys, the platform
+                that crafts personalized resumes and cover letters tailored to
+                each job description. Let Joblys analyze job postings and
+                generate application materials that showcase your skills and
+                experience effectively. Save time, impress employers, and land
+                interviews with Joblys by your side.
               </ValueProposition>
             </BoxBody>
             <BoxHeader>
