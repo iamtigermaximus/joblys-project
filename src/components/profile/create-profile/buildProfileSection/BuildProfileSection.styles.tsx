@@ -26,11 +26,20 @@ export const SectionTitleContainer = styled.div`
 
 export const SectionTitle = styled.h2`
   color: ${colors.purple};
-  font-size: 18px;
+  font-size: 16px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 18x;
+  }
 `;
 
 export const SectionSubTitle = styled.h4`
   color: black;
+  font-size: 13x;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 16x;
+  }
 `;
 
 export const CreateProfileSection = styled.div`
@@ -51,7 +60,11 @@ export const ProfileBuildSection = styled.div`
   padding: 10px;
   width: 100%;
   border-radius: 10px;
-  height: 200px;
+  min-height: 150px;
+
+  @media (min-width: ${bp.md}) {
+    min-height: 200px;
+  }
 
   @media (min-width: ${bp.lg}) {
     padding: 40px;

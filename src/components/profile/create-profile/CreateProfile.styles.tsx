@@ -27,9 +27,13 @@ export const TitleContainer = styled.div`
 `;
 
 export const PageTitle = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   color: ${colors.blueGray};
   margin-bottom: 10px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 20px;
+  }
 
   @media (min-width: ${bp.lg}) {
     font-size: 25px;
