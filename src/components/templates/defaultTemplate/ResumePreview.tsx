@@ -251,12 +251,14 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
               <SidebarContentContainer>
                 <ContentContainer>
                   {selectedResume && (
-                    <MiniDefault
-                      id={selectedResume.id}
-                      resumeInfo={selectedResume}
-                    />
+                    <ResumeContent>
+                      <MiniDefault
+                        id={selectedResume.id}
+                        resumeInfo={selectedResume}
+                      />
+                    </ResumeContent>
                   )}
-                  <SidebarTimestampContainer>
+                  {/* <SidebarTimestampContainer>
                     <TimestampContainer>
                       <TimestampItem>Created</TimestampItem>
                       <TimestampItem>
@@ -269,7 +271,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
                         {formatTimestamp(resume.updatedAt)}
                       </TimestampItem>
                     </TimestampContainer>
-                  </SidebarTimestampContainer>
+                  </SidebarTimestampContainer> */}
                 </ContentContainer>
               </SidebarContentContainer>
               <ActionContainer>
