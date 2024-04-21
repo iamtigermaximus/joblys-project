@@ -34,7 +34,61 @@ const Option = styled.option`
 `;
 
 export const SelectedResumeContainer = styled.div`
-  padding: 20px;
+  margin-top: 20px;
+  max-height: 500px;
+  overflow-y: auto;
+
+  @media (min-width: ${bp.md}) {
+    padding: 0 10px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    padding: 0 30px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    padding: 0 100px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    padding: 0 0 30px;
+  }
+
+  @media (min-width: ${bp.xl}) {
+    padding: 0 0 30px;
+  }
+`;
+
+export const SelectedResume = styled.div`
+  display: flex;
+  justify-content: center;
+  transform-origin: top;
+  position: relative;
+  top: 0;
+  transform: scaleY(0.3);
+
+  @media (min-width: ${bp.sm}) {
+    transform: scale(1, 0.7);
+  }
+
+  @media (min-width: ${bp.md}) {
+    transform: scale(1, 0.8);
+  }
+
+  @media (min-width: ${bp.lg}) {
+    transform: scale(1, 1);
+  }
+
+  @media (min-width: ${bp.xl}) {
+    transform: scale(1, 1);
+  }
+`;
+
+const NoResumeSelected = styled.p`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 `;
 
 interface ResumesDropdownProps {
@@ -120,10 +174,12 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({ resumes }) => {
             })}
         </Select>
         <SelectedResumeContainer>
-          <DefaultTemplate
-            id={selectedResumeData.id}
-            resumeInfo={selectedResumeData.resumeInfo}
-          />
+          <SelectedResume>
+            <DefaultTemplate
+              id={selectedResumeData.id}
+              resumeInfo={selectedResumeData.resumeInfo}
+            />
+          </SelectedResume>
         </SelectedResumeContainer>
       </Container>
     );
@@ -142,7 +198,7 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({ resumes }) => {
               );
             })}
         </Select>
-        <p>No resume selected</p>
+        <NoResumeSelected>No resume selected</NoResumeSelected>
       </Container>
     );
   }
