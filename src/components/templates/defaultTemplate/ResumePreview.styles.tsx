@@ -102,31 +102,44 @@ export const ResumeCard = styled.div<{ isLast?: boolean }>`
   }
 `;
 
-// export const ResumeContent = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   transform-origin: left top;
-//   position: relative;
-//   top: 0;
-//   left: 0;
-//   transform: scale(0.8, 0.3);
+export const ResumeContent = styled.div`
+  display: flex;
+  justify-content: center;
+  transform-origin: left top;
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: scale(0.8, 0.3);
 
-//   @media (min-width: ${bp.sm}) {
-//     transform: scale(0.9, 0.3);
-//   }
+  @media (min-width: ${bp.sm}) {
+    transform: scale(0.9, 0.3);
+  }
 
-//   @media (min-width: ${bp.md}) {
-//     transform: scale(1, 0.4);
-//   }
+  @media (min-width: ${bp.md}) {
+    transform: scale(1, 0.4);
+  }
 
-//   @media (min-width: ${bp.lg}) {
-//     transform: scale(0.85, 0.35);
-//   }
+  @media (min-width: ${bp.lg}) {
+    transform: scale(0.85, 0.35);
+  }
 
-//   @media (min-width: ${bp.xl}) {
-//     transform: scale(1, 0.5);
-//   }
-// `;
+  @media (min-width: ${bp.xl}) {
+    transform: scale(1, 0.5);
+  }
+`;
+
+export const SidebarResumeContent = styled.div`
+  transform: scale(0.95, 0.45);
+  transform-origin: left top;
+
+  @media (min-width: ${bp.xs}) {
+    transform: scale(1, 0.7);
+  }
+
+  @media (min-width: ${bp.md}) {
+    transform: scale(1, 0.8);
+  }
+`;
 
 export const CreateResumeButton = styled.div`
   flex: 1 1 calc(50% - 10px);
@@ -284,7 +297,7 @@ export const SidebarMenuContainer = styled.div`
   }
 
   @media (min-width: ${bp.md}) {
-    width: 50%;
+    width: 60%;
   }
 
   @media (min-width: ${bp.lg}) {
@@ -409,19 +422,6 @@ export const ContentContainer = styled.div`
 
   @media (min-width: ${bp.lg}) {
     /* transform: scale(0.9); */
-  }
-`;
-
-export const ResumeContent = styled.div`
-  transform: scale(0.95, 0.45);
-  transform-origin: top;
-
-  @media (min-width: ${bp.md}) {
-    transform: scale(1);
-  }
-
-  @media (min-width: ${bp.lg}) {
-    transform: scale(0.9);
   }
 `;
 

@@ -33,6 +33,7 @@ import {
   SidebarHeaderClose,
   SidebarHeaderItem,
   SidebarMenuContainer,
+  SidebarResumeContent,
   SidebarTimestampContainer,
   Timestamp,
   TimestampContainer,
@@ -251,12 +252,12 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
               <SidebarContentContainer>
                 <ContentContainer>
                   {selectedResume && (
-                    <ResumeContent>
+                    <SidebarResumeContent>
                       <MiniDefault
                         id={selectedResume.id}
                         resumeInfo={selectedResume}
                       />
-                    </ResumeContent>
+                    </SidebarResumeContent>
                   )}
                   {/* <SidebarTimestampContainer>
                     <TimestampContainer>
