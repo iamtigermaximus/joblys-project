@@ -157,6 +157,11 @@ export const ButtonsContainer = styled.div`
   flex-direction: row;
   width: 100%;
   justify-content: flex-end;
+  margin-top: 10px;
+
+  @media (min-width: ${bp.md}) {
+    margin-bottom: 20px;
+  }
 `;
 
 export const TrashIcon = styled.button`

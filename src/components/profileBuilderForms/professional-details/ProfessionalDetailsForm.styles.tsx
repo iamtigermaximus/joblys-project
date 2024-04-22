@@ -48,6 +48,7 @@ export const TextArea = styled.textarea`
   background-color: #f5f5f5;
   color: black;
   border: none;
+  margin-bottom: 10px;
 
   &:focus {
     outline: 0.5px solid gray;
@@ -245,3 +246,4 @@ export const EnhanceButton = styled.button`
 export const SuccessAlert = styled.p`
   color: #28a745;
 `;
+
