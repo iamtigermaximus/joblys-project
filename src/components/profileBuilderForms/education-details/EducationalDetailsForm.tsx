@@ -80,10 +80,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
   const handleDeleteEducation = (id: string) => {
     setResumeInfo(prevInfo => ({
       ...prevInfo,
-      educational: {
-        ...prevInfo.educational,
-        education: prevInfo.educational.filter(educ => educ.id !== id),
-      },
+      educational: prevInfo.educational.filter(educ => educ.id !== id),
     }));
   };
 
