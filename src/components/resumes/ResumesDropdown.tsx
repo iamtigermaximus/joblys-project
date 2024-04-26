@@ -37,6 +37,8 @@ export const SelectedResumeContainer = styled.div`
   margin-top: 20px;
   max-height: 500px;
   overflow-y: auto;
+  display: flex;
+  justify-content: center;
 
   @media (min-width: ${bp.md}) {
     padding: 0 10px;
@@ -65,7 +67,7 @@ export const SelectedResume = styled.div`
   transform-origin: top;
   position: relative;
   top: 0;
-  transform: scaleY(0.3);
+  transform: scale(1, 0.5);
 
   @media (min-width: ${bp.sm}) {
     transform: scale(1, 0.7);
@@ -73,14 +75,17 @@ export const SelectedResume = styled.div`
 
   @media (min-width: ${bp.md}) {
     transform: scale(1, 0.8);
+    max-width: 400px;
   }
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(1, 1);
+    transform: scale(0.8, 0.6);
+    width: 400px;
   }
 
   @media (min-width: ${bp.xl}) {
-    transform: scale(1, 1);
+    transform: scale(1, 0.6);
+    width: 400px;
   }
 `;
 

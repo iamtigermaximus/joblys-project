@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
     width: '65%',
     padding: '50px 15px',
     height: '100%',
-    minHeight: '800px',
+    // minHeight: '800px',
+    minWidth: '250px',
   },
   basicsNameContainer: { display: 'flex', flexDirection: 'row', gap: 2 },
   headerName: {
