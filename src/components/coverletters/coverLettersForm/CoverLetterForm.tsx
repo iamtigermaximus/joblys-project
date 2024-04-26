@@ -25,9 +25,9 @@ import {
 import { FaArrowLeft, FaDownload } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import CoverLetterTemplate from '../templates/coverletterTemplate/CoverLetterTemplate';
 import axios from 'axios';
-import ResumesDropdown from '../resumes/ResumesDropdown';
+import CoverLetterTemplate from '@/components/templates/coverletterTemplate/CoverLetterTemplate';
+import ResumesDropdown from '@/components/resumes/ResumesDropdown';
 
 interface CoverLetterFormProps {
   coverletterId: string;

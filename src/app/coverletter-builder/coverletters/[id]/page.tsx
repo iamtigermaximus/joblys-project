@@ -17,11 +17,11 @@ import {
   Coverletter,
   SkillType,
 } from '@/types/profile';
-import CoverLetterForm from '@/components/coverLettersForm/CoverLetterForm';
 import CoverLetterTemplate from '@/components/templates/coverletterTemplate/CoverLetterTemplate';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useParams } from 'next/navigation';
+import CoverLetterForm from '@/components/coverletters/coverLettersForm/CoverLetterForm';
 
 const CoverLetterBuilderPage: FC = () => {
   const params = useParams() as { id: string };
