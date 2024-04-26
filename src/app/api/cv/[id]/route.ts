@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   console.log('Getting stored profile...');
 
   const token = await getToken({ req });
-  if (!token && token != null) {
+  if (!token) {
     console.log('invalid token');
     return NextResponse.json(
       {
