@@ -230,7 +230,12 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
                 {resume.resumeInfo.basic.lastName}
               </Filename>
               {/* <h4>Created At: {formatTimestamp(resume.createdAt)}</h4> */}
-              <Timestamp>Edited {formatTimestamp(resume.updatedAt)}</Timestamp>
+              {/* <Timestamp>Edited {formatTimestamp(resume.updatedAt)}</Timestamp> */}
+              {resume.updatedAt && (
+                <Timestamp>
+                  Edited {formatTimestamp(resume.updatedAt)}
+                </Timestamp>
+              )}
             </FilenameContainer>
           </CardContainer>
           {editModalOpenId === resume.id && activeElement === 'sidebarMenu' && (
