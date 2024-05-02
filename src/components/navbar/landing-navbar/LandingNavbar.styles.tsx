@@ -75,6 +75,7 @@ export const LoginButton = styled.button`
   margin-right: 5px;
   white-space: nowrap;
   height: 30px;
+  cursor: pointer;
 
   &:hover {
     background-color: ${colors.darkPurple};
@@ -103,6 +104,7 @@ export const GetStartedButton = styled.button`
   margin-right: 5px;
   white-space: nowrap;
   height: 30px;
+  cursor: pointer;
 
   &:hover {
     background-color: ${colors.darkPurple};
