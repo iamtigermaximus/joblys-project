@@ -1,17 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import {
-  ActivitySection,
-  // Container,
-  HeaderContainer,
-  HeaderTextContainer,
-  HeadingSubTexts,
-  HeadingTexts,
-  // JobSearchSection,
-} from './Dashboard.styles';
 import { useSession } from 'next-auth/react';
-import JobSearch from './job-search/JobSearch';
-import RecentActivity from './recent-activity/RecentActivity';
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../utils/layout';
 import { FaChevronCircleRight } from 'react-icons/fa';
@@ -21,75 +10,29 @@ import { formatDistanceToNow } from 'date-fns';
 import { useRouter } from 'next/navigation';
 
 export const Container = styled.div`
-  width: 100%;
   display: flex;
-  flex-direction: row;
-  padding: 20px;
-`;
-
-export const ItemsContainer = styled.h1`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-`;
-
-export const ResumesSectionContainer = styled.div`
-  width: 100%;
-  display: flex;
+  padding-bottom: 100px;
   flex-direction: column;
-  max-width: calc(50% - 10px);
-`;
-export const CoverlettersSectionContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  max-width: calc(50% - 10px);
-`;
 
-export const CreateButtonContainer = styled.div`
-  display: flex;
-  height: 350px;
-  width: 100%;
-  max-width: calc(50% - 10px);
-  padding: 20px;
-`;
-
-export const CreateButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  font-size: 16px;
-  color: gray;
-  border: 1px dashed gray;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    color: purple;
+  @media (min-width: ${bp.lg}) {
+    flex-direction: row;
   }
 `;
 
-export const CardItem = styled.div`
+export const ResumesSectionContainer = styled.div`
   display: flex;
-  height: 350px;
-
-  width: 100%;
-  min-width: 250px;
-  overflow-y: hidden;
-`;
-
-export const ResumeContent = styled.div`
-  display: flex;
-  justify-content: center;
-  transform-origin: left top;
-  position: relative;
-  top: 0;
-  left: 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(0.7, 0.45);
+    max-width: calc(50% - 10px);
+  }
+`;
+export const CoverlettersSectionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: ${bp.lg}) {
+    max-width: calc(50% - 10px);
   }
 `;
 
@@ -98,6 +41,10 @@ export const TitleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+
+  @media (min-width: ${bp.lg}) {
+    padding-top: 20px;
+  }
 `;
 
 export const TitleItem = styled.div`
@@ -107,6 +54,7 @@ export const TitleItem = styled.div`
   font-size: 20px;
   font-weight: 900;
   padding: 10px 20px;
+  letter-spacing: 1px;
 `;
 
 export const IconItem = styled.div`
@@ -119,29 +67,198 @@ export const IconItem = styled.div`
   cursor: pointer;
 `;
 
+export const ItemsContainer = styled.h1`
+  display: flex;
+  /* justify-content: space-around; */
+  flex-direction: row;
+  width: 100%;
+`;
+
 export const CardContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  padding: 20px;
-  height: 450px;
-  min-width: 270px;
+  max-width: calc(50% - 10px);
   width: 100%;
-  gap: 16px;
+  padding: 10px;
+
+  @media (min-width: ${bp.sm}) {
+    padding: 20px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    padding: 20px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    max-width: calc(50% - 10px);
+  }
+`;
+
+export const CardItem = styled.div`
+  width: 100%;
+  overflow: hidden;
+  height: 200px;
+
+  @media (min-width: ${bp.xs}) {
+    height: 250px;
+    width: 170px;
+  }
+
+  @media (min-width: ${bp.sm}) {
+    height: 250px;
+    width: 200px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    height: 350px;
+    width: 270px;
+  }
+  @media (min-width: ${bp.lg}) {
+    height: 350px;
+    width: 250px;
+  }
+`;
+
+export const ResumeContent = styled.div`
+  display: flex;
+  justify-content: center;
+  transform-origin: left top;
+  position: relative;
+  top: 0;
+  left: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: scale(0.45, 0.25);
+
+  @media (min-width: ${bp.xs}) {
+    transform: scale(0.48, 0.35);
+  }
+
+  @media (min-width: ${bp.sm}) {
+    transform: scale(0.55, 0.35);
+  }
+
+  @media (min-width: ${bp.md}) {
+    transform: scale(0.77, 0.35);
+  }
+
+  @media (min-width: ${bp.lg}) {
+    transform: scale(0.7, 0.45);
+  }
+`;
+
+export const CreateButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: calc(50% - 10px);
+  width: 100%;
+  padding: 10px;
+
+  @media (min-width: ${bp.sm}) {
+    padding: 20px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    padding: 20px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    max-width: calc(50% - 10px);
+  }
+`;
+
+export const CreateButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+  color: gray;
+  border: 1px dashed gray;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  overflow-y: hidden;
+  height: 200px;
+
+  &:hover {
+    color: purple;
+  }
+
+  @media (min-width: ${bp.xs}) {
+    height: 250px;
+    width: 170px;
+  }
+
+  @media (min-width: ${bp.sm}) {
+    height: 250px;
+    width: 200px;
+    font-size: 14px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    height: 350px;
+    width: 270px;
+  }
+  @media (min-width: ${bp.lg}) {
+    height: 350px;
+    width: 250px;
+    font-size: 16px;
+  }
 `;
 
 export const TimeStampContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   padding: 10px 0;
   gap: 10px;
+
+  @media (min-width: ${bp.xs}) {
+    width: 170px;
+  }
+
+  @media (min-width: ${bp.sm}) {
+    width: 200px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    width: 270px;
+    padding: 10px 10px;
+  }
 `;
 
 export const Filename = styled.div`
-  font-size: 16px;
+  color: black;
+  font-weight: bolder;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 11px;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 14px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 16px;
+  }
 `;
 
 export const Timestamp = styled.div`
   font-size: 10px;
+  color: gray;
+  font-size: 10px;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 12px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
 `;
 
 export const MiniDefault = styled(DefaultTemplate)`
@@ -232,7 +349,6 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ resumes }) => {
               <FaChevronCircleRight onClick={handleResumesPage} />
             </IconItem>
           </TitleContainer>
-
           <CreateButtonContainer>
             <CreateButton onClick={handleCreateNewResume}>
               Create new resume
@@ -284,7 +400,6 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ resumes }) => {
               <FaChevronCircleRight onClick={handleCoverlettersPage} />
             </IconItem>
           </TitleContainer>
-
           <CreateButtonContainer>
             <CreateButton onClick={handleCreateNewCoverLetter}>
               Create new cover letter

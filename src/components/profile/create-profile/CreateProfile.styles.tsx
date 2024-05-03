@@ -63,3 +63,7 @@ export const CreateProfileContainer = styled.div`
     margin: 30px 0 30px;
   }
 `;
+
+export const ProfileFormContainer = styled.div`
+  /* border: 1px solid red; */
+`;
