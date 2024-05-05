@@ -4,18 +4,24 @@ import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
 import { Resume } from '@/types/profile';
 
-const parserPromt = `Please refine the following job responsibilities to enhance their professional appeal for a CV, while maintaining their original meaning.
-Each refined responsibility should be a more polished and succinct version of the original, suitable for inclusion in a CV. Ensure that the essence of each task remains unchanged, without introducing new facts or figures.
-Please provide refined versions of the responsibilities {type_of_list}.
-Provide exactly {number_sentences} refined sentences, each corresponding to one of the following original responsibilities:
-Original Responsibilities:
-{original_responsibilities}
+const parserPromt = `
+Task: Elevate a user's professional experience into impactful achievements tailored for their CV.
 
-Focus on incorporating dynamic action verbs and professional terminology, tailored to specific industries if applicable. Refer to the examples provided below for clarity.
-    Developed and optimized back-end APIs for a large-scale e-commerce platform, leading to significant improvements in response time.
-    Designed and executed a comprehensive digital marketing strategy, substantially increasing online brand presence and social media engagement.
-    Oversaw and directed multiple high-priority projects, ensuring completion within established timeframes and budget constraints.
-    Led cross-functional teams to foster collaboration and effective communication, successfully meeting project milestones.`;
+Input:
+  Job Title: The user's job title ({job_title}).
+  Original Responsibilities: A detailed list outlining the user's duties {original_responsibilities}.
+  Number of Sentences: The desired number of distinct sentences for the refined achievements ({number_sentences}).
+
+Instructions:
+  Analyze the Action and Impact: Identify the key action the user performed without adding any new facts and numbers.
+  Consider Skills: Think about the skills and expertise associated with the user's job title ({job_title}).
+  Rephrase for Impact: Rewrite the responsibility using strong past-tense action verbs and action-oriented language that showcases the user's relevant skills. 
+  Maintain Meaning: Ensure the rewritten sentence accurately reflects the original accomplishment.
+
+Output:
+  Professional Achievements:  A bullet points list of {number_sentences} separate sentences. Each sentence should spotlight the user's achievements in concise and professional language, ideal for inclusion in a CV (without specifying the job title).
+
+`;
 
 const openAI = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -127,22 +133,9 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const value_type_of_list: string =
-    formattedResponsibilities.length > 0 &&
-    formattedResponsibilities[0].trim().startsWith('-')
-      ? 'bullet_list'
-      : formattedResponsibilities.length > 0 &&
-        /^\s*\d+\./.test(formattedResponsibilities[0])
-      ? 'numbered_list'
-      : 'empty_list';
 
   const replacementMap: Record<string, string> = {
-    '{type_of_list}':
-      value_type_of_list === 'bullet_list'
-        ? 'with bullet list'
-        : value_type_of_list === 'numbered_list'
-        ? 'with numbered list'
-        : 'without adding any numbering, bullet points, or dash.',
+    '{job_title}': resumeData.professional.currentRole,
     '{number_sentences}': formattedResponsibilities.length.toString(),
     '{original_responsibilities}': formattedResponsibilities.join('. '),
   };
@@ -155,7 +148,7 @@ export async function POST(req: NextRequest) {
   const openaiResponse = await openAI.completions.create({
     model: 'gpt-3.5-turbo-instruct',
     prompt: modifiedPrompt,
-    max_tokens: 650,
+    max_tokens: formattedResponsibilities.length * 30,
   });
 
   const responseContent = openaiResponse?.choices?.[0]?.text;
