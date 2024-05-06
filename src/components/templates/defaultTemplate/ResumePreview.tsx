@@ -153,23 +153,6 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
     setSelectedResume(null);
   };
 
-  // const handleDeleteResume = async (id: string) => {
-  //   try {
-  //     const response = await fetch(`/api/cv/${id}`, {
-  //       method: 'DELETE',
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to delete resume');
-  //     }
-
-  //     const updatedResumes = resumesList.filter(resume => resume.id !== id);
-  //     setResumesList(updatedResumes);
-  //   } catch (error: any) {
-  //     console.error('Error deleting resume:', error.message);
-  //   }
-  // };
-
   const handleEditResume = (id: string) => {
     router.push(`/profile-builder/resumes/${id}`);
   };
@@ -179,15 +162,26 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
     setShowConfirmationModal(true);
   };
 
-  const handleDeleteConfirmation = () => {
+  const handleDeleteConfirmation = async () => {
     if (resumeIdToDelete) {
-      const updatedResumes = resumesList.filter(
-        resume => resume.id !== resumeIdToDelete,
-      );
-      setResumesList(updatedResumes);
-      setResumeIdToDelete(null);
-      setShowConfirmationModal(false);
-      setShowDeleteMessage(true);
+      try {
+        const response = await fetch(`/api/cv/${resumeIdToDelete}`, {
+          method: 'DELETE',
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to delete resume');
+        }
+
+        const updatedResumes = resumesList.filter(
+          resume => resume.id !== resumeIdToDelete,
+        );
+        setResumesList(updatedResumes);
+        setShowConfirmationModal(false);
+        setShowDeleteMessage(true);
+      } catch (error: any) {
+        console.error('Error deleting resume:', error.message);
+      }
     }
   };
 
