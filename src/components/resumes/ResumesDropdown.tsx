@@ -170,7 +170,10 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({ resumes }) => {
           <Option value="">Select a resume</Option>
           {resumesList &&
             resumesList.map(resume => {
-              const filename = `${resume.resumeInfo.basic.firstName} ${resume.resumeInfo.basic.lastName}`;
+              const basicInfo = resume.resumeInfo.basic;
+              const firstName = basicInfo.firstName || 'Untitled resume';
+              const lastName = basicInfo.lastName || '';
+              const filename = `${firstName} ${lastName}`.trim();
               return (
                 <Option key={resume.id} value={resume.id}>
                   {filename}
@@ -195,7 +198,10 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({ resumes }) => {
           <Option value="">Select a resume</Option>
           {resumesList &&
             resumesList.map(resume => {
-              const filename = `${resume.resumeInfo.basic.firstName} ${resume.resumeInfo.basic.lastName}`;
+              const basicInfo = resume.resumeInfo.basic;
+              const firstName = basicInfo.firstName || 'Untitled resume';
+              const lastName = basicInfo.lastName || '';
+              const filename = `${firstName} ${lastName}`.trim();
               return (
                 <Option key={resume.id} value={resume.id}>
                   {filename}
