@@ -491,3 +491,15 @@ export const TimestampItem = styled.h1`
   font-weight: bolder;
   color: gray;
 `;
+
+export const DeleteMessage = styled.div`
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ef4444;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+`;

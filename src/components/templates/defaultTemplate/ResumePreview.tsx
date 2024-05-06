@@ -12,6 +12,7 @@ import {
   ContentContainer,
   ContentItem,
   CreateResumeButton,
+  DeleteMessage,
   EditButton,
   EditContainer,
   EditContent,
@@ -41,6 +42,7 @@ import {
 } from './ResumePreview.styles';
 import DownloadPDFButton from './DownloadPDFButton';
 import { formatDistanceToNow } from 'date-fns';
+import ConfirmationModal from './ConfirmationModal';
 
 interface MiniResumeProps {
   resumes: {
@@ -57,6 +59,9 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
   const [activeElement, setActiveElement] = useState<string | null>(null);
   const [resumesList, setResumesList] = useState(resumes);
   const [selectedResume, setSelectedResume] = useState<Resume | null>(null);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [resumeIdToDelete, setResumeIdToDelete] = useState<string | null>(null);
+  const [showDeleteMessage, setShowDeleteMessage] = useState(false);
 
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);
@@ -82,6 +87,20 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    if (showDeleteMessage) {
+      timeout = setTimeout(() => {
+        setShowDeleteMessage(false);
+      }, 3000);
+    }
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [showDeleteMessage]);
 
   const handleCloseSidebarMenu = () => {
     // Close the sidebar menu container
@@ -134,25 +153,42 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
     setSelectedResume(null);
   };
 
-  const handleDeleteResume = async (id: string) => {
-    try {
-      const response = await fetch(`/api/cv/${id}`, {
-        method: 'DELETE',
-      });
+  // const handleDeleteResume = async (id: string) => {
+  //   try {
+  //     const response = await fetch(`/api/cv/${id}`, {
+  //       method: 'DELETE',
+  //     });
 
-      if (!response.ok) {
-        throw new Error('Failed to delete resume');
-      }
+  //     if (!response.ok) {
+  //       throw new Error('Failed to delete resume');
+  //     }
 
-      const updatedResumes = resumesList.filter(resume => resume.id !== id);
-      setResumesList(updatedResumes);
-    } catch (error: any) {
-      console.error('Error deleting resume:', error.message);
-    }
-  };
+  //     const updatedResumes = resumesList.filter(resume => resume.id !== id);
+  //     setResumesList(updatedResumes);
+  //   } catch (error: any) {
+  //     console.error('Error deleting resume:', error.message);
+  //   }
+  // };
 
   const handleEditResume = (id: string) => {
     router.push(`/profile-builder/resumes/${id}`);
+  };
+
+  const handleDeleteResume = (id: string) => {
+    setResumeIdToDelete(id);
+    setShowConfirmationModal(true);
+  };
+
+  const handleDeleteConfirmation = () => {
+    if (resumeIdToDelete) {
+      const updatedResumes = resumesList.filter(
+        resume => resume.id !== resumeIdToDelete,
+      );
+      setResumesList(updatedResumes);
+      setResumeIdToDelete(null);
+      setShowConfirmationModal(false);
+      setShowDeleteMessage(true);
+    }
   };
 
   return (
@@ -295,6 +331,16 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
           )}
         </React.Fragment>
       ))}
+
+      {showConfirmationModal && (
+        <ConfirmationModal
+          onConfirm={handleDeleteConfirmation}
+          onCancel={() => setShowConfirmationModal(false)}
+        />
+      )}
+      {showDeleteMessage && (
+        <DeleteMessage>Resume deleted successfully!</DeleteMessage>
+      )}
     </ResumeContainer>
   );
 };
