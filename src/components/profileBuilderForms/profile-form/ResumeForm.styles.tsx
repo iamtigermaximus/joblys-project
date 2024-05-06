@@ -9,6 +9,14 @@ export const Container = styled.div`
   margin-top: 20px;
   width: 100vw;
   padding: 0 20px;
+  overflow-y: auto;
+  height: 100vh;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const AccordionContainer = styled.div`

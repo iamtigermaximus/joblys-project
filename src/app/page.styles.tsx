@@ -182,10 +182,16 @@ export const ResumeTemplateContainer = styled.div`
     justify-content: center;
     flex-direction: row;
     width: 100%;
-    /* height: 100vh; */
+    height: 100vh;
     background-color: #f8f8f8;
     overflow-y: auto;
     padding: 20px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
