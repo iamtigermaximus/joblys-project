@@ -557,3 +557,16 @@ export const ListTimestampItem = styled.h1`
   align-items: center;
   flex: 1;
 `;
+
+export const ListContentItem = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+    color: ${colors.white};
+  }
+`;

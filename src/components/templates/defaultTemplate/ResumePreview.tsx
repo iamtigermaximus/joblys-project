@@ -21,6 +21,7 @@ import {
   EditModalOverlay,
   Filename,
   FilenameContainer,
+  ListContentItem,
   ListCreateResumeButton,
   ListTimestampItem,
   MiniDefault,
@@ -49,6 +50,7 @@ import {
 import DownloadPDFButton from './DownloadPDFButton';
 import { formatDistanceToNow } from 'date-fns';
 import ConfirmationModal from './ConfirmationModal';
+import { FaRegCreditCard } from 'react-icons/fa6';
 
 interface MiniResumeProps {
   resumes: {
@@ -372,18 +374,27 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                 )}
               </ListTimestampItem>
               <ResumeButtonsContainer>
-                <ContentItem>
-                  <FaRegEdit style={{ marginRight: '5px' }} />
-                </ContentItem>
-                <ContentItem>
-                  <FaDownload style={{ marginRight: '5px' }} />
-                </ContentItem>
-                <ContentItem>
-                  <FaTrashAlt style={{ marginRight: '5px' }} />
-                </ContentItem>
+                <ListContentItem onClick={() => handleEditResume(resume.id)}>
+                  <FaRegCreditCard />
+                </ListContentItem>
+                <ListContentItem>
+                  <FaDownload />
+                </ListContentItem>
+                <ListContentItem onClick={() => handleDeleteResume(resume.id)}>
+                  <FaTrashAlt />
+                </ListContentItem>
               </ResumeButtonsContainer>
             </ResumeItemContainer>
           ))}
+          {showConfirmationModal && (
+            <ConfirmationModal
+              onConfirm={handleDeleteConfirmation}
+              onCancel={() => setShowConfirmationModal(false)}
+            />
+          )}
+          {showDeleteMessage && (
+            <DeleteMessage>Resume deleted successfully!</DeleteMessage>
+          )}
         </ResumesListContainer>
       )}
     </>
