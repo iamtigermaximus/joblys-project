@@ -15,7 +15,7 @@ export const Container = styled.div`
 
 export const HeaderContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   padding-bottom: 20px;
@@ -101,3 +101,18 @@ export const OuterContainer = styled.div`
 //     height: 350px;
 //   }
 // `;
+
+export const ViewModeContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+`;
+
+export const ViewMode = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  font-size: 20px;
+`;

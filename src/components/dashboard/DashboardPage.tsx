@@ -10,9 +10,10 @@ import { formatDistanceToNow } from 'date-fns';
 import { useRouter } from 'next/navigation';
 
 export const Container = styled.div`
+  width: 100%;
   display: flex;
-  padding-bottom: 100px;
   flex-direction: column;
+  padding: 30px 20px;
 
   @media (min-width: ${bp.lg}) {
     flex-direction: row;
@@ -24,7 +25,8 @@ export const ResumesSectionContainer = styled.div`
   flex-direction: column;
 
   @media (min-width: ${bp.lg}) {
-    max-width: calc(50% - 10px);
+    /* max-width: calc(50% - 10px); */
+    width: 50%;
   }
 `;
 export const CoverlettersSectionContainer = styled.div`
@@ -32,7 +34,8 @@ export const CoverlettersSectionContainer = styled.div`
   flex-direction: column;
 
   @media (min-width: ${bp.lg}) {
-    max-width: calc(50% - 10px);
+    /* max-width: calc(50% - 10px); */
+    width: 50%;
   }
 `;
 

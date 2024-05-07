@@ -2,10 +2,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Resume } from '@/types/profile';
-import { Container, HeaderContainer, PageName } from './Resumes.styles';
+import {
+  Container,
+  HeaderContainer,
+  PageName,
+  ViewMode,
+  ViewModeContainer,
+} from './Resumes.styles';
 import ResumePreview from '../templates/defaultTemplate/ResumePreview';
 import Loader from '../common/loader/Loader';
 import { useSession } from 'next-auth/react';
+import { MdViewModule, MdViewList } from 'react-icons/md';
 
 const Resumes = () => {
   const [profileData, setProfileData] = useState<
@@ -15,6 +22,7 @@ const Resumes = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { data: session } = useSession();
+  const [viewMode, setViewMode] = useState<'card' | 'list'>('card');
 
   useEffect(() => {
     if (!session) {
@@ -74,13 +82,24 @@ const Resumes = () => {
   if (!profileData) {
     return <div>No profile data available</div>;
   }
+  const handleViewModeChange = (mode: 'card' | 'list') => {
+    setViewMode(mode);
+  };
 
   return (
     <Container>
       <HeaderContainer>
         <PageName>Resumes</PageName>
+        <ViewModeContainer>
+          <ViewMode onClick={() => handleViewModeChange('card')}>
+            <MdViewModule />
+          </ViewMode>
+          <ViewMode onClick={() => handleViewModeChange('list')}>
+            <MdViewList />
+          </ViewMode>
+        </ViewModeContainer>
       </HeaderContainer>
-      <ResumePreview resumes={profileData} />
+      <ResumePreview resumes={profileData} viewMode={viewMode} />
     </Container>
   );
 };

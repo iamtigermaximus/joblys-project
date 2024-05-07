@@ -490,6 +490,9 @@ export const TimestampItem = styled.h1`
   font-size: 16px;
   font-weight: bolder;
   color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const DeleteMessage = styled.div`
@@ -502,4 +505,55 @@ export const DeleteMessage = styled.div`
   padding: 10px 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+`;
+
+export const ResumesListContainer = styled.div`
+  border: 0.5px solid gray;
+  border-radius: 3px;
+`;
+
+export const ListCreateResumeButton = styled.div`
+  padding: 12px;
+  border-bottom: 0.5px solid gray;
+`;
+
+export const ResumeItemContainer = styled.div`
+  padding: 12px;
+  border-bottom: 0.5px solid gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media (min-width: ${bp.md}) {
+    flex-direction: row;
+  }
+`;
+
+export const ResumeItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  flex: 1;
+`;
+
+export const ResumeButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 2px;
+  /* justify-content: space-around; */
+  flex: 1;
+
+  @media (min-width: ${bp.md}) {
+    justify-content: flex-end;
+  }
+`;
+
+export const ListTimestampItem = styled.h1`
+  font-size: 14px;
+  color: gray;
+  display: flex;
+  align-items: center;
+  flex: 1;
 `;

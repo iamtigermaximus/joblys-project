@@ -21,14 +21,20 @@ import {
   EditModalOverlay,
   Filename,
   FilenameContainer,
+  ListCreateResumeButton,
+  ListTimestampItem,
   MiniDefault,
   PreviewDownloadButton,
   PreviewEditButton,
   ResumeButton,
   ResumeButtonTitle,
+  ResumeButtonsContainer,
   ResumeCard,
   ResumeContainer,
   ResumeContent,
+  ResumeItem,
+  ResumeItemContainer,
+  ResumesListContainer,
   SidebarContentContainer,
   SidebarHeader,
   SidebarHeaderClose,
@@ -51,9 +57,10 @@ interface MiniResumeProps {
     updatedAt: string;
     resumeInfo: Resume;
   }[];
+  viewMode: 'list' | 'card';
 }
 
-const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
+const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
   const router = useRouter();
   const [editModalOpenId, setEditModalOpenId] = useState<string | null>(null);
   const [activeElement, setActiveElement] = useState<string | null>(null);
@@ -62,6 +69,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [resumeIdToDelete, setResumeIdToDelete] = useState<string | null>(null);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+  // const [viewMode, setViewMode] = useState<'card' | 'list'>('card');
 
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);
@@ -186,115 +194,120 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
   };
 
   return (
-    <ResumeContainer>
-      <CreateResumeButton>
-        <ButtonLabel onClick={handleCreateNewResume}>
-          Create new resume
-        </ButtonLabel>
-      </CreateResumeButton>
-
-      {resumesList.map(resume => (
-        <React.Fragment key={resume.id}>
-          <CardContainer>
-            <ResumeCard
-              onClick={() =>
-                handleResumeCardClick(resume.id, resume.resumeInfo)
-              }
-              isLast={true}
-            >
-              <ResumeContent>
-                <MiniDefault id={resume.id} resumeInfo={resume.resumeInfo} />
-              </ResumeContent>
-              <EditContainer>
-                <EditButton
-                  onClick={event => handleEditButtonClick(event, resume.id)}
+    <>
+      {viewMode === 'card' ? (
+        <ResumeContainer>
+          <CreateResumeButton>
+            <ButtonLabel onClick={handleCreateNewResume}>
+              Create new resume
+            </ButtonLabel>
+          </CreateResumeButton>
+          {resumesList.map(resume => (
+            <React.Fragment key={resume.id}>
+              <CardContainer>
+                <ResumeCard
+                  onClick={() =>
+                    handleResumeCardClick(resume.id, resume.resumeInfo)
+                  }
+                  isLast={true}
                 >
-                  <CiMenuKebab />
-                </EditButton>
-                {editModalOpenId === resume.id &&
-                  activeElement === 'editModal' && (
-                    <EditModalOverlay onClick={handleCloseEditModal}>
-                      <EditModalContent>
-                        <EditContent onClick={e => e.stopPropagation()}>
-                          <EditContentItem>
-                            <ContentItem>
-                              <FaRegEdit style={{ marginRight: '5px' }} />
-                            </ContentItem>
-                            <ContentItem
-                              onClick={() => handleEditResume(resume.id)}
-                            >
-                              Edit
-                            </ContentItem>
-                          </EditContentItem>
-                        </EditContent>
-                        <EditContent onClick={e => e.stopPropagation()}>
-                          <EditContentItem>
-                            <ContentItem>
-                              <FaDownload style={{ marginRight: '5px' }} />
-                            </ContentItem>
-                            <ContentItem>
-                              <DownloadPDFButton
-                                resumeInfo={resume.resumeInfo}
-                              />
-                            </ContentItem>
-                          </EditContentItem>
-                        </EditContent>
-                        <EditContent onClick={e => e.stopPropagation()}>
-                          <EditContentItem
-                            onClick={() => handleDeleteResume(resume.id)}
-                          >
-                            <ContentItem>
-                              <FaTrashAlt style={{ marginRight: '5px' }} />
-                            </ContentItem>
-                            <ContentItem> Delete</ContentItem>
-                          </EditContentItem>
-                        </EditContent>
-                      </EditModalContent>
-                    </EditModalOverlay>
+                  <ResumeContent>
+                    <MiniDefault
+                      id={resume.id}
+                      resumeInfo={resume.resumeInfo}
+                    />
+                  </ResumeContent>
+                  <EditContainer>
+                    <EditButton
+                      onClick={event => handleEditButtonClick(event, resume.id)}
+                    >
+                      <CiMenuKebab />
+                    </EditButton>
+                    {editModalOpenId === resume.id &&
+                      activeElement === 'editModal' && (
+                        <EditModalOverlay onClick={handleCloseEditModal}>
+                          <EditModalContent>
+                            <EditContent onClick={e => e.stopPropagation()}>
+                              <EditContentItem>
+                                <ContentItem>
+                                  <FaRegEdit style={{ marginRight: '5px' }} />
+                                </ContentItem>
+                                <ContentItem
+                                  onClick={() => handleEditResume(resume.id)}
+                                >
+                                  Edit
+                                </ContentItem>
+                              </EditContentItem>
+                            </EditContent>
+                            <EditContent onClick={e => e.stopPropagation()}>
+                              <EditContentItem>
+                                <ContentItem>
+                                  <FaDownload style={{ marginRight: '5px' }} />
+                                </ContentItem>
+                                <ContentItem>
+                                  <DownloadPDFButton
+                                    resumeInfo={resume.resumeInfo}
+                                  />
+                                </ContentItem>
+                              </EditContentItem>
+                            </EditContent>
+                            <EditContent onClick={e => e.stopPropagation()}>
+                              <EditContentItem
+                                onClick={() => handleDeleteResume(resume.id)}
+                              >
+                                <ContentItem>
+                                  <FaTrashAlt style={{ marginRight: '5px' }} />
+                                </ContentItem>
+                                <ContentItem> Delete</ContentItem>
+                              </EditContentItem>
+                            </EditContent>
+                          </EditModalContent>
+                        </EditModalOverlay>
+                      )}
+                  </EditContainer>
+                </ResumeCard>
+                <FilenameContainer>
+                  <Filename>
+                    Resume {resume.resumeInfo.basic.firstName}{' '}
+                    {resume.resumeInfo.basic.lastName}
+                  </Filename>
+                  {/* <h4>Created At: {formatTimestamp(resume.createdAt)}</h4> */}
+                  {/* <Timestamp>Edited {formatTimestamp(resume.updatedAt)}</Timestamp> */}
+                  {resume.updatedAt && (
+                    <Timestamp>
+                      Edited {formatTimestamp(resume.updatedAt)}
+                    </Timestamp>
                   )}
-              </EditContainer>
-            </ResumeCard>
-            <FilenameContainer>
-              <Filename>
-                Resume {resume.resumeInfo.basic.firstName}{' '}
-                {resume.resumeInfo.basic.lastName}
-              </Filename>
-              {/* <h4>Created At: {formatTimestamp(resume.createdAt)}</h4> */}
-              {/* <Timestamp>Edited {formatTimestamp(resume.updatedAt)}</Timestamp> */}
-              {resume.updatedAt && (
-                <Timestamp>
-                  Edited {formatTimestamp(resume.updatedAt)}
-                </Timestamp>
-              )}
-            </FilenameContainer>
-          </CardContainer>
-          {editModalOpenId === resume.id && activeElement === 'sidebarMenu' && (
-            <SidebarMenuContainer
-              key={resume.id}
-              className={'category active'}
-              ref={sidebarMenuRef}
-            >
-              <SidebarHeader>
-                <SidebarHeaderItem>
-                  <ResumeButton>
-                    <ResumeButtonTitle>Resume</ResumeButtonTitle>
-                  </ResumeButton>
-                </SidebarHeaderItem>
-                <SidebarHeaderClose onClick={handleCloseEditModal}>
-                  <IoCloseSharp />
-                </SidebarHeaderClose>
-              </SidebarHeader>
-              <SidebarContentContainer>
-                <ContentContainer>
-                  {selectedResume && (
-                    <SidebarResumeContent>
-                      <MiniDefault
-                        id={selectedResume.id}
-                        resumeInfo={selectedResume}
-                      />
-                    </SidebarResumeContent>
-                  )}
-                  {/* <SidebarTimestampContainer>
+                </FilenameContainer>
+              </CardContainer>
+              {editModalOpenId === resume.id &&
+                activeElement === 'sidebarMenu' && (
+                  <SidebarMenuContainer
+                    key={resume.id}
+                    className={'category active'}
+                    ref={sidebarMenuRef}
+                  >
+                    <SidebarHeader>
+                      <SidebarHeaderItem>
+                        <ResumeButton>
+                          <ResumeButtonTitle>Resume</ResumeButtonTitle>
+                        </ResumeButton>
+                      </SidebarHeaderItem>
+                      <SidebarHeaderClose onClick={handleCloseEditModal}>
+                        <IoCloseSharp />
+                      </SidebarHeaderClose>
+                    </SidebarHeader>
+                    <SidebarContentContainer>
+                      <ContentContainer>
+                        {selectedResume && (
+                          <SidebarResumeContent>
+                            <MiniDefault
+                              id={selectedResume.id}
+                              resumeInfo={selectedResume}
+                            />
+                          </SidebarResumeContent>
+                        )}
+                        {/* <SidebarTimestampContainer>
                     <TimestampContainer>
                       <TimestampItem>Created</TimestampItem>
                       <TimestampItem>
@@ -308,34 +321,72 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes }) => {
                       </TimestampItem>
                     </TimestampContainer>
                   </SidebarTimestampContainer> */}
-                </ContentContainer>
-              </SidebarContentContainer>
-              <ActionContainer>
-                <PreviewEditButton onClick={() => handleEditResume(resume.id)}>
-                  Edit
-                </PreviewEditButton>
-                <PreviewDownloadButton>
-                  <DownloadPDFButton
-                    resumeInfo={resume.resumeInfo}
-                    color="white"
-                  />
-                </PreviewDownloadButton>
-              </ActionContainer>
-            </SidebarMenuContainer>
-          )}
-        </React.Fragment>
-      ))}
+                      </ContentContainer>
+                    </SidebarContentContainer>
+                    <ActionContainer>
+                      <PreviewEditButton
+                        onClick={() => handleEditResume(resume.id)}
+                      >
+                        Edit
+                      </PreviewEditButton>
+                      <PreviewDownloadButton>
+                        <DownloadPDFButton
+                          resumeInfo={resume.resumeInfo}
+                          color="white"
+                        />
+                      </PreviewDownloadButton>
+                    </ActionContainer>
+                  </SidebarMenuContainer>
+                )}
+            </React.Fragment>
+          ))}
 
-      {showConfirmationModal && (
-        <ConfirmationModal
-          onConfirm={handleDeleteConfirmation}
-          onCancel={() => setShowConfirmationModal(false)}
-        />
+          {showConfirmationModal && (
+            <ConfirmationModal
+              onConfirm={handleDeleteConfirmation}
+              onCancel={() => setShowConfirmationModal(false)}
+            />
+          )}
+          {showDeleteMessage && (
+            <DeleteMessage>Resume deleted successfully!</DeleteMessage>
+          )}
+        </ResumeContainer>
+      ) : (
+        <ResumesListContainer>
+          <ListCreateResumeButton>
+            <ButtonLabel onClick={handleCreateNewResume}>
+              + Create new resume
+            </ButtonLabel>
+          </ListCreateResumeButton>
+          {resumesList.map(resume => (
+            <ResumeItemContainer key={resume.id}>
+              <ResumeItem>
+                Resume {resume.resumeInfo.basic.firstName}{' '}
+                {resume.resumeInfo.basic.lastName}
+              </ResumeItem>
+              <ListTimestampItem>
+                {resume.updatedAt && (
+                  <Timestamp>
+                    Edited {formatTimestamp(resume.updatedAt)}
+                  </Timestamp>
+                )}
+              </ListTimestampItem>
+              <ResumeButtonsContainer>
+                <ContentItem>
+                  <FaRegEdit style={{ marginRight: '5px' }} />
+                </ContentItem>
+                <ContentItem>
+                  <FaDownload style={{ marginRight: '5px' }} />
+                </ContentItem>
+                <ContentItem>
+                  <FaTrashAlt style={{ marginRight: '5px' }} />
+                </ContentItem>
+              </ResumeButtonsContainer>
+            </ResumeItemContainer>
+          ))}
+        </ResumesListContainer>
       )}
-      {showDeleteMessage && (
-        <DeleteMessage>Resume deleted successfully!</DeleteMessage>
-      )}
-    </ResumeContainer>
+    </>
   );
 };
 
