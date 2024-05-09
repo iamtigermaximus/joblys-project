@@ -59,6 +59,9 @@ const BackgroundOverlay = styled.div`
   z-index: 999;
 `;
 
+const ConfirmationMessage = styled.p`
+  font-size: 16px;
+`;
 const ConfirmationModal: FC<ConfirmationModalProps> = ({
   onConfirm,
   onCancel,
@@ -68,7 +71,9 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
       <BackgroundOverlay />
       <ModalContainer>
         <ModalContent>
-          <p>Are you sure you want to delete this resume?</p>
+          <ConfirmationMessage>
+            Are you sure you want to delete this resume?
+          </ConfirmationMessage>
           <ButtonContainer>
             <DeleteButton onClick={onConfirm}> Delete</DeleteButton>
             <CancelButton onClick={onCancel}>Cancel</CancelButton>
