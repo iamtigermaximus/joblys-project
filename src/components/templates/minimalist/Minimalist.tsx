@@ -2,161 +2,744 @@
 
 import React, { FC, useState } from 'react';
 import { Resume } from '@/types/profile';
-import {
-  BasicDetail,
-  BasicNameContainer,
-  Company,
-  ContentContainer,
-  ContentContainerA,
-  ContentContainerB,
-  Course,
-  CurrentRole,
-  DateContainer,
-  DateSeparator,
-  Dates,
-  Detail,
-  EducationDescription,
-  EducationDetail,
-  EducationDetailContainer,
-  EmploymentDescription,
-  EmploymentDetail,
-  EmploymentDetailContainer,
-  EnteredLanguage,
-  EnteredLanguagesContainer,
-  EnteredSkill,
-  EnteredSkillsContainer,
-  FirstName,
-  HeadContainer,
-  Item,
-  JobTitle,
-  LanguagesDetailsContent,
-  LastName,
-  MinimalistContainer,
-  MinimalistTemplate,
-  Month,
-  NameContainer,
-  PersonalDetailsContainer,
-  PersonalDetailsTitle,
-  School,
-  SkillsDetailsContent,
-  SummaryContainer,
-  SummaryDetailsContainer,
-  Year,
-} from './Minimalist.styles';
+import { StyleSheet, Page, View, Text, Document } from '@react-pdf/renderer';
+import { BasicInfoComponent } from '../defaultTemplate/resume-helpers/BasicInfoComponent';
 
-interface Resume2TemplateProps {
+interface MinimalistTemplateProps {
   resumeInfo: Resume;
+  id: string;
 }
-const Minimalist: FC<Resume2TemplateProps> = ({ resumeInfo }) => {
+
+const styles = StyleSheet.create({
+  document: {
+    flexDirection: 'column',
+    display: 'flex',
+    width: '100%',
+    gap: 20,
+  },
+  page: {
+    flexDirection: 'column',
+    display: 'flex',
+    // minHeight: '800px',
+    width: '100%',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    // border: '1px solid red',
+    padding: '50px',
+    backgroundColor: 'white',
+  },
+  sectionContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '10px 0',
+    gap: '3px',
+  },
+
+  skillsSectionContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '10px 0',
+    gap: '3px',
+  },
+  languagesSectionContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '10px 0',
+    gap: '3px',
+  },
+
+  sectionItemContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  skillsItemContainer: {
+    display: 'flex',
+    padding: '3px 0',
+  },
+  languagesItemContainer: {
+    display: 'flex',
+  },
+
+  basicContentContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '35%',
+    minWidth: '100px',
+    // height: '100%',
+    // minHeight: '800px',
+  },
+  contentContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '65%',
+    minWidth: '250px',
+  },
+  basicTitleContainer: {
+    display: 'flex',
+    padding: '5px 0',
+    borderBottom: '.5px solid gray',
+  },
+  basicsTitle: {
+    color: 'red',
+    fontSize: '14px',
+    fontWeight: 700,
+  },
+
+  basicsItemTitle: {
+    color: 'red',
+    fontSize: '13px',
+  },
+
+  basicsNameContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 2,
+  },
+
+  headerNameContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 2,
+    // border: '1px solid gray',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerName: {
+    color: '#232946',
+    // fontSize: '25px',
+    maxWidth: '100%',
+    wordBreak: 'break-all',
+    whiteSpace: 'wrap',
+    fontSize: '20px',
+  },
+  currentRoleContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '3px',
+  },
+  headerCurrentRole: {
+    color: '#232946',
+    fontSize: '14px',
+    maxWidth: '100%',
+    wordBreak: 'break-all',
+    whiteSpace: 'wrap',
+  },
+  detailsTitleContainer: {
+    display: 'flex',
+    padding: '5px 0',
+  },
+  detailsTitle: {
+    color: '#232946',
+    fontSize: '14px',
+    paddingBottom: '5px',
+    borderBottom: '0.5px solid #232946',
+  },
+  summaryContainer: {
+    display: 'flex',
+    width: '100%',
+    // paddingBottom: '10px',
+  },
+  summary: {
+    color: '#232946',
+    maxWidth: '100%',
+    wordBreak: 'break-all',
+    whiteSpace: 'wrap',
+    padding: '5px 0',
+    lineHeight: '1.2',
+    fontSize: '13px',
+  },
+  additionalLinksContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
+  detailsContentContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    // fontSize: '12px',
+    width: '100%',
+    padding: '5px 0',
+  },
+  educationDetailContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  educationDetail: {
+    display: 'flex',
+    flexDirection: 'column',
+    // gap: 2,
+    padding: '5px 0',
+    width: '100%',
+  },
+  course: {
+    fontWeight: 700,
+    // whiteSpace: 'nowrap',
+    fontSize: '13px',
+  },
+  school: {
+    fontWeight: 700,
+    // whiteSpace: 'nowrap',
+    fontSize: '13px',
+  },
+  dateContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    padding: '2px 0',
+  },
+  dates: { display: 'flex', flexDirection: 'row', gap: 5 },
+  month: { fontSize: '13px' },
+  year: { fontSize: '13px' },
+  dateSeparator: { fontSize: '13px' },
+  description: { fontSize: '13px', padding: '5px 0', lineHeight: '1.2' },
+});
+const Minimalist: FC<MinimalistTemplateProps> = ({ resumeInfo }) => {
   const basic = resumeInfo?.basic;
   const professional = resumeInfo?.professional;
   const educational = resumeInfo?.educational;
   const skills = resumeInfo?.skills;
   const languages = resumeInfo?.languages;
-  const [isClicked, setIsClicked] = useState(false);
 
-  const handleTemplateClick = () => {
-    setIsClicked(!isClicked);
-  };
-  const templateClassName = isClicked ? 'clicked' : '';
+  const shouldDisplayTitle =
+    !!(
+      basic.firstName ||
+      basic.lastName ||
+      basic.email ||
+      basic.phoneNumber ||
+      basic.address ||
+      basic.linkedin ||
+      (basic.additionalLinks && basic.additionalLinks.length > 0)
+    ) ||
+    (skills && skills && skills.length > 1) ||
+    (languages && languages && languages.length > 1) ||
+    !!(
+      (professional.work && professional.work.length > 1) ||
+      professional.summary
+    ) ||
+    !!(educational && educational.length > 1);
+
+  const shouldSplit = professional.work.length > 2;
+
   return (
-    <MinimalistContainer>
-      <MinimalistTemplate>
-        <HeadContainer>
-          <NameContainer>
-            <FirstName>{basic.firstName}</FirstName>
-            <LastName>{basic.lastName}</LastName>
-          </NameContainer>
-          <CurrentRole>{professional.currentRole}</CurrentRole>
-        </HeadContainer>
-        <ContentContainer>
-          <SummaryDetailsContainer>
-            <PersonalDetailsTitle>Summary</PersonalDetailsTitle>
-          </SummaryDetailsContainer>
-          <SummaryContainer>{professional.summary}</SummaryContainer>
-        </ContentContainer>
-        <ContentContainer>
-          <PersonalDetailsContainer>
-            <PersonalDetailsTitle>Personal Details</PersonalDetailsTitle>
-          </PersonalDetailsContainer>
-          <ContentContainer>
-            <Item>
-              <ContentContainerA>
-                <Detail>Name</Detail>
-              </ContentContainerA>
-              <ContentContainerB>
-                <BasicNameContainer>
-                  <BasicDetail>{basic.firstName}</BasicDetail>
-                  <BasicDetail>{basic.lastName}</BasicDetail>
-                </BasicNameContainer>
-              </ContentContainerB>
-            </Item>
-            <Item>
-              <ContentContainerA>
-                <Detail>Email</Detail>
-              </ContentContainerA>
-              <ContentContainerB>
-                <BasicDetail>{basic.email}</BasicDetail>
-              </ContentContainerB>
-            </Item>
-            <Item>
-              <ContentContainerA>
-                <Detail>Phone Number</Detail>
-              </ContentContainerA>
-              <ContentContainerB>
-                <BasicDetail>{basic.phoneNumber}</BasicDetail>
-              </ContentContainerB>
-            </Item>
-            <Item>
-              <ContentContainerA>
-                <Detail>Address</Detail>
-              </ContentContainerA>
-              <ContentContainerB>
-                <BasicDetail>{basic.address}</BasicDetail>
-              </ContentContainerB>
-            </Item>
-            <Item>
-              <ContentContainerA>
-                <Detail>LinkedIn</Detail>
-              </ContentContainerA>
-              <ContentContainerB>
-                <a href={basic.linkedin}>
-                  <BasicDetail>{basic.linkedin}</BasicDetail>
-                </a>
-              </ContentContainerB>
-            </Item>
-            <Item>
-              <ContentContainerA>
-                <Detail>Link</Detail>
-              </ContentContainerA>
-              <ContentContainerB>
+    <Document style={styles.document}>
+      {shouldSplit ? (
+        <>
+          <Page id="resume-template" size="A4" style={styles.page}>
+            <View style={styles.headerNameContainer}>
+              <Text style={styles.headerName}>{basic.firstName}</Text>
+              <Text style={styles.headerName}>{basic.lastName}</Text>
+            </View>
+            <View style={styles.currentRoleContainer}>
+              <Text style={styles.headerCurrentRole}>
+                {professional.currentRole}
+              </Text>
+            </View>
+
+            {shouldDisplayTitle && (
+              <View style={styles.basicTitleContainer}>
+                <Text style={styles.basicsTitle}>Summary</Text>
+              </View>
+            )}
+            <View style={styles.summaryContainer}>
+              <Text style={styles.summary}>{professional.summary}</Text>
+            </View>
+            {shouldDisplayTitle && (
+              <View style={styles.basicTitleContainer}>
+                <Text style={styles.basicsTitle}>Personal Details</Text>
+              </View>
+            )}
+
+            <View style={styles.sectionContainer}>
+              <View style={styles.sectionItemContainer}>
+                {shouldDisplayTitle && (
+                  <View style={styles.basicContentContainer}>
+                    <Text style={styles.basicsItemTitle}>Name</Text>
+                  </View>
+                )}
+                <View style={styles.contentContainer}>
+                  <View style={styles.basicsNameContainer}>
+                    <Text>{basic.firstName}</Text>
+                    <Text>{basic.lastName}</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.sectionItemContainer}>
+                {shouldDisplayTitle && (
+                  <View style={styles.basicContentContainer}>
+                    <Text style={styles.basicsItemTitle}>Email address</Text>
+                  </View>
+                )}
+                <View style={styles.contentContainer}>
+                  <Text>{basic.email}</Text>
+                </View>
+              </View>
+              <View style={styles.sectionItemContainer}>
+                {shouldDisplayTitle && (
+                  <View style={styles.basicContentContainer}>
+                    <Text style={styles.basicsItemTitle}>Phone number</Text>
+                  </View>
+                )}
+                <View style={styles.contentContainer}>
+                  <Text>{basic.phoneNumber}</Text>
+                </View>
+              </View>
+              <View style={styles.sectionItemContainer}>
+                {shouldDisplayTitle && (
+                  <View style={styles.basicContentContainer}>
+                    <Text style={styles.basicsItemTitle}>Address</Text>
+                  </View>
+                )}
+                <View style={styles.contentContainer}>
+                  <Text>{basic.address}</Text>
+                </View>
+              </View>
+              <View style={styles.sectionItemContainer}>
+                {shouldDisplayTitle && (
+                  <View style={styles.basicContentContainer}>
+                    <Text style={styles.basicsItemTitle}>LinkedIn</Text>
+                  </View>
+                )}
+                <View style={styles.contentContainer}>
+                  <Text>{basic.linkedin}</Text>
+                </View>
+              </View>
+              <View style={styles.additionalLinksContainer}>
                 {basic?.additionalLinks.map(link => (
-                  <div key={link.id}>
-                    <a href={link.url}>
-                      <BasicDetail>{link.url}</BasicDetail>
-                    </a>
-                  </div>
+                  <>
+                    <View style={styles.sectionItemContainer}>
+                      {shouldDisplayTitle && (
+                        <View style={styles.basicContentContainer}>
+                          <Text style={styles.basicsItemTitle}>
+                            Additional link
+                          </Text>
+                        </View>
+                      )}
+                      <View style={styles.contentContainer} key={link.id}>
+                        <a href={link.url}>
+                          <Text>{link.url}</Text>
+                        </a>
+                      </View>
+                    </View>
+                  </>
                 ))}
-              </ContentContainerB>
-            </Item>
-          </ContentContainer>
-          <PersonalDetailsContainer>
-            <PersonalDetailsTitle>Employment</PersonalDetailsTitle>
-          </PersonalDetailsContainer>
-          <ContentContainer>
-            {professional.work.map(experience => (
-              <Item key={experience.id}>
-                <ContentContainerA>
-                  <Detail>
-                    <DateContainer>
-                      <Dates>
-                        <Month>
-                          {experience.startDate.month &&
-                          !isNaN(parseInt(experience.startDate.month)) ? (
+              </View>
+            </View>
+            {shouldDisplayTitle && (
+              <View style={styles.basicTitleContainer}>
+                <Text style={styles.basicsTitle}>Education</Text>
+              </View>
+            )}
+            <View style={styles.sectionContainer}>
+              {educational?.length > 0 &&
+                educational.map(info => (
+                  <View style={styles.sectionItemContainer} key={info.id}>
+                    {info.school && (
+                      <View style={styles.basicContentContainer}>
+                        <View style={styles.dateContainer}>
+                          <View style={styles.dates}>
+                            <Text style={styles.month}>
+                              {info.startDate.month &&
+                              !isNaN(parseInt(info.startDate.month)) ? (
+                                <>
+                                  {new Date(
+                                    2022,
+                                    parseInt(info.startDate.month) - 1,
+                                  ).toLocaleString('default', {
+                                    month: 'short',
+                                  })}
+                                </>
+                              ) : (
+                                <>Jan</>
+                              )}
+                            </Text>
+                            <Text style={styles.year}>
+                              {info.startDate.year || new Date().getFullYear()}
+                            </Text>
+                          </View>
+                          <Text style={styles.dateSeparator}> - </Text>
+                          <View style={styles.dates}>
+                            <Text style={styles.month}>
+                              {info.endDate.month &&
+                              !isNaN(parseInt(info.endDate.month)) ? (
+                                <>
+                                  {new Date(
+                                    2022,
+                                    parseInt(info.endDate.month) - 1,
+                                  ).toLocaleString('default', {
+                                    month: 'short',
+                                  })}
+                                </>
+                              ) : (
+                                <>Jan</>
+                              )}
+                            </Text>
+                            <Text style={styles.year}>
+                              {info.endDate.year || new Date().getFullYear()}
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    )}
+                    <View style={styles.contentContainer}>
+                      <Text>{info.course}</Text>
+                      <Text>{info.school}</Text>
+                    </View>
+                  </View>
+                ))}
+            </View>
+            {shouldDisplayTitle && (
+              <View style={styles.basicTitleContainer}>
+                <Text style={styles.basicsTitle}>Employment</Text>
+              </View>
+            )}
+            <View style={styles.sectionContainer}>
+              {professional.work.slice(0, 2).map(info => (
+                <View style={styles.sectionItemContainer} key={info.id}>
+                  {info.jobTitle && (
+                    <View style={styles.basicContentContainer}>
+                      <View style={styles.dateContainer}>
+                        <View style={styles.dates}>
+                          <Text style={styles.month}>
+                            {info.startDate.month &&
+                            !isNaN(parseInt(info.startDate.month)) ? (
+                              <>
+                                {new Date(
+                                  2022,
+                                  parseInt(info.startDate.month) - 1,
+                                ).toLocaleString('default', {
+                                  month: 'short',
+                                })}
+                              </>
+                            ) : (
+                              <>Jan</>
+                            )}
+                          </Text>
+                          <Text style={styles.year}>
+                            {info.startDate.year || new Date().getFullYear()}
+                          </Text>
+                        </View>
+                        <Text style={styles.dateSeparator}> - </Text>
+                        <View style={styles.dates}>
+                          <Text style={styles.month}>
+                            {typeof info.endDate === 'string' ||
+                            (typeof info.endDate === 'object' &&
+                              'month' in info.endDate)
+                              ? typeof info.endDate === 'string'
+                                ? info.endDate === 'Present'
+                                  ? 'Present'
+                                  : 'Present'
+                                : new Date(
+                                    2022,
+                                    parseInt(info.endDate.month) - 1,
+                                  ).toLocaleString('default', {
+                                    month: 'short',
+                                  })
+                              : 'Jan'}
+                          </Text>
+                          <Text style={styles.year}>
+                            {typeof info.endDate === 'string' ||
+                            (typeof info.endDate === 'object' &&
+                              'year' in info.endDate)
+                              ? typeof info.endDate === 'string'
+                                ? info.endDate === 'Present'
+                                  ? ''
+                                  : ''
+                                : info.endDate.year
+                              : ''}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  )}
+                  <View style={styles.contentContainer}>
+                    <Text>{info.jobTitle}</Text>
+                    <Text>{info.company}</Text>
+                    <Text style={styles.description}>{info.jobDetails}</Text>
+                  </View>
+                </View>
+              ))}
+            </View>
+          </Page>
+          <Page id="resume-template" size="A4" style={styles.page}>
+            <View style={styles.sectionContainer}>
+              {professional.work.slice(2).map(info => (
+                <View style={styles.sectionItemContainer} key={info.id}>
+                  {info.jobTitle && (
+                    <View style={styles.basicContentContainer}>
+                      <View style={styles.dateContainer}>
+                        <View style={styles.dates}>
+                          <Text style={styles.month}>
+                            {info.startDate.month &&
+                            !isNaN(parseInt(info.startDate.month)) ? (
+                              <>
+                                {new Date(
+                                  2022,
+                                  parseInt(info.startDate.month) - 1,
+                                ).toLocaleString('default', {
+                                  month: 'short',
+                                })}
+                              </>
+                            ) : (
+                              <>Jan</>
+                            )}
+                          </Text>
+                          <Text style={styles.year}>
+                            {info.startDate.year || new Date().getFullYear()}
+                          </Text>
+                        </View>
+                        <Text style={styles.dateSeparator}> - </Text>
+                        <View style={styles.dates}>
+                          <Text style={styles.month}>
+                            {typeof info.endDate === 'string' ||
+                            (typeof info.endDate === 'object' &&
+                              'month' in info.endDate)
+                              ? typeof info.endDate === 'string'
+                                ? info.endDate === 'Present'
+                                  ? 'Present'
+                                  : 'Present'
+                                : new Date(
+                                    2022,
+                                    parseInt(info.endDate.month) - 1,
+                                  ).toLocaleString('default', {
+                                    month: 'short',
+                                  })
+                              : 'Jan'}
+                          </Text>
+                          <Text style={styles.year}>
+                            {typeof info.endDate === 'string' ||
+                            (typeof info.endDate === 'object' &&
+                              'year' in info.endDate)
+                              ? typeof info.endDate === 'string'
+                                ? info.endDate === 'Present'
+                                  ? ''
+                                  : ''
+                                : info.endDate.year
+                              : ''}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  )}
+                  <View style={styles.contentContainer}>
+                    <Text>{info.jobTitle}</Text>
+                    <Text>{info.company}</Text>
+                    <Text style={styles.description}>{info.jobDetails}</Text>
+                  </View>
+                </View>
+              ))}
+            </View>
+            {shouldDisplayTitle && (
+              <View style={styles.basicTitleContainer}>
+                <Text style={styles.basicsTitle}>Skills</Text>
+              </View>
+            )}
+            <View style={styles.skillsSectionContainer}>
+              {skills &&
+                skills.map(skill => (
+                  <View style={styles.skillsItemContainer} key={skill.id}>
+                    <Text>{skill.name}</Text>
+                  </View>
+                ))}
+            </View>
+            {shouldDisplayTitle && (
+              <View style={styles.basicTitleContainer}>
+                <Text style={styles.basicsTitle}>Languages</Text>
+              </View>
+            )}
+            <View style={styles.languagesSectionContainer}>
+              {languages &&
+                languages.map(language => (
+                  <View style={styles.languagesItemContainer} key={language.id}>
+                    <Text>{language.name}</Text>
+                  </View>
+                ))}
+            </View>
+          </Page>
+        </>
+      ) : (
+        <Page id="resume-template" size="A4" style={styles.page}>
+          <View style={styles.headerNameContainer}>
+            <Text style={styles.headerName}>{basic.firstName}</Text>
+            <Text style={styles.headerName}>{basic.lastName}</Text>
+          </View>
+          <View style={styles.currentRoleContainer}>
+            <Text style={styles.headerCurrentRole}>
+              {professional.currentRole}
+            </Text>
+          </View>
+
+          {shouldDisplayTitle && (
+            <View style={styles.basicTitleContainer}>
+              <Text style={styles.basicsTitle}>Summary</Text>
+            </View>
+          )}
+          <View style={styles.summaryContainer}>
+            <Text style={styles.summary}>{professional.summary}</Text>
+          </View>
+          {shouldDisplayTitle && (
+            <View style={styles.basicTitleContainer}>
+              <Text style={styles.basicsTitle}>Personal Details</Text>
+            </View>
+          )}
+
+          <View style={styles.sectionContainer}>
+            <View style={styles.sectionItemContainer}>
+              {shouldDisplayTitle && (
+                <View style={styles.basicContentContainer}>
+                  <Text style={styles.basicsItemTitle}>Name</Text>
+                </View>
+              )}
+              <View style={styles.contentContainer}>
+                <View style={styles.basicsNameContainer}>
+                  <Text>{basic.firstName}</Text>
+                  <Text>{basic.lastName}</Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.sectionItemContainer}>
+              {shouldDisplayTitle && (
+                <View style={styles.basicContentContainer}>
+                  <Text style={styles.basicsItemTitle}>Email address</Text>
+                </View>
+              )}
+              <View style={styles.contentContainer}>
+                <Text>{basic.email}</Text>
+              </View>
+            </View>
+            <View style={styles.sectionItemContainer}>
+              {shouldDisplayTitle && (
+                <View style={styles.basicContentContainer}>
+                  <Text style={styles.basicsItemTitle}>Phone number</Text>
+                </View>
+              )}
+              <View style={styles.contentContainer}>
+                <Text>{basic.phoneNumber}</Text>
+              </View>
+            </View>
+            <View style={styles.sectionItemContainer}>
+              {shouldDisplayTitle && (
+                <View style={styles.basicContentContainer}>
+                  <Text style={styles.basicsItemTitle}>Address</Text>
+                </View>
+              )}
+              <View style={styles.contentContainer}>
+                <Text>{basic.address}</Text>
+              </View>
+            </View>
+            <View style={styles.sectionItemContainer}>
+              {shouldDisplayTitle && (
+                <View style={styles.basicContentContainer}>
+                  <Text style={styles.basicsItemTitle}>LinkedIn</Text>
+                </View>
+              )}
+              <View style={styles.contentContainer}>
+                <Text>{basic.linkedin}</Text>
+              </View>
+            </View>
+            <View style={styles.additionalLinksContainer}>
+              {basic?.additionalLinks.map(link => (
+                <>
+                  <View style={styles.sectionItemContainer}>
+                    {shouldDisplayTitle && (
+                      <View style={styles.basicContentContainer}>
+                        <Text style={styles.basicsItemTitle}>
+                          Additional link
+                        </Text>
+                      </View>
+                    )}
+                    <View style={styles.contentContainer} key={link.id}>
+                      <a href={link.url}>
+                        <Text>{link.url}</Text>
+                      </a>
+                    </View>
+                  </View>
+                </>
+              ))}
+            </View>
+          </View>
+          {shouldDisplayTitle && (
+            <View style={styles.basicTitleContainer}>
+              <Text style={styles.basicsTitle}>Education</Text>
+            </View>
+          )}
+          <View style={styles.sectionContainer}>
+            {educational?.length > 0 &&
+              educational.map(info => (
+                <View style={styles.sectionItemContainer} key={info.id}>
+                  {info.school && (
+                    <View style={styles.basicContentContainer}>
+                      <View style={styles.dateContainer}>
+                        <View style={styles.dates}>
+                          <Text style={styles.month}>
+                            {info.startDate.month &&
+                            !isNaN(parseInt(info.startDate.month)) ? (
+                              <>
+                                {new Date(
+                                  2022,
+                                  parseInt(info.startDate.month) - 1,
+                                ).toLocaleString('default', {
+                                  month: 'short',
+                                })}
+                              </>
+                            ) : (
+                              <>Jan</>
+                            )}
+                          </Text>
+                          <Text style={styles.year}>
+                            {info.startDate.year || new Date().getFullYear()}
+                          </Text>
+                        </View>
+                        <Text style={styles.dateSeparator}> - </Text>
+                        <View style={styles.dates}>
+                          <Text style={styles.month}>
+                            {info.endDate.month &&
+                            !isNaN(parseInt(info.endDate.month)) ? (
+                              <>
+                                {new Date(
+                                  2022,
+                                  parseInt(info.endDate.month) - 1,
+                                ).toLocaleString('default', {
+                                  month: 'short',
+                                })}
+                              </>
+                            ) : (
+                              <>Jan</>
+                            )}
+                          </Text>
+                          <Text style={styles.year}>
+                            {info.endDate.year || new Date().getFullYear()}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  )}
+                  <View style={styles.contentContainer}>
+                    <Text>{info.course}</Text>
+                    <Text>{info.school}</Text>
+                  </View>
+                </View>
+              ))}
+          </View>
+          {shouldDisplayTitle && (
+            <View style={styles.basicTitleContainer}>
+              <Text style={styles.basicsTitle}>Employment</Text>
+            </View>
+          )}
+          <View style={styles.sectionContainer}>
+            {professional.work.map(info => (
+              <View style={styles.sectionItemContainer} key={info.id}>
+                {info.jobTitle && (
+                  <View style={styles.basicContentContainer}>
+                    <View style={styles.dateContainer}>
+                      <View style={styles.dates}>
+                        <Text style={styles.month}>
+                          {info.startDate.month &&
+                          !isNaN(parseInt(info.startDate.month)) ? (
                             <>
                               {new Date(
                                 2022,
-                                parseInt(experience.startDate.month) - 1,
+                                parseInt(info.startDate.month) - 1,
                               ).toLocaleString('default', {
                                 month: 'short',
                               })}
@@ -164,164 +747,81 @@ const Minimalist: FC<Resume2TemplateProps> = ({ resumeInfo }) => {
                           ) : (
                             <>Jan</>
                           )}
-                        </Month>
-                        <Year>
-                          {experience.startDate.year ||
-                            new Date().getFullYear()}
-                        </Year>
-                      </Dates>
-                      <DateSeparator> - </DateSeparator>
-                      <Dates>
-                        <Month>
-                          {typeof experience.endDate === 'string' ||
-                          (typeof experience.endDate === 'object' &&
-                            'month' in experience.endDate)
-                            ? typeof experience.endDate === 'string'
-                              ? experience.endDate === 'Present'
+                        </Text>
+                        <Text style={styles.year}>
+                          {info.startDate.year || new Date().getFullYear()}
+                        </Text>
+                      </View>
+                      <Text style={styles.dateSeparator}> - </Text>
+                      <View style={styles.dates}>
+                        <Text style={styles.month}>
+                          {typeof info.endDate === 'string' ||
+                          (typeof info.endDate === 'object' &&
+                            'month' in info.endDate)
+                            ? typeof info.endDate === 'string'
+                              ? info.endDate === 'Present'
                                 ? 'Present'
                                 : 'Present'
                               : new Date(
                                   2022,
-                                  parseInt(experience.endDate.month) - 1,
+                                  parseInt(info.endDate.month) - 1,
                                 ).toLocaleString('default', {
                                   month: 'short',
                                 })
                             : 'Jan'}
-                        </Month>
-                        <Year>
-                          {typeof experience.endDate === 'string' ||
-                          (typeof experience.endDate === 'object' &&
-                            'year' in experience.endDate)
-                            ? typeof experience.endDate === 'string'
-                              ? experience.endDate === 'Present'
+                        </Text>
+                        <Text style={styles.year}>
+                          {typeof info.endDate === 'string' ||
+                          (typeof info.endDate === 'object' &&
+                            'year' in info.endDate)
+                            ? typeof info.endDate === 'string'
+                              ? info.endDate === 'Present'
                                 ? ''
                                 : ''
-                              : experience.endDate.year
+                              : info.endDate.year
                             : ''}
-                        </Year>
-                      </Dates>
-                    </DateContainer>
-                  </Detail>
-                </ContentContainerA>
-                <ContentContainerB>
-                  <EmploymentDetailContainer>
-                    <EmploymentDetail>
-                      <JobTitle>{experience.jobTitle}</JobTitle>
-                      <Company>{experience.company}</Company>
-                    </EmploymentDetail>
-                  </EmploymentDetailContainer>
-                  <EmploymentDescription>
-                    {experience.jobDetails}
-                  </EmploymentDescription>
-                </ContentContainerB>
-              </Item>
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                )}
+                <View style={styles.contentContainer}>
+                  <Text>{info.jobTitle}</Text>
+                  <Text>{info.company}</Text>
+                  <Text style={styles.description}>{info.jobDetails}</Text>
+                </View>
+              </View>
             ))}
-          </ContentContainer>
-          <PersonalDetailsContainer>
-            <PersonalDetailsTitle>Education</PersonalDetailsTitle>
-          </PersonalDetailsContainer>
-          <ContentContainer>
-            {educational.map(educ => (
-              <Item key={educ.id}>
-                <ContentContainerA>
-                  <Detail>
-                    <DateContainer>
-                      <Dates>
-                        <Month>
-                          {educ.startDate.month &&
-                          !isNaN(parseInt(educ.startDate.month)) ? (
-                            <>
-                              {new Date(
-                                2022,
-                                parseInt(educ.startDate.month) - 1,
-                              ).toLocaleString('default', {
-                                month: 'short',
-                              })}
-                            </>
-                          ) : (
-                            <>Jan</>
-                          )}
-                        </Month>
-                        <Year>
-                          {educ.startDate.year || new Date().getFullYear()}
-                        </Year>
-                      </Dates>
-                      <DateSeparator> - </DateSeparator>
-
-                      <Dates>
-                        <Month>
-                          {educ.endDate.month &&
-                          !isNaN(parseInt(educ.endDate.month)) ? (
-                            <>
-                              {new Date(
-                                2022,
-                                parseInt(educ.endDate.month) - 1,
-                              ).toLocaleString('default', {
-                                month: 'short',
-                              })}
-                            </>
-                          ) : (
-                            <>Jan</>
-                          )}
-                        </Month>
-                        <Year>
-                          {educ.endDate.year || new Date().getFullYear()}
-                        </Year>
-                      </Dates>
-                    </DateContainer>
-                  </Detail>
-                </ContentContainerA>
-                <ContentContainerB>
-                  <EducationDetailContainer>
-                    <EducationDetail>
-                      <Course>{educ.course}</Course>
-                      <School>{educ.school}</School>
-                    </EducationDetail>
-                  </EducationDetailContainer>
-                  <EducationDescription>
-                    {educ.description}
-                  </EducationDescription>
-                </ContentContainerB>
-              </Item>
-            ))}
-          </ContentContainer>
-          <PersonalDetailsContainer>
-            <PersonalDetailsTitle>Skills</PersonalDetailsTitle>
-          </PersonalDetailsContainer>
-          <ContentContainer>
-            <Item>
-              <ContentContainerA>
-                <SkillsDetailsContent>
-                  {skills?.map(enteredSkill => (
-                    <EnteredSkillsContainer key={enteredSkill.id}>
-                      <EnteredSkill>{enteredSkill.name}</EnteredSkill>
-                    </EnteredSkillsContainer>
-                  ))}
-                </SkillsDetailsContent>
-              </ContentContainerA>
-              <ContentContainerB></ContentContainerB>
-            </Item>
-          </ContentContainer>
-          <PersonalDetailsContainer>
-            <PersonalDetailsTitle>Languages</PersonalDetailsTitle>
-          </PersonalDetailsContainer>
-          <ContentContainer>
-            <Item>
-              <ContentContainerA>
-                <LanguagesDetailsContent>
-                  {languages?.map(enteredLanguage => (
-                    <EnteredLanguagesContainer key={enteredLanguage.id}>
-                      <EnteredLanguage>{enteredLanguage.name}</EnteredLanguage>
-                    </EnteredLanguagesContainer>
-                  ))}
-                </LanguagesDetailsContent>
-              </ContentContainerA>
-              <ContentContainerB></ContentContainerB>
-            </Item>
-          </ContentContainer>
-        </ContentContainer>
-      </MinimalistTemplate>
-    </MinimalistContainer>
+          </View>
+          {shouldDisplayTitle && (
+            <View style={styles.basicTitleContainer}>
+              <Text style={styles.basicsTitle}>Skills</Text>
+            </View>
+          )}
+          <View style={styles.skillsSectionContainer}>
+            {skills &&
+              skills.map(skill => (
+                <View style={styles.skillsItemContainer} key={skill.id}>
+                  <Text>{skill.name}</Text>
+                </View>
+              ))}
+          </View>
+          {shouldDisplayTitle && (
+            <View style={styles.basicTitleContainer}>
+              <Text style={styles.basicsTitle}>Languages</Text>
+            </View>
+          )}
+          <View style={styles.languagesSectionContainer}>
+            {languages &&
+              languages.map(language => (
+                <View style={styles.languagesItemContainer} key={language.id}>
+                  <Text>{language.name}</Text>
+                </View>
+              ))}
+          </View>
+        </Page>
+      )}
+    </Document>
   );
 };
 

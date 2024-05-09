@@ -284,8 +284,13 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ resumes }) => {
   const [resumesList, setResumesList] = useState(resumes);
 
   const formatTimestamp = (timestamp: string) => {
-    const date = new Date(timestamp);
-    return formatDistanceToNow(date, { addSuffix: true });
+    try {
+      const date = new Date(timestamp);
+      return formatDistanceToNow(date, { addSuffix: true });
+    } catch (error) {
+      console.error('Error parsing timestamp:', error);
+      return 'Invalid timestamp';
+    }
   };
 
   const handleResumesPage = () => {
