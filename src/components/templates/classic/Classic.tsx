@@ -3,9 +3,8 @@
 import React, { FC, useState } from 'react';
 import { Resume } from '@/types/profile';
 import { StyleSheet, Page, View, Text, Document } from '@react-pdf/renderer';
-import { BasicInfoComponent } from '../defaultTemplate/resume-helpers/BasicInfoComponent';
 
-interface MinimalistTemplateProps {
+interface ClassicTemplateProps {
   resumeInfo: Resume;
   id: string;
 }
@@ -30,21 +29,27 @@ const styles = StyleSheet.create({
   sectionContainer: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '10px 0',
     gap: '3px',
+    border: '1px solid gray',
+    padding: '5px',
+    marginBottom: '10px',
   },
 
   skillsSectionContainer: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '10px 0',
     gap: '3px',
+    border: '1px solid gray',
+    padding: '5px',
+    marginBottom: '10px',
   },
   languagesSectionContainer: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '10px 0',
     gap: '3px',
+    border: '1px solid gray',
+    padding: '5px',
+    marginBottom: '10px',
   },
 
   sectionItemContainer: {
@@ -77,16 +82,19 @@ const styles = StyleSheet.create({
     display: 'flex',
     padding: '5px 0',
     borderBottom: '.5px solid gray',
+    backgroundColor: 'gray',
   },
   basicsTitle: {
-    color: 'black',
+    color: 'white',
     fontSize: '14px',
     fontWeight: 700,
+    paddingLeft: '5px',
   },
 
   basicsItemTitle: {
     color: 'black',
     fontSize: '13px',
+    textDecoration: 'none',
   },
 
   basicsNameContainer: {
@@ -138,6 +146,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     width: '100%',
     // paddingBottom: '10px',
+    gap: '3px',
+    border: '1px solid gray',
+    padding: '5px',
+    marginBottom: '10px',
   },
   summary: {
     color: '#232946',
@@ -194,7 +206,7 @@ const styles = StyleSheet.create({
   dateSeparator: { fontSize: '13px' },
   description: { fontSize: '13px', padding: '5px 0', lineHeight: '1.2' },
 });
-const Minimalist: FC<MinimalistTemplateProps> = ({ resumeInfo }) => {
+const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
   const basic = resumeInfo?.basic;
   const professional = resumeInfo?.professional;
   const educational = resumeInfo?.educational;
@@ -259,10 +271,8 @@ const Minimalist: FC<MinimalistTemplateProps> = ({ resumeInfo }) => {
                 )}
                 <View style={styles.contentContainer}>
                   <View style={styles.basicsNameContainer}>
-                    <Text style={styles.basicsItemTitle}>
-                      {basic.firstName}
-                    </Text>
-                    <Text style={styles.basicsItemTitle}>{basic.lastName}</Text>
+                    <Text>{basic.firstName}</Text>
+                    <Text>{basic.lastName}</Text>
                   </View>
                 </View>
               </View>
@@ -829,4 +839,4 @@ const Minimalist: FC<MinimalistTemplateProps> = ({ resumeInfo }) => {
   );
 };
 
-export default Minimalist;
+export default Classic;
