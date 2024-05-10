@@ -1,7 +1,7 @@
 import CoverLetterTemplate from './CoverLetterTemplate';
 import styled from 'styled-components';
-import { breakpoints as bp } from '../../../utils/layout';
-import colors from '../../../utils/colors';
+import { breakpoints as bp } from '@/utils/layout';
+import colors from '@/utils/colors';
 
 export const CoverLetterContainer = styled.div`
   display: flex;

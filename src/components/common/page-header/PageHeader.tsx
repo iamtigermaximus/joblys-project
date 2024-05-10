@@ -52,8 +52,8 @@ import {
 } from 'react-icons/fa6';
 import { IoCloseSharp, IoSettingsSharp } from 'react-icons/io5';
 import { FcGoogle } from 'react-icons/fc';
-import DownloadPDFButton from '@/components/templates/defaultTemplate/DownloadPDFButton';
 import { Resume } from '@/types/profile';
+import DownloadPDFButton from '@/components/templates/resume/defaultTemplate/DownloadPDFButton';
 
 interface PageHeaderProps {
   id: string;

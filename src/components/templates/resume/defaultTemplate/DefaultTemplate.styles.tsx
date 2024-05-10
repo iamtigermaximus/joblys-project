@@ -1,6 +1,6 @@
 'use client';
 import styled from 'styled-components';
-import { breakpoints as bp } from '../../../utils/layout';
+import { breakpoints as bp } from '@/utils/layout';
 import { Page, Text, View, Document } from '@react-pdf/renderer';
 
 export const DefaultTemplateContainer = styled(Document)`

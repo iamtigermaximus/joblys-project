@@ -34,10 +34,10 @@ import {
 } from 'react-icons/fa6';
 import SkillsForm from '../skills-details/SkillsForm';
 import LanguagesForm from '../languages-details/LanguagesForm';
-import DefaultTemplate from '@/components/templates/defaultTemplate/DefaultTemplate';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import DownloadPDFButton from '@/components/templates/defaultTemplate/DownloadPDFButton';
+import DownloadPDFButton from '@/components/templates/resume/defaultTemplate/DownloadPDFButton';
+import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
 
 interface ResumeFormProps {
   resumeId: string;

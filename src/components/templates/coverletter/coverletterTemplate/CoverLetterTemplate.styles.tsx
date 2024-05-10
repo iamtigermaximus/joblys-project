@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { breakpoints as bp } from '../../../utils/layout';
+import { breakpoints as bp } from '@/utils/layout';
 
 export const CoverLetterTemplateContainer = styled.div`
   /* display: flex;

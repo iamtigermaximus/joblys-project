@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Container, HeaderContainer, PageName } from './CoverLetters.styles';
-import CoverLetterPreview from '../templates/coverletterTemplate/CoverLetterPreview';
 import Loader from '../common/loader/Loader';
+import CoverLetterPreview from '../templates/coverletter/coverletterTemplate/CoverLetterPreview';
 
 const CoverLetters = () => {
   const [isLoading, setIsLoading] = useState(true);

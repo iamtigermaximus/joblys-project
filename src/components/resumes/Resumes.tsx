@@ -9,10 +9,10 @@ import {
   ViewMode,
   ViewModeContainer,
 } from './Resumes.styles';
-import ResumePreview from '../templates/defaultTemplate/ResumePreview';
 import Loader from '../common/loader/Loader';
 import { useSession } from 'next-auth/react';
 import { MdViewModule, MdViewList } from 'react-icons/md';
+import ResumePreview from '../templates/resume/defaultTemplate/ResumePreview';
 
 const Resumes = () => {
   const [profileData, setProfileData] = useState<

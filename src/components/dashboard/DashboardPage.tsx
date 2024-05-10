@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/react';
 import styled from 'styled-components';
 import { FaChevronCircleRight } from 'react-icons/fa';
 import { Resume, initialCoverletter, initialResume } from '@/types/profile';
-import DefaultTemplate from '../templates/defaultTemplate/DefaultTemplate';
 import { formatDistanceToNow } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
@@ -12,8 +11,9 @@ import { CiMenuKebab } from 'react-icons/ci';
 import { IoCloseSharp } from 'react-icons/io5';
 import { breakpoints as bp } from '../../utils/layout';
 import colors from '../../utils/colors';
-import DownloadPDFButton from '../templates/defaultTemplate/DownloadPDFButton';
-import ConfirmationModal from '../templates/defaultTemplate/ConfirmationModal';
+import DefaultTemplate from '../templates/resume/defaultTemplate/DefaultTemplate';
+import DownloadPDFButton from '../templates/resume/defaultTemplate/DownloadPDFButton';
+import ConfirmationModal from '../templates/resume/defaultTemplate/ConfirmationModal';
 
 export const Container = styled.div`
   width: 100%;

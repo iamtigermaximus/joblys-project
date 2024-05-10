@@ -2,10 +2,10 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import axios from 'axios';
 import { Resume } from '@/types/profile';
-import DefaultTemplate from '../templates/defaultTemplate/DefaultTemplate';
 
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../utils/layout';
+import DefaultTemplate from '../templates/resume/defaultTemplate/DefaultTemplate';
 
 export const Container = styled.div`
   width: 100%;
