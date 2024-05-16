@@ -63,7 +63,7 @@ interface PageHeaderProps {
 const PageHeader: FC<PageHeaderProps> = ({ id, resumeInfo }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const isProfileBuilder = pathname === `/profile-builder/resumes/${id}`;
+  const isResumeBuilder = pathname === `/resume-builder/resumes/${id}`;
   const isCoverLetterBuilder =
     pathname === `/coverletter-builder/coverletters/${id}`;
 
@@ -94,7 +94,7 @@ const PageHeader: FC<PageHeaderProps> = ({ id, resumeInfo }) => {
 
   const getHeaderStyles = (): React.CSSProperties => {
     switch (pathname) {
-      case `/profile-builder/resumes/${id}`:
+      case `/resume-builder/resumes/${id}`:
         return {
           backgroundColor: '#520668',
           color: 'white',
@@ -130,7 +130,7 @@ const PageHeader: FC<PageHeaderProps> = ({ id, resumeInfo }) => {
     <Header style={headerStyles}>
       <HeaderMenuContainer>
         <LeftContainer>
-          {isProfileBuilder && (
+          {isResumeBuilder && (
             <ResumeButton onClick={navigateToResume}>
               <ResumeButtonIcon>
                 <FaArrowLeft />

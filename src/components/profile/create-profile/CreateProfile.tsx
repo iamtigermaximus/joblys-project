@@ -12,7 +12,6 @@ import UploadCvSection from './uploadCvSection/UploadCvSection';
 import BuildProfileSection from './buildProfileSection/BuildProfileSection';
 import { useParams } from 'next/navigation';
 import { Resume, initialResume } from '@/types/profile';
-import ProfileForm from '@/components/profileBuilderForms/profile-form/ProfileForm';
 import BasicTextFields from '@/components/typeform/FirstNameField';
 import EmailField from '@/components/typeform/EmailField';
 import ContactField from '@/components/typeform/ContactField';
@@ -25,6 +24,7 @@ import SkillsField from '@/components/typeform/SkillsField';
 import LanguagesField from '@/components/typeform/LanguagesField';
 import WorkExperienceField from '@/components/typeform/WorkExperienceField';
 import IntroPage from '../IntroPage';
+import ProfileForm from '@/components/resumeBuilderForms/profile-form/ProfileForm';
 
 const CreateProfile = () => {
   const params = useParams() as { id: string };
@@ -92,15 +92,15 @@ const CreateProfile = () => {
         </ProfileFormContainer>
       ) : (
         <>
-          {/* <TitleContainer>
+          <TitleContainer>
             <PageTitle>Please create your profile</PageTitle>
           </TitleContainer>
           <CreateProfileContainer>
             <UploadCvSection />
             <h4>or</h4>
             <BuildProfileSection />
-          </CreateProfileContainer> */}
-          {!showForm && <IntroPage onStart={handleStart} />}
+          </CreateProfileContainer>
+          {/* {!showForm && <IntroPage onStart={handleStart} />}
           {showForm && (
             <TypeForm onSubmit={onSubmitForm}>
               <FirstNameField />
@@ -113,7 +113,7 @@ const CreateProfile = () => {
               <SkillsField />
               <LanguagesField />
             </TypeForm>
-          )}
+          )} */}
         </>
       )}
     </Container>
@@ -121,4 +121,3 @@ const CreateProfile = () => {
 };
 
 export default CreateProfile;
-

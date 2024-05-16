@@ -9,9 +9,9 @@ import {
   ResumeTemplateContainer,
 } from '../../../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
-import ResumeForm from '@/components/profileBuilderForms/profile-form/ResumeForm';
 import { Resume, initialResume } from '@/types/profile';
 import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
+import ResumeForm from '@/components/resumeBuilderForms/profile-form/ResumeForm';
 
 const ProfileBuilderPage: FC = () => {
   const params = useParams() as { id: string };
@@ -39,7 +39,7 @@ const ProfileBuilderPage: FC = () => {
   return (
     <ProfileBuilderContainer>
       <div>
-        <title>Profile Builder Page</title>
+        <title>Resume Builder Page</title>
       </div>
       <PageHeader id={params.id} resumeInfo={resumeInfo} />
       <FormViewerContainer>
