@@ -1,7 +1,7 @@
 'use client';
 
-import { breakpoints as bp } from '../../utils/layout';
-import colors from '../../utils/colors';
+import { breakpoints as bp } from '@/utils/layout';
+import colors from '@/utils/colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -145,4 +145,16 @@ export const UploadSourceContainer = styled.div`
   @media (min-width: ${bp.md}) {
     font-size: 15px;
   }
+`;
+
+export const LoadingMessageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+export const LoadingMessage = styled.p`
+  color: green;
+  margin-top: 10px;
 `;

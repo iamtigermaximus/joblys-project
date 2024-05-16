@@ -1,7 +1,7 @@
 import React from 'react';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import { Container } from '../../page.styles';
-import UploadCV from '@/components/upload-cv/UploadCV';
+import UploadCV from '@/components/profile/create-profile/upload-cv/UploadCV';
 
 const UploadCvPage = () => {
   return (

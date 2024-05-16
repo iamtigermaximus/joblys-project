@@ -1,15 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import GoogleDrive from '../../assets/googledrive.png';
-import Dropbox from '../../assets/dropbox.png';
-import OneDrive from '../../assets/one-drive.png';
-import { useState, ChangeEvent } from 'react';
+import GoogleDrive from '@/assets/googledrive.png';
+import Dropbox from '@/assets/dropbox.png';
+import OneDrive from '@/assets/one-drive.png';
 import {
   Container,
   FileUpload,
+  LoadingMessage,
+  LoadingMessageContainer,
   SectionSubTitle,
   SectionTitle,
   SectionTitleContainer,
@@ -20,21 +21,27 @@ import {
 
 const UploadCV = () => {
   const router = useRouter();
-  const [cvFile, setCVFile] = useState<File>();
-  
+  const [cvFile, setCVFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadMessage, setUploadMessage] = useState('');
+
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.length) {
       return;
     }
-
     const file = event.target.files[0];
     setCVFile(file);
-  }
+  };
 
   const handleUploadCV = async () => {
+    if (!cvFile) return;
+
+    setIsUploading(true);
+
     let formData = new FormData();
-    if (cvFile) {
-      formData.append('file', cvFile);
+    formData.append('file', cvFile);
+
+    try {
       const resp = await fetch('/api/cv', {
         method: 'POST',
         body: formData,
@@ -42,12 +49,18 @@ const UploadCV = () => {
 
       if (resp.status === 200) {
         const data = await resp.json();
-        router.push(`/profile-builder/resumes/${data.body.resumeId}`);
+        setUploadMessage('Upload successful!');
+        router.push(`/resume-builder/resumes/${data.body.resumeId}`);
       } else {
-        console.log('Uploading resume failed', resp.status);
+        setUploadMessage(`Uploading resume failed: ${resp.status}`);
       }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      setUploadMessage('Uploading resume failed.');
+    } finally {
+      setIsUploading(false);
     }
-  }
+  };
 
   return (
     <Container>
@@ -59,10 +72,14 @@ const UploadCV = () => {
         <FileUpload
           type="file"
           accept=".docx,.pdf"
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {handleFileChange(e)}} />
-        <UploadButton onClick={handleUploadCV}>
-          Upload
+          onChange={handleFileChange}
+        />
+        <UploadButton onClick={handleUploadCV} disabled={isUploading}>
+          {isUploading ? 'Uploading...' : 'Upload'}
         </UploadButton>
+        <LoadingMessageContainer>
+          {uploadMessage && <LoadingMessage>{uploadMessage}</LoadingMessage>}
+        </LoadingMessageContainer>
         <UploadButton>
           <UploadSourceContainer>
             <h4> Upload from Google Drive</h4>
@@ -82,7 +99,7 @@ const UploadCV = () => {
               src={Dropbox}
               width={30}
               height={30}
-              alt="google-drive"
+              alt="dropbox"
               priority
             />
           </UploadSourceContainer>
@@ -94,7 +111,7 @@ const UploadCV = () => {
               src={OneDrive}
               width={30}
               height={30}
-              alt="google-drive"
+              alt="onedrive"
               priority
             />
           </UploadSourceContainer>
