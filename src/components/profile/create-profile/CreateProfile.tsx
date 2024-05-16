@@ -100,20 +100,6 @@ const CreateProfile = () => {
             <h4>or</h4>
             <BuildProfileSection />
           </CreateProfileContainer>
-          {/* {!showForm && <IntroPage onStart={handleStart} />}
-          {showForm && (
-            <TypeForm onSubmit={onSubmitForm}>
-              <FirstNameField />
-              <LastNameField />
-              <EmailField />
-              <ContactField />
-              <LinksField />
-              <EducationField />
-              <WorkExperienceField />
-              <SkillsField />
-              <LanguagesField />
-            </TypeForm>
-          )} */}
         </>
       )}
     </Container>
