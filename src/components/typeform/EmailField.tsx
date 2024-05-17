@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
@@ -33,7 +33,15 @@ const TextInput = styled.input`
   }
 `;
 
-const EmailField: React.FC = () => {
+interface EmailFieldProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const EmailField: React.FC<EmailFieldProps> = ({ value, onChange }) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
   return (
     <FormContainer autoComplete="off">
       <motion.div
@@ -47,7 +55,12 @@ const EmailField: React.FC = () => {
           <h4>3.What is your email?</h4>
         </QuestionContainer>
         <TextInputContainer>
-          <TextInput id="email-id" placeholder="Type your answer here" />
+          <TextInput
+            id="email-id"
+            placeholder="Type your answer here"
+            value={value}
+            onChange={handleChange}
+          />
         </TextInputContainer>
       </motion.div>
     </FormContainer>

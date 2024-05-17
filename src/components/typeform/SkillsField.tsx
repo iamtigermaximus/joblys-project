@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-
-interface Skill {
-  id: number;
-  name: string;
-}
+import { FaTrash } from 'react-icons/fa';
+import { Skill } from '../profile/profile-builder/ProfileBuilder';
+import { v4 as uuidv4 } from 'uuid';
 
 const SkillsFieldContainer = styled.div`
   display: flex;
@@ -50,32 +48,58 @@ const AddMoreSkill = styled.button`
   padding: 10px;
 `;
 
-const SkillsField: React.FC = () => {
-  const [skills, setSkills] = useState<Skill[]>([
-    {
-      id: 1,
-      name: '',
-    },
-  ]);
+export const TrashIcon = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: none;
+  margin: 0 5px;
+  font-size: 14px;
+  cursor: pointer;
+`;
+
+const TextInputItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+interface SkillsFieldProps {
+  value: Skill[];
+  onChange: (value: Skill[]) => void;
+}
+
+const SkillsField: React.FC<SkillsFieldProps> = ({ value, onChange }) => {
+  const [skills, setSkills] = useState<Skill[]>(value);
+
+  const handleSkillChange = (id: string, newValue: string) => {
+    const updatedSkills = skills.map(skill => {
+      if (skill.id === id) {
+        return { ...skill, skill: newValue };
+      }
+      return skill;
+    });
+    setSkills(updatedSkills);
+    onChange(updatedSkills);
+  };
 
   const handleAddSkill = () => {
-    const newId = skills.length + 1;
-    setSkills([
-      ...skills,
-      {
-        id: newId,
-        name: '',
-      },
-    ]);
+    const newSkill: Skill = { id: uuidv4(), skill: '' };
+    const newSkills = [...skills, newSkill];
+    setSkills(newSkills);
+    onChange(newSkills);
   };
 
-  const handleChange = (id: number, value: string) => {
-    setSkills(
-      skills.map(skill =>
-        skill.id === id ? { ...skill, name: value } : skill,
-      ),
-    );
+  const handleRemoveSkill = (id: string) => {
+    const updatedSkills = skills.filter(skill => skill.id !== id);
+    setSkills(updatedSkills);
+    onChange(updatedSkills);
   };
+
+  // useEffect(() => {
+  //   onChange(skills);
+  // }, [skills, onChange]);
 
   return (
     <SkillsFieldContainer>
@@ -89,14 +113,19 @@ const SkillsField: React.FC = () => {
         <QuestionContainer>
           <h4>8.Add your skills:</h4>
         </QuestionContainer>
-        {skills.map(skill => (
+        {value.map(skill => (
           <TextInputContainer key={skill.id}>
-            <TextInput
-              type="text"
-              placeholder="Skill"
-              value={skill.name}
-              onChange={e => handleChange(skill.id, e.target.value)}
-            />
+            <TextInputItem>
+              <TextInput
+                type="text"
+                placeholder="Skill"
+                value={skill.skill}
+                onChange={e => handleSkillChange(skill.id, e.target.value)}
+              />
+              <TrashIcon onClick={() => handleRemoveSkill(skill.id)}>
+                <FaTrash />
+              </TrashIcon>
+            </TextInputItem>
           </TextInputContainer>
         ))}
         <AddMoreSkillContainer>

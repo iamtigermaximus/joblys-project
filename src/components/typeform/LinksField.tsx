@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { Link } from '../profile/profile-builder/ProfileBuilder';
+import { FaTrash } from 'react-icons/fa';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Links {
   linkedin: string;
@@ -22,6 +25,12 @@ const QuestionContainer = styled.div`
 `;
 const TextInputContainer = styled.div`
   width: 100%;
+`;
+
+const TextInputItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const AdditionalTextInputContainer = styled.div`
@@ -53,25 +62,52 @@ const AddMoreLink = styled.button`
   padding: 10px;
 `;
 
-const LinksField: React.FC = () => {
-  const [links, setLinks] = useState<Links>({
-    linkedin: '',
-    additionalLinks: [],
-  });
+export const TrashIcon = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: none;
+  margin: 0 5px;
+  font-size: 14px;
+  cursor: pointer;
+`;
 
-  const handleLinksChange = (field: string, value: string) => {
-    setLinks({ ...links, [field]: value });
+interface LinksFieldProps {
+  value: Link[];
+  onChange: (value: Link[]) => void;
+}
+
+const LinksField: React.FC<LinksFieldProps> = ({ value, onChange }) => {
+  const [links, setLinks] = useState<Link[]>(value);
+
+  const handleLinkChange = (id: string, newValue: string) => {
+    const updatedLinks = links.map(link => {
+      if (link.id === id) {
+        return { ...link, link: newValue };
+      }
+      return link;
+    });
+    setLinks(updatedLinks);
+    onChange(updatedLinks);
   };
 
   const handleAddLink = () => {
-    setLinks({ ...links, additionalLinks: [...links.additionalLinks, ''] });
+    const newLink: Link = { id: uuidv4(), link: '' };
+    const newLinks = [...links, newLink];
+    setLinks(newLinks);
+    onChange(newLinks);
   };
 
-  const handleAdditionalLinkChange = (index: number, value: string) => {
-    const updatedLinks = [...links.additionalLinks];
-    updatedLinks[index] = value;
-    setLinks({ ...links, additionalLinks: updatedLinks });
+  const handleRemoveLink = (id: string) => {
+    const updatedLinks = links.filter(link => link.id !== id);
+    setLinks(updatedLinks);
+    onChange(updatedLinks);
   };
+
+  // useEffect(() => {
+  //   onChange(links);
+  // }, [links, onChange]);
 
   return (
     <LinksFieldContainer>
@@ -85,23 +121,20 @@ const LinksField: React.FC = () => {
         <QuestionContainer>
           <h4>5.Provide your links:</h4>
         </QuestionContainer>
-        <TextInputContainer>
-          <TextInput
-            type="text"
-            placeholder="Type your answer here"
-            value={links.linkedin}
-            onChange={e => handleLinksChange('linkedin', e.target.value)}
-          />
-        </TextInputContainer>
-        {links.additionalLinks.map((link, index) => (
-          <AdditionalTextInputContainer key={index}>
-            <TextInput
-              type="text"
-              placeholder={`Additional Link ${index + 1}`}
-              value={link}
-              onChange={e => handleAdditionalLinkChange(index, e.target.value)}
-            />
-          </AdditionalTextInputContainer>
+        {value.map(link => (
+          <TextInputContainer key={link.id}>
+            <TextInputItem>
+              <TextInput
+                type="text"
+                placeholder="Link"
+                value={link.link}
+                onChange={e => handleLinkChange(link.id, e.target.value)}
+              />
+              <TrashIcon onClick={() => handleRemoveLink(link.id)}>
+                <FaTrash />
+              </TrashIcon>
+            </TextInputItem>
+          </TextInputContainer>
         ))}
         <AddMoreLinkContainer>
           <AddMoreLink onClick={handleAddLink}>Add Additional Link</AddMoreLink>

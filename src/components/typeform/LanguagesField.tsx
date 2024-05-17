@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-
-interface Language {
-  id: number;
-  name: string;
-}
+import { FaTrash } from 'react-icons/fa';
+import { Language } from '../profile/profile-builder/ProfileBuilder';
+import { v4 as uuidv4 } from 'uuid';
 
 const LanguagesFieldContainer = styled.div`
   display: flex;
@@ -50,32 +48,58 @@ const AddMoreLanguage = styled.button`
   padding: 10px;
 `;
 
-const LanguagesField: React.FC = () => {
-  const [languages, setLanguages] = useState<Language[]>([
-    {
-      id: 1,
-      name: '',
-    },
-  ]);
+export const TrashIcon = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: none;
+  margin: 0 5px;
+  font-size: 14px;
+  cursor: pointer;
+`;
+
+const TextInputItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+interface LanguagesFieldProps {
+  value: Language[];
+  onChange: (value: Language[]) => void;
+}
+
+const LanguagesField: React.FC<LanguagesFieldProps> = ({ value, onChange }) => {
+  const [languages, setLanguages] = useState<Language[]>(value);
+
+  const handleLanguageChange = (id: string, newValue: string) => {
+    const updatedLanguages = languages.map(language => {
+      if (language.id === id) {
+        return { ...language, language: newValue };
+      }
+      return language;
+    });
+    setLanguages(updatedLanguages);
+    onChange(updatedLanguages);
+  };
 
   const handleAddLanguage = () => {
-    const newId = languages.length + 1;
-    setLanguages([
-      ...languages,
-      {
-        id: newId,
-        name: '',
-      },
-    ]);
+    const newLanguage: Language = { id: uuidv4(), language: '' };
+    const newLanguages = [...languages, newLanguage];
+    setLanguages(newLanguages);
+    onChange(newLanguages);
   };
 
-  const handleChange = (id: number, value: string) => {
-    setLanguages(
-      languages.map(language =>
-        language.id === id ? { ...language, name: value } : language,
-      ),
-    );
+  const handleRemoveLanguage = (id: string) => {
+    const updatedLanguages = languages.filter(language => language.id !== id);
+    setLanguages(updatedLanguages);
+    onChange(updatedLanguages);
   };
+
+  // useEffect(() => {
+  //   onChange(languages);
+  // }, [languages, onChange]);
 
   return (
     <LanguagesFieldContainer>
@@ -89,14 +113,21 @@ const LanguagesField: React.FC = () => {
         <QuestionContainer>
           <h4>9.Which languages are you fluent in?</h4>
         </QuestionContainer>
-        {languages.map(language => (
+        {value.map(language => (
           <TextInputContainer key={language.id}>
-            <TextInput
-              type="text"
-              placeholder="Language"
-              value={language.name}
-              onChange={e => handleChange(language.id, e.target.value)}
-            />
+            <TextInputItem>
+              <TextInput
+                type="text"
+                placeholder="Language"
+                value={language.language}
+                onChange={e =>
+                  handleLanguageChange(language.id, e.target.value)
+                }
+              />
+              <TrashIcon onClick={() => handleRemoveLanguage(language.id)}>
+                <FaTrash />
+              </TrashIcon>
+            </TextInputItem>
           </TextInputContainer>
         ))}
         <AddMoreLanguageContainer>

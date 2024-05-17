@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-// Styled component for the form container
 const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
@@ -34,7 +33,15 @@ const TextInput = styled.input`
   }
 `;
 
-const FirstNameField: React.FC = () => {
+interface FirstNameFieldProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const FirstNameField: React.FC<FirstNameFieldProps> = ({ value, onChange }) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
   return (
     <FormContainer autoComplete="off">
       <motion.div
@@ -48,7 +55,12 @@ const FirstNameField: React.FC = () => {
           <h4>1.What is your first name?</h4>
         </QuestionContainer>
         <TextInputContainer>
-          <TextInput id="first-name" placeholder="Type your answer here" />
+          <TextInput
+            id="first-name"
+            placeholder="Type your answer here"
+            value={value}
+            onChange={handleChange}
+          />
         </TextInputContainer>
       </motion.div>
     </FormContainer>

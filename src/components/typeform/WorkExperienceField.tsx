@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { WorkExperience } from '../profile/profile-builder/ProfileBuilder';
+import { v4 as uuidv4 } from 'uuid';
 
 const WorkExperienceContainer = styled.div`
   display: flex;
@@ -76,41 +78,45 @@ export const TextArea = styled.textarea`
   }
 `;
 
-const WorkExperienceField = () => {
-  const [workExperiences, setWorkExperiences] = useState([
-    {
-      id: 1,
-      jobTitle: '',
-      company: '',
-      startDate: '',
-      endDate: '',
-      jobDetails: '',
-    },
-  ]);
+interface WorkExperienceFieldProps {
+  value: WorkExperience[];
+  onChange: (value: WorkExperience[]) => void;
+}
 
+const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
+  value,
+  onChange,
+}) => {
   const handleAddExperience = () => {
-    const newId = workExperiences.length + 1;
-    setWorkExperiences([
-      ...workExperiences,
+    onChange([
+      ...value,
       {
-        id: newId,
+        id: uuidv4(),
         jobTitle: '',
         company: '',
         startDate: '',
         endDate: '',
-        jobDetails: '',
+        jobDetail: '',
       },
     ]);
   };
 
-  const handleChange = (id: number, field: string, value: string) => {
-    setWorkExperiences(
-      workExperiences.map(exp =>
-        exp.id === id ? { ...exp, [field]: value } : exp,
-      ),
-    );
+  const handleExperienceChange = (
+    id: string,
+    field: string,
+    newValue: string,
+  ) => {
+    const updatedExperience = value.map(exp => {
+      if (exp.id === id) {
+        return {
+          ...exp,
+          [field]: newValue,
+        };
+      }
+      return exp;
+    });
+    onChange(updatedExperience);
   };
-
   return (
     <WorkExperienceContainer>
       <motion.div
@@ -123,7 +129,7 @@ const WorkExperienceField = () => {
         <QuestionContainer>
           <h4>7.Provide your professional details:</h4>
         </QuestionContainer>
-        {workExperiences.map(experience => (
+        {value.map(experience => (
           <ExperienceItem key={experience.id}>
             <TextInputContainer>
               <TextInput
@@ -131,7 +137,11 @@ const WorkExperienceField = () => {
                 placeholder="Job Title"
                 value={experience.jobTitle}
                 onChange={e =>
-                  handleChange(experience.id, 'jobTitle', e.target.value)
+                  handleExperienceChange(
+                    experience.id,
+                    'jobTitle',
+                    e.target.value,
+                  )
                 }
               />
             </TextInputContainer>
@@ -142,7 +152,11 @@ const WorkExperienceField = () => {
                 placeholder="Company"
                 value={experience.company}
                 onChange={e =>
-                  handleChange(experience.id, 'company', e.target.value)
+                  handleExperienceChange(
+                    experience.id,
+                    'company',
+                    e.target.value,
+                  )
                 }
               />
             </TextInputContainer>
@@ -154,7 +168,11 @@ const WorkExperienceField = () => {
                   placeholder="Start Date"
                   value={experience.startDate}
                   onChange={e =>
-                    handleChange(experience.id, 'startDate', e.target.value)
+                    handleExperienceChange(
+                      experience.id,
+                      'startDate',
+                      e.target.value,
+                    )
                   }
                 />
               </TextInputContainer>
@@ -164,7 +182,11 @@ const WorkExperienceField = () => {
                   placeholder="End Date"
                   value={experience.endDate}
                   onChange={e =>
-                    handleChange(experience.id, 'endDate', e.target.value)
+                    handleExperienceChange(
+                      experience.id,
+                      'endDate',
+                      e.target.value,
+                    )
                   }
                 />
               </TextInputContainer>
@@ -173,9 +195,13 @@ const WorkExperienceField = () => {
             <TextInputContainer>
               <TextArea
                 placeholder="Job Details"
-                value={experience.jobDetails}
+                value={experience.jobDetail}
                 onChange={e =>
-                  handleChange(experience.id, 'jobDetails', e.target.value)
+                  handleExperienceChange(
+                    experience.id,
+                    'jobDetail',
+                    e.target.value,
+                  )
                 }
               />
             </TextInputContainer>

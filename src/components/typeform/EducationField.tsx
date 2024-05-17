@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-
-interface Education {
-  id: number;
-  course: string;
-  school: string;
-  startDate: string;
-  endDate: string;
-}
+import { Education } from '../profile/profile-builder/ProfileBuilder';
+import { v4 as uuidv4 } from 'uuid';
 
 const EducationFieldContainer = styled.div`
   display: flex;
@@ -32,6 +26,7 @@ const QuestionContainer = styled.div`
 const TextInputContainer = styled.div`
   width: 100%;
   padding: 5px;
+  margin-bottom: 20px;
 `;
 
 const DateContainer = styled.div`
@@ -70,37 +65,46 @@ const AddEducation = styled.button`
   padding: 10px;
 `;
 
-const EducationField: React.FC = () => {
-  const [educations, setEducations] = useState<Education[]>([
-    {
-      id: 1,
-      course: '',
-      school: '',
-      startDate: '',
-      endDate: '',
-    },
-  ]);
+const EducationItemsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
+interface EducationFieldProps {
+  value: Education[];
+  onChange: (value: Education[]) => void;
+}
+
+const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
   const handleAddEducation = () => {
-    const newId = educations.length + 1;
-    setEducations([
-      ...educations,
+    onChange([
+      ...value,
       {
-        id: newId,
-        course: '',
+        id: uuidv4(),
         school: '',
+        course: '',
         startDate: '',
         endDate: '',
       },
     ]);
   };
 
-  const handleChange = (id: number, field: keyof Education, value: string) => {
-    setEducations(
-      educations.map(edu => (edu.id === id ? { ...edu, [field]: value } : edu)),
-    );
+  const handleEducationChange = (
+    id: string,
+    field: string,
+    newValue: string,
+  ) => {
+    const updatedEducations = value.map(edu => {
+      if (edu.id === id) {
+        return {
+          ...edu,
+          [field]: newValue,
+        };
+      }
+      return edu;
+    });
+    onChange(updatedEducations);
   };
-
   return (
     <EducationFieldContainer>
       <motion.div
@@ -113,15 +117,15 @@ const EducationField: React.FC = () => {
         <QuestionContainer>
           <h4>6.Provide your educational details:</h4>
         </QuestionContainer>
-        {educations.map(education => (
-          <EducationItem key={education.id}>
+        {value.map(education => (
+          <EducationItemsContainer key={education.id}>
             <TextInputContainer>
               <TextInput
                 type="text"
                 placeholder="Course"
                 value={education.course}
                 onChange={e =>
-                  handleChange(education.id, 'course', e.target.value)
+                  handleEducationChange(education.id, 'course', e.target.value)
                 }
               />
             </TextInputContainer>
@@ -131,7 +135,7 @@ const EducationField: React.FC = () => {
                 placeholder="School"
                 value={education.school}
                 onChange={e =>
-                  handleChange(education.id, 'school', e.target.value)
+                  handleEducationChange(education.id, 'school', e.target.value)
                 }
               />
             </TextInputContainer>
@@ -142,7 +146,11 @@ const EducationField: React.FC = () => {
                   placeholder="Start Date"
                   value={education.startDate}
                   onChange={e =>
-                    handleChange(education.id, 'startDate', e.target.value)
+                    handleEducationChange(
+                      education.id,
+                      'startDate',
+                      e.target.value,
+                    )
                   }
                 />
               </TextInputContainer>
@@ -152,12 +160,16 @@ const EducationField: React.FC = () => {
                   placeholder="End Date"
                   value={education.endDate}
                   onChange={e =>
-                    handleChange(education.id, 'endDate', e.target.value)
+                    handleEducationChange(
+                      education.id,
+                      'endDate',
+                      e.target.value,
+                    )
                   }
                 />
               </TextInputContainer>
             </DateContainer>
-          </EducationItem>
+          </EducationItemsContainer>
         ))}
         <AddEducationContainer>
           <AddEducation onClick={handleAddEducation}>

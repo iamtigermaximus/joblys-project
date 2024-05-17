@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
@@ -33,7 +33,15 @@ const TextInput = styled.input`
   }
 `;
 
-const LastNameField: React.FC = () => {
+interface LastNameFieldProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const LastNameField: React.FC<LastNameFieldProps> = ({ value, onChange }) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
   return (
     <FormContainer autoComplete="off">
       <motion.div
@@ -46,7 +54,12 @@ const LastNameField: React.FC = () => {
         <QuestionContainer>
           <h4>2.What is your last name?</h4>
         </QuestionContainer>
-        <TextInput id="last-name" placeholder="Type your answer here" />
+        <TextInput
+          id="last-name"
+          placeholder="Type your answer here"
+          value={value}
+          onChange={handleChange}
+        />
       </motion.div>
     </FormContainer>
   );

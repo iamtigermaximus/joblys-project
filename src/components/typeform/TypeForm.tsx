@@ -1,7 +1,7 @@
 import React, { useState, ReactNode } from 'react';
 import styled from 'styled-components';
+import { Profile } from '../profile/profile-builder/ProfileBuilder';
 
-// Styled components for the form container and button group
 const FormContainer = styled.div`
   /* height: 100vh; */
   display: flex;
@@ -44,13 +44,18 @@ const Button = styled.button`
 
 interface TypeFormProps {
   children: ReactNode[];
-  onSubmit: (formData: Record<string, string>) => void;
+  formData: Profile;
+  setFormData: (data: Profile) => void;
+  onSubmit: () => void;
 }
 
-const TypeForm: React.FC<TypeFormProps> = ({ children, onSubmit }) => {
+const TypeForm: React.FC<TypeFormProps> = ({
+  children,
+  formData,
+  setFormData,
+  onSubmit,
+}) => {
   const [fields, setFields] = useState(0);
-
-  const [formData, setFormData] = useState<Record<string, string>>({});
 
   const nextField = () => {
     if (fields < children.length - 1) setFields(prev => prev + 1);
@@ -60,14 +65,9 @@ const TypeForm: React.FC<TypeFormProps> = ({ children, onSubmit }) => {
     if (fields > 0) setFields(prev => prev - 1);
   };
 
-  const handleChange = (fieldName: string, value: string) => {
-    setFormData(prevData => ({ ...prevData, [fieldName]: value }));
-  };
-
   const handleSubmit = () => {
-    onSubmit(formData);
+    onSubmit();
   };
-
   return (
     <>
       <FormContainer onSubmit={handleSubmit}>
