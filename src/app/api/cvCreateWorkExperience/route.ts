@@ -5,22 +5,21 @@ import OpenAI from 'openai';
 import { Resume } from '@/types/profile';
 
 const parserPromt = `
-Task: Elevate a user's professional experience into impactful achievements tailored for their CV.
+This prompt focuses on extracting impactful achievements for a CV based solely on the user's job title.
 
-Input:
-  Job Title: The user's job title ({job_title}).
-  Original Responsibilities: A detailed list outlining the user's duties {original_responsibilities}.
-  Number of Sentences: The desired number of distinct sentences for the refined achievements ({number_sentences}).
+  Input:
+  Job Title: The user's current or past job title ({job_title})
 
-Instructions:
-  Analyze the Action and Impact: Identify the key action the user performed without adding any new facts and numbers.
-  Consider Skills: Think about the skills and expertise associated with the user's job title ({job_title}).
-  Rephrase for Impact: Rewrite the responsibility using strong past-tense action verbs and action-oriented language that showcases the user's relevant skills. 
-  Maintain Meaning: Ensure the rewritten sentence accurately reflects the original accomplishment.
+  Output:
+  A bulleted list of 3-5 concise sentences (ideally 3) highlighting achievements relevant to the provided job title. Each sentence should:
+  Emphasize accomplishments using strong action verbs and achievement-oriented language.
+  Be tailored for inclusion in a CV, without mentioning the specific job title.
 
-Output:
-  Professional Achievements:  A bullet points list of {number_sentences} separate sentences. Each sentence should spotlight the user's achievements in concise and professional language, ideal for inclusion in a CV (without specifying the job title).
-
+  Instructions:
+  Identify Key Skills: Based on the provided job title ({job_title}), brainstorm the key skills and expertise typically associated with that role.
+  Craft Achievement Examples: Generate 3-5 bullet point sentences that showcase the user's potential achievements in those identified skills.
+  Action Verbs & Impact: Focus on action verbs that demonstrate initiative and accomplishment.
+  Maintain Relevance: Ensure each achievement is relevant to the provided job title and transferable to various work environments.
 `;
 
 const openAI = new OpenAI({
@@ -135,12 +134,10 @@ export async function POST(req: NextRequest) {
 
   const replacementMap: Record<string, string> = {
     '{job_title}': resumeData.professional.currentRole,
-    '{number_sentences}': formattedResponsibilities.length.toString(),
-    '{original_responsibilities}': formattedResponsibilities.join('. '),
   };
 
   const modifiedPrompt = parserPromt.replace(
-    /{original_responsibilities}|{number_sentences}|{job_title}/g,
+    /{job_title}/g,
     match => replacementMap[match],
   );
 
