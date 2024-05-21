@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Link } from '../profile/profile-builder/ProfileBuilder';
 import { FaTrash } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
+import { Link } from '@/types/profile';
 
 interface Links {
   linkedin: string;
@@ -84,7 +84,7 @@ const LinksField: React.FC<LinksFieldProps> = ({ value, onChange }) => {
   const handleLinkChange = (id: string, newValue: string) => {
     const updatedLinks = links.map(link => {
       if (link.id === id) {
-        return { ...link, link: newValue };
+        return { ...link, url: newValue };
       }
       return link;
     });
@@ -93,7 +93,7 @@ const LinksField: React.FC<LinksFieldProps> = ({ value, onChange }) => {
   };
 
   const handleAddLink = () => {
-    const newLink: Link = { id: uuidv4(), link: '' };
+    const newLink: Link = { id: uuidv4(), url: '' };
     const newLinks = [...links, newLink];
     setLinks(newLinks);
     onChange(newLinks);
@@ -127,7 +127,7 @@ const LinksField: React.FC<LinksFieldProps> = ({ value, onChange }) => {
               <TextInput
                 type="text"
                 placeholder="Link"
-                value={link.link}
+                value={link.url}
                 onChange={e => handleLinkChange(link.id, e.target.value)}
               />
               <TrashIcon onClick={() => handleRemoveLink(link.id)}>

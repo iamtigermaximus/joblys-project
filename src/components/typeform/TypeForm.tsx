@@ -1,6 +1,6 @@
+import { Profile } from '@/types/profile';
 import React, { useState, ReactNode } from 'react';
 import styled from 'styled-components';
-import { Profile } from '../profile/profile-builder/ProfileBuilder';
 
 const FormContainer = styled.div`
   /* height: 100vh; */

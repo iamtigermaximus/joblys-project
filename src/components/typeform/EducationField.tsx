@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Education } from '../profile/profile-builder/ProfileBuilder';
 import { v4 as uuidv4 } from 'uuid';
+import { Education } from '@/types/profile';
 
 const EducationFieldContainer = styled.div`
   display: flex;
@@ -70,6 +70,41 @@ const EducationItemsContainer = styled.div`
   flex-direction: column;
 `;
 
+export const InputLabel = styled.label`
+  font-size: 10px;
+  font-size: 14px;
+  padding: 10px;
+  color: gray;
+`;
+
+export const DropdownContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const MonthSelect = styled.select`
+  width: 50%;
+  background-color: #f5f5f5;
+  height: 40px;
+  padding: 8px;
+  border: none;
+  margin-right: 5px;
+  font-size: 14px;
+  color: gray;
+`;
+
+export const YearSelect = styled.select`
+  width: 50%;
+  background-color: #f5f5f5;
+  height: 40px;
+  padding: 8px;
+  border: none;
+  font-size: 14px;
+  color: gray;
+`;
+
 interface EducationFieldProps {
   value: Education[];
   onChange: (value: Education[]) => void;
@@ -83,16 +118,31 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
         id: uuidv4(),
         school: '',
         course: '',
-        startDate: '',
-        endDate: '',
+        startDate: { month: '01', year: `${new Date().getFullYear()}` },
+        endDate: { month: '01', year: `${new Date().getFullYear()}` },
       },
     ]);
   };
 
+  const generateMonths = () => {
+    return Array.from({ length: 12 }, (_, index) => {
+      const month = index + 1;
+      return month < 10 ? `0${month}` : `${month}`;
+    });
+  };
+
+  const generateYears = () => {
+    const currentYear = new Date().getFullYear();
+    return Array.from({ length: 10 }, (_, index) => currentYear - index);
+  };
+
+  const months = generateMonths();
+  const years = generateYears();
+
   const handleEducationChange = (
     id: string,
     field: string,
-    newValue: string,
+    newValue: string | { month: string; year: string },
   ) => {
     const updatedEducations = value.map(edu => {
       if (edu.id === id) {
@@ -141,7 +191,7 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
             </TextInputContainer>
             <DateContainer>
               <TextInputContainer>
-                <TextInput
+                {/* <TextInput
                   type="date"
                   placeholder="Start Date"
                   value={education.startDate}
@@ -152,21 +202,85 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
                       e.target.value,
                     )
                   }
-                />
+                /> */}
+                <InputLabel>Start date:</InputLabel>
+                <DropdownContainer>
+                  <MonthSelect
+                    value={education.startDate.month}
+                    onChange={e =>
+                      handleEducationChange(education.id, 'startDate', {
+                        ...education.startDate,
+                        month: e.target.value,
+                      })
+                    }
+                  >
+                    {months.map(month => (
+                      <option key={month} value={month}>
+                        {new Date(2022, parseInt(month) - 1).toLocaleString(
+                          'default',
+                          {
+                            month: 'long',
+                          },
+                        )}
+                      </option>
+                    ))}
+                  </MonthSelect>
+                  <YearSelect
+                    value={education.startDate.year}
+                    onChange={e =>
+                      handleEducationChange(education.id, 'startDate', {
+                        ...education.startDate,
+                        year: e.target.value,
+                      })
+                    }
+                  >
+                    {years.map(year => (
+                      <option key={year} value={year.toString()}>
+                        {year}
+                      </option>
+                    ))}
+                  </YearSelect>
+                </DropdownContainer>
               </TextInputContainer>
               <TextInputContainer>
-                <TextInput
-                  type="date"
-                  placeholder="End Date"
-                  value={education.endDate}
-                  onChange={e =>
-                    handleEducationChange(
-                      education.id,
-                      'endDate',
-                      e.target.value,
-                    )
-                  }
-                />
+                <InputLabel>End date:</InputLabel>
+                <DropdownContainer>
+                  <MonthSelect
+                    value={education.endDate.month}
+                    onChange={e =>
+                      handleEducationChange(education.id, 'endDate', {
+                        ...education.endDate,
+                        month: e.target.value,
+                      })
+                    }
+                  >
+                    {months.map(month => (
+                      <option key={month} value={month}>
+                        {new Date(2022, parseInt(month) - 1).toLocaleString(
+                          'default',
+                          {
+                            month: 'long',
+                          },
+                        )}
+                      </option>
+                    ))}
+                  </MonthSelect>
+                  <YearSelect
+                    value={education.endDate.year}
+                    onChange={e =>
+                      handleEducationChange(education.id, 'endDate', {
+                        ...education.endDate,
+                        year: e.target.value,
+                      })
+                    }
+                  >
+                    {years.map(year => (
+                      <option key={year} value={year.toString()}>
+                        {year}
+                      </option>
+                    ))}
+                  </YearSelect>
+                </DropdownContainer>
               </TextInputContainer>
             </DateContainer>
           </EducationItemsContainer>

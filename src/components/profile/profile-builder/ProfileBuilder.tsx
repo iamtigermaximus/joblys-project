@@ -14,50 +14,14 @@ import WorkExperienceField from '@/components/typeform/WorkExperienceField';
 import { breakpoints as bp } from '@/utils/layout';
 import colors from '@/utils/colors';
 import styled from 'styled-components';
-
-export interface WorkExperience {
-  id: string;
-  company: string;
-  jobTitle: string;
-  startDate: string;
-  endDate?: string;
-  jobDetail: string;
-}
-
-export interface Education {
-  id: string;
-  school: string;
-  course: string;
-  startDate: string;
-  endDate: string;
-}
-
-export interface Language {
-  id: string;
-  language: string;
-}
-
-export interface Skill {
-  id: string;
-  skill: string;
-}
-
-export interface Link {
-  id: string;
-  link: string;
-}
-
-export interface Profile {
-  firstName: string;
-  lastName: string;
-  email: string;
-  contact: string;
-  links: Link[];
-  educational: Education[];
-  professional: WorkExperience[];
-  skills: Skill[];
-  languages: Language[];
-}
+import {
+  Education,
+  Language,
+  Link,
+  Profile,
+  Skill,
+  WorkExperience,
+} from '@/types/profile';
 
 export const Container = styled.div`
   display: flex;
@@ -96,7 +60,26 @@ const ProfileBuilder = () => {
     setShowForm(true);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('/api/profile', {
+        method: 'POST',
+        body: JSON.stringify({ profile: formData }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload resume');
+      }
+
+      const respJson = await response.json();
+      const id = respJson?.body?.id;
+      if (!id) {
+        throw new Error('Did not receive resume id from server');
+      }
+    } catch (error: any) {
+      console.error('Error uploading resume:', error.message);
+    }
+
     console.log('Form submitted with data:', formData);
   };
   return (

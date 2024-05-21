@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaTrash } from 'react-icons/fa';
-import { Language } from '../profile/profile-builder/ProfileBuilder';
 import { v4 as uuidv4 } from 'uuid';
+import { Language } from '@/types/profile';
 
 const LanguagesFieldContainer = styled.div`
   display: flex;
@@ -76,7 +76,7 @@ const LanguagesField: React.FC<LanguagesFieldProps> = ({ value, onChange }) => {
   const handleLanguageChange = (id: string, newValue: string) => {
     const updatedLanguages = languages.map(language => {
       if (language.id === id) {
-        return { ...language, language: newValue };
+        return { ...language, name: newValue };
       }
       return language;
     });
@@ -85,7 +85,7 @@ const LanguagesField: React.FC<LanguagesFieldProps> = ({ value, onChange }) => {
   };
 
   const handleAddLanguage = () => {
-    const newLanguage: Language = { id: uuidv4(), language: '' };
+    const newLanguage: Language = { id: uuidv4(), name: '' };
     const newLanguages = [...languages, newLanguage];
     setLanguages(newLanguages);
     onChange(newLanguages);
@@ -119,7 +119,7 @@ const LanguagesField: React.FC<LanguagesFieldProps> = ({ value, onChange }) => {
               <TextInput
                 type="text"
                 placeholder="Language"
-                value={language.language}
+                value={language.name}
                 onChange={e =>
                   handleLanguageChange(language.id, e.target.value)
                 }

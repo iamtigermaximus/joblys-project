@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaTrash } from 'react-icons/fa';
-import { Skill } from '../profile/profile-builder/ProfileBuilder';
 import { v4 as uuidv4 } from 'uuid';
+import { Skill } from '@/types/profile';
 
 const SkillsFieldContainer = styled.div`
   display: flex;
@@ -76,7 +76,7 @@ const SkillsField: React.FC<SkillsFieldProps> = ({ value, onChange }) => {
   const handleSkillChange = (id: string, newValue: string) => {
     const updatedSkills = skills.map(skill => {
       if (skill.id === id) {
-        return { ...skill, skill: newValue };
+        return { ...skill, name: newValue };
       }
       return skill;
     });
@@ -85,7 +85,7 @@ const SkillsField: React.FC<SkillsFieldProps> = ({ value, onChange }) => {
   };
 
   const handleAddSkill = () => {
-    const newSkill: Skill = { id: uuidv4(), skill: '' };
+    const newSkill: Skill = { id: uuidv4(), name: '' };
     const newSkills = [...skills, newSkill];
     setSkills(newSkills);
     onChange(newSkills);
@@ -119,7 +119,7 @@ const SkillsField: React.FC<SkillsFieldProps> = ({ value, onChange }) => {
               <TextInput
                 type="text"
                 placeholder="Skill"
-                value={skill.skill}
+                value={skill.name}
                 onChange={e => handleSkillChange(skill.id, e.target.value)}
               />
               <TrashIcon onClick={() => handleRemoveSkill(skill.id)}>

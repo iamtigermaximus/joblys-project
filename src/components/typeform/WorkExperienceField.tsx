@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { WorkExperience } from '../profile/profile-builder/ProfileBuilder';
 import { v4 as uuidv4 } from 'uuid';
+import { WorkExperience } from '@/types/profile';
 
 const WorkExperienceContainer = styled.div`
   display: flex;
@@ -78,6 +78,41 @@ export const TextArea = styled.textarea`
   }
 `;
 
+export const InputLabel = styled.label`
+  font-size: 10px;
+  font-size: 14px;
+  padding: 10px;
+  color: gray;
+`;
+
+export const DropdownContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const MonthSelect = styled.select`
+  width: 50%;
+  background-color: #f5f5f5;
+  height: 40px;
+  padding: 8px;
+  border: none;
+  margin-right: 5px;
+  font-size: 14px;
+  color: gray;
+`;
+
+export const YearSelect = styled.select`
+  width: 50%;
+  background-color: #f5f5f5;
+  height: 40px;
+  padding: 8px;
+  border: none;
+  font-size: 14px;
+  color: gray;
+`;
+
 interface WorkExperienceFieldProps {
   value: WorkExperience[];
   onChange: (value: WorkExperience[]) => void;
@@ -94,17 +129,32 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
         id: uuidv4(),
         jobTitle: '',
         company: '',
-        startDate: '',
-        endDate: '',
-        jobDetail: '',
+        startDate: { month: '01', year: `${new Date().getFullYear()}` },
+        endDate: { month: '01', year: `${new Date().getFullYear()}` },
+        jobDetails: '',
       },
     ]);
   };
 
+  const generateMonths = () => {
+    return Array.from({ length: 12 }, (_, index) => {
+      const month = index + 1;
+      return month < 10 ? `0${month}` : `${month}`;
+    });
+  };
+
+  const generateYears = () => {
+    const currentYear = new Date().getFullYear();
+    return Array.from({ length: 10 }, (_, index) => currentYear - index);
+  };
+
+  const months = generateMonths();
+  const years = generateYears();
+
   const handleExperienceChange = (
     id: string,
     field: string,
-    newValue: string,
+    newValue: string | { month: string; year: string },
   ) => {
     const updatedExperience = value.map(exp => {
       if (exp.id === id) {
@@ -163,43 +213,95 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
 
             <DateContainer>
               <TextInputContainer>
-                <TextInput
-                  type="date"
-                  placeholder="Start Date"
-                  value={experience.startDate}
-                  onChange={e =>
-                    handleExperienceChange(
-                      experience.id,
-                      'startDate',
-                      e.target.value,
-                    )
-                  }
-                />
+                <InputLabel>Start date:</InputLabel>
+                <DropdownContainer>
+                  <MonthSelect
+                    value={experience.startDate.month}
+                    onChange={e =>
+                      handleExperienceChange(experience.id, 'startDate', {
+                        ...experience.startDate,
+                        month: e.target.value,
+                      })
+                    }
+                  >
+                    {months.map(month => (
+                      <option key={month} value={month}>
+                        {new Date(2022, parseInt(month) - 1).toLocaleString(
+                          'default',
+                          {
+                            month: 'long',
+                          },
+                        )}
+                      </option>
+                    ))}
+                  </MonthSelect>
+                  <YearSelect
+                    value={experience.startDate.year}
+                    onChange={e =>
+                      handleExperienceChange(experience.id, 'startDate', {
+                        ...experience.startDate,
+                        year: e.target.value,
+                      })
+                    }
+                  >
+                    {years.map(year => (
+                      <option key={year} value={year.toString()}>
+                        {year}
+                      </option>
+                    ))}
+                  </YearSelect>
+                </DropdownContainer>
               </TextInputContainer>
               <TextInputContainer>
-                <TextInput
-                  type="date"
-                  placeholder="End Date"
-                  value={experience.endDate}
-                  onChange={e =>
-                    handleExperienceChange(
-                      experience.id,
-                      'endDate',
-                      e.target.value,
-                    )
-                  }
-                />
+                <InputLabel>End date:</InputLabel>
+                <DropdownContainer>
+                  <MonthSelect
+                    value={experience.endDate.month}
+                    onChange={e =>
+                      handleExperienceChange(experience.id, 'endDate', {
+                        ...experience.endDate,
+                        month: e.target.value,
+                      })
+                    }
+                  >
+                    {months.map(month => (
+                      <option key={month} value={month}>
+                        {new Date(2022, parseInt(month) - 1).toLocaleString(
+                          'default',
+                          {
+                            month: 'long',
+                          },
+                        )}
+                      </option>
+                    ))}
+                  </MonthSelect>
+                  <YearSelect
+                    value={experience.endDate.year}
+                    onChange={e =>
+                      handleExperienceChange(experience.id, 'endDate', {
+                        ...experience.endDate,
+                        year: e.target.value,
+                      })
+                    }
+                  >
+                    {years.map(year => (
+                      <option key={year} value={year.toString()}>
+                        {year}
+                      </option>
+                    ))}
+                  </YearSelect>
+                </DropdownContainer>
               </TextInputContainer>
             </DateContainer>
 
             <TextInputContainer>
               <TextArea
                 placeholder="Job Details"
-                value={experience.jobDetail}
+                value={experience.jobDetails}
                 onChange={e =>
                   handleExperienceChange(
                     experience.id,
-                    'jobDetail',
+                    'jobDetails',
                     e.target.value,
                   )
                 }
