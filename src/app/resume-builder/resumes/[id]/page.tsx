@@ -11,7 +11,7 @@ import {
 import PageHeader from '@/components/common/page-header/PageHeader';
 import { Resume, initialResume } from '@/types/profile';
 import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
-import ResumeForm from '@/components/resumeBuilderForms/profile-form/ResumeForm';
+import ResumeForm from '@/components/resumeBuilderForms/resume-form/ResumeForm';
 
 const ProfileBuilderPage: FC = () => {
   const params = useParams() as { id: string };

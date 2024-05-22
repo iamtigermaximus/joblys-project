@@ -7,7 +7,7 @@ const ProfilePage = () => {
   return (
     <Container>
       <div>
-        <title>CREATE PROFILE</title>
+        <title>PROFILE</title>
       </div>
       {/* <PageHeader /> */}
       <CreateProfile />

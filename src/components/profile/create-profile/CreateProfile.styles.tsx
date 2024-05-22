@@ -24,6 +24,26 @@ export const Container = styled.div`
   }
 `;
 
+export const ProfileContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* padding: 100px 30px; */
+  overflow-y: scroll;
+  /* border: 1px solid red; */
+  height: 100vh;
+  align-items: center;
+  /* background-color: pink; */
+
+  @media (min-width: ${bp.md}) {
+    /* padding: 50px; */
+  }
+
+  @media (min-width: ${bp.lg}) {
+    padding: 100px;
+  }
+`;
+
 export const TitleContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -70,4 +90,6 @@ export const CreateProfileContainer = styled.div`
 
 export const ProfileFormContainer = styled.div`
   /* border: 1px solid red; */
+  width: 100%;
+  /* background-color: pink; */
 `;

@@ -1,4 +1,5 @@
 import { Profile } from '@/types/profile';
+import { useRouter } from 'next/navigation';
 import React, { useState, ReactNode } from 'react';
 import styled from 'styled-components';
 
@@ -56,6 +57,7 @@ const TypeForm: React.FC<TypeFormProps> = ({
   onSubmit,
 }) => {
   const [fields, setFields] = useState(0);
+  const router = useRouter();
 
   const nextField = () => {
     if (fields < children.length - 1) setFields(prev => prev + 1);
@@ -65,8 +67,13 @@ const TypeForm: React.FC<TypeFormProps> = ({
     if (fields > 0) setFields(prev => prev - 1);
   };
 
-  const handleSubmit = () => {
-    onSubmit();
+  const handleSubmit = async () => {
+    try {
+      await onSubmit();
+      router.push('/joblys/profile');
+    } catch (error: any) {
+      console.error('Error:', error);
+    }
   };
   return (
     <>

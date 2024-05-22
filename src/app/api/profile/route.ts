@@ -95,3 +95,41 @@ export async function POST(req: NextRequest) {
     { status: 201 },
   );
 }
+
+export async function GET(req: NextRequest) {
+  const token = await getToken({ req });
+  if (!token) {
+    console.error('Invalid token');
+    return NextResponse.json({ message: 'Invalid token' }, { status: 401 });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: token.sub },
+  });
+
+  if (!user) {
+    console.error('User not found');
+    return NextResponse.json({ message: 'User not found' }, { status: 401 });
+  }
+
+  try {
+    const profile = await prisma.profiles.findUnique({
+      where: { ownerId: user.id },
+    });
+
+    if (!profile) {
+      return NextResponse.json(
+        { message: 'Profile not found' },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json(profile, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching profile:', error);
+    return NextResponse.json(
+      { message: 'Internal server error' },
+      { status: 500 },
+    );
+  }
+}
