@@ -3,14 +3,19 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { v4 as uuidv4 } from 'uuid';
 import { Education } from '@/types/profile';
+import { breakpoints as bp } from '@/utils/layout';
 
 const EducationFieldContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 400px;
+  width: 100%;
   min-height: 200px;
+
+  @media (min-width: ${bp.md}) {
+    width: 400px;
+  }
 `;
 
 const EducationItem = styled.div`
@@ -20,8 +25,11 @@ const EducationItem = styled.div`
 `;
 
 const QuestionContainer = styled.div`
-  width: 100%;
   padding: 20px 10px;
+
+  @media (min-width: ${bp.md}) {
+    width: 100%;
+  }
 `;
 const TextInputContainer = styled.div`
   width: 100%;

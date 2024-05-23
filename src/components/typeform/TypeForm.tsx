@@ -2,6 +2,7 @@ import { Profile } from '@/types/profile';
 import { useRouter } from 'next/navigation';
 import React, { useState, ReactNode } from 'react';
 import styled from 'styled-components';
+import { breakpoints as bp } from '@/utils/layout';
 
 const FormContainer = styled.div`
   /* height: 100vh; */
@@ -21,7 +22,7 @@ const FieldContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 400px;
+  /* width: 400px; */
   /* border: 1px solid red; */
 `;
 

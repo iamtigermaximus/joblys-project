@@ -1,20 +1,28 @@
 import React, { ChangeEvent } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
+import { breakpoints as bp } from '@/utils/layout';
 
 const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 400px;
+  width: 100%;
   height: 200px;
   /* background-color: pink; */
+
+  @media (min-width: ${bp.md}) {
+    width: 400px;
+  }
 `;
 
 const QuestionContainer = styled.div`
-  width: 100%;
   padding: 20px 10px;
+
+  @media (min-width: ${bp.md}) {
+    width: 100%;
+  }
 `;
 const TextInputContainer = styled.div`
   width: 100%;
