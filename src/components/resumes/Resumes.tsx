@@ -91,10 +91,16 @@ const Resumes = () => {
       <HeaderContainer>
         <PageName>Resumes</PageName>
         <ViewModeContainer>
-          <ViewMode onClick={() => handleViewModeChange('card')}>
+          <ViewMode
+            onClick={() => handleViewModeChange('card')}
+            active={viewMode === 'card'}
+          >
             <MdViewModule />
           </ViewMode>
-          <ViewMode onClick={() => handleViewModeChange('list')}>
+          <ViewMode
+            onClick={() => handleViewModeChange('list')}
+            active={viewMode === 'list'}
+          >
             <MdViewList />
           </ViewMode>
         </ViewModeContainer>

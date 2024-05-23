@@ -109,10 +109,26 @@ export const ViewModeContainer = styled.div`
   gap: 2px;
 `;
 
-export const ViewMode = styled.button`
+export const ViewModes = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 5px;
   font-size: 20px;
+`;
+
+export const ViewMode = styled.button<{ active: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  font-size: 20px;
+  background-color: ${props => (props.active ? '#520668' : 'transparent')};
+  color: ${props => (props.active ? '#fff' : '#000')};
+  cursor: pointer;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: ${props => (props.active ? '#520668' : '#f0f0f0')};
+  }
 `;
