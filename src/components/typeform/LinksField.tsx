@@ -11,7 +11,7 @@ interface Links {
   additionalLinks: string[];
 }
 
-const LinksFieldContainer = styled.form`
+const LinksFieldContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
