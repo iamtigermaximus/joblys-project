@@ -79,8 +79,9 @@ interface LanguagesFieldProps {
 }
 
 const LanguagesField: React.FC<LanguagesFieldProps> = ({ value, onChange }) => {
-  const [languages, setLanguages] = useState<Language[]>(value);
-
+  const [languages, setLanguages] = useState<Language[]>(() => {
+    return value.length > 0 ? value : [{ id: uuidv4(), name: '' }];
+  });
   const handleLanguageChange = (id: string, newValue: string) => {
     const updatedLanguages = languages.map(language => {
       if (language.id === id) {
@@ -121,7 +122,7 @@ const LanguagesField: React.FC<LanguagesFieldProps> = ({ value, onChange }) => {
         <QuestionContainer>
           <h4>9.Which languages are you fluent in?</h4>
         </QuestionContainer>
-        {value.map(language => (
+        {languages.map(language => (
           <TextInputContainer key={language.id}>
             <TextInputItem>
               <TextInput

@@ -78,7 +78,9 @@ interface SkillsFieldProps {
 }
 
 const SkillsField: React.FC<SkillsFieldProps> = ({ value, onChange }) => {
-  const [skills, setSkills] = useState<Skill[]>(value);
+  const [skills, setSkills] = useState<Skill[]>(() => {
+    return value.length > 0 ? value : [{ id: uuidv4(), name: '' }];
+  });
 
   const handleSkillChange = (id: string, newValue: string) => {
     const updatedSkills = skills.map(skill => {
@@ -120,7 +122,7 @@ const SkillsField: React.FC<SkillsFieldProps> = ({ value, onChange }) => {
         <QuestionContainer>
           <h4>8.Add your skills:</h4>
         </QuestionContainer>
-        {value.map(skill => (
+        {skills.map(skill => (
           <TextInputContainer key={skill.id}>
             <TextInputItem>
               <TextInput

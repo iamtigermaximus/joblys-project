@@ -119,17 +119,49 @@ interface EducationFieldProps {
 }
 
 const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
+  const [educations, setEducations] = useState<Education[]>(() => {
+    return value.length > 0
+      ? value
+      : [
+          {
+            id: uuidv4(),
+            school: '',
+            course: '',
+            startDate: { month: '01', year: `${new Date().getFullYear()}` },
+            endDate: { month: '01', year: `${new Date().getFullYear()}` },
+          },
+        ];
+  });
+
+  const handleEducationChange = (
+    id: string,
+    field: string,
+    newValue: string | { month: string; year: string },
+  ) => {
+    const updatedEducations = educations.map(edu => {
+      if (edu.id === id) {
+        return {
+          ...edu,
+          [field]: newValue,
+        };
+      }
+      return edu;
+    });
+    setEducations(updatedEducations);
+    onChange(updatedEducations);
+  };
+
   const handleAddEducation = () => {
-    onChange([
-      ...value,
-      {
-        id: uuidv4(),
-        school: '',
-        course: '',
-        startDate: { month: '01', year: `${new Date().getFullYear()}` },
-        endDate: { month: '01', year: `${new Date().getFullYear()}` },
-      },
-    ]);
+    const newEducation: Education = {
+      id: uuidv4(),
+      school: '',
+      course: '',
+      startDate: { month: '01', year: `${new Date().getFullYear()}` },
+      endDate: { month: '01', year: `${new Date().getFullYear()}` },
+    };
+    const newEducations = [...educations, newEducation];
+    setEducations(newEducations);
+    onChange(newEducations);
   };
 
   const generateMonths = () => {
@@ -147,22 +179,6 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
   const months = generateMonths();
   const years = generateYears();
 
-  const handleEducationChange = (
-    id: string,
-    field: string,
-    newValue: string | { month: string; year: string },
-  ) => {
-    const updatedEducations = value.map(edu => {
-      if (edu.id === id) {
-        return {
-          ...edu,
-          [field]: newValue,
-        };
-      }
-      return edu;
-    });
-    onChange(updatedEducations);
-  };
   return (
     <EducationFieldContainer>
       <motion.div
@@ -175,7 +191,7 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
         <QuestionContainer>
           <h4>6.Provide your educational details:</h4>
         </QuestionContainer>
-        {value.map(education => (
+        {educations.map(education => (
           <EducationItemsContainer key={education.id}>
             <TextInputContainer>
               <TextInput

@@ -88,8 +88,9 @@ interface LinksFieldProps {
 }
 
 const LinksField: React.FC<LinksFieldProps> = ({ value, onChange }) => {
-  const [links, setLinks] = useState<Link[]>(value);
-
+  const [links, setLinks] = useState<Link[]>(() => {
+    return value.length > 0 ? value : [{ id: uuidv4(), url: '' }];
+  });
   const handleLinkChange = (id: string, newValue: string) => {
     const updatedLinks = links.map(link => {
       if (link.id === id) {
@@ -130,7 +131,7 @@ const LinksField: React.FC<LinksFieldProps> = ({ value, onChange }) => {
         <QuestionContainer>
           <h4>5.Provide your links:</h4>
         </QuestionContainer>
-        {value.map(link => (
+        {links.map(link => (
           <TextInputContainer key={link.id}>
             <TextInputItem>
               <TextInput

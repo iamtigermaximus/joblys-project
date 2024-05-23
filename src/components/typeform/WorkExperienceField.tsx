@@ -130,18 +130,51 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
   value,
   onChange,
 }) => {
+  const [experiences, setExperiences] = useState<WorkExperience[]>(() => {
+    return value.length > 0
+      ? value
+      : [
+          {
+            id: uuidv4(),
+            jobTitle: '',
+            company: '',
+            startDate: { month: '01', year: `${new Date().getFullYear()}` },
+            endDate: { month: '01', year: `${new Date().getFullYear()}` },
+            jobDetails: '',
+          },
+        ];
+  });
+
+  const handleExperienceChange = (
+    id: string,
+    field: string,
+    newValue: string | { month: string; year: string },
+  ) => {
+    const updatedExperiences = experiences.map(exp => {
+      if (exp.id === id) {
+        return {
+          ...exp,
+          [field]: newValue,
+        };
+      }
+      return exp;
+    });
+    setExperiences(updatedExperiences);
+    onChange(updatedExperiences);
+  };
+
   const handleAddExperience = () => {
-    onChange([
-      ...value,
-      {
-        id: uuidv4(),
-        jobTitle: '',
-        company: '',
-        startDate: { month: '01', year: `${new Date().getFullYear()}` },
-        endDate: { month: '01', year: `${new Date().getFullYear()}` },
-        jobDetails: '',
-      },
-    ]);
+    const newExperience: WorkExperience = {
+      id: uuidv4(),
+      jobTitle: '',
+      company: '',
+      startDate: { month: '01', year: `${new Date().getFullYear()}` },
+      endDate: { month: '01', year: `${new Date().getFullYear()}` },
+      jobDetails: '',
+    };
+    const newExperiences = [...experiences, newExperience];
+    setExperiences(newExperiences);
+    onChange(newExperiences);
   };
 
   const generateMonths = () => {
@@ -159,22 +192,6 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
   const months = generateMonths();
   const years = generateYears();
 
-  const handleExperienceChange = (
-    id: string,
-    field: string,
-    newValue: string | { month: string; year: string },
-  ) => {
-    const updatedExperience = value.map(exp => {
-      if (exp.id === id) {
-        return {
-          ...exp,
-          [field]: newValue,
-        };
-      }
-      return exp;
-    });
-    onChange(updatedExperience);
-  };
   return (
     <WorkExperienceContainer>
       <motion.div
@@ -187,7 +204,7 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
         <QuestionContainer>
           <h4>7.Provide your professional details:</h4>
         </QuestionContainer>
-        {value.map(experience => (
+        {experiences.map(experience => (
           <ExperienceItem key={experience.id}>
             <TextInputContainer>
               <TextInput
