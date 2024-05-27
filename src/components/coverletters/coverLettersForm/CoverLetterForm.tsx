@@ -56,6 +56,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   const [profileCreated, setProfileCreated] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [applyJobDescription, setApplyJobDescription] = useState('');
+  const [resumeId, setResumeId] = useState('');
 
   const [profileData, setProfileData] = useState<
     | { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
@@ -127,28 +128,30 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
     });
   };
 
-  const handleSubmitResume = async () => {
+  const handleSubmitWriteCoverletter = async () => {
     try {
       const response = await fetch('/api/coverletterChanges', {
         method: 'POST',
         body: JSON.stringify({
-          id: coverletterId,
-          coverletter: resumeInfo,
+          coverletterId: coverletterId,
+          resumeId: resumeId,
+          jobDescription: applyJobDescription,
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to upload resume');
+        throw new Error('Failed to create cover letter.');
       }
       setProfileCreated(true);
       setShowSuccessMessage(true);
+      refreshStoredResume();
 
       // Hide success message after 3 seconds
       setTimeout(() => {
         setShowSuccessMessage(false);
       }, 3000);
     } catch (error: any) {
-      console.error('Error uploading coverletter:', error.message);
+      console.error('Error creating coverletter:', error.message);
     }
   };
 
@@ -179,7 +182,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
         </TemplatePreviewHeader>
         <PreviewCoverLetterContainer>
           <CoverLetterContent>
-            <CoverLetterTemplate />
+            <CoverLetterTemplate content="" />
           </CoverLetterContent>
         </PreviewCoverLetterContainer>
       </TemplatePreview>
@@ -202,12 +205,15 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
           </AccordionHeader>
         </AccordionSection>
 
-        <ResumesDropdown resumes={profileData} />
+        <ResumesDropdown
+          resumes={profileData}
+          setSelectedResumeId={setResumeId}
+        />
 
         <AccordionSection>
           <PreviewButtonSection>
             <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
-            <GenerateButton onClick={handleSubmitResume}>
+            <GenerateButton onClick={handleSubmitWriteCoverletter}>
               Generate a cover letter
             </GenerateButton>
           </PreviewButtonSection>

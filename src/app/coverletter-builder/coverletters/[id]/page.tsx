@@ -86,6 +86,7 @@ const CoverLetterBuilderPage: FC = () => {
   };
 
   const [resumeInfo, setResumeInfo] = useState(initialState);
+  const [coverletter, setCoverletter] = useState<string>('');
 
   const handleStoredResumeUpdate = useCallback(async () => {
     const response = await fetch(`/api/coverletter/${params.id}`);
@@ -93,14 +94,11 @@ const CoverLetterBuilderPage: FC = () => {
       return;
     }
     const responseJson = await response.json();
-    const resumeProfile: Coverletter | undefined =
-      responseJson.body.coverletter;
+    const coverletter: string | undefined = responseJson.body.profile;
 
-    //if (!resumeProfile) {
-    //  return;
-    //}
-
-    //setResumeInfo(resumeProfile);
+    if (coverletter) {
+      setCoverletter(coverletter);
+    }
   }, [params.id]);
 
   useEffect(() => {
@@ -184,7 +182,7 @@ const CoverLetterBuilderPage: FC = () => {
         </ResumeFormContainer>
         <ResumeTemplateContainer>
           {/* <CoverLetterTemplate id="coverletter-template" /> */}
-          <CoverLetterTemplate />
+          <CoverLetterTemplate content={coverletter} />
         </ResumeTemplateContainer>
       </FormViewerContainer>
     </ProfileBuilderContainer>

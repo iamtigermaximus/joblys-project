@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
 import { CiMenuKebab } from 'react-icons/ci';
@@ -36,6 +36,25 @@ const CoverLetterPreview = () => {
   const [editModalOpenId, setEditModalOpenId] = useState<string | null>(null);
   const [activeElement, setActiveElement] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [coverLetterContent, setCoverLetterContent] = useState<string>('');
+
+  useEffect(() => {
+    // Fetch the cover letter content from your backend API
+    async function fetchCoverLetterContent() {
+      try {
+        const response = await fetch('/api/coverletter'); // Adjust API endpoint accordingly
+        if (!response.ok) {
+          throw new Error('Failed to fetch cover letter');
+        }
+        const data = await response.json();
+        setCoverLetterContent(data.content);
+      } catch (error: any) {
+        console.error('Error fetching cover letter:', error.message);
+      }
+    }
+
+    fetchCoverLetterContent();
+  }, []);
 
   const handleCreateNewCoverLetter = async () => {
     try {
@@ -89,7 +108,7 @@ const CoverLetterPreview = () => {
       </CreateCoverLetterButton>
       <CoverLetterCard onClick={handleCoverLetterCardClick}>
         <CoverLetterContent>
-          <MiniCoverLetter />
+          <MiniCoverLetter content={coverLetterContent} />
         </CoverLetterContent>
         <EditContainer>
           <EditButton onClick={handleEditButtonClick}>
@@ -141,7 +160,7 @@ const CoverLetterPreview = () => {
           </SidebarHeader>
           <SidebarContentContainer>
             <ContentContainer>
-              <MiniCoverLetter />
+              <MiniCoverLetter content={coverLetterContent} />
             </ContentContainer>
           </SidebarContentContainer>
           <ActionContainer>

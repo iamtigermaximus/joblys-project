@@ -2,7 +2,6 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import axios from 'axios';
 import { Resume } from '@/types/profile';
-
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../utils/layout';
 import DefaultTemplate from '../templates/resume/defaultTemplate/DefaultTemplate';
@@ -103,9 +102,13 @@ interface ResumesDropdownProps {
     updatedAt: string;
     resumeInfo: Resume;
   }[];
+  setSelectedResumeId: (id: string) => void;
 }
 
-const ResumesDropdown: React.FC<ResumesDropdownProps> = ({ resumes }) => {
+const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
+  resumes,
+  setSelectedResumeId,
+}) => {
   const [profileData, setProfileData] = useState<
     | { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
     | null
@@ -147,6 +150,7 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({ resumes }) => {
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSelectedResume(event.target.value);
+    setSelectedResumeId(event.target.value);
   };
 
   if (error) {
