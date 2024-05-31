@@ -15,12 +15,17 @@ const CoverLetters = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [viewMode, setViewMode] = useState<'card' | 'list'>('card');
+  const [coverLetters, setCoverLetters] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCoverLetters = async () => {
       try {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
+        const response = await fetch('/api/coverletterChanges');
+        if (!response.ok) {
+          throw new Error('Failed to fetch cover letters');
+        }
+        const data = await response.json();
+        setCoverLetters(data.coverLetters);
         setIsLoading(false);
       } catch (error: any) {
         setError(error.message);
@@ -28,7 +33,7 @@ const CoverLetters = () => {
       }
     };
 
-    fetchData();
+    fetchCoverLetters();
   }, []);
 
   if (isLoading) {
@@ -62,7 +67,7 @@ const CoverLetters = () => {
           </ViewMode>
         </ViewModeContainer>
       </HeaderContainer>
-      <CoverLetterPreview viewMode={viewMode} />
+      <CoverLetterPreview viewMode={viewMode} coverLetters={coverLetters} />
     </Container>
   );
 };

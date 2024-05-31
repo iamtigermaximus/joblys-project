@@ -108,3 +108,32 @@ ${jobDescription}
 
   return NextResponse.json({ message: 'success' }, { status: 200 });
 }
+
+export async function GET(req: NextRequest) {
+  const token = await getToken({ req });
+  if (!token || !token.sub) {
+    console.log('invalid token');
+    return NextResponse.json({ message: 'invalid token' }, { status: 401 });
+  }
+
+  try {
+    const coverLetters = await prisma.coverLetters.findMany({
+      where: { ownerId: token.sub },
+    });
+
+    if (!coverLetters.length) {
+      return NextResponse.json(
+        { message: 'no cover letters found' },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json({ coverLetters }, { status: 200 });
+  } catch (err) {
+    console.log(`Fetching cover letters: ${err}`);
+    return NextResponse.json(
+      { message: 'internal server error' },
+      { status: 500 },
+    );
+  }
+}

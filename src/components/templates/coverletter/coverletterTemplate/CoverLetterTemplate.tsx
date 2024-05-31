@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
     display: 'flex',
-    padding: '100px',
+    padding: '50px 30px',
     width: '100%',
     backgroundColor: 'white',
     color: '#232946',

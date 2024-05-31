@@ -44,29 +44,27 @@ export const CoverLetterCard = styled.div<{ isLast?: boolean }>`
 export const CoverLetterContent = styled.div`
   display: flex;
   justify-content: center;
-  transform-origin: left top;
+  transform-origin: top left;
   position: relative;
   top: 0;
   left: 0;
-  transform: scale(1, 1);
-
-  /* transform: scale(0.8, 0.2);
+  transform: scale(1, 0.2);
 
   @media (min-width: ${bp.sm}) {
     transform: scale(0.9, 0.3);
   }
 
   @media (min-width: ${bp.md}) {
-    transform: scale(1, 0.3);
+    transform: scale(1, 0.4);
   }
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(0.85, 0.25);
+    transform: scale(0.85, 0.35);
   }
 
   @media (min-width: ${bp.xl}) {
-    transform: scale(1, 1);
-  } */
+    transform: scale(1, 0.3);
+  }
 `;
 export const CreateCoverLetterButton = styled.div`
   flex: 1 1 calc(50% - 10px);
@@ -481,5 +479,45 @@ export const Timestamp = styled.h1`
 
   @media (min-width: ${bp.lg}) {
     font-size: 13px;
+  }
+`;
+export const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-width: calc(50% - 10px);
+  height: 300px;
+  overflow: hidden;
+
+  @media (min-width: ${bp.sm}) {
+    max-width: calc(50%-10px);
+    height: 350px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    max-width: calc(33.33% - 15px);
+  }
+
+  @media (min-width: ${bp.lg}) {
+    max-width: calc(25% - 15px);
+    height: 300px;
+  }
+
+  @media (min-width: ${bp.xl}) {
+    max-width: calc(25% - 20px);
+    height: 400px;
+  }
+`;
+
+export const SidebarCoverletterContent = styled.div`
+  transform: scale(0.95, 0.45);
+  transform-origin: left top;
+
+  @media (min-width: ${bp.xs}) {
+    transform: scale(1, 0.7);
+  }
+
+  @media (min-width: ${bp.md}) {
+    transform: scale(1, 0.8);
   }
 `;
