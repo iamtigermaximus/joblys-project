@@ -15,7 +15,7 @@ import { MdViewModule, MdViewList } from 'react-icons/md';
 import ResumePreview from '../templates/resume/defaultTemplate/ResumePreview';
 
 const Resumes = () => {
-  const [profileData, setProfileData] = useState<
+  const [resumeData, setResumeData] = useState<
     | { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
     | null
   >(null);
@@ -34,12 +34,12 @@ const Resumes = () => {
           resumeInfo: resume,
         };
       });
-      setProfileData(data);
+      setResumeData(data);
       setIsLoading(false);
       return;
     }
 
-    const fetchProfileData = async () => {
+    const fetchResumeData = async () => {
       try {
         const response = await axios.get('/api/cv');
         const resumes = response.data.body.resumes;
@@ -59,7 +59,7 @@ const Resumes = () => {
             };
           },
         );
-        setProfileData(data);
+        setResumeData(data);
         setIsLoading(false);
         console.log('DATA', data);
       } catch (error: any) {
@@ -68,7 +68,7 @@ const Resumes = () => {
       }
     };
 
-    fetchProfileData();
+    fetchResumeData();
   }, []);
 
   if (isLoading) {
@@ -79,7 +79,7 @@ const Resumes = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (!profileData) {
+  if (!resumeData) {
     return <div>No profile data available</div>;
   }
   const handleViewModeChange = (mode: 'card' | 'list') => {
@@ -105,7 +105,7 @@ const Resumes = () => {
           </ViewMode>
         </ViewModeContainer>
       </HeaderContainer>
-      <ResumePreview resumes={profileData} viewMode={viewMode} />
+      <ResumePreview resumes={resumeData} viewMode={viewMode} />
     </Container>
   );
 };

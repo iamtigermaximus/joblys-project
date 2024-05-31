@@ -71,7 +71,6 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [resumeIdToDelete, setResumeIdToDelete] = useState<string | null>(null);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
-  // const [viewMode, setViewMode] = useState<'card' | 'list'>('card');
 
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);

@@ -376,3 +376,110 @@ export const PreviewDownloadButton = styled.button`
     background-color: ${colors.darkPurple};
   }
 `;
+
+export const CoverLetterListContainer = styled.div`
+  border: 0.5px solid gray;
+  border-radius: 3px;
+`;
+
+export const ListCreateCoverletterButton = styled.div`
+  padding: 12px;
+  border-bottom: 0.5px solid gray;
+`;
+
+export const CoverletterItemContainer = styled.div`
+  padding: 12px;
+  border-bottom: 0.5px solid gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media (min-width: ${bp.md}) {
+    flex-direction: row;
+  }
+`;
+
+export const CoverletterItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  flex: 1;
+`;
+
+export const CoverletterButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 2px;
+  /* justify-content: space-around; */
+  flex: 1;
+
+  @media (min-width: ${bp.md}) {
+    justify-content: flex-end;
+  }
+`;
+
+export const ListTimestampItem = styled.h1`
+  font-size: 14px;
+  color: gray;
+  display: flex;
+  align-items: center;
+  flex: 1;
+`;
+
+export const ListContentItem = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+    color: ${colors.white};
+  }
+`;
+
+export const TimestampContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 0.5px solid gray;
+`;
+
+export const TimestampItem = styled.h1`
+  font-size: 16px;
+  font-weight: bolder;
+  color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const DeleteMessage = styled.div`
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ef4444;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+`;
+
+export const Timestamp = styled.h1`
+  font-size: 10px;
+  color: gray;
+  font-size: 10px;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 12px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
+`;
