@@ -196,8 +196,8 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
               Create new coverletter
             </ButtonLabel>
           </CreateCoverLetterButton>
-          {coverLetters &&
-            coverLetters.map(coverLetter => (
+          {coverLettersList &&
+            coverLettersList.map(coverLetter => (
               <React.Fragment key={coverLetter.id}>
                 <CoverLetterCard
                   onClick={() => handleCoverLetterCardClick(coverLetter.id)}
@@ -318,8 +318,8 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
               + Create new coverletter
             </ButtonLabel>
           </ListCreateCoverletterButton>
-          {coverLetters &&
-            coverLetters.map(coverLetter => (
+          {coverLettersList &&
+            coverLettersList.map(coverLetter => (
               <CoverletterItemContainer key={coverLetter.id}>
                 <CoverletterItem>{coverLetter.id}</CoverletterItem>
                 <ListTimestampItem>
