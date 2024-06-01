@@ -107,7 +107,10 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
     try {
       const response = await fetch('/api/resume/upload', {
         method: 'POST',
-        body: JSON.stringify({ coverLetter: initialCoverletter() }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ coverletter: initialCoverletter() }),
       });
 
       if (!response.ok) {
@@ -136,7 +139,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
   };
 
   const handleCoverLetterCardClick = (id: string) => {
-    const selectedCoverLetter = coverLettersList.find(
+    const selectedCoverLetter = coverLetters.find(
       coverLetter => coverLetter.id === id,
     );
     setActiveElement('sidebarMenu');
@@ -176,9 +179,9 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
         const updatedCoverLetters = coverLettersList.filter(
           coverLetter => coverLetter.id !== coverLetterIdToDelete,
         );
-        setCoverLettersList(updatedCoverLetters);
         setShowConfirmationModal(false);
         setShowDeleteMessage(true);
+        setCoverLettersList(updatedCoverLetters);
       } catch (error: any) {
         console.error('Error deleting cover letter:', error.message);
       }
@@ -193,110 +196,111 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
               Create new coverletter
             </ButtonLabel>
           </CreateCoverLetterButton>
-          {coverLetters.map(coverLetter => (
-            <React.Fragment key={coverLetter.id}>
-              <CoverLetterCard
-                onClick={() => handleCoverLetterCardClick(coverLetter.id)}
-                isLast={true}
-              >
-                <CoverLetterContent>
-                  <MiniCoverLetter content={coverLetter.content} />
-                </CoverLetterContent>
-                <EditContainer>
-                  <EditButton
-                    onClick={event =>
-                      handleEditButtonClick(event, coverLetter.id)
-                    }
-                  >
-                    <CiMenuKebab />
-                  </EditButton>
-                  {editModalOpenId === coverLetter.id &&
-                    activeElement === 'editModal' && (
-                      <EditModalOverlay onClick={handleCloseEditModal}>
-                        <EditModalContent>
-                          <EditContent onClick={e => e.stopPropagation()}>
-                            <EditContentItem>
-                              <ContentItem>
-                                <FaRegEdit style={{ marginRight: '5px' }} />
-                              </ContentItem>
-                              <ContentItem
+          {coverLetters &&
+            coverLetters.map(coverLetter => (
+              <React.Fragment key={coverLetter.id}>
+                <CoverLetterCard
+                  onClick={() => handleCoverLetterCardClick(coverLetter.id)}
+                  isLast={true}
+                >
+                  <CoverLetterContent>
+                    <MiniCoverLetter content={coverLetter.content} />
+                  </CoverLetterContent>
+                  <EditContainer>
+                    <EditButton
+                      onClick={event =>
+                        handleEditButtonClick(event, coverLetter.id)
+                      }
+                    >
+                      <CiMenuKebab />
+                    </EditButton>
+                    {editModalOpenId === coverLetter.id &&
+                      activeElement === 'editModal' && (
+                        <EditModalOverlay onClick={handleCloseEditModal}>
+                          <EditModalContent>
+                            <EditContent onClick={e => e.stopPropagation()}>
+                              <EditContentItem>
+                                <ContentItem>
+                                  <FaRegEdit style={{ marginRight: '5px' }} />
+                                </ContentItem>
+                                <ContentItem
+                                  onClick={() =>
+                                    handleEditCoverLetter(coverLetter.id)
+                                  }
+                                >
+                                  Edit
+                                </ContentItem>
+                              </EditContentItem>
+                            </EditContent>
+                            <EditContent onClick={e => e.stopPropagation()}>
+                              <EditContentItem>
+                                <ContentItem>
+                                  <FaDownload style={{ marginRight: '5px' }} />
+                                </ContentItem>
+                                <ContentItem> Download</ContentItem>
+                              </EditContentItem>
+                            </EditContent>
+                            <EditContent onClick={e => e.stopPropagation()}>
+                              <EditContentItem
                                 onClick={() =>
-                                  handleEditCoverLetter(coverLetter.id)
+                                  handleDeleteCoverLetter(coverLetter.id)
                                 }
                               >
-                                Edit
-                              </ContentItem>
-                            </EditContentItem>
-                          </EditContent>
-                          <EditContent onClick={e => e.stopPropagation()}>
-                            <EditContentItem>
-                              <ContentItem>
-                                <FaDownload style={{ marginRight: '5px' }} />
-                              </ContentItem>
-                              <ContentItem> Download</ContentItem>
-                            </EditContentItem>
-                          </EditContent>
-                          <EditContent onClick={e => e.stopPropagation()}>
-                            <EditContentItem
-                              onClick={() =>
-                                handleDeleteCoverLetter(coverLetter.id)
-                              }
-                            >
-                              <ContentItem>
-                                <FaTrashAlt style={{ marginRight: '5px' }} />
-                              </ContentItem>
-                              <ContentItem> Delete</ContentItem>
-                            </EditContentItem>
-                          </EditContent>
-                        </EditModalContent>
-                      </EditModalOverlay>
-                    )}
-                </EditContainer>
-                <Timestamp>Edited</Timestamp>
-              </CoverLetterCard>
-              {editModalOpenId === coverLetter.id &&
-                activeElement === 'sidebarMenu' && (
-                  <SidebarMenuContainer
-                    key={coverLetter.id}
-                    className={'category active'}
-                    ref={sidebarMenuRef}
-                  >
-                    <SidebarHeader>
-                      <SidebarHeaderItem>
-                        <CoverLetterButton>
-                          <CoverLetterButtonTitle>
-                            Coverletter
-                          </CoverLetterButtonTitle>
-                        </CoverLetterButton>
-                      </SidebarHeaderItem>
-                      <SidebarHeaderClose onClick={handleCloseEditModal}>
-                        <IoCloseSharp />
-                      </SidebarHeaderClose>
-                    </SidebarHeader>
-                    <SidebarContentContainer>
-                      <ContentContainer>
-                        {selectedCoverletter && (
-                          <SidebarCoverletterContent>
-                            <MiniCoverLetter content={coverLetter.content} />
-                          </SidebarCoverletterContent>
-                        )}
-                      </ContentContainer>
-                    </SidebarContentContainer>
-                    <ActionContainer>
-                      <PreviewEditButton
-                        onClick={() => handleEditCoverLetter(coverLetter.id)}
-                      >
-                        Edit
-                      </PreviewEditButton>
-                      <PreviewDownloadButton>
-                        {/* <DownloadPDFButton /> */}
-                        Download
-                      </PreviewDownloadButton>
-                    </ActionContainer>
-                  </SidebarMenuContainer>
-                )}
-            </React.Fragment>
-          ))}
+                                <ContentItem>
+                                  <FaTrashAlt style={{ marginRight: '5px' }} />
+                                </ContentItem>
+                                <ContentItem> Delete</ContentItem>
+                              </EditContentItem>
+                            </EditContent>
+                          </EditModalContent>
+                        </EditModalOverlay>
+                      )}
+                  </EditContainer>
+                  <Timestamp>Edited</Timestamp>
+                </CoverLetterCard>
+                {editModalOpenId === coverLetter.id &&
+                  activeElement === 'sidebarMenu' && (
+                    <SidebarMenuContainer
+                      key={coverLetter.id}
+                      className={'category active'}
+                      ref={sidebarMenuRef}
+                    >
+                      <SidebarHeader>
+                        <SidebarHeaderItem>
+                          <CoverLetterButton>
+                            <CoverLetterButtonTitle>
+                              Coverletter
+                            </CoverLetterButtonTitle>
+                          </CoverLetterButton>
+                        </SidebarHeaderItem>
+                        <SidebarHeaderClose onClick={handleCloseEditModal}>
+                          <IoCloseSharp />
+                        </SidebarHeaderClose>
+                      </SidebarHeader>
+                      <SidebarContentContainer>
+                        <ContentContainer>
+                          {selectedCoverletter && (
+                            <SidebarCoverletterContent>
+                              <MiniCoverLetter content={coverLetter.content} />
+                            </SidebarCoverletterContent>
+                          )}
+                        </ContentContainer>
+                      </SidebarContentContainer>
+                      <ActionContainer>
+                        <PreviewEditButton
+                          onClick={() => handleEditCoverLetter(coverLetter.id)}
+                        >
+                          Edit
+                        </PreviewEditButton>
+                        <PreviewDownloadButton>
+                          {/* <DownloadPDFButton /> */}
+                          Download
+                        </PreviewDownloadButton>
+                      </ActionContainer>
+                    </SidebarMenuContainer>
+                  )}
+              </React.Fragment>
+            ))}
           {showConfirmationModal && (
             <ConfirmationModal
               onConfirm={handleDeleteConfirmation}
@@ -314,29 +318,30 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
               + Create new coverletter
             </ButtonLabel>
           </ListCreateCoverletterButton>
-          {coverLetters.map(coverLetter => (
-            <CoverletterItemContainer key={coverLetter.id}>
-              <CoverletterItem>{coverLetter.id}</CoverletterItem>
-              <ListTimestampItem>
-                <Timestamp>Edited</Timestamp>
-              </ListTimestampItem>
-              <CoverletterButtonsContainer>
-                <ListContentItem
-                  onClick={() => handleEditCoverLetter(coverLetter.id)}
-                >
-                  <FaRegCreditCard />
-                </ListContentItem>
-                <ListContentItem>
-                  <FaDownload />
-                </ListContentItem>
-                <ListContentItem
-                  onClick={() => handleDeleteCoverLetter(coverLetter.id)}
-                >
-                  <FaTrashAlt />
-                </ListContentItem>
-              </CoverletterButtonsContainer>
-            </CoverletterItemContainer>
-          ))}
+          {coverLetters &&
+            coverLetters.map(coverLetter => (
+              <CoverletterItemContainer key={coverLetter.id}>
+                <CoverletterItem>{coverLetter.id}</CoverletterItem>
+                <ListTimestampItem>
+                  <Timestamp>Edited</Timestamp>
+                </ListTimestampItem>
+                <CoverletterButtonsContainer>
+                  <ListContentItem
+                    onClick={() => handleEditCoverLetter(coverLetter.id)}
+                  >
+                    <FaRegCreditCard />
+                  </ListContentItem>
+                  <ListContentItem>
+                    <FaDownload />
+                  </ListContentItem>
+                  <ListContentItem
+                    onClick={() => handleDeleteCoverLetter(coverLetter.id)}
+                  >
+                    <FaTrashAlt />
+                  </ListContentItem>
+                </CoverletterButtonsContainer>
+              </CoverletterItemContainer>
+            ))}
         </CoverLetterListContainer>
       )}
     </>

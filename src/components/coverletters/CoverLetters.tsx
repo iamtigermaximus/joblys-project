@@ -21,9 +21,7 @@ const CoverLetters = () => {
     const fetchCoverLetters = async () => {
       try {
         const response = await fetch('/api/coverletterChanges');
-        if (!response.ok) {
-          throw new Error('Failed to fetch cover letters');
-        }
+
         const data = await response.json();
         setCoverLetters(data.coverLetters);
         setIsLoading(false);
