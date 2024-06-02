@@ -24,9 +24,9 @@ export default function Home({ id }: any) {
   const handleGetStartedClick = () => {
     if (!id) {
       const newId = uuidv4();
-      router.push(`/profile-builder/resumes/${newId}`);
+      router.push(`/resume-builder/resumes/${newId}`);
     } else {
-      router.push(`/profile-builder/resumes/${id}`);
+      router.push(`/resume-builder/resumes/${id}`);
     }
   };
 
