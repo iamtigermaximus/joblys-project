@@ -129,6 +129,7 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
             course: '',
             startDate: { month: '01', year: `${new Date().getFullYear()}` },
             endDate: { month: '01', year: `${new Date().getFullYear()}` },
+            description: '',
           },
         ];
   });
@@ -158,6 +159,7 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
       course: '',
       startDate: { month: '01', year: `${new Date().getFullYear()}` },
       endDate: { month: '01', year: `${new Date().getFullYear()}` },
+      description: '',
     };
     const newEducations = [...educations, newEducation];
     setEducations(newEducations);

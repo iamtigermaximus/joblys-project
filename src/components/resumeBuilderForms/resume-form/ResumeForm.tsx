@@ -354,7 +354,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           <PreviewButtonSection>
             <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
             <CreateProfileButton onClick={handleSubmit}>
-              Create Profile
+              Create Resume
             </CreateProfileButton>
           </PreviewButtonSection>
           {showSuccessMessage && (

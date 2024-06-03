@@ -3,7 +3,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import styled from 'styled-components';
 import { FaChevronCircleRight } from 'react-icons/fa';
-import { Resume, initialCoverletter, initialResume } from '@/types/profile';
+import {
+  Resume,
+  convertProfileToResume,
+  initialCoverletter,
+  initialResume,
+} from '@/types/profile';
 import { formatDistanceToNow } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
@@ -11,9 +16,9 @@ import { CiMenuKebab } from 'react-icons/ci';
 import { IoCloseSharp } from 'react-icons/io5';
 import { breakpoints as bp } from '../../utils/layout';
 import colors from '../../utils/colors';
-import DefaultTemplate from '../templates/resume/defaultTemplate/DefaultTemplate';
 import DownloadPDFButton from '../templates/resume/defaultTemplate/DownloadPDFButton';
 import ConfirmationModal from '../templates/resume/defaultTemplate/ConfirmationModal';
+import DefaultTemplate from '../templates/resume/defaultTemplate/DefaultTemplate';
 
 export const Container = styled.div`
   width: 100%;
@@ -750,10 +755,27 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ resumes }) => {
   };
 
   const handleCreateNewResume = async () => {
+    let profile;
     try {
+      const response = await fetch('/api/profile');
+      if (response.ok) {
+        profile = (await response.json())?.content;
+      }
+    } catch (error: any) {
+      console.error('Error while fetching profile:', error.message);
+    }
+
+    try {
+      let resume: Resume;
+      if (profile) {
+        resume = convertProfileToResume(profile);
+      } else {
+        resume = initialResume();
+      }
+
       const response = await fetch('/api/cv/upload', {
         method: 'POST',
-        body: JSON.stringify({ resume: initialResume() }),
+        body: JSON.stringify({ resume }),
       });
 
       if (!response.ok) {

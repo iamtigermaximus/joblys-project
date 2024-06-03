@@ -207,6 +207,7 @@ export interface Education {
   course: string;
   startDate: { month: string; year: string };
   endDate: { month: string; year: string };
+  description: string;
 }
 
 export interface Language {
@@ -280,3 +281,26 @@ export const ProfileSchema = z.object({
     }),
   ),
 });
+
+export function convertProfileToResume(profile: Profile): Resume {
+  return {
+    id: uuidv4(),
+    basic: {
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      phoneNumber: profile.contact,
+      email: profile.email,
+      address: '',
+      linkedin: '',
+      additionalLinks: profile.links,
+    },
+    professional: {
+      summary: '',
+      currentRole: '',
+      work: profile.professional,
+    },
+    educational: profile.educational,
+    skills: profile.skills,
+    languages: profile.languages,
+  };
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Resume } from '@/types/profile';
+import { Resume, convertProfileToResume } from '@/types/profile';
 import { useRouter } from 'next/navigation';
 import { initialResume } from '@/types/profile';
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
@@ -85,7 +85,6 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
         sidebarMenuRef.current &&
         !sidebarMenuRef.current.contains(event.target as Node)
       ) {
-        // Clicked outside the sidebar menu container
         handleCloseSidebarMenu();
       }
     };
@@ -119,10 +118,27 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
   };
 
   const handleCreateNewResume = async () => {
+    let profile;
     try {
+      const response = await fetch('/api/profile');
+      if (response.ok) {
+        profile = (await response.json())?.content;
+      }
+    } catch (error: any) {
+      console.error('Error while fetching profile:', error.message);
+    }
+
+    try {
+      let resume: Resume;
+      if (profile) {
+        resume = convertProfileToResume(profile);
+      } else {
+        resume = initialResume();
+      }
+
       const response = await fetch('/api/cv/upload', {
         method: 'POST',
-        body: JSON.stringify({ resume: initialResume() }),
+        body: JSON.stringify({ resume }),
       });
 
       if (!response.ok) {

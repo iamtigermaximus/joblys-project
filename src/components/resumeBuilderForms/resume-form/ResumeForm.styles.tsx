@@ -187,7 +187,8 @@ export const CreateProfileButton = styled.button`
   height: 40px;
   border: none;
   border-radius: 3px;
-  width: 110px;
+  min-width: 110px;
+  white-space: nowrap;
 
   &:hover {
     background-color: ${colors.darkPurple};
