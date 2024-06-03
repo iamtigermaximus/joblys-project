@@ -1,7 +1,7 @@
-import CoverLetterTemplate from './CoverLetterTemplate';
 import styled from 'styled-components';
 import { breakpoints as bp } from '@/utils/layout';
 import colors from '@/utils/colors';
+import MiniCoverLetterTemplate from './MiniCoverLetterTemplate';
 
 export const CoverLetterContainer = styled.div`
   display: flex;
@@ -115,7 +115,7 @@ export const ButtonLabel = styled.h1`
   }
 `;
 
-export const MiniCoverLetter = styled(CoverLetterTemplate)`
+export const MiniCoverLetter = styled(MiniCoverLetterTemplate)`
   width: 100%;
   height: 100%;
 `;
