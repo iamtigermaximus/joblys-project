@@ -27,7 +27,7 @@ import {
   AddLinkButtonContainer,
   ActionButtonContainer,
   ActionButton,
-} from '../ProfileForm';
+} from '../ProfileForm.styles';
 import axios from 'axios';
 
 interface ProfileData {

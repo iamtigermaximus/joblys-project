@@ -24,7 +24,7 @@ import {
   ButtonContainer,
   ActionButton,
   ActionButtonContainer,
-} from '../ProfileForm';
+} from '../ProfileForm.styles';
 import { FaEdit, FaTimes } from 'react-icons/fa';
 
 export interface ProfileProfessionalProps {

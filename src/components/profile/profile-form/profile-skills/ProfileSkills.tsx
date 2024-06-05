@@ -20,7 +20,7 @@ import {
   Button,
   ActionButton,
   ActionButtonContainer,
-} from '../ProfileForm';
+} from '../ProfileForm.styles';
 
 export interface ProfileSkillsProps {
   existingData: Profile;

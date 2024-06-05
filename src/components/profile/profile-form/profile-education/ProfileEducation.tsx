@@ -22,7 +22,7 @@ import {
   Button,
   ActionButton,
   ActionButtonContainer,
-} from '../ProfileForm';
+} from '../ProfileForm.styles';
 import { Education, Profile } from '@/types/profile';
 import axios from 'axios';
 

@@ -21,7 +21,7 @@ import {
   Button,
   ActionButton,
   ActionButtonContainer,
-} from '../ProfileForm';
+} from '../ProfileForm.styles';
 
 export interface ProfileLanguagesProps {
   existingData: Profile;
