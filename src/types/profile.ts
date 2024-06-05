@@ -31,7 +31,7 @@ export interface EducationType {
   course: string;
   startDate: { month: string; year: string };
   endDate: { month: string; year: string };
-  description: string;
+  description?: string;
 }
 
 export interface SkillType {
@@ -207,7 +207,7 @@ export interface Education {
   course: string;
   startDate: { month: string; year: string };
   endDate: { month: string; year: string };
-  description: string;
+  description?: string;
 }
 
 export interface Language {
@@ -255,6 +255,7 @@ export const ProfileSchema = z.object({
       course: z.string(),
       startDate: z.object({ month: z.string(), year: z.string() }),
       endDate: z.object({ month: z.string(), year: z.string() }),
+      description: z.string(),
     }),
   ),
   professional: z.array(
@@ -288,8 +289,9 @@ export function convertProfileToResume(profile: Profile): Resume {
     basic: {
       firstName: profile.firstName,
       lastName: profile.lastName,
-      phoneNumber: profile.contact,
       email: profile.email,
+
+      phoneNumber: profile.contact,
       address: '',
       linkedin: '',
       additionalLinks: profile.links,

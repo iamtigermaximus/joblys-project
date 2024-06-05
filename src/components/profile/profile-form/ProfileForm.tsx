@@ -4,7 +4,6 @@ import React, { FC, useState } from 'react';
 import { breakpoints as bp } from '../../../utils/layout';
 import colors from '../../../utils/colors';
 import styled from 'styled-components';
-import { FaCircleChevronDown, FaCircleChevronUp } from 'react-icons/fa6';
 import { Profile } from '@/types/profile';
 import ProfileBasics from '@/components/profile/profile-form/profile-basic/ProfileBasics';
 import ProfileEducation from '@/components/profile/profile-form/profile-education/ProfileEducation';
@@ -58,6 +57,10 @@ export const AccordionHeader = styled.div`
   padding: 4px;
   align-items: center;
   width: 100%;
+
+  @media (min-width: ${bp.md}) {
+    padding: 4px 25px;
+  }
 `;
 
 export const AccordionHeaderTitle = styled.h1`
@@ -75,6 +78,8 @@ export const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: black;
+  padding: 0 3px;
 `;
 
 export const BasicDetailsContainer = styled.div`
@@ -92,8 +97,9 @@ export const InputRow = styled.div`
   padding: 4px;
 
   @media (min-width: ${bp.md}) {
-    flex-direction: row;
-    gap: 20px;
+    flex-direction: column;
+    /* gap: 20px; */
+    padding: 4px 25px;
   }
 `;
 
@@ -112,7 +118,7 @@ export const Input = styled.input`
   border: none;
   color: black;
   height: 40px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   padding: 8px 12px;
   width: 100%;
 
@@ -125,7 +131,7 @@ export const Input = styled.input`
     border: none;
     color: black;
     height: 40px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     padding: 8px 12px;
     width: 100%;
 
@@ -142,7 +148,7 @@ export const InputLabel = styled.label`
   padding: 5px 0;
 
   @media (min-width: ${bp.md}) {
-    margin: 5px 0;
+    /* margin: 5px 0; */
   }
 `;
 
@@ -151,7 +157,7 @@ export const NewLinkContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  padding: 4px;
+  /* padding: 4px; */
 `;
 
 export const EducationalDetailsContainer = styled.div`
@@ -167,6 +173,11 @@ export const EducationContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-bottom: 10px;
+
+  @media (min-width: ${bp.md}) {
+    padding-bottom: 20px;
+  }
 `;
 
 export const ProfessionalDetailsContainer = styled.div`
@@ -245,6 +256,100 @@ export const ItemContainer = styled.div`
   width: 100%;
 `;
 
+export const SkillItemContainer = styled.div`
+  padding: 4px;
+  width: 100%;
+
+  @media (min-width: ${bp.md}) {
+    padding: 4px 25px;
+  }
+`;
+
+export const LanguageItemContainer = styled.div`
+  padding: 4px;
+  width: 100%;
+
+  @media (min-width: ${bp.md}) {
+    padding: 4px 25px;
+  }
+`;
+
+export const ButtonContainer = styled.div`
+  padding: 4px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+
+  @media (min-width: ${bp.md}) {
+    padding: 4px 25px;
+  }
+`;
+
+export const AddLinkButtonContainer = styled.div`
+  padding: 4px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: ${bp.md}) {
+    padding: 4px 25px;
+  }
+`;
+
+export const ActionButtonContainer = styled.div`
+  padding: 10px 4px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  @media (min-width: ${bp.md}) {
+    padding: 30px 25px;
+  }
+`;
+
+export const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 4px;
+  width: 80px;
+  background-color: ${colors.purple};
+  color: ${colors.white};
+  display: flex;
+  cursor: pointer;
+  white-space: nowrap;
+  gap: 2px;
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+    color: ${colors.white};
+  }
+`;
+
+export const ActionButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 4px;
+  width: 80px;
+  background-color: ${colors.blueGray};
+  color: ${colors.white};
+  display: flex;
+  cursor: pointer;
+  white-space: nowrap;
+  gap: 2px;
+
+  &:hover {
+    background-color: ${colors.purple};
+    color: ${colors.white};
+  }
+`;
+
 interface ProfileFormProps {
   existingData: Profile;
 }
@@ -257,6 +362,9 @@ const ProfileForm: FC<ProfileFormProps> = ({ existingData }) => {
     skills: false,
     languages: false,
   });
+  const [isEditing, setIsEditing] = useState(false);
+
+  console.log('EXISTINGDATA', existingData);
 
   const toggleAccordion = (section: keyof typeof accordionState) => {
     setAccordionState(prevState => {
@@ -274,32 +382,61 @@ const ProfileForm: FC<ProfileFormProps> = ({ existingData }) => {
       return newState;
     });
   };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+  };
+
+  const handleSaveEdit = () => {
+    setIsEditing(false);
+  };
+
   return (
     <ProfileFormContainer>
       <ProfileBasics
         existingData={existingData}
         isOpen={accordionState.basic}
         toggleAccordion={() => toggleAccordion('basic')}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        handleCancelEdit={handleCancelEdit}
+        // handleSaveEdit={handleSaveEdit}
       />
       <ProfileEducation
         existingData={existingData}
         isOpen={accordionState.educational}
         toggleAccordion={() => toggleAccordion('educational')}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        handleCancelEdit={handleCancelEdit}
+        // handleSaveEdit={handleSaveEdit}
       />
       <ProfileProfessional
         existingData={existingData}
         isOpen={accordionState.professional}
         toggleAccordion={() => toggleAccordion('professional')}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        handleCancelEdit={handleCancelEdit}
+        handleSaveEdit={handleSaveEdit}
       />
       <ProfileSkills
         existingData={existingData}
         isOpen={accordionState.skills}
         toggleAccordion={() => toggleAccordion('skills')}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        handleCancelEdit={handleCancelEdit}
+        handleSaveEdit={handleSaveEdit}
       />
       <ProfileLanguages
         existingData={existingData}
         isOpen={accordionState.languages}
         toggleAccordion={() => toggleAccordion('languages')}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        handleCancelEdit={handleCancelEdit}
+        handleSaveEdit={handleSaveEdit}
       />
     </ProfileFormContainer>
   );

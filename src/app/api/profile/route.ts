@@ -60,22 +60,45 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  console.log('Storing the profile...');
+  console.log('Updating the profile...');
 
-  let persistedProfile;
   try {
-    persistedProfile = await prisma.profiles.create({
-      data: {
-        ownerId: token.sub!,
-        content: profile as any,
-      },
-      select: {
-        id: true,
-      },
+    const existingProfile = await prisma.profiles.findUnique({
+      where: { ownerId: user.id },
     });
-    console.log('Stored a new profile with id:', persistedProfile.id);
+
+    if (existingProfile) {
+      // Profile exists, update it
+      await prisma.profiles.update({
+        where: { id: existingProfile.id },
+        data: { content: profile as any },
+      });
+
+      console.log('Updated existing profile with id:', existingProfile.id);
+      return NextResponse.json({ message: 'Profile updated' }, { status: 200 });
+    } else {
+      // Profile does not exist, create it
+      const persistedProfile = await prisma.profiles.create({
+        data: {
+          ownerId: user.id,
+          content: profile as any,
+        },
+        select: {
+          id: true,
+        },
+      });
+      console.log('Stored a new profile with id:', persistedProfile.id);
+      return NextResponse.json(
+        {
+          body: {
+            id: persistedProfile.id,
+          },
+        },
+        { status: 201 },
+      );
+    }
   } catch (err) {
-    console.log(`Create profiles: ${err}`);
+    console.log(`Error updating/creating profile: ${err}`);
     return NextResponse.json(
       {
         body: {
@@ -85,15 +108,6 @@ export async function POST(req: NextRequest) {
       { status: 500 },
     );
   }
-
-  return NextResponse.json(
-    {
-      body: {
-        id: persistedProfile.id,
-      },
-    },
-    { status: 201 },
-  );
 }
 
 export async function GET(req: NextRequest) {
