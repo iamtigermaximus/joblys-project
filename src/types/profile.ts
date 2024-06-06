@@ -179,15 +179,17 @@ export function initialResume(): Resume {
 }
 
 export interface Coverletter {
+  id: string;
   content: string;
 }
 
 export const CoverletterSchema = z.object({
+  id: z.string(),
   content: z.string(),
 });
 
 export function initialCoverletter(): Coverletter {
-  return { content: '' };
+  return { id: '', content: '' };
 }
 
 //PROFILE BUILDER PAGE
@@ -290,7 +292,6 @@ export function convertProfileToResume(profile: Profile): Resume {
       firstName: profile.firstName,
       lastName: profile.lastName,
       email: profile.email,
-
       phoneNumber: profile.contact,
       address: '',
       linkedin: '',

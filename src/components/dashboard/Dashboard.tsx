@@ -32,60 +32,86 @@ export const PageName = styled.h1`
 `;
 
 const Dashboard = () => {
-  const [profileData, setProfileData] = useState<
-    | { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
-    | null
-  >(null);
+  const [resumeData, setResumeData] = useState<
+    {
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+      resumeInfo: Resume;
+    }[]
+  >([]);
+
+  const [coverletterData, setCoverletterData] = useState<
+    {
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+      content: string;
+    }[]
+  >([]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (!session) {
-      const resumes = localStorage.getItem('cachedResumes') || '[]';
-      const resumesParsed = JSON.parse(resumes);
-      const data = resumesParsed.map((resume: any) => {
-        return {
-          id: resume.id,
-          resumeInfo: resume,
-        };
-      });
-      setProfileData(data);
-      // setIsLoading(true);
-      return;
-    }
-
-    const fetchProfileData = async () => {
+    const fetchDashboardData = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get('/api/cv');
-        const resumes = response.data.body.resumes;
+        const [resumeResponse, coverletterResponse] = await Promise.all([
+          axios.get('/api/cv'),
+          axios.get('/api/coverletterChanges'),
+        ]);
 
-        const data = resumes.map(
+        const resumeData = resumeResponse.data.body.resumes.map(
           (resume: {
             id: string;
             content: any;
             createdAt: string;
             updatedAt: string;
-          }) => {
-            return {
-              id: resume.id,
-              resumeInfo: resume.content,
-              createdAt: resume.createdAt,
-              updatedAt: resume.updatedAt,
-            };
-          },
+          }) => ({
+            id: resume.id,
+            resumeInfo: resume.content,
+            createdAt: resume.createdAt,
+            updatedAt: resume.updatedAt,
+          }),
         );
-        setProfileData(data);
+
+        const coverletterData = coverletterResponse.data.coverLetters.map(
+          (coverletter: {
+            id: string;
+            content: string;
+            createdAt: string;
+            updatedAt: string;
+          }) => ({
+            id: coverletter.id,
+            content: coverletter.content,
+            createdAt: coverletter.createdAt,
+            updatedAt: coverletter.updatedAt,
+          }),
+        );
+
+        setResumeData(resumeData);
+        setCoverletterData(coverletterData);
         setIsLoading(false);
-        console.log('DATA', data);
       } catch (error: any) {
         setError(error.message);
         setIsLoading(false);
       }
     };
 
-    fetchProfileData();
+    if (session) {
+      fetchDashboardData();
+    } else {
+      const resumes = localStorage.getItem('cachedResumes') || '[]';
+      const resumesParsed = JSON.parse(resumes);
+      const data = resumesParsed.map((resume: any) => ({
+        id: resume.id,
+        resumeInfo: resume,
+      }));
+      setResumeData(data);
+      setIsLoading(false);
+    }
   }, [session]);
 
   if (isLoading) {
@@ -96,13 +122,9 @@ const Dashboard = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (!profileData) {
-    return <div></div>;
-  }
-
   return (
     <Container>
-      <DashboardPage resumes={profileData} />
+      <DashboardPage resumes={resumeData} coverletters={coverletterData} />
     </Container>
   );
 };

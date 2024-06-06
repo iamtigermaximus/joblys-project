@@ -37,7 +37,7 @@ const DownloadPDFButton: React.FC<DownloadPDFButtonProps> = ({
       >
         {({ blob, url, loading, error }) => (
           <View>
-            {loading ? <Text>Loading document...</Text> : <Text>Download</Text>}
+            <Text>Download</Text>
           </View>
         )}
       </PDFDownload>

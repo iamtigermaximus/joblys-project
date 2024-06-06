@@ -43,10 +43,11 @@ import ConfirmationModal from '../../resume/defaultTemplate/ConfirmationModal';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { Coverletter, initialCoverletter } from '@/types/profile';
 import DownloadPDFButton from '../../resume/defaultTemplate/DownloadPDFButton';
+import DownloadCoverLetterButton from './DownloadCoverLetterButton';
 
 interface CoverLetterPreviewProps {
   viewMode: 'list' | 'card';
-  coverLetters: { id: string; content: string }[];
+  coverLetters: Coverletter[];
 }
 
 const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
@@ -293,8 +294,10 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                           Edit
                         </PreviewEditButton>
                         <PreviewDownloadButton>
-                          {/* <DownloadPDFButton /> */}
-                          Download
+                          <DownloadCoverLetterButton
+                            coverLetterInfo={coverLetter}
+                            color="white"
+                          />
                         </PreviewDownloadButton>
                       </ActionContainer>
                     </SidebarMenuContainer>

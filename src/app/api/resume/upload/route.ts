@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt'
+import { getToken } from 'next-auth/jwt';
 import { Coverletter, CoverletterSchema } from '@/types/profile';
 import prisma from '../../../../lib/prisma';
 
@@ -11,9 +11,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'invalid token',
-        }
+        },
       },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -23,9 +23,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'coverletter not provided',
-        }
+        },
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -36,9 +36,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'invalid coverletter',
-        }
+        },
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -61,9 +61,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'internal server error',
-        }
+        },
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -71,8 +71,8 @@ export async function POST(req: NextRequest) {
     {
       body: {
         id: createdCoverletter.id,
-      }
+      },
     },
-    { status: 201 }
+    { status: 201 },
   );
 }
