@@ -40,6 +40,7 @@ const Resumes = () => {
     }
 
     const fetchResumeData = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get('/api/cv');
         const resumes = response.data.body.resumes;
@@ -69,7 +70,7 @@ const Resumes = () => {
     };
 
     fetchResumeData();
-  }, []);
+  }, [session]);
 
   if (isLoading) {
     return <Loader />;

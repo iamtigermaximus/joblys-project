@@ -247,11 +247,11 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
   };
 
   const handleEditResume = (id: string) => {
-    router.push(`/profile-builder/resumes/${id}`);
+    router.push(`/resume-builder/resumes/${id}`);
   };
 
   const handleEditCoverletter = (id: string) => {
-    router.push(`/profile-builder/coverletters/${id}`);
+    router.push(`/coverletter-builder/coverletters/${id}`);
   };
 
   const handleDeleteResume = (id: string) => {
