@@ -66,7 +66,12 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
   const router = useRouter();
   const [editModalOpenId, setEditModalOpenId] = useState<string | null>(null);
   const [activeElement, setActiveElement] = useState<string | null>(null);
-  const [resumesList, setResumesList] = useState(resumes);
+  const [resumesList, setResumesList] = useState(
+    resumes.sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    ),
+  );
   const [selectedResume, setSelectedResume] = useState<Resume | null>(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [resumeIdToDelete, setResumeIdToDelete] = useState<string | null>(null);

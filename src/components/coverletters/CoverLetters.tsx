@@ -10,12 +10,20 @@ import {
 import Loader from '../common/loader/Loader';
 import CoverLetterPreview from '../templates/coverletter/coverletterTemplate/CoverLetterPreview';
 import { MdViewModule, MdViewList } from 'react-icons/md';
+import { Coverletter } from '@/types/profile';
+
+interface CoverletterData {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  coverLetterInfo: Coverletter;
+}
 
 const CoverLetters = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [viewMode, setViewMode] = useState<'card' | 'list'>('card');
-  const [coverLetters, setCoverLetters] = useState([]);
+  const [coverLetters, setCoverLetters] = useState<Coverletter[]>([]);
 
   useEffect(() => {
     const fetchCoverLetters = async () => {
@@ -23,7 +31,8 @@ const CoverLetters = () => {
         const response = await fetch('/api/coverletterChanges');
 
         const data = await response.json();
-        setCoverLetters(data.coverLetters);
+        console.log(data); // Log data to check its structure
+        setCoverLetters(data.coverLetters || []);
         setIsLoading(false);
       } catch (error: any) {
         setError(error.message);

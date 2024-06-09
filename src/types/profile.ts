@@ -181,6 +181,8 @@ export function initialResume(): Resume {
 export interface Coverletter {
   id: string;
   content: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export const CoverletterSchema = z.object({
@@ -189,7 +191,7 @@ export const CoverletterSchema = z.object({
 });
 
 export function initialCoverletter(): Coverletter {
-  return { id: '', content: '' };
+  return { id: '', content: '', createdAt: '', updatedAt: '' };
 }
 
 //PROFILE BUILDER PAGE

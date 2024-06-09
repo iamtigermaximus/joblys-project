@@ -91,8 +91,20 @@ const Dashboard = () => {
           }),
         );
 
-        setResumeData(resumeData);
-        setCoverletterData(coverletterData);
+        const sortedResumes = resumeData.sort(
+          (a: { updatedAt: string }, b: { updatedAt: string }) =>
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+        );
+        const sortedCoverletters = coverletterData.sort(
+          (a: { updatedAt: string }, b: { updatedAt: string }) =>
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+        );
+
+        setResumeData(sortedResumes);
+        setCoverletterData(sortedCoverletters);
+
+        // setResumeData(resumeData);
+        // setCoverletterData(coverletterData);
         setIsLoading(false);
       } catch (error: any) {
         setError(error.message);

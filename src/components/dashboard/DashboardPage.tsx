@@ -106,6 +106,15 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
     }
   };
 
+  const generateFilename = (coverLetter: Coverletter) => {
+    const contentSnippet = coverLetter.createdAt
+      .split(' ')
+      .slice(0, 3)
+      .join(' ');
+    const date = new Date(coverLetter.updatedAt).toLocaleDateString();
+    return `CoverLetter_${contentSnippet}_${date}`;
+  };
+
   const sidebarMenuRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -236,7 +245,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
   const handleCoverLetterCardClick = (id: string, content: string) => {
     setActiveElement('sidebarMenu');
     setEditModalOpenId(id);
-    setSelectedCoverletter({ id, content });
+    // setSelectedCoverletter({ id, content });
   };
 
   const handleCloseEditModal = () => {
@@ -587,8 +596,13 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                             </EditModalOverlay>
                           )}
                       </EditContainer>
-                      <Timestamp>Edited</Timestamp>
                     </CardItem>
+                    <TimeStampContainer>
+                      <Filename>{generateFilename(coverLetter)}</Filename>
+                      <Timestamp>
+                        Edited {formatTimestamp(coverLetter.updatedAt)}
+                      </Timestamp>
+                    </TimeStampContainer>
                   </CardContainer>
                   {editModalOpenId === coverLetter.id &&
                     activeElement === 'sidebarMenu' && (

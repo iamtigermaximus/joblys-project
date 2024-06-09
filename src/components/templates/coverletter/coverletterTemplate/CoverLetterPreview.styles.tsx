@@ -12,7 +12,7 @@ export const CoverLetterContainer = styled.div`
 `;
 
 export const CoverLetterCard = styled.div<{ isLast?: boolean }>`
-  flex: ${({ isLast }) =>
+  /* flex: ${({ isLast }) =>
     isLast ? '0 1 calc(50% - 10px)' : '1 1 calc(50% - 10px)'};
   max-width: calc(50%-10px);
   height: 250px;
@@ -37,6 +37,28 @@ export const CoverLetterCard = styled.div<{ isLast?: boolean }>`
 
   @media (min-width: ${bp.xl}) {
     max-width: calc(25% - 20px);
+    height: 350px;
+  } */
+
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 0px 8px;
+
+  @media (min-width: ${bp.sm}) {
+    height: 300px;
+  }
+
+  @media (min-width: ${bp.md}) {
+    height: 300px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    height: 250px;
+  }
+
+  @media (min-width: ${bp.xl}) {
     height: 350px;
   }
 `;
@@ -468,19 +490,6 @@ export const DeleteMessage = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 `;
 
-export const Timestamp = styled.h1`
-  font-size: 10px;
-  color: gray;
-  font-size: 10px;
-
-  @media (min-width: ${bp.sm}) {
-    font-size: 12px;
-  }
-
-  @media (min-width: ${bp.lg}) {
-    font-size: 13px;
-  }
-`;
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -519,5 +528,43 @@ export const SidebarCoverletterContent = styled.div`
 
   @media (min-width: ${bp.md}) {
     transform: scale(1, 0.8);
+  }
+`;
+
+export const FilenameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 5px 0;
+`;
+
+export const Timestamp = styled.h1`
+  font-size: 10px;
+  color: gray;
+  font-size: 10px;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 12px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
+`;
+
+export const Filename = styled.h1`
+  color: black;
+  font-weight: bolder;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 14px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 16px;
   }
 `;

@@ -60,10 +60,10 @@ const styles = StyleSheet.create({
   basicsNameContainer: { display: 'flex', flexDirection: 'row', gap: 2 },
   headerName: {
     color: '#232946',
-    // fontSize: '25px',
+    fontSize: '20px',
     maxWidth: '100%',
     wordBreak: 'break-all',
-    whiteSpace: 'wrap',
+    whiteSpace: 'nowrap',
   },
   headerCurrentRole: {
     color: '#232946',
