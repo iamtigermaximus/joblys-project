@@ -23,7 +23,7 @@ import {
   ActionButton,
   ActionButtonContainer,
 } from '../ProfileForm.styles';
-import { Education, Profile } from '@/types/profile';
+import { Education, Profile, DateInfo } from '@/types/profile';
 import axios from 'axios';
 
 export interface ProfileEducationProps {
@@ -66,20 +66,95 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
     }
   }, [existingData.educational]);
 
+  // const handleInputChange = (
+  //   e: React.ChangeEvent<HTMLInputElement>,
+  //   id: string,
+  //   fieldName: string,
+  // ) => {
+  //   const { value } = e.target;
+  //   setEducationData(prevData =>
+  //     prevData.map(educ =>
+  //       educ.id === id ? { ...educ, [fieldName]: value } : educ,
+  //     ),
+  //   );
+  // };
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     id: string,
-    fieldName: string,
+    fieldName: keyof Education,
+    subFieldName?: keyof DateInfo,
   ) => {
     const { value } = e.target;
     setEducationData(prevData =>
-      prevData.map(educ =>
-        educ.id === id ? { ...educ, [fieldName]: value } : educ,
-      ),
+      prevData.map(educ => {
+        if (educ.id === id) {
+          if (fieldName === 'startDate' || fieldName === 'endDate') {
+            return {
+              ...educ,
+              [fieldName]: {
+                ...educ[fieldName],
+                [subFieldName!]: value,
+              },
+            };
+          }
+          return {
+            ...educ,
+            [fieldName]: value,
+          };
+        }
+        return educ;
+      }),
     );
   };
+  // const handleInputChange = (
+  //   e: React.ChangeEvent<HTMLInputElement>,
+  //   id: string,
+  //   fieldName: keyof Education,
+  //   subFieldName?: keyof Education['startDate'] | keyof Education['endDate'],
+  // ) => {
+  //   const { value } = e.target;
+  //   setEducationData(prevData =>
+  //     prevData.map(educ => {
+  //       if (educ.id === id) {
+  //         if (
+  //           subFieldName &&
+  //           (fieldName === 'startDate' || fieldName === 'endDate')
+  //         ) {
+  //           return {
+  //             ...educ,
+  //             [fieldName]: {
+  //               ...educ[fieldName],
+  //               [subFieldName]: value,
+  //             },
+  //           };
+  //         }
+  //         return {
+  //           ...educ,
+  //           [fieldName]: value,
+  //         };
+  //       }
+  //       return educ;
+  //     }),
+  //   );
+  // };
 
-  const handleSaveEdit = () => {
+  const updateEducationData = async (educational: Education[]) => {
+    try {
+      const response = await axios.post('/api/profile', {
+        profile: { ...existingData, educational },
+      });
+      if (response.status === 200) {
+        console.log('Education updated successfully');
+      } else {
+        console.error('Failed to update education');
+      }
+    } catch (error) {
+      console.error('Error updating education:', error);
+    }
+  };
+
+  const handleSaveEdit = async () => {
+    await updateEducationData(educationData);
     setIsEditing(false);
   };
 
@@ -145,7 +220,7 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
                         type="text"
                         value={educ.startDate.month}
                         onChange={e =>
-                          handleInputChange(e, educ.id, 'startDate')
+                          handleInputChange(e, educ.id, 'startDate', 'month')
                         }
                         readOnly={!isEditing}
                       />
@@ -153,7 +228,7 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
                         type="text"
                         value={educ.startDate.year}
                         onChange={e =>
-                          handleInputChange(e, educ.id, 'startDate')
+                          handleInputChange(e, educ.id, 'startDate', 'year')
                         }
                         readOnly={!isEditing}
                       />
@@ -165,13 +240,17 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
                       <Input
                         type="text"
                         value={educ.endDate.month}
-                        onChange={e => handleInputChange(e, educ.id, 'endDate')}
+                        onChange={e =>
+                          handleInputChange(e, educ.id, 'endDate', 'month')
+                        }
                         readOnly={!isEditing}
                       />
                       <Input
                         type="text"
                         value={educ.endDate.year}
-                        onChange={e => handleInputChange(e, educ.id, 'endDate')}
+                        onChange={e =>
+                          handleInputChange(e, educ.id, 'endDate', 'year')
+                        }
                         readOnly={!isEditing}
                       />
                     </DateInfoContainer>

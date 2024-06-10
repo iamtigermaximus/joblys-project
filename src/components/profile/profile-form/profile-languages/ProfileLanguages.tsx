@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import { Profile } from '../../../../types/profile';
+import { Profile, Language } from '../../../../types/profile';
 import {
   FaCircleChevronUp,
   FaCircleChevronDown,
@@ -22,6 +22,7 @@ import {
   ActionButton,
   ActionButtonContainer,
 } from '../ProfileForm.styles';
+import axios from 'axios';
 
 export interface ProfileLanguagesProps {
   existingData: Profile;
@@ -30,7 +31,7 @@ export interface ProfileLanguagesProps {
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   handleCancelEdit: () => void;
-  handleSaveEdit: () => void;
+  // handleSaveEdit: () => void;
 }
 
 const ProfileLanguages: FC<ProfileLanguagesProps> = ({
@@ -40,9 +41,11 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
   isEditing,
   setIsEditing,
   handleCancelEdit,
-  handleSaveEdit,
+  // handleSaveEdit,
 }) => {
-  const [languagesData, setLanguagesData] = useState(existingData.languages);
+  const [languagesData, setLanguagesData] = useState<Language[]>(
+    existingData.languages,
+  );
 
   useEffect(() => {
     if (existingData.languages && existingData.languages.length > 0) {
@@ -62,6 +65,26 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
         language.id === id ? { ...language, name: value } : language,
       ),
     );
+  };
+
+  const updateLanguagesData = async (languages: Language[]) => {
+    try {
+      const response = await axios.post('/api/profile', {
+        profile: { ...existingData, languages },
+      });
+      if (response.status === 200) {
+        console.log('Languages updated successfully');
+      } else {
+        console.error('Failed to update languages');
+      }
+    } catch (error) {
+      console.error('Error updating languages:', error);
+    }
+  };
+
+  const handleSaveEdit = async () => {
+    await updateLanguagesData(languagesData);
+    setIsEditing(false);
   };
   return (
     <AccordionSection>

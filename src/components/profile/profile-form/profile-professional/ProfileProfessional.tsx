@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Profile } from '../../../../types/profile';
+import { Profile, WorkExperience, DateInfo } from '../../../../types/profile';
 import {
   FaCircleChevronUp,
   FaCircleChevronDown,
@@ -26,6 +26,7 @@ import {
   ActionButtonContainer,
 } from '../ProfileForm.styles';
 import { FaEdit, FaTimes } from 'react-icons/fa';
+import axios from 'axios';
 
 export interface ProfileProfessionalProps {
   existingData: Profile;
@@ -34,7 +35,7 @@ export interface ProfileProfessionalProps {
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   handleCancelEdit: () => void;
-  handleSaveEdit: () => void;
+  // handleSaveEdit: () => void;
 }
 
 const ProfileProfessional: FC<ProfileProfessionalProps> = ({
@@ -44,9 +45,11 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
   isEditing,
   setIsEditing,
   handleCancelEdit,
-  handleSaveEdit,
+  // handleSaveEdit,
 }) => {
-  const [workData, setWorkData] = useState(existingData.professional);
+  const [workData, setWorkData] = useState<WorkExperience[]>(
+    existingData.professional,
+  );
 
   useEffect(() => {
     if (existingData.professional && existingData.professional.length > 0) {
@@ -65,17 +68,98 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
     }
   }, [existingData.professional]);
 
+  // const handleInputChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  //   id: string,
+  //   fieldName: string,
+  // ) => {
+  //   const { value } = e.target;
+  //   setWorkData(prevData =>
+  //     prevData.map(work =>
+  //       work.id === id ? { ...work, [fieldName]: value } : work,
+  //     ),
+  //   );
+  // };
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     id: string,
-    fieldName: string,
+    fieldName: keyof WorkExperience,
+    subFieldName?: keyof DateInfo,
   ) => {
     const { value } = e.target;
     setWorkData(prevData =>
-      prevData.map(work =>
-        work.id === id ? { ...work, [fieldName]: value } : work,
-      ),
+      prevData.map(work => {
+        if (work.id === id) {
+          if (fieldName === 'startDate' || fieldName === 'endDate') {
+            return {
+              ...work,
+              [fieldName]: {
+                ...work[fieldName],
+                [subFieldName!]: value,
+              },
+            };
+          }
+          return {
+            ...work,
+            [fieldName]: value,
+          };
+        }
+        return work;
+      }),
     );
+  };
+
+  // const handleInputChange = (
+  //   e: React.ChangeEvent<HTMLInputElement>,
+  //   id: string,
+  //   fieldName: keyof Education,
+  //   subFieldName?: keyof Education['startDate'] | keyof Education['endDate'],
+  // ) => {
+  //   const { value } = e.target;
+  //   setEducationData(prevData =>
+  //     prevData.map(educ => {
+  //       if (educ.id === id) {
+  //         if (
+  //           subFieldName &&
+  //           (fieldName === 'startDate' || fieldName === 'endDate')
+  //         ) {
+  //           return {
+  //             ...educ,
+  //             [fieldName]: {
+  //               ...educ[fieldName],
+  //               [subFieldName]: value,
+  //             },
+  //           };
+  //         }
+  //         return {
+  //           ...educ,
+  //           [fieldName]: value,
+  //         };
+  //       }
+  //       return educ;
+  //     }),
+  //   );
+  // };
+
+  const updateProfessionalData = async (professional: WorkExperience[]) => {
+    try {
+      const response = await axios.post('/api/profile', {
+        profile: { ...existingData, professional },
+      });
+      if (response.status === 200) {
+        console.log('Work experience updated successfully');
+      } else {
+        console.error('Failed to update work experience ');
+      }
+    } catch (error) {
+      console.error('Error updating work experience :', error);
+    }
+  };
+
+  const handleSaveEdit = async () => {
+    await updateProfessionalData(workData);
+    setIsEditing(false);
   };
 
   return (
@@ -141,7 +225,7 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
                         type="text"
                         value={work.startDate.month}
                         onChange={e =>
-                          handleInputChange(e, work.id, 'startDate')
+                          handleInputChange(e, work.id, 'startDate', 'month')
                         }
                         readOnly={!isEditing}
                       />
@@ -149,7 +233,7 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
                         type="text"
                         value={work.startDate.year}
                         onChange={e =>
-                          handleInputChange(e, work.id, 'startDate')
+                          handleInputChange(e, work.id, 'startDate', 'year')
                         }
                         readOnly={!isEditing}
                       />
@@ -161,14 +245,16 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
                       <Input
                         type="text"
                         value={work.endDate.month}
-                        onChange={e => handleInputChange(e, work.id, 'endDate')}
+                        onChange={e =>
+                          handleInputChange(e, work.id, 'endDate', 'month')
+                        }
                         readOnly={!isEditing}
                       />
                       <Input
                         type="text"
                         value={work.endDate.year}
                         onChange={e =>
-                          handleInputChange(e, work.id, 'startDate')
+                          handleInputChange(e, work.id, 'endDate', 'year')
                         }
                         readOnly={!isEditing}
                       />

@@ -21,6 +21,7 @@ import {
   ActionButton,
   ActionButtonContainer,
 } from '../ProfileForm.styles';
+import axios from 'axios';
 
 export interface ProfileSkillsProps {
   existingData: Profile;
@@ -29,7 +30,7 @@ export interface ProfileSkillsProps {
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   handleCancelEdit: () => void;
-  handleSaveEdit: () => void;
+  // handleSaveEdit: () => void;
 }
 
 const ProfileSkills: FC<ProfileSkillsProps> = ({
@@ -39,7 +40,7 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
   isEditing,
   setIsEditing,
   handleCancelEdit,
-  handleSaveEdit,
+  // handleSaveEdit,
 }) => {
   const [skillsData, setSkillsData] = useState<Skill[]>(existingData.skills);
 
@@ -61,6 +62,26 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
         skill.id === id ? { ...skill, name: value } : skill,
       ),
     );
+  };
+
+  const updateSkillsData = async (skills: Skill[]) => {
+    try {
+      const response = await axios.post('/api/profile', {
+        profile: { ...existingData, skills },
+      });
+      if (response.status === 200) {
+        console.log('Skills updated successfully');
+      } else {
+        console.error('Failed to update skills');
+      }
+    } catch (error) {
+      console.error('Error updating skills:', error);
+    }
+  };
+
+  const handleSaveEdit = async () => {
+    await updateSkillsData(skillsData);
+    setIsEditing(false);
   };
 
   return (

@@ -70,7 +70,6 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
       firstName: existingData.firstName || '',
       lastName: existingData.lastName || '',
       email: existingData.email || '',
-
       contact: existingData.contact || '',
       links:
         existingData.links.length > 0

@@ -205,14 +205,28 @@ export interface WorkExperience {
   jobDetails: string;
 }
 
-export interface Education {
+export type DateInfo = {
+  month: string;
+  year: string;
+};
+
+export type Education = {
   id: string;
   school: string;
   course: string;
-  startDate: { month: string; year: string };
-  endDate: { month: string; year: string };
+  startDate: DateInfo;
+  endDate: DateInfo;
   description?: string;
-}
+};
+
+// export interface Education {
+//   id: string;
+//   school: string;
+//   course: string;
+//   startDate: { month: string; year: string };
+//   endDate: { month: string; year: string };
+//   description?: string;
+// }
 
 export interface Language {
   id: string;

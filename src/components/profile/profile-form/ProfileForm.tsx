@@ -77,7 +77,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ existingData }) => {
         isEditing={isEditing}
         setIsEditing={setIsEditing}
         handleCancelEdit={handleCancelEdit}
-        handleSaveEdit={handleSaveEdit}
+        // handleSaveEdit={handleSaveEdit}
       />
       <ProfileSkills
         existingData={existingData}
@@ -86,7 +86,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ existingData }) => {
         isEditing={isEditing}
         setIsEditing={setIsEditing}
         handleCancelEdit={handleCancelEdit}
-        handleSaveEdit={handleSaveEdit}
+        // handleSaveEdit={handleSaveEdit}
       />
       <ProfileLanguages
         existingData={existingData}
@@ -95,7 +95,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ existingData }) => {
         isEditing={isEditing}
         setIsEditing={setIsEditing}
         handleCancelEdit={handleCancelEdit}
-        handleSaveEdit={handleSaveEdit}
+        // handleSaveEdit={handleSaveEdit}
       />
     </ProfileFormContainer>
   );
