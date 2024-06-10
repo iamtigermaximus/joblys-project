@@ -106,10 +106,10 @@ const SignUp = () => {
   };
 
   const loginWithGoogle = () =>
-    signIn('google', { callbackUrl: '/joblys/profile' });
+    signIn('google', { callbackUrl: '/eazyCV/profile' });
 
   const loginWithLinkedIn = () =>
-    signIn('linkedin', { callbackUrl: '/joblys/profile' });
+    signIn('linkedin', { callbackUrl: '/eazyCV/profile' });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

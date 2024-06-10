@@ -157,11 +157,11 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
   };
 
   const handleResumesPage = () => {
-    router.push('/joblys/resumes');
+    router.push('/eazyCV/resumes');
   };
 
   const handleCoverlettersPage = () => {
-    router.push('/joblys/cover-letters');
+    router.push('/eazyCV/cover-letters');
   };
 
   const handleCreateNewResume = async () => {

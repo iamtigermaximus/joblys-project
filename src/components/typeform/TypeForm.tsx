@@ -34,7 +34,7 @@ const TypeForm: React.FC<TypeFormProps> = ({
   const handleSubmit = async () => {
     try {
       await onSubmit();
-      router.push('/joblys/profile');
+      router.push('/eazyCV/profile');
     } catch (error: any) {
       console.error('Error:', error);
     }

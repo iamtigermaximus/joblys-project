@@ -31,7 +31,7 @@ const BuildProfileSection = () => {
       //   throw new Error('Did not receive resume id from server');
       // }
 
-      router.push(`/joblys/profile/profile-builder`);
+      router.push(`/eazyCV/profile/profile-builder`);
     } catch (error: any) {
       console.error('Error uploading resume:', error.message);
     }

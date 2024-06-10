@@ -85,11 +85,11 @@ const PageHeader: FC<PageHeaderProps> = ({ id, resumeInfo }) => {
   }, [status, session, router]);
 
   const navigateToResume = () => {
-    router.push('/joblys/resumes');
+    router.push('/eazyCV/resumes');
   };
 
   const navigateToCoverLetter = () => {
-    router.push('/joblys/cover-letters');
+    router.push('/eazyCV/cover-letters');
   };
 
   const getHeaderStyles = (): React.CSSProperties => {
@@ -115,7 +115,7 @@ const PageHeader: FC<PageHeaderProps> = ({ id, resumeInfo }) => {
 
   const handleSignOut = async (e: FormEvent) => {
     e.preventDefault();
-    await signOut({ callbackUrl: '/joblys/dashboard' });
+    await signOut({ callbackUrl: '/eazyCV/dashboard' });
   };
   const welcomeText = session ? `Welcome, ${session.user?.name}!` : '';
 

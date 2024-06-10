@@ -60,7 +60,7 @@ const Login = () => {
   });
 
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') ?? '/joblys/dashboard';
+  const callbackUrl = searchParams.get('callbackUrl') ?? '/eazyCV/dashboard';
 
   const onSubmit: SubmitHandler<Credentials> = async (
     data: z.infer<typeof credentialsSchema>,
@@ -81,7 +81,7 @@ const Login = () => {
           message: response.error.toString() || 'Invalid email or password',
         });
       } else {
-        router.push('/joblys/profile');
+        router.push('/eazyCV/profile');
       }
     } catch (error) {
       setError('email', { type: 'manual', message: 'Unexpected error' });
@@ -90,10 +90,10 @@ const Login = () => {
   };
 
   const loginWithGoogle = () =>
-    signIn('google', { callbackUrl: '/joblys/dashboard' });
+    signIn('google', { callbackUrl: '/eazyCV/dashboard' });
 
   const loginWithLinkedIn = () =>
-    signIn('linkedin', { callbackUrl: '/joblys/dashboard' });
+    signIn('linkedin', { callbackUrl: '/eazyCV/dashboard' });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

@@ -67,13 +67,13 @@ const Navbar = () => {
   const categoryMenu = () => setClick(!click);
 
   useEffect(() => {
-    if (pathname.startsWith('/joblys/dashboard')) {
+    if (pathname.startsWith('/eazyCV/dashboard')) {
       setActiveMenuItem('dashboard');
-    } else if (pathname.startsWith('/joblys/profile')) {
+    } else if (pathname.startsWith('/eazyCV/profile')) {
       setActiveMenuItem('profile');
-    } else if (pathname.startsWith('/joblys/resumes')) {
+    } else if (pathname.startsWith('/eazyCV/resumes')) {
       setActiveMenuItem('resumes');
-    } else if (pathname.startsWith('/joblys/cover-letters')) {
+    } else if (pathname.startsWith('/eazyCV/cover-letters')) {
       setActiveMenuItem('cover-letters');
     }
   }, [pathname]);
@@ -84,7 +84,7 @@ const Navbar = () => {
   };
 
   const handleSettings = () => {
-    router.push('/joblys/settings');
+    router.push('/eazyCV/settings');
     setIsUserModalOpen(false);
   };
 
@@ -97,7 +97,7 @@ const Navbar = () => {
       <NavbarItemsContainer>
         <MenuContainer>
           <BrandContainer>
-            <Brand href="/joblys/dashboard">
+            <Brand href="/eazyCV/dashboard">
               <LogoImageContainer>
                 <LogoImage
                   src={NavLogo}
@@ -116,28 +116,28 @@ const Navbar = () => {
             <MenuItemContainer
               onClick={() => setActiveMenuItem('dashboard')}
               className={activeMenuItem === 'dashboard' ? 'active' : ''}
-              href="/joblys/dashboard"
+              href="/eazyCV/dashboard"
             >
               <MenuItem>Dashboard</MenuItem>
             </MenuItemContainer>
             <MenuItemContainer
               onClick={() => setActiveMenuItem('profile')}
               className={activeMenuItem === 'profile' ? 'active' : ''}
-              href="/joblys/profile"
+              href="/eazyCV/profile"
             >
               <MenuItem>Profile</MenuItem>
             </MenuItemContainer>
             <MenuItemContainer
               onClick={() => setActiveMenuItem('resumes')}
               className={activeMenuItem === 'resumes' ? 'active' : ''}
-              href="/joblys/resumes"
+              href="/eazyCV/resumes"
             >
               <MenuItem>CV/Resume</MenuItem>
             </MenuItemContainer>
             <MenuItemContainer
               onClick={() => setActiveMenuItem('cover-letters')}
               className={activeMenuItem === 'cover-letters' ? 'active' : ''}
-              href="/joblys/cover-letters"
+              href="/eazyCV/cover-letters"
             >
               <MenuItem>Cover Letters</MenuItem>
             </MenuItemContainer>
@@ -229,7 +229,7 @@ const Navbar = () => {
         </TopNavbarModalContainer>
         <MobileMenuItemContainer>
           <MobileMenuItem
-            href="/joblys/dashboard"
+            href="/eazyCV/dashboard"
             onClick={() => setActiveMenuItem('dashboard')}
             className={activeMenuItem === 'dashboard' ? 'active' : ''}
           >
@@ -241,7 +241,7 @@ const Navbar = () => {
         </MobileMenuItemContainer>
         <MobileMenuItemContainer>
           <MobileMenuItem
-            href="/joblys/profile"
+            href="/eazyCV/profile"
             onClick={() => setActiveMenuItem('profile')}
             className={activeMenuItem === 'profile' ? 'active' : ''}
           >
@@ -253,7 +253,7 @@ const Navbar = () => {
         </MobileMenuItemContainer>
         <MobileMenuItemContainer>
           <MobileMenuItem
-            href="/joblys/resumes"
+            href="/eazyCV/resumes"
             onClick={() => setActiveMenuItem('resumes')}
             className={activeMenuItem === 'resumes' ? 'active' : ''}
           >
@@ -265,7 +265,7 @@ const Navbar = () => {
         </MobileMenuItemContainer>
         <MobileMenuItemContainer>
           <MobileMenuItem
-            href="/joblys/cover-letters"
+            href="/eazyCV/cover-letters"
             onClick={() => setActiveMenuItem('cover-letters')}
             className={activeMenuItem === 'cover-letters' ? 'active' : ''}
           >
