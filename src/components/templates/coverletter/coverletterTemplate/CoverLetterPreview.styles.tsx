@@ -45,6 +45,7 @@ export const CoverLetterCard = styled.div<{ isLast?: boolean }>`
   position: relative;
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
+  background-color: white;
 
   @media (min-width: ${bp.sm}) {
     height: 300px;
@@ -71,6 +72,7 @@ export const CoverLetterContent = styled.div`
   top: 0;
   left: 0;
   transform: scale(1, 0.2);
+  background-color: white;
 
   @media (min-width: ${bp.sm}) {
     transform: scale(0.9, 0.3);
