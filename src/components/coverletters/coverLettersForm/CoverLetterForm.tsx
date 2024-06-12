@@ -28,12 +28,14 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import ResumesDropdown from '@/components/resumes/ResumesDropdown';
 import CoverLetterTemplate from '@/components/templates/coverletter/coverletterTemplate/CoverLetterTemplate';
+import MiniCoverLetterTemplate from '@/components/templates/coverletter/coverletterTemplate/MiniCoverLetterTemplate';
 
 interface CoverLetterFormProps {
   coverletterId: string;
   resumeInfo: Resume;
   setResumeInfo: React.Dispatch<React.SetStateAction<Resume>>;
   refreshStoredResume: () => void;
+  content: string;
 }
 
 const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
@@ -41,6 +43,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   resumeInfo,
   setResumeInfo,
   refreshStoredResume,
+  content,
 }) => {
   const [accordionState, setAccordionState] = useState({
     basic: true,
@@ -182,7 +185,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
         </TemplatePreviewHeader>
         <PreviewCoverLetterContainer>
           <CoverLetterContent>
-            <CoverLetterTemplate content="" />
+            <MiniCoverLetterTemplate content={content} />
           </CoverLetterContent>
         </PreviewCoverLetterContainer>
       </TemplatePreview>

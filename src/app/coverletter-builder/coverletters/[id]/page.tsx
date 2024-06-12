@@ -179,6 +179,7 @@ const CoverLetterBuilderPage: FC = () => {
             resumeInfo={resumeInfo}
             setResumeInfo={setResumeInfo}
             refreshStoredResume={handleStoredResumeUpdate}
+            content={coverletter}
           />
         </ResumeFormContainer>
         <ResumeTemplateContainer>
