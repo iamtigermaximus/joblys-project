@@ -520,6 +520,25 @@ export const SidebarContentContainer = styled.div`
 `;
 
 export const ContentContainer = styled.div`
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  scale: 0.9;
+  overflow-y: auto;
+
+  @media (min-width: ${bp.lg}) {
+    scale: 0.7;
+    padding: 20px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    scale: 0.9;
+    padding: 20px;
+  }
+`;
+
+export const ContentContainer1 = styled.div`
   /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   display: flex;
   flex-direction: column;

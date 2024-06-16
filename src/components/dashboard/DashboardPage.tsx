@@ -242,10 +242,15 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
     setSelectedResume(resumeInfo);
   };
 
-  const handleCoverLetterCardClick = (id: string, content: string) => {
+  const handleCoverLetterCardClick = (
+    id: string,
+    content: string,
+    createdAt: string,
+    updatedAt: string,
+  ) => {
     setActiveElement('sidebarMenu');
     setEditModalOpenId(id);
-    // setSelectedCoverletter({ id, content });
+    setSelectedCoverletter({ id, content, createdAt, updatedAt });
   };
 
   const handleCloseEditModal = () => {
@@ -534,6 +539,8 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                         handleCoverLetterCardClick(
                           coverLetter.id,
                           coverLetter.content,
+                          coverLetter.createdAt,
+                          coverLetter.updatedAt,
                         )
                       }
                     >

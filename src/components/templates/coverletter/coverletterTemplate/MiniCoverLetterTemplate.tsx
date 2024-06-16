@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   paragraph: {
     marginBottom: 10,
     lineHeight: 1.5,
-    fontSize: 12,
+    fontSize: 10,
   },
 });
 
