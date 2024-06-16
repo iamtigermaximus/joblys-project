@@ -360,13 +360,13 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                         />
                       </ResumeContent>
                       <EditContainer>
-                        <EditButton
+                        {/* <EditButton
                           onClick={event =>
                             handleEditButtonClick(event, resume.id)
                           }
                         >
                           <CiMenuKebab />
-                        </EditButton>
+                        </EditButton> */}
                         {editModalOpenId === resume.id &&
                           activeElement === 'editModal' && (
                             <EditModalOverlay onClick={handleCloseEditModal}>
@@ -541,13 +541,13 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                         <MiniCoverLetter content={coverLetter.content} />
                       </CoverLetterContent>
                       <EditContainer>
-                        <EditButton
+                        {/* <EditButton
                           onClick={event =>
                             handleEditButtonClick(event, coverLetter.id)
                           }
                         >
                           <CiMenuKebab />
-                        </EditButton>
+                        </EditButton> */}
                         {editModalOpenId === coverLetter.id &&
                           activeElement === 'editModal' && (
                             <EditModalOverlay onClick={handleCloseEditModal}>
