@@ -15,9 +15,8 @@ import {
   LanguageType,
   ProfessionalExperienceType,
   Resume,
-  Coverletter,
   SkillType,
-} from '@/types/profile';
+} from '@/types/resume';
 import html2canvas from 'html2canvas';
 // import jsPDF from 'jspdf';
 import { useParams } from 'next/navigation';

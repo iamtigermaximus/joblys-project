@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Resume } from '@/types/profile';
+import { Resume } from '@/types/resume';
 import Loader from '../common/loader/Loader';
 import { useSession } from 'next-auth/react';
 import styled from 'styled-components';

@@ -21,7 +21,7 @@ import {
   WorkExperienceContainer,
   YearSelect,
 } from './ProfessionalDetailsForm.styles';
-import { ProfessionalExperienceType, Resume } from '@/types/profile';
+import { ProfessionalExperienceType, Resume } from '@/types/resume';
 import { v4 as uuidv4 } from 'uuid';
 import { capitalizeFirstLetter } from '@/components/helpers/formHelpers';
 

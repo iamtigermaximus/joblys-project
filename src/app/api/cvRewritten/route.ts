@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import prisma from '../../../lib/prisma';
 import OpenAI from 'openai';
-import { Resume } from '@/types/profile';
+import { Resume } from '@/types/resume';
 
 const parserPromt = `
 Task: Elevate a user's professional experience into impactful achievements tailored for their CV.

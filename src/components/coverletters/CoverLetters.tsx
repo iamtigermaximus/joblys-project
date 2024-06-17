@@ -10,7 +10,7 @@ import {
 import Loader from '../common/loader/Loader';
 import CoverLetterPreview from '../templates/coverletter/coverletterTemplate/CoverLetterPreview';
 import { MdViewModule, MdViewList } from 'react-icons/md';
-import { Coverletter } from '@/types/profile';
+import { Coverletter } from '@/types/coverletter';
 
 interface CoverletterData {
   id: string;

@@ -52,7 +52,7 @@ import {
 } from 'react-icons/fa6';
 import { IoCloseSharp, IoSettingsSharp } from 'react-icons/io5';
 import { FcGoogle } from 'react-icons/fc';
-import { Resume } from '@/types/profile';
+import { Resume } from '@/types/resume';
 import DownloadPDFButton from '@/components/templates/resume/defaultTemplate/DownloadPDFButton';
 
 interface PageHeaderProps {

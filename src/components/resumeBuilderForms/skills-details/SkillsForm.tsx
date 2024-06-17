@@ -1,6 +1,6 @@
 'use client';
 
-import { Resume, SkillType } from '@/types/profile';
+import { Resume, SkillType } from '@/types/resume';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   AddButton,

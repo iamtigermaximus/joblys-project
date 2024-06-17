@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import axios from 'axios';
-import { Resume } from '@/types/profile';
+import { Resume } from '@/types/resume';
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../utils/layout';
 import DefaultTemplate from '../templates/resume/defaultTemplate/DefaultTemplate';

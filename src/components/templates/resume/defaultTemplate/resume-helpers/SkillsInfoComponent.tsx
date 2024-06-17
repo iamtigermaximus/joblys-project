@@ -1,4 +1,4 @@
-import { SkillType } from '@/types/profile';
+import { SkillType } from '@/types/resume';
 import { FC } from 'react';
 import { StyleSheet, View, Text } from '@react-pdf/renderer';
 

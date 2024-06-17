@@ -1,4 +1,4 @@
-import { LanguageType } from '@/types/profile';
+import { LanguageType } from '@/types/resume';
 import { FC } from 'react';
 import { StyleSheet, View, Text } from '@react-pdf/renderer';
 

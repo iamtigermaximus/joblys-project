@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { View, Text } from '@react-pdf/renderer';
 // import CoverLetterTemplate from './CoverLetterTemplate';
 import MiniCoverLetterTemplate from './MiniCoverLetterTemplate';
-import { Coverletter } from '@/types/profile';
+import { Coverletter } from '@/types/coverletter';
 
 const PDFDownload = styled(PDFDownloadLink)`
   text-decoration: none;

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import { Coverletter, CoverletterSchema } from '@/types/profile';
+import { Coverletter, CoverletterSchema } from '@/types/coverletter';
 import prisma from '../../../../lib/prisma';
 
 export async function POST(req: NextRequest) {

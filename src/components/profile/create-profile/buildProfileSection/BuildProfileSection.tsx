@@ -8,7 +8,7 @@ import {
   SectionTitle,
   SectionTitleContainer,
 } from './BuildProfileSection.styles';
-import { initialResume } from '@/types/profile';
+import { initialResume } from '@/types/resume';
 import { useRouter } from 'next/navigation';
 
 const BuildProfileSection = () => {

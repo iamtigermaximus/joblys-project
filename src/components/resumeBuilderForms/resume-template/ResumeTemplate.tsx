@@ -44,7 +44,7 @@ import {
   Month,
   DateSeparator,
 } from './ResumeTemplate.styles';
-import { Resume } from '@/types/profile';
+import { Resume } from '@/types/resume';
 import {
   FaUser,
   FaEnvelope,

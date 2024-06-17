@@ -1,4 +1,4 @@
-import { EducationType } from '@/types/profile';
+import { EducationType } from '@/types/resume';
 import { FC } from 'react';
 import { StyleSheet, View, Text } from '@react-pdf/renderer';
 

@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Resume, convertProfileToResume } from '@/types/profile';
 import { useRouter } from 'next/navigation';
-import { initialResume } from '@/types/profile';
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
 import { CiMenuKebab } from 'react-icons/ci';
 import { IoCloseSharp } from 'react-icons/io5';
@@ -51,6 +49,8 @@ import DownloadPDFButton from './DownloadPDFButton';
 import { formatDistanceToNow } from 'date-fns';
 import ConfirmationModal from './ConfirmationModal';
 import { FaRegCreditCard } from 'react-icons/fa6';
+import { Resume, initialResume } from '@/types/resume';
+import { convertProfileToResume } from '@/types/profile';
 
 interface MiniResumeProps {
   resumes: {

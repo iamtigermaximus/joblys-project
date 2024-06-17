@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { Resume } from '@/types/profile';
+import { Resume } from '@/types/resume';
 import {
   AccordionContainer,
   AccordionHeader,

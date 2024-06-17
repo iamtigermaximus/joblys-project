@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import BasicDetailsForm from '../basic-details/BasicDetailsForm';
 import ProfessionalDetailsForm from '../professional-details/ProfessionalDetailsForm';
 import EducationalDetailsForm from '../education-details/EducationalDetailsForm';
-import { Resume } from '@/types/profile';
+import { Resume } from '@/types/resume';
 import {
   AccordionContainer,
   AccordionContent,

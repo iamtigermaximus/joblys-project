@@ -1,6 +1,6 @@
 'use client';
 
-import { LanguageType, Resume } from '@/types/profile';
+import { LanguageType, Resume } from '@/types/resume';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   AddButton,

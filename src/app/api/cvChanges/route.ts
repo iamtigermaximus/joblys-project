@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt'
-import { Resume, ResumeSchema } from '@/types/profile';
+import { getToken } from 'next-auth/jwt';
+import { Resume, ResumeSchema } from '@/types/resume';
 import prisma from '../../../lib/prisma';
 
 export async function POST(req: NextRequest) {
@@ -11,21 +11,21 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'invalid token',
-        }
+        },
       },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
-  let { id, resume } = (await req.json()) as { id: string, resume: Resume };
+  let { id, resume } = (await req.json()) as { id: string; resume: Resume };
   if (!resume || !id) {
     return NextResponse.json(
       {
         body: {
           message: 'Resume or id not provided',
-        }
+        },
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -36,9 +36,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'invalid resume',
-        }
+        },
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
       },
       data: {
         content: resume as any,
-      }
+      },
     });
   } catch (err) {
     console.log(`Update structuredCVs: ${err}`);
@@ -59,9 +59,9 @@ export async function POST(req: NextRequest) {
       {
         body: {
           message: 'internal server error',
-        }
+        },
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -71,8 +71,8 @@ export async function POST(req: NextRequest) {
     {
       body: {
         message: 'success',
-      }
+      },
     },
-    { status: 200 }
+    { status: 200 },
   );
 }

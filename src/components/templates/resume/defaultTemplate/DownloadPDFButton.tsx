@@ -1,7 +1,7 @@
 import React from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import DefaultTemplate from './DefaultTemplate';
-import { Resume } from '@/types/profile';
+import { Resume } from '@/types/resume';
 import styled from 'styled-components';
 import { StyleSheet, Page, View, Text, Document } from '@react-pdf/renderer';
 

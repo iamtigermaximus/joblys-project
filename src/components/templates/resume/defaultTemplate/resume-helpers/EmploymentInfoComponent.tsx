@@ -1,4 +1,4 @@
-import { ProfessionalExperienceType } from '@/types/profile';
+import { ProfessionalExperienceType } from '@/types/resume';
 import { FC } from 'react';
 import { StyleSheet, View, Text } from '@react-pdf/renderer';
 

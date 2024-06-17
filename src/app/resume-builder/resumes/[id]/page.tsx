@@ -9,7 +9,7 @@ import {
   ResumeTemplateContainer,
 } from '../../../page.styles';
 import PageHeader from '@/components/common/page-header/PageHeader';
-import { Resume, initialResume } from '@/types/profile';
+import { Resume, initialResume } from '@/types/resume';
 import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
 import ResumeForm from '@/components/resumeBuilderForms/resume-form/ResumeForm';
 

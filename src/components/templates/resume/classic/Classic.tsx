@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC, useState } from 'react';
-import { Resume } from '@/types/profile';
+import { Resume } from '@/types/resume';
 import { StyleSheet, Page, View, Text, Document } from '@react-pdf/renderer';
 
 interface ClassicTemplateProps {

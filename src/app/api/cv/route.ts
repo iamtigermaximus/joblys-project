@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import { Resume, ResumeSchema } from '@/types/profile';
 import mammoth from 'mammoth';
 import { v4 as uuidv4 } from 'uuid';
 import OpenAI from 'openai';
@@ -14,6 +13,7 @@ import prisma from '../../../lib/prisma';
  **/
 // @ts-ignore
 import * as pdfjs from 'pdfjs-dist/build/pdf.min.mjs';
+import { Resume, ResumeSchema } from '@/types/resume';
 
 // @ts-ignore
 await import('pdfjs-dist/build/pdf.worker.min.mjs');

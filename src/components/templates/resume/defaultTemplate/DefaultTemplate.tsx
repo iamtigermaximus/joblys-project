@@ -1,5 +1,5 @@
 'use client';
-import { Resume } from '@/types/profile';
+import { Resume } from '@/types/resume';
 import React, { FC } from 'react';
 import { BasicInfoComponent } from './resume-helpers/BasicInfoComponent';
 import { EmploymentInfoComponent } from './resume-helpers/EmploymentInfoComponent';

@@ -1,4 +1,4 @@
-import { BasicInfoType } from '@/types/profile';
+import { BasicInfoType } from '@/types/resume';
 import { FC } from 'react';
 import {
   FaUser,
