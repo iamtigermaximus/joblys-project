@@ -39,7 +39,9 @@ const credentialsSchema = z.object({
   password: z
     .string()
     .min(1, 'Password is required')
-    .min(8, 'Password must have more than 8 characters'),
+    .min(8, 'Password must have more than 8 characters')
+    .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
+    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter'),
 });
 interface Credentials {
   email: string;
@@ -78,7 +80,9 @@ const Login = () => {
       if (response?.error) {
         setError('email', {
           type: 'manual',
-          message: response.error.toString() || 'Invalid email or password',
+          // message: response.error.toString() || 'Invalid email or password',
+          message:
+            'We cannot find an account with that email address. Please check your entry or create a new account.',
         });
       } else {
         router.push('/eazyCV/profile');
