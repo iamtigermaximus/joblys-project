@@ -1,9 +1,8 @@
-import { breakpoints as bp } from '../../utils/layout';
-import colors from '../../utils/colors';
+import { breakpoints as bp } from '@/utils/layout';
+import colors from '@/utils/colors';
 import styled from 'styled-components';
-import DefaultTemplate from '../templates/resume/defaultTemplate/DefaultTemplate';
-import CoverLetterTemplate from '../templates/coverletter/coverletterTemplate/CoverLetterTemplate';
-import MiniCoverLetterTemplate from '../templates/coverletter/coverletterTemplate/MiniCoverLetterTemplate';
+import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
+import MiniCoverLetterTemplate from '@/components/templates/minicoverletter-template/MiniCoverLetterTemplate';
 
 export const Container = styled.div`
   width: 100%;

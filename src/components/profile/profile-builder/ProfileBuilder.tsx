@@ -11,9 +11,7 @@ import LastNameField from '@/components/typeform/lastname-form/LastNameField';
 import LinksField from '@/components/typeform/links-form/LinksField';
 import SkillsField from '@/components/typeform/skills-form/SkillsField';
 import WorkExperienceField from '@/components/typeform/professional-form/WorkExperienceField';
-import { breakpoints as bp } from '@/utils/layout';
-import colors from '@/utils/colors';
-import styled from 'styled-components';
+
 import {
   Education,
   Language,
@@ -22,26 +20,7 @@ import {
   Skill,
   WorkExperience,
 } from '@/types/profile';
-
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 100px 30px;
-  overflow-y: scroll;
-  /* border: 1px solid red; */
-  height: 100vh;
-  align-items: center;
-  /* background-color: pink; */
-
-  @media (min-width: ${bp.md}) {
-    padding: 50px;
-  }
-
-  @media (min-width: ${bp.lg}) {
-    padding: 150px;
-  }
-`;
+import { Container } from './ProfileBuilder.styles';
 
 const ProfileBuilder = () => {
   const [showForm, setShowForm] = useState(false);

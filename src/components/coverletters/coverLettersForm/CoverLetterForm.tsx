@@ -28,7 +28,7 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import ResumesDropdown from '@/components/resumes/ResumesDropdown';
 import CoverLetterTemplate from '@/components/templates/coverletter/coverletterTemplate/CoverLetterTemplate';
-import MiniCoverLetterTemplate from '@/components/templates/coverletter/coverletterTemplate/MiniCoverLetterTemplate';
+import MiniCoverLetterTemplate from '@/components/templates/minicoverletter-template/MiniCoverLetterTemplate';
 
 interface CoverLetterFormProps {
   coverletterId: string;

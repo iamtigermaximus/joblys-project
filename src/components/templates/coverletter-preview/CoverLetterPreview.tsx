@@ -42,11 +42,11 @@ import {
   Timestamp,
 } from './CoverLetterPreview.styles';
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
-import ConfirmationModal from '../../resume/defaultTemplate/ConfirmationModal';
+import ConfirmationModal from '../resume/defaultTemplate/ConfirmationModal';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { Coverletter, initialCoverletter } from '@/types/coverletter';
-import DownloadPDFButton from '../../resume/defaultTemplate/DownloadPDFButton';
-import DownloadCoverLetterButton from './DownloadCoverLetterButton';
+import DownloadPDFButton from '../resume/defaultTemplate/DownloadPDFButton';
+import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
 import { formatDistanceToNow } from 'date-fns';
 
 interface CoverLetterPreviewProps {

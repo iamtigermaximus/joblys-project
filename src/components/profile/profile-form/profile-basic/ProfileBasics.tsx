@@ -9,7 +9,6 @@ import {
 } from 'react-icons/fa6';
 import { FaEdit, FaTimes } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
-
 import {
   AccordionSection,
   AccordionHeader,

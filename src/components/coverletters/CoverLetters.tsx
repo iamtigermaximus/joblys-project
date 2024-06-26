@@ -8,7 +8,7 @@ import {
   ViewModeContainer,
 } from './CoverLetters.styles';
 import Loader from '../common/loader/Loader';
-import CoverLetterPreview from '../templates/coverletter/coverletterTemplate/CoverLetterPreview';
+import CoverLetterPreview from '../templates/coverletter-preview/CoverLetterPreview';
 import { MdViewModule, MdViewList } from 'react-icons/md';
 import { Coverletter } from '@/types/coverletter';
 

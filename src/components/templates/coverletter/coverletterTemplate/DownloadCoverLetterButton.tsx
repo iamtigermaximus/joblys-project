@@ -3,7 +3,7 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import styled from 'styled-components';
 import { View, Text } from '@react-pdf/renderer';
 // import CoverLetterTemplate from './CoverLetterTemplate';
-import MiniCoverLetterTemplate from './MiniCoverLetterTemplate';
+import MiniCoverLetterTemplate from '../../minicoverletter-template/MiniCoverLetterTemplate';
 import { Coverletter } from '@/types/coverletter';
 
 const PDFDownload = styled(PDFDownloadLink)`

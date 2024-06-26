@@ -45,9 +45,9 @@ import {
   TimestampContainer,
   TimestampItem,
 } from './ResumePreview.styles';
-import DownloadPDFButton from './DownloadPDFButton';
+import DownloadPDFButton from '../defaultTemplate/DownloadPDFButton';
 import { formatDistanceToNow } from 'date-fns';
-import ConfirmationModal from './ConfirmationModal';
+import ConfirmationModal from '../defaultTemplate/ConfirmationModal';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { Resume, initialResume } from '@/types/resume';
 import { convertProfileToResume } from '@/types/profile';

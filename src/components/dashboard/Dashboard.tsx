@@ -6,7 +6,7 @@ import Loader from '../common/loader/Loader';
 import { useSession } from 'next-auth/react';
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../utils/layout';
-import DashboardPage from './DashboardPage';
+import DashboardPage from './dashboard-page/DashboardPage';
 
 export const Container = styled.div`
   width: 100%;

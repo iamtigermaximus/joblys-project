@@ -12,7 +12,7 @@ import {
 import Loader from '../common/loader/Loader';
 import { useSession } from 'next-auth/react';
 import { MdViewModule, MdViewList } from 'react-icons/md';
-import ResumePreview from '../templates/resume/defaultTemplate/ResumePreview';
+import ResumePreview from '../templates/resume/resume-preview/ResumePreview';
 
 const Resumes = () => {
   const [resumeData, setResumeData] = useState<

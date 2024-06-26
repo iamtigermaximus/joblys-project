@@ -7,8 +7,8 @@ import { useRouter } from 'next/navigation';
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
 import { CiMenuKebab } from 'react-icons/ci';
 import { IoCloseSharp } from 'react-icons/io5';
-import DownloadPDFButton from '../templates/resume/defaultTemplate/DownloadPDFButton';
-import ConfirmationModal from '../templates/resume/defaultTemplate/ConfirmationModal';
+import DownloadPDFButton from '../../templates/resume/defaultTemplate/DownloadPDFButton';
+import ConfirmationModal from '../../templates/resume/defaultTemplate/ConfirmationModal';
 import {
   Container,
   ResumesSectionContainer,
