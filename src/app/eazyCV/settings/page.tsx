@@ -7,7 +7,6 @@ const SettingsPage = () => {
       <div>
         <title>SETTINGS</title>
       </div>
-      {/* <PageHeader /> */}
       <Settings />
     </Container>
   );

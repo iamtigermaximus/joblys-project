@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from '../../page.styles';
-import PageHeader from '@/components/common/page-header/PageHeader';
 import JobSearchResults from '@/components/dashboard/job-search-results/JobSearchResults';
 
 const JobResultsPage = () => {
@@ -9,7 +8,6 @@ const JobResultsPage = () => {
       <div>
         <title>JOB SEARCH RESULTS</title>
       </div>
-      {/* <PageHeader /> */}
       <JobSearchResults />
     </Container>
   );

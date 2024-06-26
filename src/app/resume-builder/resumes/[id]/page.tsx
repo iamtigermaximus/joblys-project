@@ -1,7 +1,6 @@
 'use client';
 import React, { FC, useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
-import { v4 as uuidv4 } from 'uuid';
 import {
   FormViewerContainer,
   ProfileBuilderContainer,
@@ -52,7 +51,6 @@ const ProfileBuilderPage: FC = () => {
           />
         </ResumeFormContainer>
         <ResumeTemplateContainer>
-          {/* <DefaultTemplatePDF resumeInfo={resumeInfo} /> */}
           <DefaultTemplate id="default-template" resumeInfo={resumeInfo} />
         </ResumeTemplateContainer>
       </FormViewerContainer>
