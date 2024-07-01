@@ -123,8 +123,10 @@ export async function GET(req: NextRequest) {
 
     if (!coverLetters.length) {
       return NextResponse.json(
-        { message: 'no cover letters found' },
-        { status: 404 },
+        // { message: 'no cover letters found' },
+        // { status: 404 },
+        { coverLetters: [] },
+        { status: 200 },
       );
     }
 
