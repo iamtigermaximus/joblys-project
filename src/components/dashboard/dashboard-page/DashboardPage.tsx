@@ -193,7 +193,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
         throw new Error('Did not receive resume id from server');
       }
 
-      router.push(`/profile-builder/resumes/${id}`);
+      router.push(`/resume-builder/resumes/${id}`);
     } catch (error: any) {
       console.error('Error uploading resume:', error.message);
     }
