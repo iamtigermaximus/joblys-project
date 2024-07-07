@@ -15,11 +15,15 @@ import axios from 'axios';
 import { Profile } from '@/types/profile';
 import Loader from '@/components/common/loader/Loader';
 import ProfileForm from '@/components/profile/profile-form/ProfileForm';
+import { useSession, signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const CreateProfile = () => {
   const [existingData, setExistingData] = useState<Profile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   // const [error, setError] = useState(null);
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const [accordionState, setAccordionState] = useState({
     basic: true,
     professional: false,
@@ -47,6 +51,12 @@ const CreateProfile = () => {
   };
 
   useEffect(() => {
+  
+    if (!session) {
+      router.push('/login');
+      return;
+    }
+
     const fetchProfile = async () => {
       setIsLoading(true);
       setError(null);
@@ -79,7 +89,7 @@ const CreateProfile = () => {
     fetchProfile();
   }, []);
 
-  if (isLoading) {
+  if ( isLoading) {
     return <Loader />;
   }
 
