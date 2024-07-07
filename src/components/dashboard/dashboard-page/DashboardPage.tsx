@@ -52,6 +52,7 @@ import {
 import { Resume, initialResume } from '@/types/resume';
 import { Coverletter, initialCoverletter } from '@/types/coverletter';
 import { convertProfileToResume } from '@/types/profile';
+import { v4 as uuidv4 } from 'uuid';
 
 interface DashboardPageProps {
   resumes: {
@@ -161,6 +162,10 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
 
   const handleCreateNewResume = async () => {
     let profile;
+    const handleGetStarted = () => {
+      const newId = uuidv4();
+      router.push(`/resume-builder/resumes/${newId}`);
+    };
     try {
       const response = await fetch('/api/profile');
       if (response.ok) {
@@ -168,6 +173,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
       }
     } catch (error: any) {
       console.error('Error while fetching profile:', error.message);
+      handleGetStarted();
     }
 
     try {
@@ -196,10 +202,16 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
       router.push(`/resume-builder/resumes/${id}`);
     } catch (error: any) {
       console.error('Error uploading resume:', error.message);
+      handleGetStarted();
+      return;
     }
   };
 
   const handleCreateNewCoverLetter = async () => {
+    const handleNewCoverletter = () => {
+      const newId = uuidv4();
+      router.push(`/coverletter-builder/coverletters/${newId}`);
+    };
     try {
       const response = await fetch('/api/resume/upload', {
         method: 'POST',
@@ -219,6 +231,8 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
       router.push(`/coverletter-builder/coverletters/${id}`);
     } catch (error: any) {
       console.error('Error uploading resume:', error.message);
+      handleNewCoverletter();
+      return;
     }
   };
 
