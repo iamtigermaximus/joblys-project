@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Resume, initialResume } from '@/types/resume';
 import { useRouter } from 'next/navigation';
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
 import { CiMenuKebab } from 'react-icons/ci';
@@ -49,8 +50,8 @@ import DownloadPDFButton from '../defaultTemplate/DownloadPDFButton';
 import { formatDistanceToNow } from 'date-fns';
 import ConfirmationModal from '../defaultTemplate/ConfirmationModal';
 import { FaRegCreditCard } from 'react-icons/fa6';
-import { Resume, initialResume } from '@/types/resume';
 import { convertProfileToResume } from '@/types/profile';
+import { v4 as uuidv4 } from 'uuid';
 
 interface MiniResumeProps {
   resumes: {
@@ -124,6 +125,12 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
 
   const handleCreateNewResume = async () => {
     let profile;
+
+    const handleGetStarted = () => {
+      const newId = uuidv4();
+      router.push(`/resume-builder/resumes/${newId}`);
+    };
+
     try {
       const response = await fetch('/api/profile');
       if (response.ok) {
@@ -131,6 +138,8 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
       }
     } catch (error: any) {
       console.error('Error while fetching profile:', error.message);
+      handleGetStarted();
+      return;
     }
 
     try {
@@ -159,6 +168,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
       router.push(`/resume-builder/resumes/${id}`);
     } catch (error: any) {
       console.error('Error uploading resume:', error.message);
+      handleGetStarted();
     }
   };
 

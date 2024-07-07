@@ -42,12 +42,12 @@ import {
   Timestamp,
 } from './CoverLetterPreview.styles';
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
-import ConfirmationModal from '../resume/defaultTemplate/ConfirmationModal';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { Coverletter, initialCoverletter } from '@/types/coverletter';
-import DownloadPDFButton from '../resume/defaultTemplate/DownloadPDFButton';
-import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
 import { formatDistanceToNow } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
+import ConfirmationModal from '../resume/defaultTemplate/ConfirmationModal';
+import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
 
 interface CoverLetterPreviewProps {
   viewMode: 'list' | 'card';
@@ -114,6 +114,10 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
   };
 
   const handleCreateNewCoverLetter = async () => {
+    const handleNewCoverletter = () => {
+      const newId = uuidv4();
+      router.push(`/coverletter-builder/coverletters/${newId}`);
+    };
     try {
       const response = await fetch('/api/resume/upload', {
         method: 'POST',
@@ -136,6 +140,8 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
       router.push(`/coverletter-builder/coverletters/${id}`);
     } catch (error: any) {
       console.error('Error uploading cover letter:', error.message);
+      handleNewCoverletter();
+      return;
     }
   };
 

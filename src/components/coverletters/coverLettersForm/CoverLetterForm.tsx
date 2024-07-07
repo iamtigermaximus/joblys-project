@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-
 import { Resume } from '@/types/resume';
 import {
   AccordionContainer,
@@ -62,10 +61,9 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   const [resumeId, setResumeId] = useState('');
 
   const [profileData, setProfileData] = useState<
-    | { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
-    | null
-  >(null);
-  const [error, setError] = useState(null);
+    { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
+  >([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -91,7 +89,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
         setProfileData(data);
         console.log('DATA', data);
       } catch (error: any) {
-        setError(error.message);
+        setProfileData([]);
       }
     };
 
@@ -102,9 +100,9 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
     return <div>Error: {error}</div>;
   }
 
-  if (!profileData) {
-    return <div>No profile data available</div>;
-  }
+  // if (!profileData) {
+  //   return <div>No profile data available</div>;
+  // }
 
   const handleApplyJobDescriptionChange = async (jobDescription: string) => {
     setApplyJobDescription(jobDescription);
@@ -145,6 +143,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
       if (!response.ok) {
         throw new Error('Failed to create cover letter.');
       }
+
       setProfileCreated(true);
       setShowSuccessMessage(true);
       refreshStoredResume();

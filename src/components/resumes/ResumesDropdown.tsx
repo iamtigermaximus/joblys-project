@@ -113,7 +113,7 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
     | { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
     | null
   >(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [resumesList, setResumesList] = useState(resumes);
   const [selectedResume, setSelectedResume] = useState<string>('');
 
@@ -139,9 +139,31 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
           },
         );
         setProfileData(data);
+        setResumesList(data);
         console.log('DATA', data);
+        //   } catch (error: any) {
+        //     console.error('Error fetching profile data:', error.message);
+        //     // Handle unauthorized error or network issues
+        //     const localResumes = localStorage.getItem('localResumes');
+        //     if (localResumes) {
+        //       const parsedLocalResumes = JSON.parse(localResumes);
+        //       setProfileData(parsedLocalResumes);
+        //       setResumesList(parsedLocalResumes);
+        //     } else {
+        //       setProfileData([]);
+        //       setResumesList([]);
+        //     }
+        //   }
+        // };
       } catch (error: any) {
-        setError(error.message);
+        console.error('Error fetching profile data:', error.message);
+        const localResumes = localStorage.getItem('localResumes');
+        if (localResumes) {
+          setProfileData(JSON.parse(localResumes));
+        } else {
+          setProfileData([]);
+          setResumesList([]);
+        }
       }
     };
 
@@ -157,8 +179,8 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
     return <div>Error: {error}</div>;
   }
 
-  if (!profileData) {
-    return <div>No profile data available</div>;
+  if (!profileData || profileData.length === 0) {
+    return null;
   }
 
   const selectedResumeData = resumes.find(
