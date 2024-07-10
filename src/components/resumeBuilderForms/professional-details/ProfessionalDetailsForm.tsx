@@ -46,7 +46,6 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   const [currentRole, setCurrentRole] = useState(
     professional.currentRole || '',
   );
-  const [applyJobDescription, setApplyJobDescription] = useState('');
   const [checkedWorkIds, setCheckedWorkIds] = useState<string[]>([]);
 
   const handleSummaryChange = (newSummary: string) => {
@@ -143,6 +142,41 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     }
   };
 
+  const handleGenerateSummary = async () => {
+    try {
+      const payload = {
+        resumeId,
+        professionalDetails: professional,
+      };
+      console.log('Sending request to generate summary with payload:', payload);
+
+      const response = await fetch('/api/writeSummary', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate summary');
+      }
+
+      const data = await response.json();
+      setSummary(data.generatedSummary);
+      setResumeInfo(prevInfo => ({
+        ...prevInfo,
+        professional: {
+          ...prevInfo.professional,
+          summary: data.generatedSummary,
+        },
+      }));
+    } catch (error) {
+      console.error('Error generating summary:', error);
+      // Handle error (e.g., show a notification to the user)
+    }
+  };
+
   const handleJobDesciptionEnhance = async (id: string) => {
     const resp = await fetch('/api/cvRewritten', {
       method: 'POST',
@@ -192,43 +226,9 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     });
   };
 
-  const handleApplyJobDescriptionChange = async (jobDescription: string) => {
-    setApplyJobDescription(jobDescription);
-  };
-
-  const handleCVMatchJobDescription = async (jobDescription: string) => {
-    const resp = await fetch('/api/cvRewrittenWithJobDescription', {
-      method: 'POST',
-      body: JSON.stringify({
-        jobDescription,
-      }),
-    });
-
-    if (resp.status !== 201) {
-      console.log('Error' + resp.status);
-    }
-
-    refreshStoredResume();
-  };
-
   return (
     <Container>
       <ProfessionalDetailsContainer>
-        {/* <InputContainer>
-          <InputLabel>Job description</InputLabel>
-          <TextArea
-            placeholder="Paste job description here"
-            value={applyJobDescription}
-            onChange={e => handleApplyJobDescriptionChange(e.target.value)}
-          />
-        </InputContainer> */}
-        {/* <ButtonsContainer>
-          <EnhanceButton
-            onClick={() => handleCVMatchJobDescription(applyJobDescription)}
-          >
-            Enhance to match job ad
-          </EnhanceButton>
-        </ButtonsContainer> */}
         <InputContainer>
           <InputLabel>Summary:</InputLabel>
           <TextArea
@@ -239,6 +239,11 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             }
             maxLength={600}
           />
+          <ButtonsContainer>
+            <EnhanceButton onClick={handleGenerateSummary}>
+              Generate summary
+            </EnhanceButton>
+          </ButtonsContainer>
         </InputContainer>
         <InputContainer>
           <InputLabel>Current Role:</InputLabel>
@@ -322,7 +327,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                   >
                     {yearPlaceholderOption}
                     {years.map(year => (
-                      <option key={year} value={year.toString()}>
+                      <option key={year} value={year}>
                         {year}
                       </option>
                     ))}
@@ -332,158 +337,97 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
               <InputContainer>
                 <InputLabelContainer>
                   <InputLabel>End date:</InputLabel>
-                  <InputLabel>
-                    <CheckboxInput
-                      type="checkbox"
-                      checked={checkedWorkIds.includes(experience.id)}
-                      onChange={e => {
-                        const isChecked = e.target.checked;
-                        handleCheckboxChange(isChecked, experience);
-                      }}
-                    />
-                    Present
-                  </InputLabel>
+                  <CheckboxInput
+                    type="checkbox"
+                    checked={checkedWorkIds.includes(experience.id)}
+                    onChange={e =>
+                      handleCheckboxChange(e.target.checked, experience)
+                    }
+                  />
+                  Present
                 </InputLabelContainer>
-                {checkedWorkIds.includes(experience.id) ? (
-                  <DropdownContainer>
-                    <MonthSelect
-                      disabled
-                      value={
-                        typeof experience.endDate === 'string'
-                          ? ''
-                          : experience.endDate.month
-                      }
-                      onChange={e =>
-                        handleInputChange(experience.id, 'endDate', {
-                          ...(typeof experience.endDate === 'string'
-                            ? { month: '', year: '' }
-                            : experience.endDate),
-                          month: e.target.value,
-                        })
-                      }
-                    >
-                      {monthPlaceholderOption}
-                      {months.map(month => (
-                        <option key={month} value={month}>
-                          {new Date(2022, parseInt(month) - 1).toLocaleString(
-                            'default',
-                            {
-                              month: 'long',
-                            },
-                          )}
-                        </option>
-                      ))}
-                    </MonthSelect>
-                    <YearSelect
-                      disabled
-                      value={
-                        typeof experience.endDate === 'string'
-                          ? ''
-                          : experience.endDate.year
-                      }
-                      onChange={e =>
-                        handleInputChange(experience.id, 'endDate', {
-                          ...(typeof experience.endDate === 'string'
-                            ? { month: '', year: '' }
-                            : experience.endDate),
-                          year: e.target.value,
-                        })
-                      }
-                    >
-                      {yearPlaceholderOption}
-                      {years.map(year => (
-                        <option key={year} value={year.toString()}>
-                          {year}
-                        </option>
-                      ))}
-                    </YearSelect>
-                  </DropdownContainer>
-                ) : (
-                  <DropdownContainer>
-                    <MonthSelect
-                      value={
-                        typeof experience.endDate === 'string'
-                          ? ''
-                          : experience.endDate.month
-                      }
-                      onChange={e =>
-                        handleInputChange(experience.id, 'endDate', {
-                          ...(typeof experience.endDate === 'string'
-                            ? { month: '', year: '' }
-                            : experience.endDate),
-                          month: e.target.value,
-                        })
-                      }
-                    >
-                      {monthPlaceholderOption}
-                      {months.map(month => (
-                        <option key={month} value={month}>
-                          {new Date(2022, parseInt(month) - 1).toLocaleString(
-                            'default',
-                            {
-                              month: 'long',
-                            },
-                          )}
-                        </option>
-                      ))}
-                    </MonthSelect>
-                    <YearSelect
-                      value={
-                        typeof experience.endDate === 'string'
-                          ? ''
-                          : experience.endDate.year
-                      }
-                      onChange={e =>
-                        handleInputChange(experience.id, 'endDate', {
-                          ...(typeof experience.endDate === 'string'
-                            ? { month: '', year: '' }
-                            : experience.endDate),
-                          year: e.target.value,
-                        })
-                      }
-                    >
-                      {yearPlaceholderOption}
-                      {years.map(year => (
-                        <option key={year} value={year.toString()}>
-                          {year}
-                        </option>
-                      ))}
-                    </YearSelect>
-                  </DropdownContainer>
-                )}
+                <DropdownContainer>
+                  <MonthSelect
+                    value={
+                      typeof experience.endDate === 'string'
+                        ? ''
+                        : experience.endDate.month
+                    }
+                    onChange={e =>
+                      handleInputChange(experience.id, 'endDate', {
+                        ...(typeof experience.endDate === 'string'
+                          ? { month: '', year: '' }
+                          : experience.endDate),
+                        month: e.target.value,
+                      })
+                    }
+                    disabled={checkedWorkIds.includes(experience.id)}
+                  >
+                    {monthPlaceholderOption}
+                    {months.map(month => (
+                      <option key={month} value={month}>
+                        {new Date(2022, parseInt(month) - 1).toLocaleString(
+                          'default',
+                          {
+                            month: 'long',
+                          },
+                        )}
+                      </option>
+                    ))}
+                  </MonthSelect>
+                  <YearSelect
+                    value={
+                      typeof experience.endDate === 'string'
+                        ? ''
+                        : experience.endDate.year
+                    }
+                    onChange={e =>
+                      handleInputChange(experience.id, 'endDate', {
+                        ...(typeof experience.endDate === 'string'
+                          ? { month: '', year: '' }
+                          : experience.endDate),
+                        year: e.target.value,
+                      })
+                    }
+                    disabled={checkedWorkIds.includes(experience.id)}
+                  >
+                    {yearPlaceholderOption}
+                    {years.map(year => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </YearSelect>
+                </DropdownContainer>
               </InputContainer>
             </InputRow>
-            <InputLabel>Job details:</InputLabel>
-            <TextArea
-              placeholder="Describe your role and achievements"
-              value={experience.jobDetails}
-              onChange={e =>
-                handleInputChange(
-                  experience.id,
-                  'jobDetails',
-                  capitalizeFirstLetter(e.target.value),
-                )
-              }
-              maxLength={600}
-            />
-            <ButtonsContainer>
-              <EnhanceButton
-                onClick={() => handleJobDesciptionEnhance(experience.id)}
-              >
-                Enhance
-              </EnhanceButton>
-              <TrashIcon
-                onClick={() => handleDeleteWorkExperience(experience.id)}
-              >
-                Remove
-              </TrashIcon>
-            </ButtonsContainer>
+            <InputContainer>
+              <InputLabel>Job details:</InputLabel>
+              <TextArea
+                placeholder="Summarize your responsibilities, achievements, technologies & tools used"
+                value={experience.jobDetails}
+                onChange={e =>
+                  handleInputChange(experience.id, 'jobDetails', e.target.value)
+                }
+              />
+              <ButtonsContainer>
+                <EnhanceButton
+                  onClick={() => handleJobDesciptionEnhance(experience.id)}
+                >
+                  Enhance
+                </EnhanceButton>
+                <TrashIcon
+                  onClick={() => handleDeleteWorkExperience(experience.id)}
+                >
+                  Remove
+                </TrashIcon>
+              </ButtonsContainer>
+            </InputContainer>
           </WorkExperienceContainer>
         ))}
-
         <AddWorkExperienceContainer>
           <AddWorkExperienceButton onClick={handleAddWorkExperience}>
-            Add work experience +
+            + Add work experience
           </AddWorkExperienceButton>
         </AddWorkExperienceContainer>
       </ProfessionalDetailsContainer>
