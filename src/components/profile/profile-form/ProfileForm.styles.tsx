@@ -357,3 +357,68 @@ export const ActionButton = styled.button`
     color: ${colors.white};
   }
 `;
+
+export const SectionTitleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+`;
+
+export const SectionTitle = styled.h2`
+  color: ${colors.purple};
+  font-size: 16px;
+
+  @media (min-width: ${bp.md}) {
+    font-size: 18x;
+  }
+`;
+
+export const UploadButton = styled.button`
+  width: 150px;
+  height: 40px;
+  background-color: ${colors.blueGray};
+  color: ${colors.white};
+  border-radius: 5px;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const FileUpload = styled.input`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.purple};
+  color: ${colors.white};
+  border-radius: 5px;
+  font-size: 12px;
+  margin: 5px;
+  padding: 10px 6px;
+  margin: 10px;
+  height: 40px;
+  &:hover {
+    cursor: pointer;
+  }
+
+  @media (min-width: ${bp.md}) {
+    font-size: 15px;
+    margin: 10px;
+  }
+`;
+
+export const UploadSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 6px;
+  flex-direction: column;
+  border: 0.5px dashed gray;
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+
+  @media (min-width: ${bp.md}) {
+  }
+`;

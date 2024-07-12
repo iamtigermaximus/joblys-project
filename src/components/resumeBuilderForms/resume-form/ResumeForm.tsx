@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import BasicDetailsForm from '../basic-details/BasicDetailsForm';
 import ProfessionalDetailsForm from '../professional-details/ProfessionalDetailsForm';
 import EducationalDetailsForm from '../education-details/EducationalDetailsForm';
@@ -25,6 +25,11 @@ import {
   TemplatePreviewHeader,
   TextArea,
   ResumeContent,
+  UploadSection,
+  SectionTitleContainer,
+  SectionTitle,
+  FileUpload,
+  UploadButton,
 } from './ResumeForm.styles';
 import {
   FaArrowLeft,
@@ -38,6 +43,10 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import DownloadPDFButton from '@/components/templates/resume/defaultTemplate/DownloadPDFButton';
 import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
+import {
+  LoadingMessageContainer,
+  LoadingMessage,
+} from '@/components/profile/create-profile/upload-cv/UploadCV.styles';
 
 interface ResumeFormProps {
   resumeId: string;
@@ -66,6 +75,46 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const [profileCreated, setProfileCreated] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [applyJobDescription, setApplyJobDescription] = useState('');
+  const [cvFile, setCVFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadMessage, setUploadMessage] = useState('');
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files?.length) {
+      return;
+    }
+    const file = event.target.files[0];
+    setCVFile(file);
+  };
+
+  const handleUploadCV = async () => {
+    if (!cvFile) return;
+
+    setIsUploading(true);
+
+    let formData = new FormData();
+    formData.append('file', cvFile);
+
+    try {
+      const resp = await fetch('/api/cv', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (resp.status === 200) {
+        const data = await resp.json();
+        setUploadMessage('Upload successful!');
+        router.push(`/resume-builder/resumes/${data.body.resumeId}`);
+      } else {
+        setUploadMessage(`Uploading resume failed: ${resp.status}`);
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      setUploadMessage('Uploading resume failed.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const handleApplyJobDescriptionChange = async (jobDescription: string) => {
     setApplyJobDescription(jobDescription);
@@ -162,6 +211,24 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
 
   return (
     <Container>
+      {session && (
+        <UploadSection>
+          <SectionTitleContainer>
+            <SectionTitle>Upload existing resume</SectionTitle>
+          </SectionTitleContainer>
+          <FileUpload
+            type="file"
+            accept=".docx,.pdf"
+            onChange={handleFileChange}
+          />
+          <UploadButton onClick={handleUploadCV} disabled={isUploading}>
+            {isUploading ? 'Uploading...' : 'Upload'}
+          </UploadButton>
+          <LoadingMessageContainer>
+            {uploadMessage && <LoadingMessage>{uploadMessage}</LoadingMessage>}
+          </LoadingMessageContainer>
+        </UploadSection>
+      )}
       <TemplatePreview
         className={click ? 'resume active' : 'resume'}
         onClick={resumeTemplate}

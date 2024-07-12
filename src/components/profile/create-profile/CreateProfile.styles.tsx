@@ -41,7 +41,7 @@ export const ProfileContainer = styled.div`
   }
 
   @media (min-width: ${bp.lg}) {
-    padding: 100px;
+    padding: 50px 100px 100px;
   }
 `;
 
