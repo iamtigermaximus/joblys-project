@@ -30,6 +30,7 @@ import axios from 'axios';
 
 export interface ProfileProfessionalProps {
   existingData: Profile;
+  setExistingData: React.Dispatch<React.SetStateAction<Profile | null>>;
   isOpen: boolean;
   toggleAccordion: () => void;
   isEditing: boolean;
@@ -46,6 +47,7 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
   setIsEditing,
   handleCancelEdit,
   // handleSaveEdit,
+  setExistingData,
 }) => {
   const [workData, setWorkData] = useState<WorkExperience[]>(
     existingData.professional,

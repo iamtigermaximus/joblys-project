@@ -25,6 +25,59 @@ const UploadCV = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
 
+  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   if (!event.target.files?.length) {
+  //     return;
+  //   }
+  //   const file = event.target.files[0];
+  //   setCVFile(file);
+  // };
+
+  // const handleUploadCV = async () => {
+  //   if (!cvFile) return;
+
+  //   setIsUploading(true);
+
+  //   let formData = new FormData();
+  //   formData.append('file', cvFile);
+
+  //   try {
+  //     // First, upload to api/cv
+  //     const cvResp = await fetch('/api/cv', {
+  //       method: 'POST',
+  //       body: formData,
+  //     });
+
+  //     if (cvResp.ok) {
+  //       const cvData = await cvResp.json();
+  //       const structuredCVContent = cvData.body; // assuming structured content is returned here
+
+  //       // Then, post the structured CV to api/profile
+  //       const profileResp = await fetch('/api/profile', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({ profile: structuredCVContent }),
+  //       });
+
+  //       if (profileResp.ok) {
+  //         const profileData = await profileResp.json();
+  //         setUploadMessage('Upload successful!');
+  //         router.push(`/resume-builder/resumes/${profileData.body.id}`);
+  //       } else {
+  //         setUploadMessage(`Uploading profile failed: ${profileResp.status}`);
+  //       }
+  //     } else {
+  //       setUploadMessage(`Uploading CV failed: ${cvResp.status}`);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error uploading file:', error);
+  //     setUploadMessage('Uploading resume failed.');
+  //   } finally {
+  //     setIsUploading(false);
+  //   }
+  // };
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.length) {
       return;
@@ -42,17 +95,35 @@ const UploadCV = () => {
     formData.append('file', cvFile);
 
     try {
-      const resp = await fetch('/api/cv', {
+      // First, upload to api/cv
+      const cvResp = await fetch('/api/cv', {
         method: 'POST',
         body: formData,
       });
 
-      if (resp.status === 200) {
-        const data = await resp.json();
-        setUploadMessage('Upload successful!');
-        router.push(`/resume-builder/resumes/${data.body.resumeId}`);
+      if (cvResp.ok) {
+        const cvData = await cvResp.json();
+        const structuredCVContent = cvData.body; // assuming structured content is returned here
+        console.log('Structured CV Content:', structuredCVContent);
+
+        // Then, post the structured CV to api/profile
+        const profileResp = await fetch('/api/profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ profile: structuredCVContent }),
+        });
+
+        if (profileResp.ok) {
+          const profileData = await profileResp.json();
+          setUploadMessage('Upload successful!');
+          router.push('/eazyCV/profile');
+        } else {
+          setUploadMessage(`Uploading profile failed: ${profileResp.status}`);
+        }
       } else {
-        setUploadMessage(`Uploading resume failed: ${resp.status}`);
+        setUploadMessage(`Uploading CV failed: ${cvResp.status}`);
       }
     } catch (error) {
       console.error('Error uploading file:', error);
@@ -61,7 +132,6 @@ const UploadCV = () => {
       setIsUploading(false);
     }
   };
-
   return (
     <Container>
       <UploadCvContainer>

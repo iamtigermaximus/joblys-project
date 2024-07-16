@@ -26,6 +26,7 @@ import axios from 'axios';
 
 export interface ProfileLanguagesProps {
   existingData: Profile;
+  setExistingData: React.Dispatch<React.SetStateAction<Profile | null>>;
   isOpen: boolean;
   toggleAccordion: () => void;
   isEditing: boolean;
@@ -42,6 +43,7 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
   setIsEditing,
   handleCancelEdit,
   // handleSaveEdit,
+  setExistingData,
 }) => {
   const [languagesData, setLanguagesData] = useState<Language[]>(
     existingData.languages,

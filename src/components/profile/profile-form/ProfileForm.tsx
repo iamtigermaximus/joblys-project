@@ -24,9 +24,13 @@ import {
 
 interface ProfileFormProps {
   existingData: Profile;
+  setExistingData: React.Dispatch<React.SetStateAction<Profile | null>>;
 }
 
-const ProfileForm: FC<ProfileFormProps> = ({ existingData }) => {
+const ProfileForm: FC<ProfileFormProps> = ({
+  existingData,
+  setExistingData,
+}) => {
   const [accordionState, setAccordionState] = useState({
     basic: true,
     professional: false,
@@ -58,23 +62,71 @@ const ProfileForm: FC<ProfileFormProps> = ({ existingData }) => {
     formData.append('file', cvFile);
 
     try {
-      const resp = await fetch('/api/cv', {
+      // First, upload to api/cv
+      const cvResp = await fetch('/api/cv', {
         method: 'POST',
         body: formData,
       });
 
-      if (resp.status === 200) {
-        const data = await resp.json();
-        setUploadMessage('Upload successful!');
-        router.push(`/resume-builder/resumes/${data.body.resumeId}`);
+      if (cvResp.ok) {
+        const cvData = await cvResp.json();
+        const structuredCVContent = cvData.body; // assuming structured content is returned here
+        console.log('Structured CV Content:', structuredCVContent);
+
+        // Then, post the structured CV to api/profile
+        const profileResp = await fetch('/api/profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ profile: structuredCVContent }),
+        });
+
+        if (profileResp.ok) {
+          const profileResponseData = await profileResp.json();
+          setUploadMessage('Upload successful!');
+
+          // Merge structured CV content with existing data
+          const updatedProfileData = {
+            ...existingData,
+            ...profileResponseData.body,
+          };
+
+          setExistingData(updatedProfileData);
+          setUploadMessage('Upload successful!');
+          router.push('/eazyCV/profile');
+        } else {
+          setUploadMessage(`Uploading profile failed: ${profileResp.status}`);
+        }
       } else {
-        setUploadMessage(`Uploading resume failed: ${resp.status}`);
+        setUploadMessage(`Uploading CV failed: ${cvResp.status}`);
       }
     } catch (error) {
       console.error('Error uploading file:', error);
       setUploadMessage('Uploading resume failed.');
     } finally {
       setIsUploading(false);
+    }
+  };
+
+  const postProfileData = async () => {
+    try {
+      const resp = await fetch('/api/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(existingData),
+      });
+
+      if (resp.status === 200) {
+        const data = await resp.json();
+        console.log('Profile data posted successfully:', data);
+      } else {
+        console.error('Failed to post profile data:', resp.status);
+      }
+    } catch (error) {
+      console.error('Error posting profile data:', error);
     }
   };
 
@@ -127,6 +179,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ existingData }) => {
       )}
       <ProfileBasics
         existingData={existingData}
+        setExistingData={setExistingData}
         isOpen={accordionState.basic}
         toggleAccordion={() => toggleAccordion('basic')}
         isEditing={isEditing}
@@ -136,6 +189,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ existingData }) => {
       />
       <ProfileEducation
         existingData={existingData}
+        setExistingData={setExistingData}
         isOpen={accordionState.educational}
         toggleAccordion={() => toggleAccordion('educational')}
         isEditing={isEditing}
@@ -145,6 +199,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ existingData }) => {
       />
       <ProfileProfessional
         existingData={existingData}
+        setExistingData={setExistingData}
         isOpen={accordionState.professional}
         toggleAccordion={() => toggleAccordion('professional')}
         isEditing={isEditing}
@@ -154,6 +209,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ existingData }) => {
       />
       <ProfileSkills
         existingData={existingData}
+        setExistingData={setExistingData}
         isOpen={accordionState.skills}
         toggleAccordion={() => toggleAccordion('skills')}
         isEditing={isEditing}
@@ -163,6 +219,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ existingData }) => {
       />
       <ProfileLanguages
         existingData={existingData}
+        setExistingData={setExistingData}
         isOpen={accordionState.languages}
         toggleAccordion={() => toggleAccordion('languages')}
         isEditing={isEditing}

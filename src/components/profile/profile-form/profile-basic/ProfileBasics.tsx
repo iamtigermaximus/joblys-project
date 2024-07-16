@@ -44,6 +44,7 @@ interface Link {
 
 export interface ProfileBasicsProps {
   existingData: Profile;
+  setExistingData: React.Dispatch<React.SetStateAction<Profile | null>>;
   isOpen: boolean;
   toggleAccordion: () => void;
   isEditing: boolean;
@@ -54,6 +55,7 @@ export interface ProfileBasicsProps {
 
 const ProfileBasics: FC<ProfileBasicsProps> = ({
   existingData,
+  setExistingData,
   isOpen,
   toggleAccordion,
   isEditing,
@@ -123,26 +125,21 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
     profileData: ProfileData,
   ): Promise<void> => {
     try {
-      // Make a POST request to the backend API to update the profile data
       const response = await axios.post('/api/profile', {
         profile: profileData,
       });
 
-      // Check if the request was successful (status code 200)
       if (response.status === 200) {
         console.log('Profile updated successfully');
       } else {
         console.error('Failed to update profile');
-        // Handle the error scenario
       }
     } catch (error) {
       console.error('Error updating profile:', error);
-      // Handle the error scenario
     }
   };
 
   const handleSaveEdit = async (updatedData: ProfileData) => {
-    // Call the function to update existing data with the updated profile data
     await updateExistingData(updatedData);
     setIsEditing(false);
   };

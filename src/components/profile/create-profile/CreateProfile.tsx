@@ -51,7 +51,6 @@ const CreateProfile = () => {
   };
 
   useEffect(() => {
-  
     if (!session) {
       router.push('/login');
       return;
@@ -89,7 +88,7 @@ const CreateProfile = () => {
     fetchProfile();
   }, []);
 
-  if ( isLoading) {
+  if (isLoading) {
     return <Loader />;
   }
 
@@ -101,7 +100,10 @@ const CreateProfile = () => {
     <>
       {existingData ? (
         <ProfileContainer>
-          <ProfileForm existingData={existingData} />
+          <ProfileForm
+            existingData={existingData}
+            setExistingData={setExistingData}
+          />
         </ProfileContainer>
       ) : (
         <Container>

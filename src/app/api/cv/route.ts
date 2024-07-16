@@ -4,16 +4,10 @@ import mammoth from 'mammoth';
 import { v4 as uuidv4 } from 'uuid';
 import OpenAI from 'openai';
 import prisma from '../../../lib/prisma';
+import { Profile, ProfileSchema } from '@/types/profile';
 
-/**
-  The package does not behave nicely with Typescript and Next.js,
-  so we need to import them this way and ignore the types. This might be
-  improved in the Next.js 14 release.
-  More information in https://github.com/vercel/next.js/issues/58313.
- **/
 // @ts-ignore
 import * as pdfjs from 'pdfjs-dist/build/pdf.min.mjs';
-import { Resume, ResumeSchema } from '@/types/resume';
 
 // @ts-ignore
 await import('pdfjs-dist/build/pdf.worker.min.mjs');
@@ -36,36 +30,78 @@ const openAI = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'],
 });
 
-const parserPromt = `You will be provided with extracted text from a {file_type} CV, and your task is to parse it and organize the text. Remove unrealted text regarding the CV. Output the data in JSON format. Have following structure for the JSON:
-- field named basic, which contains the following fiels:
-  - firstName (string)
-  - lastName (string)
-  - phoneNumber (string)
-  - email (string)
-  - address (string)
-  - linkedin (string)
-  - additionalLinks, and under it as an array of objects with keys: url (string)
-- and then there is the following fields under the root:
-- professional, and under it a field called work and under it as an array of objects with fields: company (string), jobTitle (string), startDate (object, and under it keys month (string) and year (string)), endDated (object, and under it keys month (string), year (string)), jobDetails as an string
-- educational, and under it as an array of objects with keys: school (string), course (name of the degree, string), startDate and under it keys month (string) and year (string)), endDated (object, and under it keys month (string), year (string)), description (string)
-- skills, array of objects, where each object has a field called name (strings) which tells the name of the skill
-- languages, array of objects, where each object has a field called name (strings) which tells the name of the language
-If some field or data is missing or you cannot parse it, just leave it as an empty string or array.`;
+const parserPrompt = `You will be provided with extracted text from a {file_type} CV, and your task is to parse it and organize the text. Remove unrelated text regarding the CV. Output the data in JSON format. Have the following structure for the JSON:
+{
+  "firstName": "",
+  "lastName": "",
+  "email": "",
+  "contact": "",
+  "links": [
+    {
+      "id": "",
+      "url": ""
+    }
+  ],
+  "educational": [
+    {
+      "id": "",
+      "school": "",
+      "course": "",
+      "startDate": {
+        "month": "",
+        "year": ""
+      },
+      "endDate": {
+        "month": "",
+        "year": ""
+      },
+      "description": ""
+    }
+  ],
+  "professional": [
+    {
+      "id": "",
+      "jobTitle": "",
+      "company": "",
+      "startDate": {
+        "month": "",
+        "year": ""
+      },
+      "endDate": {
+        "month": "",
+        "year": ""
+      },
+      "jobDetails": ""
+    }
+  ],
+  "skills": [
+    {
+      "id": "",
+      "name": ""
+    }
+  ],
+  "languages": [
+    {
+      "id": "",
+      "name": ""
+    }
+  ]
+}`;
 
 function getParserPrompt(fileType: FileType) {
-  let filePromtType: FilePromptType;
+  let filePromptType: FilePromptType;
   switch (fileType) {
     case FileType.DOCX:
-      filePromtType = FilePromptType.DOCX;
+      filePromptType = FilePromptType.DOCX;
       break;
     case FileType.PDF:
-      filePromtType = FilePromptType.PDF;
+      filePromptType = FilePromptType.PDF;
       break;
     default:
-      filePromtType = FilePromptType.PDF;
+      filePromptType = FilePromptType.PDF;
   }
 
-  return parserPromt.replace('{file_type}', filePromtType);
+  return parserPrompt.replace('{file_type}', filePromptType);
 }
 
 export async function POST(req: NextRequest) {
@@ -195,7 +231,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let structuredCVContent: Resume;
+  let structuredCVContent: Profile;
   try {
     structuredCVContent = JSON.parse(chatResp?.choices[0]?.message?.content!);
     if (!structuredCVContent) {
@@ -221,81 +257,24 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  structuredCVContent.professional.summary = '';
-  structuredCVContent.professional.currentRole = '';
-
-  structuredCVContent.professional.work.map(exp => {
-    exp.id = uuidv4();
-    return exp;
-  });
-
-  structuredCVContent.educational.map(edu => {
-    edu.id = uuidv4();
-    return edu;
-  });
-
-  structuredCVContent.skills.map(skill => {
-    skill.id = uuidv4();
-    return skill;
-  });
-
-  structuredCVContent.languages.map(language => {
-    language.id = uuidv4();
-    return language;
-  });
-
-  structuredCVContent.basic.additionalLinks.map(link => {
-    link.id = uuidv4();
-    return link;
-  });
-
-  const isValidResume = ResumeSchema.safeParse(structuredCVContent);
-  if (!isValidResume.success) {
-    console.log(`Invalid resume: ${isValidResume.error}`);
+  const validated = ProfileSchema.safeParse(structuredCVContent);
+  if (!validated.success) {
+    console.log('Validation failed for structured CV content');
     return NextResponse.json(
       {
         body: {
-          message: 'resume structure is invalid',
+          message: 'validation failed for structured CV content',
         },
       },
       { status: 400 },
     );
   }
 
-  console.log('Stuctured the CV, persisting it...');
-  let createdStructuredCV;
-  try {
-    createdStructuredCV = await prisma.structuredCVs.create({
-      data: {
-        ownerId: user.id,
-        content: structuredCVContent as any,
-      },
-      select: {
-        id: true,
-      },
-    });
-  } catch (err) {
-    console.log(`Update parsedCV: ${err}`);
-    return NextResponse.json(
-      {
-        body: {
-          message: 'internal server error',
-        },
-      },
-      { status: 500 },
-    );
-  }
-
-  console.log('Successfully persisted the CV');
-
   return NextResponse.json(
     {
-      body: {
-        message: 'parsing succeeded',
-        resumeId: createdStructuredCV.id,
-      },
+      body: validated.data,
     },
-    { status: 200 },
+    { status: 201 },
   );
 }
 

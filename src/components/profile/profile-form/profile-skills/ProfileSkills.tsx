@@ -25,6 +25,7 @@ import axios from 'axios';
 
 export interface ProfileSkillsProps {
   existingData: Profile;
+  setExistingData: React.Dispatch<React.SetStateAction<Profile | null>>;
   isOpen: boolean;
   toggleAccordion: () => void;
   isEditing: boolean;
@@ -41,6 +42,7 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
   setIsEditing,
   handleCancelEdit,
   // handleSaveEdit,
+  setExistingData,
 }) => {
   const [skillsData, setSkillsData] = useState<Skill[]>(existingData.skills);
 

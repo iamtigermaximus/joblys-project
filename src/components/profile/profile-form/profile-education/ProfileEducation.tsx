@@ -28,6 +28,7 @@ import axios from 'axios';
 
 export interface ProfileEducationProps {
   existingData: Profile;
+  setExistingData: React.Dispatch<React.SetStateAction<Profile | null>>;
   isOpen: boolean;
   toggleAccordion: () => void;
   isEditing: boolean;
@@ -44,6 +45,7 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
   setIsEditing,
   handleCancelEdit,
   // handleSaveEdit,
+  setExistingData,
 }) => {
   const [educationData, setEducationData] = useState<Education[]>(
     existingData.educational,
