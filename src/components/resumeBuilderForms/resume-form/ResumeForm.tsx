@@ -1,10 +1,10 @@
 'use client';
 
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import BasicDetailsForm from '../basic-details/BasicDetailsForm';
 import ProfessionalDetailsForm from '../professional-details/ProfessionalDetailsForm';
 import EducationalDetailsForm from '../education-details/EducationalDetailsForm';
-import { Resume } from '@/types/resume';
+import { initialResume, Resume } from '@/types/resume';
 import {
   AccordionContainer,
   AccordionContent,
@@ -47,12 +47,19 @@ import {
   LoadingMessageContainer,
   LoadingMessage,
 } from '@/components/profile/create-profile/upload-cv/UploadCV.styles';
+import {
+  convertProfileToResume,
+  convertResumeToProfile,
+  Profile,
+} from '@/types/profile';
 
 interface ResumeFormProps {
   resumeId: string;
   resumeInfo: Resume;
   setResumeInfo: React.Dispatch<React.SetStateAction<Resume>>;
   refreshStoredResume: () => void;
+  existingData?: Profile | null;
+  setExistingData: React.Dispatch<React.SetStateAction<Profile | null>>;
 }
 
 const ResumeForm: React.FC<ResumeFormProps> = ({
@@ -60,6 +67,8 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   resumeInfo,
   setResumeInfo,
   refreshStoredResume,
+  existingData,
+  setExistingData,
 }) => {
   const [accordionState, setAccordionState] = useState({
     basic: true,
@@ -96,17 +105,48 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     formData.append('file', cvFile);
 
     try {
-      const resp = await fetch('/api/cv', {
+      // First, upload to api/cv
+      const cvResp = await fetch('/api/cv', {
         method: 'POST',
         body: formData,
       });
 
-      if (resp.status === 200) {
-        const data = await resp.json();
-        setUploadMessage('Upload successful!');
-        router.push(`/resume-builder/resumes/${data.body.resumeId}`);
+      if (cvResp.ok) {
+        const cvData = await cvResp.json();
+        const structuredCVContent = cvData.body; // assuming structured content is returned here
+        console.log('Structured CV Content:', structuredCVContent);
+
+        // Then, post the structured CV to api/profile
+        const profileResp = await fetch('/api/profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ profile: structuredCVContent }),
+        });
+
+        const newData = convertProfileToResume(structuredCVContent);
+
+        if (profileResp.ok) {
+          const profileResponseData = await profileResp.json();
+          setUploadMessage('Upload successful!');
+
+          // Merge structured CV content with existing data
+          const updatedProfileData = {
+            ...existingData,
+            ...profileResponseData.body,
+          };
+
+          setExistingData(updatedProfileData);
+
+          setUploadMessage('Upload successful!');
+
+          setResumeInfo(newData);
+        } else {
+          setUploadMessage(`Uploading profile failed: ${profileResp.status}`);
+        }
       } else {
-        setUploadMessage(`Uploading resume failed: ${resp.status}`);
+        setUploadMessage(`Uploading CV failed: ${cvResp.status}`);
       }
     } catch (error) {
       console.error('Error uploading file:', error);

@@ -11,10 +11,12 @@ import PageHeader from '@/components/common/page-header/PageHeader';
 import { Resume, initialResume } from '@/types/resume';
 import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
 import ResumeForm from '@/components/resumeBuilderForms/resume-form/ResumeForm';
+import { Profile } from '@/types/profile';
 
 const ProfileBuilderPage: FC = () => {
   const params = useParams() as { id: string };
   const [resumeInfo, setResumeInfo] = useState(initialResume());
+  const [existingData, setExistingData] = useState<Profile | null>(null);
 
   const handleStoredResumeUpdate = useCallback(async () => {
     const response = await fetch(`/api/cv/${params.id}`);
@@ -48,6 +50,8 @@ const ProfileBuilderPage: FC = () => {
             resumeInfo={resumeInfo}
             setResumeInfo={setResumeInfo}
             refreshStoredResume={handleStoredResumeUpdate}
+            existingData={existingData}
+            setExistingData={setExistingData}
           />
         </ResumeFormContainer>
         <ResumeTemplateContainer>
