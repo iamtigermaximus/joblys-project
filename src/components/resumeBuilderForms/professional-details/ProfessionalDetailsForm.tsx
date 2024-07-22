@@ -115,32 +115,56 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     field: keyof ProfessionalExperienceType,
     value: string | { month: string; year: string },
   ) => {
-    if (typeof value === 'string') {
-      setResumeInfo(prevInfo => ({
-        ...prevInfo,
-        professional: {
-          ...prevInfo.professional,
-          work: prevInfo.professional.work.map(experience =>
-            experience.id === id
-              ? { ...experience, [field]: value }
-              : experience,
-          ),
-        },
-      }));
-    } else {
-      setResumeInfo(prevInfo => ({
-        ...prevInfo,
-        professional: {
-          ...prevInfo.professional,
-          work: prevInfo.professional.work.map(experience =>
-            experience.id === id
-              ? { ...experience, [field]: value }
-              : experience,
-          ),
-        },
-      }));
-    }
+    setResumeInfo(prevInfo => ({
+      ...prevInfo,
+      professional: {
+        ...prevInfo.professional,
+        work: prevInfo.professional.work.map(experience =>
+          experience.id === id
+            ? {
+                ...experience,
+                [field]:
+                  typeof value === 'string'
+                    ? value
+                    : { ...experience, [field]: value },
+              }
+            : experience,
+        ),
+      },
+    }));
   };
+
+  // const handleInputChange = (
+  //   id: string,
+  //   field: keyof ProfessionalExperienceType,
+  //   value: string | { month: string; year: string },
+  // ) => {
+  //   if (typeof value === 'string') {
+  //     setResumeInfo(prevInfo => ({
+  //       ...prevInfo,
+  //       professional: {
+  //         ...prevInfo.professional,
+  //         work: prevInfo.professional.work.map(experience =>
+  //           experience.id === id
+  //             ? { ...experience, [field]: value }
+  //             : experience,
+  //         ),
+  //       },
+  //     }));
+  //   } else {
+  //     setResumeInfo(prevInfo => ({
+  //       ...prevInfo,
+  //       professional: {
+  //         ...prevInfo.professional,
+  //         work: prevInfo.professional.work.map(experience =>
+  //           experience.id === id
+  //             ? { ...experience, [field]: value }
+  //             : experience,
+  //         ),
+  //       },
+  //     }));
+  //   }
+  // };
 
   const handleGenerateSummary = async () => {
     try {
