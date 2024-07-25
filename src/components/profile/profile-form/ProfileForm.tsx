@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, useState, useEffect } from 'react';
 import { Profile } from '@/types/profile';
 import ProfileBasics from '@/components/profile/profile-form/profile-basic/ProfileBasics';
 import ProfileEducation from '@/components/profile/profile-form/profile-education/ProfileEducation';
@@ -44,6 +44,16 @@ const ProfileForm: FC<ProfileFormProps> = ({
   const [cvFile, setCVFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
+  const [uploadMessageTimeout, setUploadMessageTimeout] =
+    useState<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (uploadMessageTimeout) {
+        clearTimeout(uploadMessageTimeout);
+      }
+    };
+  }, [uploadMessageTimeout]);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.length) {
@@ -106,6 +116,13 @@ const ProfileForm: FC<ProfileFormProps> = ({
       setUploadMessage('Uploading resume failed.');
     } finally {
       setIsUploading(false);
+      if (uploadMessageTimeout) {
+        clearTimeout(uploadMessageTimeout);
+      }
+      const timeout = setTimeout(() => {
+        setUploadMessage('');
+      }, 5000);
+      setUploadMessageTimeout(timeout);
     }
   };
 

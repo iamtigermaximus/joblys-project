@@ -87,6 +87,16 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const [cvFile, setCVFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
+  const [uploadMessageTimeout, setUploadMessageTimeout] =
+    useState<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (uploadMessageTimeout) {
+        clearTimeout(uploadMessageTimeout);
+      }
+    };
+  }, [uploadMessageTimeout]);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.length) {
@@ -153,6 +163,13 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
       setUploadMessage('Uploading resume failed.');
     } finally {
       setIsUploading(false);
+      if (uploadMessageTimeout) {
+        clearTimeout(uploadMessageTimeout);
+      }
+      const timeout = setTimeout(() => {
+        setUploadMessage('');
+      }, 5000);
+      setUploadMessageTimeout(timeout);
     }
   };
 
