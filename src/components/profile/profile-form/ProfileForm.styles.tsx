@@ -279,6 +279,8 @@ export const SkillItemContainer = styled.div`
 export const LanguageItemContainer = styled.div`
   padding: 4px;
   width: 100%;
+  display: flex;
+  flex-direction: row;
 
   @media (min-width: ${bp.md}) {
     padding: 4px 25px;

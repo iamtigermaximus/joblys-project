@@ -4,6 +4,7 @@ import {
   FaCircleChevronUp,
   FaCircleChevronDown,
   FaCheck,
+  FaTrash,
 } from 'react-icons/fa6';
 import { FaEdit, FaTimes } from 'react-icons/fa';
 
@@ -21,8 +22,11 @@ import {
   Button,
   ActionButton,
   ActionButtonContainer,
+  AddButton,
+  AddButtonContainer,
 } from '../ProfileForm.styles';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface ProfileLanguagesProps {
   existingData: Profile;
@@ -32,7 +36,6 @@ export interface ProfileLanguagesProps {
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   handleCancelEdit: () => void;
-  // handleSaveEdit: () => void;
 }
 
 const ProfileLanguages: FC<ProfileLanguagesProps> = ({
@@ -42,7 +45,6 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
   isEditing,
   setIsEditing,
   handleCancelEdit,
-  // handleSaveEdit,
   setExistingData,
 }) => {
   const [languagesData, setLanguagesData] = useState<Language[]>(
@@ -69,6 +71,16 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
     );
   };
 
+  const handleAddLanguage = () => {
+    setLanguagesData(prevData => [...prevData, { id: uuidv4(), name: '' }]);
+  };
+
+  const handleDeleteLanguage = (id: string) => {
+    setLanguagesData(prevData =>
+      prevData.filter(language => language.id !== id),
+    );
+  };
+
   const updateLanguagesData = async (languages: Language[]) => {
     try {
       const response = await axios.post('/api/profile', {
@@ -76,6 +88,10 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
       });
       if (response.status === 200) {
         console.log('Languages updated successfully');
+        setExistingData(prev => ({
+          ...prev!,
+          languages,
+        }));
       } else {
         console.error('Failed to update languages');
       }
@@ -127,9 +143,23 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
                     onChange={e => handleInputChange(e, language.id)}
                     readOnly={!isEditing}
                   />
+                  {isEditing && (
+                    <IconContainer
+                      onClick={() => handleDeleteLanguage(language.id)}
+                    >
+                      <FaTrash />
+                    </IconContainer>
+                  )}
                 </LanguageItemContainer>
               </LanguagesContainer>
             ))}
+            {isEditing && (
+              <AddButtonContainer>
+                <AddButton onClick={handleAddLanguage}>
+                  Add new language
+                </AddButton>
+              </AddButtonContainer>
+            )}
             {isEditing && (
               <ActionButtonContainer>
                 <ActionButton onClick={handleCancelEdit}>
