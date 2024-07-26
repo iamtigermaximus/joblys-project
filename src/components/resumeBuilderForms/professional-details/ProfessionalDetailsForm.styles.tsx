@@ -64,6 +64,7 @@ export const InputLabelContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const InputLabel = styled.label`
@@ -247,3 +248,15 @@ export const SuccessAlert = styled.p`
   color: #28a745;
 `;
 
+export const CheckboxContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
+`;
+
+export const CheckboxLabel = styled.label`
+  font-size: 14px;
+  color: ${colors.darkPurple};
+  padding: 5px;
+`;

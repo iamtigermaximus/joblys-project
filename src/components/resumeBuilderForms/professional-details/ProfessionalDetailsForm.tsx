@@ -5,7 +5,9 @@ import {
   AddWorkExperienceButton,
   AddWorkExperienceContainer,
   ButtonsContainer,
+  CheckboxContainer,
   CheckboxInput,
+  CheckboxLabel,
   Container,
   DropdownContainer,
   EnhanceButton,
@@ -134,38 +136,6 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     }));
   };
 
-  // const handleInputChange = (
-  //   id: string,
-  //   field: keyof ProfessionalExperienceType,
-  //   value: string | { month: string; year: string },
-  // ) => {
-  //   if (typeof value === 'string') {
-  //     setResumeInfo(prevInfo => ({
-  //       ...prevInfo,
-  //       professional: {
-  //         ...prevInfo.professional,
-  //         work: prevInfo.professional.work.map(experience =>
-  //           experience.id === id
-  //             ? { ...experience, [field]: value }
-  //             : experience,
-  //         ),
-  //       },
-  //     }));
-  //   } else {
-  //     setResumeInfo(prevInfo => ({
-  //       ...prevInfo,
-  //       professional: {
-  //         ...prevInfo.professional,
-  //         work: prevInfo.professional.work.map(experience =>
-  //           experience.id === id
-  //             ? { ...experience, [field]: value }
-  //             : experience,
-  //         ),
-  //       },
-  //     }));
-  //   }
-  // };
-
   const handleGenerateSummary = async () => {
     try {
       const payload = {
@@ -230,24 +200,28 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     }));
   };
 
-  const handleCheckboxChange = (
-    isChecked: boolean,
-    experience: ProfessionalExperienceType,
-  ) => {
-    setCheckedWorkIds(prevCheckedIds => {
-      if (isChecked) {
-        handleInputChange(experience.id, 'endDate', 'present');
-      } else {
-        handleInputChange(experience.id, 'endDate', {
-          ...(typeof experience.endDate === 'string'
-            ? { month: '', year: '' }
-            : experience.endDate),
-        });
-      }
-      return isChecked
-        ? [...prevCheckedIds, experience.id]
-        : prevCheckedIds.filter(id => id !== experience.id);
-    });
+  const handleCheckboxChange = (isChecked: boolean, experienceId: string) => {
+    setResumeInfo(prevInfo => ({
+      ...prevInfo,
+      professional: {
+        ...prevInfo.professional,
+        work: prevInfo.professional.work.map(experience =>
+          experience.id === experienceId
+            ? {
+                ...experience,
+                endDate: isChecked ? 'present' : { month: '', year: '' },
+              }
+            : experience,
+        ),
+      },
+    }));
+
+    // Update the checkedWorkIds array
+    setCheckedWorkIds(prevCheckedIds =>
+      isChecked
+        ? [...prevCheckedIds, experienceId]
+        : prevCheckedIds.filter(id => id !== experienceId),
+    );
   };
 
   return (
@@ -333,9 +307,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                       <option key={month} value={month}>
                         {new Date(2022, parseInt(month) - 1).toLocaleString(
                           'default',
-                          {
-                            month: 'long',
-                          },
+                          { month: 'long' },
                         )}
                       </option>
                     ))}
@@ -361,14 +333,18 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
               <InputContainer>
                 <InputLabelContainer>
                   <InputLabel>End date:</InputLabel>
-                  <CheckboxInput
-                    type="checkbox"
-                    checked={checkedWorkIds.includes(experience.id)}
-                    onChange={e =>
-                      handleCheckboxChange(e.target.checked, experience)
-                    }
-                  />
-                  Present
+                  <CheckboxContainer>
+                    <CheckboxInput
+                      type="checkbox"
+                      checked={checkedWorkIds.includes(experience.id)}
+                      onChange={e =>
+                        handleCheckboxChange(e.target.checked, experience.id)
+                      }
+                    />
+                    <CheckboxLabel htmlFor={`present-${experience.id}`}>
+                      Present
+                    </CheckboxLabel>
+                  </CheckboxContainer>
                 </InputLabelContainer>
                 <DropdownContainer>
                   <MonthSelect
@@ -392,9 +368,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                       <option key={month} value={month}>
                         {new Date(2022, parseInt(month) - 1).toLocaleString(
                           'default',
-                          {
-                            month: 'long',
-                          },
+                          { month: 'long' },
                         )}
                       </option>
                     ))}
@@ -449,6 +423,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             </InputContainer>
           </WorkExperienceContainer>
         ))}
+
         <AddWorkExperienceContainer>
           <AddWorkExperienceButton onClick={handleAddWorkExperience}>
             + Add work experience
