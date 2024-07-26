@@ -88,6 +88,7 @@ export const IconContainer = styled.div`
   align-items: center;
   color: black;
   padding: 0 3px;
+  cursor: pointer;
 `;
 
 export const BasicDetailsContainer = styled.div`

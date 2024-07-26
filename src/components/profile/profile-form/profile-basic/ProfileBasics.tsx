@@ -228,12 +228,11 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
                       onChange={e => handleLinkChange(e, link.id)}
                       readOnly={!isEditing}
                     />
-                    <IconContainer
-                      onClick={() => removeLink(link.id)}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      <FaTrash />
-                    </IconContainer>
+                    {isEditing && (
+                      <IconContainer onClick={() => removeLink(link.id)}>
+                        <FaTrash />
+                      </IconContainer>
+                    )}
                   </NewLinkContainer>
                 </InputContainer>
               ))}
