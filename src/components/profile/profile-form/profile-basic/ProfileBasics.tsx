@@ -23,9 +23,10 @@ import {
   NewLinkContainer,
   Button,
   ButtonContainer,
-  AddLinkButtonContainer,
+  AddButtonContainer,
   ActionButtonContainer,
   ActionButton,
+  AddButton,
 } from '../ProfileForm.styles';
 import axios from 'axios';
 
@@ -50,7 +51,6 @@ export interface ProfileBasicsProps {
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   handleCancelEdit: () => void;
-  // handleSaveEdit: (profileData: any) => void;
 }
 
 const ProfileBasics: FC<ProfileBasicsProps> = ({
@@ -61,7 +61,6 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
   isEditing,
   setIsEditing,
   handleCancelEdit,
-  // handleSaveEdit,
 }) => {
   const [profileData, setProfileData] = useState<ProfileData>(existingData);
 
@@ -238,17 +237,11 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
               ))}
             </InputRow>
 
-            <AddLinkButtonContainer>
-              {isEditing ? (
-                <Button onClick={addNewLink}>
-                  <FaPlus /> Add Link
-                </Button>
-              ) : (
-                <Button onClick={addNewLink} disabled>
-                  <FaPlus /> Add Link
-                </Button>
-              )}
-            </AddLinkButtonContainer>
+            {isEditing && (
+              <AddButtonContainer>
+                <AddButton onClick={addNewLink}>Add new link</AddButton>
+              </AddButtonContainer>
+            )}
             {isEditing && (
               <ActionButtonContainer>
                 <ActionButton onClick={handleCancelEdit}>
