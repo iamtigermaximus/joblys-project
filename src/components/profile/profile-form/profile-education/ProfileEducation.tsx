@@ -3,6 +3,7 @@ import {
   FaCircleChevronUp,
   FaCircleChevronDown,
   FaCheck,
+  FaTrash,
 } from 'react-icons/fa6';
 import { FaEdit, FaTimes } from 'react-icons/fa';
 import {
@@ -22,9 +23,13 @@ import {
   Button,
   ActionButton,
   ActionButtonContainer,
+  AddButtonContainer,
+  AddButton,
+  TrashIconContainer,
 } from '../ProfileForm.styles';
 import { Education, Profile, DateInfo } from '@/types/profile';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface ProfileEducationProps {
   existingData: Profile;
@@ -34,7 +39,6 @@ export interface ProfileEducationProps {
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   handleCancelEdit: () => void;
-  // handleSaveEdit: () => void;
 }
 
 const ProfileEducation: FC<ProfileEducationProps> = ({
@@ -44,20 +48,19 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
   isEditing,
   setIsEditing,
   handleCancelEdit,
-  // handleSaveEdit,
   setExistingData,
 }) => {
   const [educationData, setEducationData] = useState<Education[]>(
-    existingData.educational,
+    existingData.educational || [],
   );
 
   useEffect(() => {
-    if (existingData.educational && existingData.educational.length > 0) {
+    if (existingData.educational) {
       setEducationData(existingData.educational);
     } else {
       setEducationData([
         {
-          id: '',
+          id: uuidv4(),
           school: '',
           course: '',
           startDate: { month: '', year: '' },
@@ -68,18 +71,6 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
     }
   }, [existingData.educational]);
 
-  // const handleInputChange = (
-  //   e: React.ChangeEvent<HTMLInputElement>,
-  //   id: string,
-  //   fieldName: string,
-  // ) => {
-  //   const { value } = e.target;
-  //   setEducationData(prevData =>
-  //     prevData.map(educ =>
-  //       educ.id === id ? { ...educ, [fieldName]: value } : educ,
-  //     ),
-  //   );
-  // };
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     id: string,
@@ -108,37 +99,22 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
       }),
     );
   };
-  // const handleInputChange = (
-  //   e: React.ChangeEvent<HTMLInputElement>,
-  //   id: string,
-  //   fieldName: keyof Education,
-  //   subFieldName?: keyof Education['startDate'] | keyof Education['endDate'],
-  // ) => {
-  //   const { value } = e.target;
-  //   setEducationData(prevData =>
-  //     prevData.map(educ => {
-  //       if (educ.id === id) {
-  //         if (
-  //           subFieldName &&
-  //           (fieldName === 'startDate' || fieldName === 'endDate')
-  //         ) {
-  //           return {
-  //             ...educ,
-  //             [fieldName]: {
-  //               ...educ[fieldName],
-  //               [subFieldName]: value,
-  //             },
-  //           };
-  //         }
-  //         return {
-  //           ...educ,
-  //           [fieldName]: value,
-  //         };
-  //       }
-  //       return educ;
-  //     }),
-  //   );
-  // };
+
+  const handleAddEducation = () => {
+    const newEducation: Education = {
+      id: uuidv4(),
+      school: '',
+      course: '',
+      startDate: { month: '', year: '' },
+      endDate: { month: '', year: '' },
+      description: '',
+    };
+    setEducationData(prevData => [...prevData, newEducation]);
+  };
+
+  const handleDeleteEducation = (id: string) => {
+    setEducationData(prevData => prevData.filter(educ => educ.id !== id));
+  };
 
   const updateEducationData = async (educational: Education[]) => {
     try {
@@ -147,6 +123,10 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
       });
       if (response.status === 200) {
         console.log('Education updated successfully');
+        setExistingData(prev => ({
+          ...prev!,
+          educational,
+        }));
       } else {
         console.error('Failed to update education');
       }
@@ -190,6 +170,15 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
             </ButtonContainer>
             {educationData.map(educ => (
               <EducationContainer key={educ.id}>
+                <div>
+                  {isEditing && (
+                    <TrashIconContainer
+                      onClick={() => handleDeleteEducation(educ.id)}
+                    >
+                      <FaTrash />
+                    </TrashIconContainer>
+                  )}
+                </div>
                 <InputRow>
                   <InputContainer>
                     <InputLabel>School:</InputLabel>
@@ -261,6 +250,13 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
               </EducationContainer>
             ))}
 
+            {isEditing && (
+              <AddButtonContainer>
+                <AddButton onClick={handleAddEducation}>
+                  Add new education
+                </AddButton>
+              </AddButtonContainer>
+            )}
             {isEditing && (
               <ActionButtonContainer>
                 <ActionButton onClick={handleCancelEdit}>

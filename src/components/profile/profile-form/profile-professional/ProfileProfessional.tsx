@@ -4,6 +4,7 @@ import {
   FaCircleChevronUp,
   FaCircleChevronDown,
   FaCheck,
+  FaTrash,
 } from 'react-icons/fa6';
 import {
   AccordionSection,
@@ -24,9 +25,13 @@ import {
   ButtonContainer,
   ActionButton,
   ActionButtonContainer,
+  AddButtonContainer,
+  AddButton,
+  TrashIconContainer,
 } from '../ProfileForm.styles';
 import { FaEdit, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface ProfileProfessionalProps {
   existingData: Profile;
@@ -36,7 +41,6 @@ export interface ProfileProfessionalProps {
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   handleCancelEdit: () => void;
-  // handleSaveEdit: () => void;
 }
 
 const ProfileProfessional: FC<ProfileProfessionalProps> = ({
@@ -46,20 +50,19 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
   isEditing,
   setIsEditing,
   handleCancelEdit,
-  // handleSaveEdit,
   setExistingData,
 }) => {
   const [workData, setWorkData] = useState<WorkExperience[]>(
-    existingData.professional,
+    existingData.professional || [],
   );
 
   useEffect(() => {
-    if (existingData.professional && existingData.professional.length > 0) {
+    if (existingData.professional) {
       setWorkData(existingData.professional);
     } else {
       setWorkData([
         {
-          id: '',
+          id: uuidv4(),
           jobTitle: '',
           company: '',
           startDate: { month: '', year: '' },
@@ -69,19 +72,6 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
       ]);
     }
   }, [existingData.professional]);
-
-  // const handleInputChange = (
-  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  //   id: string,
-  //   fieldName: string,
-  // ) => {
-  //   const { value } = e.target;
-  //   setWorkData(prevData =>
-  //     prevData.map(work =>
-  //       work.id === id ? { ...work, [fieldName]: value } : work,
-  //     ),
-  //   );
-  // };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -112,37 +102,23 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
     );
   };
 
-  // const handleInputChange = (
-  //   e: React.ChangeEvent<HTMLInputElement>,
-  //   id: string,
-  //   fieldName: keyof Education,
-  //   subFieldName?: keyof Education['startDate'] | keyof Education['endDate'],
-  // ) => {
-  //   const { value } = e.target;
-  //   setEducationData(prevData =>
-  //     prevData.map(educ => {
-  //       if (educ.id === id) {
-  //         if (
-  //           subFieldName &&
-  //           (fieldName === 'startDate' || fieldName === 'endDate')
-  //         ) {
-  //           return {
-  //             ...educ,
-  //             [fieldName]: {
-  //               ...educ[fieldName],
-  //               [subFieldName]: value,
-  //             },
-  //           };
-  //         }
-  //         return {
-  //           ...educ,
-  //           [fieldName]: value,
-  //         };
-  //       }
-  //       return educ;
-  //     }),
-  //   );
-  // };
+  const handleAddExperience = () => {
+    const newExperience: WorkExperience = {
+      id: uuidv4(),
+      jobTitle: '',
+      company: '',
+      startDate: { month: '', year: '' },
+      endDate: { month: '', year: '' },
+      jobDetails: '',
+    };
+    setWorkData(prevData => [...prevData, newExperience]);
+  };
+
+  const handleDeleteExperience = (id: string) => {
+    setWorkData(prevData =>
+      prevData.filter(experience => experience.id !== id),
+    );
+  };
 
   const updateProfessionalData = async (professional: WorkExperience[]) => {
     try {
@@ -151,6 +127,10 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
       });
       if (response.status === 200) {
         console.log('Work experience updated successfully');
+        setExistingData(prev => ({
+          ...prev!,
+          professional,
+        }));
       } else {
         console.error('Failed to update work experience ');
       }
@@ -194,6 +174,15 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
             </ButtonContainer>
             {workData.map(work => (
               <ProfessionalContainer key={work.id}>
+                <div>
+                  {isEditing && (
+                    <TrashIconContainer
+                      onClick={() => handleDeleteExperience(work.id)}
+                    >
+                      <FaTrash />
+                    </TrashIconContainer>
+                  )}
+                </div>
                 <InputRow>
                   <InputContainer>
                     <InputLabel>Job Title:</InputLabel>
@@ -280,6 +269,13 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
                 </InputRow>
               </ProfessionalContainer>
             ))}
+            {isEditing && (
+              <AddButtonContainer>
+                <AddButton onClick={handleAddExperience}>
+                  Add new experience
+                </AddButton>
+              </AddButtonContainer>
+            )}
             {isEditing && (
               <ActionButtonContainer>
                 <ActionButton onClick={handleCancelEdit}>

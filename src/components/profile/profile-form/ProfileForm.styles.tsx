@@ -91,6 +91,19 @@ export const IconContainer = styled.div`
   cursor: pointer;
 `;
 
+export const TrashIconContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: black;
+  padding: 0 4px;
+  cursor: pointer;
+
+  @media (min-width: ${bp.md}) {
+    padding: 0 25px;
+  }
+`;
+
 export const BasicDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -446,7 +459,7 @@ export const AddButton = styled.button`
   align-items: center;
   border-radius: 5px;
   padding: 4px;
-  width: 120px;
+  width: 150px;
   background-color: ${colors.purple};
   color: ${colors.white};
   display: flex;
