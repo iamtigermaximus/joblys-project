@@ -268,6 +268,8 @@ export const ItemContainer = styled.div`
 export const SkillItemContainer = styled.div`
   padding: 4px;
   width: 100%;
+  display: flex;
+  flex-direction: row;
 
   @media (min-width: ${bp.md}) {
     padding: 4px 25px;
@@ -421,5 +423,37 @@ export const UploadSection = styled.div`
   margin-bottom: 10px;
 
   @media (min-width: ${bp.md}) {
+  }
+`;
+
+export const AddButtonContainer = styled.div`
+  padding: 4px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: ${bp.md}) {
+    padding: 4px 25px;
+  }
+`;
+
+export const AddButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 4px;
+  width: 120px;
+  background-color: ${colors.purple};
+  color: ${colors.white};
+  display: flex;
+  cursor: pointer;
+  white-space: nowrap;
+  gap: 2px;
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+    color: ${colors.white};
   }
 `;

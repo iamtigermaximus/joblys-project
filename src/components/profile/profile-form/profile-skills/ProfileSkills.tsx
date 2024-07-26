@@ -4,6 +4,7 @@ import {
   FaCircleChevronUp,
   FaCircleChevronDown,
   FaCheck,
+  FaTrash,
 } from 'react-icons/fa6';
 import { FaEdit, FaTimes } from 'react-icons/fa';
 import {
@@ -20,8 +21,11 @@ import {
   Button,
   ActionButton,
   ActionButtonContainer,
+  AddButtonContainer,
+  AddButton,
 } from '../ProfileForm.styles';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface ProfileSkillsProps {
   existingData: Profile;
@@ -31,7 +35,6 @@ export interface ProfileSkillsProps {
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   handleCancelEdit: () => void;
-  // handleSaveEdit: () => void;
 }
 
 const ProfileSkills: FC<ProfileSkillsProps> = ({
@@ -41,7 +44,6 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
   isEditing,
   setIsEditing,
   handleCancelEdit,
-  // handleSaveEdit,
   setExistingData,
 }) => {
   const [skillsData, setSkillsData] = useState<Skill[]>(existingData.skills);
@@ -66,6 +68,14 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
     );
   };
 
+  const handleAddSkill = () => {
+    setSkillsData(prevData => [...prevData, { id: uuidv4(), name: '' }]);
+  };
+
+  const handleDeleteSkill = (id: string) => {
+    setSkillsData(prevData => prevData.filter(skill => skill.id !== id));
+  };
+
   const updateSkillsData = async (skills: Skill[]) => {
     try {
       const response = await axios.post('/api/profile', {
@@ -73,6 +83,10 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
       });
       if (response.status === 200) {
         console.log('Skills updated successfully');
+        setExistingData(prev => ({
+          ...prev!,
+          skills,
+        }));
       } else {
         console.error('Failed to update skills');
       }
@@ -125,9 +139,19 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
                     onChange={e => handleInputChange(e, skill.id)}
                     readOnly={!isEditing}
                   />
+                  {isEditing && (
+                    <IconContainer onClick={() => handleDeleteSkill(skill.id)}>
+                      <FaTrash />
+                    </IconContainer>
+                  )}
                 </SkillItemContainer>
               </SkillsContainer>
             ))}
+            {isEditing && (
+              <AddButtonContainer>
+                <AddButton onClick={handleAddSkill}>Add new skill</AddButton>
+              </AddButtonContainer>
+            )}
 
             {isEditing && (
               <ActionButtonContainer>
