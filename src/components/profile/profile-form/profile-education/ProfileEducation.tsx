@@ -54,9 +54,31 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
     existingData.educational || [],
   );
 
+  // useEffect(() => {
+  //   if (existingData.educational) {
+  //     setEducationData(existingData.educational);
+  //   } else {
+  //     setEducationData([
+  //       {
+  //         id: uuidv4(),
+  //         school: '',
+  //         course: '',
+  //         startDate: { month: '', year: '' },
+  //         endDate: { month: '', year: '' },
+  //         description: '',
+  //       },
+  //     ]);
+  //   }
+  // }, [existingData.educational]);
+
   useEffect(() => {
-    if (existingData.educational) {
-      setEducationData(existingData.educational);
+    // Generate unique IDs for existing educational entries if needed
+    if (existingData.educational && existingData.educational.length > 0) {
+      setEducationData(
+        existingData.educational.map(edu =>
+          edu.id ? edu : { ...edu, id: uuidv4() },
+        ),
+      );
     } else {
       setEducationData([
         {

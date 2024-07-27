@@ -48,11 +48,25 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
 }) => {
   const [skillsData, setSkillsData] = useState<Skill[]>(existingData.skills);
 
+  // useEffect(() => {
+  //   if (existingData.skills && existingData.skills.length > 0) {
+  //     setSkillsData(existingData.skills);
+  //   } else {
+  //     setSkillsData([{ id: '', name: '' }]);
+  //   }
+  // }, [existingData.skills]);
+
+
   useEffect(() => {
+    // Generate unique IDs for existing skills if needed
     if (existingData.skills && existingData.skills.length > 0) {
-      setSkillsData(existingData.skills);
+      setSkillsData(
+        existingData.skills.map(
+          skill => (skill.id ? skill : { ...skill, id: uuidv4() }), 
+        ),
+      );
     } else {
-      setSkillsData([{ id: '', name: '' }]);
+      setSkillsData([{ id: uuidv4(), name: '' }]);
     }
   }, [existingData.skills]);
 

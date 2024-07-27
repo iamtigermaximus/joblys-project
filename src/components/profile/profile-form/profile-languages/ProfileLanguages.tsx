@@ -51,11 +51,24 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
     existingData.languages,
   );
 
+  // useEffect(() => {
+  //   if (existingData.languages && existingData.languages.length > 0) {
+  //     setLanguagesData(existingData.languages);
+  //   } else {
+  //     setLanguagesData([{ id: '', name: '' }]);
+  //   }
+  // }, [existingData.languages]);
+
   useEffect(() => {
+    // Generate unique IDs for existing skills if needed
     if (existingData.languages && existingData.languages.length > 0) {
-      setLanguagesData(existingData.languages);
+      setLanguagesData(
+        existingData.languages.map(language =>
+          language.id ? language : { ...language, id: uuidv4() },
+        ),
+      );
     } else {
-      setLanguagesData([{ id: '', name: '' }]);
+      setLanguagesData([{ id: uuidv4(), name: '' }]);
     }
   }, [existingData.languages]);
 

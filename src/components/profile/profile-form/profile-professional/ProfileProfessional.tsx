@@ -56,9 +56,31 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
     existingData.professional || [],
   );
 
+  // useEffect(() => {
+  //   if (existingData.professional) {
+  //     setWorkData(existingData.professional);
+  //   } else {
+  //     setWorkData([
+  //       {
+  //         id: uuidv4(),
+  //         jobTitle: '',
+  //         company: '',
+  //         startDate: { month: '', year: '' },
+  //         endDate: { month: '', year: '' },
+  //         jobDetails: '',
+  //       },
+  //     ]);
+  //   }
+  // }, [existingData.professional]);
+
   useEffect(() => {
-    if (existingData.professional) {
-      setWorkData(existingData.professional);
+    // Generate unique IDs for existing professional entries if needed
+    if (existingData.professional && existingData.professional.length > 0) {
+      setWorkData(
+        existingData.professional.map(job =>
+          job.id ? job : { ...job, id: uuidv4() },
+        ),
+      );
     } else {
       setWorkData([
         {
