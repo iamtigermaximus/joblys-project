@@ -49,6 +49,8 @@ import {
 import DownloadPDFButton from '../defaultTemplate/DownloadPDFButton';
 import { formatDistanceToNow } from 'date-fns';
 import ConfirmationModal from '../defaultTemplate/ConfirmationModal';
+import UpgradeModal from '../defaultTemplate/resume-helpers/UpgradeModal';
+
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { convertProfileToResume } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
@@ -77,6 +79,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [resumeIdToDelete, setResumeIdToDelete] = useState<string | null>(null);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);
@@ -156,7 +159,13 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to upload resume');
+        const {
+          body: { message },
+        } = await response.json();
+        if (message.includes('Cannot create more than')) {
+          setShowUpgradeModal(true);
+        }
+        throw new Error(message);
       }
 
       const respJson = await response.json();
@@ -168,7 +177,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
       router.push(`/resume-builder/resumes/${id}`);
     } catch (error: any) {
       console.error('Error uploading resume:', error.message);
-      handleGetStarted();
+      return;
     }
   };
 
@@ -303,8 +312,6 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                     Resume {resume.resumeInfo.basic.firstName}{' '}
                     {resume.resumeInfo.basic.lastName}
                   </Filename>
-                  {/* <h4>Created At: {formatTimestamp(resume.createdAt)}</h4> */}
-                  {/* <Timestamp>Edited {formatTimestamp(resume.updatedAt)}</Timestamp> */}
                   {resume.updatedAt && (
                     <Timestamp>
                       Edited {formatTimestamp(resume.updatedAt)}
@@ -339,20 +346,6 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                             />
                           </SidebarResumeContent>
                         )}
-                        {/* <SidebarTimestampContainer>
-                    <TimestampContainer>
-                      <TimestampItem>Created</TimestampItem>
-                      <TimestampItem>
-                        {formatTimestamp(resume.createdAt)}
-                      </TimestampItem>
-                    </TimestampContainer>
-                    <TimestampContainer>
-                      <TimestampItem>Edited</TimestampItem>
-                      <TimestampItem>
-                        {formatTimestamp(resume.updatedAt)}
-                      </TimestampItem>
-                    </TimestampContainer>
-                  </SidebarTimestampContainer> */}
                       </ContentContainer>
                     </SidebarContentContainer>
                     <ActionContainer>
@@ -381,6 +374,9 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
           )}
           {showDeleteMessage && (
             <DeleteMessage>Resume deleted successfully!</DeleteMessage>
+          )}
+          {showUpgradeModal && (
+            <UpgradeModal onClose={() => setShowUpgradeModal(false)} />
           )}
         </ResumeContainer>
       ) : (
@@ -424,6 +420,9 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
           )}
           {showDeleteMessage && (
             <DeleteMessage>Resume deleted successfully!</DeleteMessage>
+          )}
+          {showUpgradeModal && (
+            <UpgradeModal onClose={() => setShowUpgradeModal(false)} />
           )}
         </ResumesListContainer>
       )}

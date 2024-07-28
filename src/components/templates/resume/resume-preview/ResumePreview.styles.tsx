@@ -84,6 +84,7 @@ export const ResumeCard = styled.div<{ isLast?: boolean }>`
   position: relative;
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
+  cursor: pointer;
 
   @media (min-width: ${bp.sm}) {
     height: 300px;
@@ -179,6 +180,7 @@ export const CreateResumeButton = styled.div`
 export const ButtonLabel = styled.h1`
   font-size: 16px;
   color: #b0b0b0;
+  cursor: pointer;
 
   &:hover {
     color: #520668;
