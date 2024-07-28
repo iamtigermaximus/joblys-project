@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { breakpoints as bp } from '@/utils/layout';
+import { useRouter } from 'next/navigation';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -81,8 +82,10 @@ interface UpgradeModalProps {
 }
 
 const UpgradeModal: React.FC<UpgradeModalProps> = ({ onClose }) => {
+  const router = useRouter();
   const handleUpgrade = () => {
     // Redirect user to upgrade page or handle upgrade logic
+    router.push('/subscription-page');
     onClose();
   };
 
