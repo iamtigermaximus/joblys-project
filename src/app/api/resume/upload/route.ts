@@ -3,6 +3,14 @@ import { getToken } from 'next-auth/jwt';
 import { Coverletter, CoverletterSchema } from '@/types/coverletter';
 import prisma from '../../../../lib/prisma';
 
+const MAX_COVERLETTERS = 10;
+
+class TooManyCoverlettersError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
+
 export async function POST(req: NextRequest) {
   const token = await getToken({ req });
   if (!token || !token.sub) {
@@ -31,7 +39,7 @@ export async function POST(req: NextRequest) {
 
   const isValid = CoverletterSchema.safeParse(coverletter);
   if (!isValid.success) {
-    console.log(`Invalid resume: ${isValid.error}`);
+    console.log(`Invalid coverletter: ${isValid.error}`);
     return NextResponse.json(
       {
         body: {
@@ -45,18 +53,46 @@ export async function POST(req: NextRequest) {
   console.log('Creating a new coverletter...');
   let createdCoverletter;
   try {
-    createdCoverletter = await prisma.coverLetters.create({
-      data: {
-        ownerId: token.sub,
-        content: coverletter as any,
-      },
-      select: {
-        id: true,
-      },
+    await prisma.$transaction(async tx => {
+      const count = await tx.coverLetters.count({
+        where: { ownerId: token.sub },
+      });
+
+      if (count >= MAX_COVERLETTERS) {
+        throw new TooManyCoverlettersError(
+          `Too many coverletters, cannot have more than ${MAX_COVERLETTERS}`,
+        );
+      }
+
+      // Ensure the content is a string. Adjust the property name as needed.
+      const content = coverletter.content as string; // Make sure to extract the correct string
+
+      createdCoverletter = await tx.coverLetters.create({
+        data: {
+          ownerId: token.sub!,
+          content: content, // Pass the string content
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      console.log('Created a new coverletter with id:', createdCoverletter.id);
     });
-    console.log('Created a new coverletter with id:', createdCoverletter.id);
   } catch (err) {
     console.log(`Create coverletter: ${err}`);
+
+    if (err instanceof TooManyCoverlettersError) {
+      return NextResponse.json(
+        {
+          body: {
+            message: `Cannot create more than ${MAX_COVERLETTERS} coverletters. Please upgrade your subscription.`,
+          },
+        },
+        { status: 400 },
+      );
+    }
+
     return NextResponse.json(
       {
         body: {
@@ -70,7 +106,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(
     {
       body: {
-        id: createdCoverletter.id,
+        id: createdCoverletter!.id,
       },
     },
     { status: 201 },

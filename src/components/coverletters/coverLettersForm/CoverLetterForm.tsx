@@ -59,6 +59,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [applyJobDescription, setApplyJobDescription] = useState('');
   const [resumeId, setResumeId] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Loading state variable
 
   const [profileData, setProfileData] = useState<
     { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
@@ -87,7 +88,6 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
           },
         );
         setProfileData(data);
-        console.log('DATA', data);
       } catch (error: any) {
         setProfileData([]);
       }
@@ -99,10 +99,6 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  // if (!profileData) {
-  //   return <div>No profile data available</div>;
-  // }
 
   const handleApplyJobDescriptionChange = async (jobDescription: string) => {
     setApplyJobDescription(jobDescription);
@@ -130,6 +126,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   };
 
   const handleSubmitWriteCoverletter = async () => {
+    setIsLoading(true); // Set loading state to true
     try {
       const response = await fetch('/api/coverletterChanges', {
         method: 'POST',
@@ -154,6 +151,8 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
       }, 3000);
     } catch (error: any) {
       console.error('Error creating coverletter:', error.message);
+    } finally {
+      setIsLoading(false); // Set loading state to false
     }
   };
 
@@ -216,7 +215,8 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
           <PreviewButtonSection>
             <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
             <GenerateButton onClick={handleSubmitWriteCoverletter}>
-              Generate a cover letter
+              {isLoading ? 'Generating...' : 'Generate a cover letter'}{' '}
+              {/* Update button text based on loading state */}
             </GenerateButton>
           </PreviewButtonSection>
           {showSuccessMessage && (

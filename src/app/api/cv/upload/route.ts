@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
 
       if (count >= MAX_CVS) {
         throw new TooManyCVsError(
-          `Too many CVs: ${count}, cannot have more than ${MAX_CVS}`,
+          `Too many CVs, cannot have more than ${MAX_CVS}`,
         );
       }
 
