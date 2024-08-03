@@ -18,6 +18,22 @@ import {
   AddEducation,
 } from './EducationField.styles';
 
+// Month names
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 interface EducationFieldProps {
   value: Education[];
   onChange: (value: Education[]) => void;
@@ -32,8 +48,11 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
             id: uuidv4(),
             school: '',
             course: '',
-            startDate: { month: '01', year: `${new Date().getFullYear()}` },
-            endDate: { month: '01', year: `${new Date().getFullYear()}` },
+            startDate: {
+              month: 'January',
+              year: `${new Date().getFullYear()}`,
+            },
+            endDate: { month: 'January', year: `${new Date().getFullYear()}` },
             description: '',
           },
         ];
@@ -62,8 +81,8 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
       id: uuidv4(),
       school: '',
       course: '',
-      startDate: { month: '01', year: `${new Date().getFullYear()}` },
-      endDate: { month: '01', year: `${new Date().getFullYear()}` },
+      startDate: { month: 'January', year: `${new Date().getFullYear()}` },
+      endDate: { month: 'January', year: `${new Date().getFullYear()}` },
       description: '',
     };
     const newEducations = [...educations, newEducation];
@@ -71,16 +90,11 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
     onChange(newEducations);
   };
 
-  const generateMonths = () => {
-    return Array.from({ length: 12 }, (_, index) => {
-      const month = index + 1;
-      return month < 10 ? `0${month}` : `${month}`;
-    });
-  };
+  const generateMonths = () => monthNames;
 
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
-    return Array.from({ length: 10 }, (_, index) => currentYear - index);
+    return Array.from({ length: 50 }, (_, index) => currentYear - index);
   };
 
   const months = generateMonths();
@@ -96,7 +110,7 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <h4>6.Provide your educational details:</h4>
+          <h4>6. Provide your educational details:</h4>
         </QuestionContainer>
         {educations.map(education => (
           <EducationItemsContainer key={education.id}>
@@ -130,18 +144,6 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
             </TextInputContainer>
             <DateContainer>
               <TextInputContainer>
-                {/* <TextInput
-                  type="date"
-                  placeholder="Start Date"
-                  value={education.startDate}
-                  onChange={e =>
-                    handleEducationChange(
-                      education.id,
-                      'startDate',
-                      e.target.value,
-                    )
-                  }
-                /> */}
                 <InputLabel>Start date:</InputLabel>
                 <DropdownContainer>
                   <MonthSelect
@@ -155,12 +157,7 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
                   >
                     {months.map(month => (
                       <option key={month} value={month}>
-                        {new Date(2022, parseInt(month) - 1).toLocaleString(
-                          'default',
-                          {
-                            month: 'long',
-                          },
-                        )}
+                        {month}
                       </option>
                     ))}
                   </MonthSelect>
@@ -195,12 +192,7 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
                   >
                     {months.map(month => (
                       <option key={month} value={month}>
-                        {new Date(2022, parseInt(month) - 1).toLocaleString(
-                          'default',
-                          {
-                            month: 'long',
-                          },
-                        )}
+                        {month}
                       </option>
                     ))}
                   </MonthSelect>

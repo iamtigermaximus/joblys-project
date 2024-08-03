@@ -19,6 +19,22 @@ import {
   YearSelect,
 } from './WorkExperienceField.styles';
 
+// Month names
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 interface WorkExperienceFieldProps {
   value: WorkExperience[];
   onChange: (value: WorkExperience[]) => void;
@@ -36,8 +52,11 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
             id: uuidv4(),
             jobTitle: '',
             company: '',
-            startDate: { month: '01', year: `${new Date().getFullYear()}` },
-            endDate: { month: '01', year: `${new Date().getFullYear()}` },
+            startDate: {
+              month: 'January',
+              year: `${new Date().getFullYear()}`,
+            },
+            endDate: { month: 'January', year: `${new Date().getFullYear()}` },
             jobDetails: '',
           },
         ];
@@ -66,8 +85,8 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
       id: uuidv4(),
       jobTitle: '',
       company: '',
-      startDate: { month: '01', year: `${new Date().getFullYear()}` },
-      endDate: { month: '01', year: `${new Date().getFullYear()}` },
+      startDate: { month: 'January', year: `${new Date().getFullYear()}` },
+      endDate: { month: 'January', year: `${new Date().getFullYear()}` },
       jobDetails: '',
     };
     const newExperiences = [...experiences, newExperience];
@@ -75,19 +94,11 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
     onChange(newExperiences);
   };
 
-  const generateMonths = () => {
-    return Array.from({ length: 12 }, (_, index) => {
-      const month = index + 1;
-      return month < 10 ? `0${month}` : `${month}`;
-    });
-  };
-
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
-    return Array.from({ length: 10 }, (_, index) => currentYear - index);
+    return Array.from({ length: 50 }, (_, index) => currentYear - index);
   };
 
-  const months = generateMonths();
   const years = generateYears();
 
   return (
@@ -100,7 +111,7 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <h4>7.Provide your professional details:</h4>
+          <h4>7. Provide your professional details:</h4>
         </QuestionContainer>
         {experiences.map(experience => (
           <ExperienceItem key={experience.id}>
@@ -147,14 +158,9 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
                       })
                     }
                   >
-                    {months.map(month => (
+                    {monthNames.map(month => (
                       <option key={month} value={month}>
-                        {new Date(2022, parseInt(month) - 1).toLocaleString(
-                          'default',
-                          {
-                            month: 'long',
-                          },
-                        )}
+                        {month}
                       </option>
                     ))}
                   </MonthSelect>
@@ -187,14 +193,9 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
                       })
                     }
                   >
-                    {months.map(month => (
+                    {monthNames.map(month => (
                       <option key={month} value={month}>
-                        {new Date(2022, parseInt(month) - 1).toLocaleString(
-                          'default',
-                          {
-                            month: 'long',
-                          },
-                        )}
+                        {month}
                       </option>
                     ))}
                   </MonthSelect>
