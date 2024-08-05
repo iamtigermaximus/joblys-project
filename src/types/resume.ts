@@ -15,12 +15,17 @@ export interface BasicInfoType {
   additionalLinks: AdditionalLinkType[];
 }
 
+export interface DateType {
+  month: string;
+  year: string;
+}
+
 export interface ProfessionalExperienceType {
   id: string;
   jobTitle: string;
   company: string;
-  startDate: { month: string; year: string };
-  endDate: { month: string; year: string } | string;
+  startDate: DateType;
+  endDate: DateType | 'present';
   jobDetails: string;
 }
 
@@ -28,8 +33,8 @@ export interface EducationType {
   id: string;
   school: string;
   course: string;
-  startDate: { month: string; year: string };
-  endDate: { month: string; year: string };
+  startDate: DateType;
+  endDate: DateType;
   description?: string;
 }
 

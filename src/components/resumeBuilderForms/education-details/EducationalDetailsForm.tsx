@@ -1,6 +1,5 @@
 'use client';
-
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { Dispatch, FC, SetStateAction, useEffect } from 'react';
 import {
   AddEducationButton,
   AddEducationContainer,
@@ -13,7 +12,6 @@ import {
   InputLabel,
   InputRow,
   MonthSelect,
-  TextArea,
   YearSelect,
   ButtonsContainer,
   TrashIcon,
@@ -31,16 +29,30 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
   educational,
   setResumeInfo,
 }) => {
-  const generateMonths = () => {
-    return Array.from({ length: 12 }, (_, index) => {
-      const month = index + 1;
-      return month < 10 ? `0${month}` : `${month}`;
-    });
-  };
+  useEffect(() => {
+    console.log('Educational data:', educational);
+  }, [educational]);
+
+  const generateMonths = () => [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
-    return Array.from({ length: 10 }, (_, index) => currentYear - index);
+    return Array.from({ length: 50 }, (_, index) =>
+      (currentYear - index).toString(),
+    );
   };
 
   const months = generateMonths();
@@ -48,6 +60,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
 
   const handleAddEducation = () => {
     const newId = uuidv4();
+    const currentYear = new Date().getFullYear().toString();
     setResumeInfo(prevInfo => ({
       ...prevInfo,
       educational: [
@@ -56,8 +69,8 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
           id: newId,
           school: '',
           course: '',
-          startDate: { month: '01', year: `${new Date().getFullYear()}` },
-          endDate: { month: '01', year: `${new Date().getFullYear()}` },
+          startDate: { month: 'January', year: currentYear },
+          endDate: { month: 'January', year: currentYear },
           description: '',
         },
       ],
@@ -72,7 +85,15 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
     setResumeInfo(prevInfo => ({
       ...prevInfo,
       educational: prevInfo.educational.map(educ =>
-        educ.id === id ? { ...educ, [field]: value } : educ,
+        educ.id === id
+          ? {
+              ...educ,
+              [field]:
+                typeof value === 'string'
+                  ? value
+                  : { ...(educ[field] as any), ...value },
+            }
+          : educ,
       ),
     }));
   };
@@ -87,143 +108,127 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
   return (
     <Container>
       <EducationalDetailsContainer>
-        {educational &&
-          educational.length > 0 &&
-          educational.map(educ => (
-            <EducationContainer key={educ.id}>
-              <InputRow>
-                <InputContainer>
-                  <InputLabel>School:</InputLabel>
-                  <Input
-                    type="text"
-                    placeholder="ex. College, University, school"
-                    value={educ.school}
-                    onChange={e =>
-                      handleInputChange(
-                        educ.id,
-                        'school',
-                        capitalizeFirstLetter(e.target.value),
-                      )
-                    }
-                  />
-                </InputContainer>
-                <InputContainer>
-                  <InputLabel>Course/Degree:</InputLabel>
-                  <Input
-                    type="text"
-                    placeholder="ex. Bachelors, Masters"
-                    value={educ.course}
-                    onChange={e =>
-                      handleInputChange(
-                        educ.id,
-                        'course',
-                        capitalizeFirstLetter(e.target.value),
-                      )
-                    }
-                  />
-                </InputContainer>
-              </InputRow>
-              <InputRow>
-                <InputContainer>
-                  <InputLabel>Start date:</InputLabel>
-                  <DropdownContainer>
-                    <MonthSelect
-                      value={educ.startDate.month}
-                      onChange={e =>
-                        handleInputChange(educ.id, 'startDate', {
-                          ...educ.startDate,
-                          month: e.target.value,
-                        })
-                      }
-                    >
-                      {months.map(month => (
-                        <option key={month} value={month}>
-                          {new Date(2022, parseInt(month) - 1).toLocaleString(
-                            'default',
-                            {
-                              month: 'long',
-                            },
-                          )}
-                        </option>
-                      ))}
-                    </MonthSelect>
-                    <YearSelect
-                      value={educ.startDate.year}
-                      onChange={e =>
-                        handleInputChange(educ.id, 'startDate', {
-                          ...educ.startDate,
-                          year: e.target.value,
-                        })
-                      }
-                    >
-                      {years.map(year => (
-                        <option key={year} value={year.toString()}>
-                          {year}
-                        </option>
-                      ))}
-                    </YearSelect>
-                  </DropdownContainer>
-                </InputContainer>
-                <InputContainer>
-                  <InputLabel>End date:</InputLabel>
-                  <DropdownContainer>
-                    <MonthSelect
-                      value={educ.endDate.month}
-                      onChange={e =>
-                        handleInputChange(educ.id, 'endDate', {
-                          ...educ.endDate,
-                          month: e.target.value,
-                        })
-                      }
-                    >
-                      {months.map(month => (
-                        <option key={month} value={month}>
-                          {new Date(2022, parseInt(month) - 1).toLocaleString(
-                            'default',
-                            {
-                              month: 'long',
-                            },
-                          )}
-                        </option>
-                      ))}
-                    </MonthSelect>
-                    <YearSelect
-                      value={educ.endDate.year}
-                      onChange={e =>
-                        handleInputChange(educ.id, 'endDate', {
-                          ...educ.endDate,
-                          year: e.target.value,
-                        })
-                      }
-                    >
-                      {years.map(year => (
-                        <option key={year} value={year.toString()}>
-                          {year}
-                        </option>
-                      ))}
-                    </YearSelect>
-                  </DropdownContainer>
-                </InputContainer>
-              </InputRow>
-              {/* <InputLabel>Description:</InputLabel>
-             <TextArea
-                placeholder="Describe your role and achievements"
-                value={educ.description}
-                onChange={e =>
-                  handleInputChange(
-                    educ.id,
-                    'description',
-                    capitalizeFirstLetter(e.target.value),
-                  )
-                }
-              /> */}
-              <ButtonsContainer>
-                <TrashIcon onClick={() => handleDeleteEducation(educ.id)}>
-                  Remove
-                </TrashIcon>
-              </ButtonsContainer>
-            </EducationContainer>
-          ))}
+        {educational.map(educ => (
+          <EducationContainer key={educ.id}>
+            <InputRow>
+              <InputContainer>
+                <InputLabel>School:</InputLabel>
+                <Input
+                  type="text"
+                  placeholder="ex. College, University, school"
+                  value={educ.school}
+                  onChange={e =>
+                    handleInputChange(
+                      educ.id,
+                      'school',
+                      capitalizeFirstLetter(e.target.value),
+                    )
+                  }
+                />
+              </InputContainer>
+              <InputContainer>
+                <InputLabel>Course/Degree:</InputLabel>
+                <Input
+                  type="text"
+                  placeholder="ex. Bachelors, Masters"
+                  value={educ.course}
+                  onChange={e =>
+                    handleInputChange(
+                      educ.id,
+                      'course',
+                      capitalizeFirstLetter(e.target.value),
+                    )
+                  }
+                />
+              </InputContainer>
+            </InputRow>
+            <InputRow>
+              <InputContainer>
+                <InputLabel>Start date:</InputLabel>
+                <DropdownContainer>
+                  <MonthSelect
+                    value={educ.startDate.month}
+                    onChange={e => {
+                      handleInputChange(educ.id, 'startDate', {
+                        ...educ.startDate,
+                        month: e.target.value,
+                      });
+                    }}
+                  >
+                    {months.map(month => (
+                      <option key={month} value={month}>
+                        {month}
+                      </option>
+                    ))}
+                  </MonthSelect>
+                  <YearSelect
+                    value={educ.startDate.year}
+                    onChange={e => {
+                      handleInputChange(educ.id, 'startDate', {
+                        ...educ.startDate,
+                        year: e.target.value,
+                      });
+                    }}
+                  >
+                    {years.map(year => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </YearSelect>
+                </DropdownContainer>
+              </InputContainer>
+              <InputContainer>
+                <InputLabel>End date:</InputLabel>
+                <DropdownContainer>
+                  <MonthSelect
+                    value={educ.endDate.month}
+                    onChange={e => {
+                      handleInputChange(educ.id, 'endDate', {
+                        ...educ.endDate,
+                        month: e.target.value,
+                      });
+                      console.log(
+                        `Updated end month for ${educ.id}:`,
+                        e.target.value,
+                      );
+                    }}
+                  >
+                    {months.map(month => (
+                      <option key={month} value={month}>
+                        {month}
+                      </option>
+                    ))}
+                  </MonthSelect>
+                  <YearSelect
+                    value={educ.endDate.year}
+                    onChange={e => {
+                      handleInputChange(educ.id, 'endDate', {
+                        ...educ.endDate,
+                        year: e.target.value,
+                      });
+                      console.log(
+                        `Updated end year for ${educ.id}:`,
+                        e.target.value,
+                      );
+                    }}
+                  >
+                    {years.map(year => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </YearSelect>
+                </DropdownContainer>
+              </InputContainer>
+            </InputRow>
+            <ButtonsContainer>
+              <TrashIcon onClick={() => handleDeleteEducation(educ.id)}>
+                Remove
+              </TrashIcon>
+            </ButtonsContainer>
+          </EducationContainer>
+        ))}
         <AddEducationContainer>
           <AddEducationButton onClick={handleAddEducation}>
             Add education +

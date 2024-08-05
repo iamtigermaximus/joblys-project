@@ -1,5 +1,4 @@
 'use client';
-
 import React, { FC, useState } from 'react';
 import {
   BasicDetail,
@@ -195,7 +194,7 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
                         (typeof experience.endDate === 'object' &&
                           'month' in experience.endDate)
                           ? typeof experience.endDate === 'string'
-                            ? experience.endDate === 'Present'
+                            ? experience.endDate.toLowerCase() === 'present'
                               ? 'Present'
                               : 'Present'
                             : new Date(
@@ -211,7 +210,7 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
                         (typeof experience.endDate === 'object' &&
                           'year' in experience.endDate)
                           ? typeof experience.endDate === 'string'
-                            ? experience.endDate === 'Present'
+                            ? experience.endDate.toLowerCase() === 'present'
                               ? ''
                               : ''
                             : experience.endDate.year

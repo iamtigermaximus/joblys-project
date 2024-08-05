@@ -25,12 +25,10 @@ const styles = StyleSheet.create({
   },
   jobTitle: {
     fontWeight: 700,
-    // whiteSpace: 'nowrap',
     fontSize: '12px',
   },
   company: {
     fontWeight: 700,
-    // whiteSpace: 'nowrap',
     fontSize: '12px',
   },
   dateContainer: {
@@ -51,73 +49,73 @@ const styles = StyleSheet.create({
   },
 });
 
+const formatMonth = (month: string) => {
+  const monthMapping: Record<string, string> = {
+    January: 'Jan',
+    February: 'Feb',
+    March: 'Mar',
+    April: 'Apr',
+    May: 'May',
+    June: 'Jun',
+    July: 'Jul',
+    August: 'Aug',
+    September: 'Sep',
+    October: 'Oct',
+    November: 'Nov',
+    December: 'Dec',
+  };
+  return monthMapping[month] || '';
+};
+
+const formatDate = (date: string | { month: string; year: string }) => {
+  if (date === 'present') {
+    return { month: 'Present', year: '' };
+  }
+  if (typeof date === 'object') {
+    return {
+      month: formatMonth(date.month),
+      year: date.year || '',
+    };
+  }
+  return { month: formatMonth('January'), year: '' };
+};
+
 export const EmploymentInfoComponent: FC<{
   employmentInfo: ProfessionalExperienceType[];
 }> = ({ employmentInfo }) => (
   <View style={styles.detailsContentContainer}>
-    {employmentInfo.map(info => (
-      <View key={info.id}>
-        <View style={styles.employmentDetailsContainer}>
-          <View style={styles.employmentDetail}>
-            <Text style={styles.jobTitle}>{info.jobTitle}</Text>
-            <Text style={styles.company}>{info.company}</Text>
-          </View>
-          {info.jobTitle && (
-            <View style={styles.dateContainer}>
-              <View style={styles.dates}>
-                <Text style={styles.month}>
-                  {info.startDate.month &&
-                  !isNaN(parseInt(info.startDate.month)) ? (
-                    <>
-                      {new Date(
-                        2022,
-                        parseInt(info.startDate.month) - 1,
-                      ).toLocaleString('default', {
-                        month: 'short',
-                      })}
-                    </>
-                  ) : (
-                    <>Jan</>
-                  )}
-                </Text>
-                <Text style={styles.year}>
-                  {info.startDate.year || new Date().getFullYear()}
-                </Text>
-              </View>
-              <Text style={styles.dateSeparator}> - </Text>
-              <View style={styles.dates}>
-                <Text style={styles.month}>
-                  {typeof info.endDate === 'string' ||
-                  (typeof info.endDate === 'object' && 'month' in info.endDate)
-                    ? typeof info.endDate === 'string'
-                      ? info.endDate === 'Present'
-                        ? 'Present'
-                        : 'Present'
-                      : new Date(
-                          2022,
-                          parseInt(info.endDate.month) - 1,
-                        ).toLocaleString('default', {
-                          month: 'short',
-                        })
-                    : 'Jan'}
-                </Text>
-                <Text style={styles.year}>
-                  {typeof info.endDate === 'string' ||
-                  (typeof info.endDate === 'object' && 'year' in info.endDate)
-                    ? typeof info.endDate === 'string'
-                      ? info.endDate === 'Present'
-                        ? ''
-                        : ''
-                      : info.endDate.year
-                    : ''}
-                </Text>
-              </View>
-            </View>
-          )}
-        </View>
+    {employmentInfo.map(info => {
+      const startDate = formatDate(info.startDate);
+      const endDate = formatDate(info.endDate);
 
-        <Text style={styles.description}>{info.jobDetails}</Text>
-      </View>
-    ))}
+      return (
+        <View key={info.id}>
+          <View style={styles.employmentDetailsContainer}>
+            <View style={styles.employmentDetail}>
+              <Text style={styles.jobTitle}>{info.jobTitle}</Text>
+              <Text style={styles.company}>{info.company}</Text>
+            </View>
+            {info.jobTitle && (
+              <View style={styles.dateContainer}>
+                <View style={styles.dates}>
+                  <Text style={styles.month}>{startDate.month}</Text>
+                  <Text style={styles.year}>{startDate.year}</Text>
+                </View>
+                <Text style={styles.dateSeparator}> - </Text>
+                <View style={styles.dates}>
+                  <Text style={styles.month}>
+                    {endDate.month === 'Present' ? 'Present' : endDate.month}
+                  </Text>
+                  <Text style={styles.year}>
+                    {endDate.month === 'Present' ? '' : endDate.year}
+                  </Text>
+                </View>
+              </View>
+            )}
+          </View>
+          <Text style={styles.description}>{info.jobDetails}</Text>
+        </View>
+      );
+    })}
   </View>
 );

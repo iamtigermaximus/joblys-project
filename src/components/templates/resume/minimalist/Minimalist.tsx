@@ -430,7 +430,7 @@ const Minimalist: FC<MinimalistTemplateProps> = ({ resumeInfo }) => {
                             (typeof info.endDate === 'object' &&
                               'month' in info.endDate)
                               ? typeof info.endDate === 'string'
-                                ? info.endDate === 'Present'
+                                ? info.endDate.toLowerCase() === 'present'
                                   ? 'Present'
                                   : 'Present'
                                 : new Date(
@@ -446,7 +446,7 @@ const Minimalist: FC<MinimalistTemplateProps> = ({ resumeInfo }) => {
                             (typeof info.endDate === 'object' &&
                               'year' in info.endDate)
                               ? typeof info.endDate === 'string'
-                                ? info.endDate === 'Present'
+                                ? info.endDate.toLowerCase() === 'present'
                                   ? ''
                                   : ''
                                 : info.endDate.year
@@ -499,7 +499,7 @@ const Minimalist: FC<MinimalistTemplateProps> = ({ resumeInfo }) => {
                             (typeof info.endDate === 'object' &&
                               'month' in info.endDate)
                               ? typeof info.endDate === 'string'
-                                ? info.endDate === 'Present'
+                                ? info.endDate.toLowerCase() === 'present'
                                   ? 'Present'
                                   : 'Present'
                                 : new Date(
@@ -515,7 +515,7 @@ const Minimalist: FC<MinimalistTemplateProps> = ({ resumeInfo }) => {
                             (typeof info.endDate === 'object' &&
                               'year' in info.endDate)
                               ? typeof info.endDate === 'string'
-                                ? info.endDate === 'Present'
+                                ? info.endDate.toLowerCase() === 'present'
                                   ? ''
                                   : ''
                                 : info.endDate.year
@@ -763,7 +763,7 @@ const Minimalist: FC<MinimalistTemplateProps> = ({ resumeInfo }) => {
                           (typeof info.endDate === 'object' &&
                             'month' in info.endDate)
                             ? typeof info.endDate === 'string'
-                              ? info.endDate === 'Present'
+                              ? info.endDate.toLowerCase() === 'present'
                                 ? 'Present'
                                 : 'Present'
                               : new Date(
@@ -779,7 +779,7 @@ const Minimalist: FC<MinimalistTemplateProps> = ({ resumeInfo }) => {
                           (typeof info.endDate === 'object' &&
                             'year' in info.endDate)
                             ? typeof info.endDate === 'string'
-                              ? info.endDate === 'Present'
+                              ? info.endDate.toLowerCase() === 'present'
                                 ? ''
                                 : ''
                               : info.endDate.year

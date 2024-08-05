@@ -56,26 +56,9 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
     existingData.professional || [],
   );
 
-  // useEffect(() => {
-  //   if (existingData.professional) {
-  //     setWorkData(existingData.professional);
-  //   } else {
-  //     setWorkData([
-  //       {
-  //         id: uuidv4(),
-  //         jobTitle: '',
-  //         company: '',
-  //         startDate: { month: '', year: '' },
-  //         endDate: { month: '', year: '' },
-  //         jobDetails: '',
-  //       },
-  //     ]);
-  //   }
-  // }, [existingData.professional]);
-
   useEffect(() => {
-    // Generate unique IDs for existing professional entries if needed
     if (existingData.professional && existingData.professional.length > 0) {
+      // Ensure all work experiences have a unique ID
       setWorkData(
         existingData.professional.map(job =>
           job.id ? job : { ...job, id: uuidv4() },
@@ -125,6 +108,7 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
   };
 
   const handleAddExperience = () => {
+    // Add a new work experience with a unique ID
     const newExperience: WorkExperience = {
       id: uuidv4(),
       jobTitle: '',
@@ -137,6 +121,7 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
   };
 
   const handleDeleteExperience = (id: string) => {
+    // Remove work experience by its ID
     setWorkData(prevData =>
       prevData.filter(experience => experience.id !== id),
     );
@@ -154,10 +139,10 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
           professional,
         }));
       } else {
-        console.error('Failed to update work experience ');
+        console.error('Failed to update work experience');
       }
     } catch (error) {
-      console.error('Error updating work experience :', error);
+      console.error('Error updating work experience:', error);
     }
   };
 
@@ -208,7 +193,6 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
                 <InputRow>
                   <InputContainer>
                     <InputLabel>Job Title:</InputLabel>
-
                     <Input
                       type="text"
                       name="jobTitle"

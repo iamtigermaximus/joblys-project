@@ -1,12 +1,11 @@
-import { EducationType } from '@/types/resume';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, View, Text } from '@react-pdf/renderer';
+import { EducationType } from '@/types/resume';
 
 const styles = StyleSheet.create({
   detailsContentContainer: {
     display: 'flex',
     flexDirection: 'column',
-    // fontSize: '12px',
     width: '100%',
     padding: '5px 0',
   },
@@ -18,18 +17,15 @@ const styles = StyleSheet.create({
   educationDetail: {
     display: 'flex',
     flexDirection: 'column',
-    // gap: 2,
     padding: '5px 0',
     width: '100%',
   },
   course: {
     fontWeight: 700,
-    // whiteSpace: 'nowrap',
     fontSize: '12px',
   },
   school: {
     fontWeight: 700,
-    // whiteSpace: 'nowrap',
     fontSize: '12px',
   },
   dateContainer: {
@@ -46,13 +42,30 @@ const styles = StyleSheet.create({
   description: { fontSize: '12px', padding: '5px 0', lineHeight: '1.2' },
 });
 
+const monthMapping: Record<string, string> = {
+  January: 'Jan',
+  February: 'Feb',
+  March: 'Mar',
+  April: 'Apr',
+  May: 'May',
+  June: 'Jun',
+  July: 'Jul',
+  August: 'Aug',
+  September: 'Sep',
+  October: 'Oct',
+  November: 'Nov',
+  December: 'Dec',
+};
+
+const formatMonth = (month: string) => monthMapping[month] || 'Jan';
+
 export const EducationInfoComponent: FC<{ educationInfo: EducationType[] }> = ({
   educationInfo,
 }) => (
   <View style={styles.detailsContentContainer}>
     {educationInfo &&
-      educationInfo?.length > 0 &&
-      educationInfo.map((info, index) => (
+      educationInfo.length > 0 &&
+      educationInfo.map(info => (
         <View key={info.id}>
           <View style={styles.educationDetailContainer}>
             <View style={styles.educationDetail}>
@@ -63,41 +76,16 @@ export const EducationInfoComponent: FC<{ educationInfo: EducationType[] }> = ({
               <View style={styles.dateContainer}>
                 <View style={styles.dates}>
                   <Text style={styles.month}>
-                    {info.startDate.month &&
-                    !isNaN(parseInt(info.startDate.month)) ? (
-                      <>
-                        {new Date(
-                          2022,
-                          parseInt(info.startDate.month) - 1,
-                        ).toLocaleString('default', {
-                          month: 'short',
-                        })}
-                      </>
-                    ) : (
-                      <>Jan</>
-                    )}
+                    {formatMonth(info.startDate.month)}
                   </Text>
                   <Text style={styles.year}>
                     {info.startDate.year || new Date().getFullYear()}
                   </Text>
                 </View>
                 <Text style={styles.dateSeparator}> - </Text>
-
                 <View style={styles.dates}>
                   <Text style={styles.month}>
-                    {info.endDate.month &&
-                    !isNaN(parseInt(info.endDate.month)) ? (
-                      <>
-                        {new Date(
-                          2022,
-                          parseInt(info.endDate.month) - 1,
-                        ).toLocaleString('default', {
-                          month: 'short',
-                        })}
-                      </>
-                    ) : (
-                      <>Jan</>
-                    )}
+                    {formatMonth(info.endDate.month)}
                   </Text>
                   <Text style={styles.year}>
                     {info.endDate.year || new Date().getFullYear()}
