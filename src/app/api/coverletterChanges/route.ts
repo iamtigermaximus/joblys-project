@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
 Task: You are provided a person's resume in a JSON format and a job description which they want to apply for. Write a matching cover letter for the person to apply for the job which emphasizes their relevant work experience and how they would be a good candidate. Write the cover letter in a professional tone. Write the cover letter in a way that it is not too long and not too short. The cover letter should be around 300 words. Output should be a string formatted as a professional letter. 
 
 The cover letter should:
-- Start with a reference to the position being applied for.
+- Start with a reference to the position being applied for, such as "Re: Frontend Developer".
 - Include a salutation to the hiring manager or the company's name.
 - Start the main body with "I'm interested in the position..." or a similar phrase.
 - Be divided into clear paragraphs with blank lines between them.
