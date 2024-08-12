@@ -5,21 +5,26 @@ import colors from '../../utils/colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
-  padding: 30px;
-  overflow-y: scroll;
-  padding-bottom: 100px;
 
   @media (min-width: ${bp.lg}) {
-    padding: 50px 100px;
   }
 `;
 
 export const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   width: 100%;
+  padding-bottom: 20px;
+`;
+
+export const PageName = styled.h1`
+  font-size: 20px;
+  font-weight: 700;
+  color: black;
 `;
 
 export const HeaderTextContainer = styled.div`

@@ -4,32 +4,8 @@ import axios from 'axios';
 import { Resume } from '@/types/resume';
 import Loader from '../common/loader/Loader';
 import { useSession } from 'next-auth/react';
-import styled from 'styled-components';
-import { breakpoints as bp } from '../../utils/layout';
 import DashboardPage from './dashboard-page/DashboardPage';
-
-export const Container = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  @media (min-width: ${bp.lg}) {
-  }
-`;
-
-export const HeaderContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  padding-bottom: 20px;
-`;
-
-export const PageName = styled.h1`
-  font-size: 20px;
-  font-weight: 700;
-  color: black;
-`;
+import { Container } from './Dashboard.styles';
 
 const Dashboard = () => {
   const [resumeData, setResumeData] = useState<
