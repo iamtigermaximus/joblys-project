@@ -1,99 +1,17 @@
 'use client';
 import React from 'react';
-import styled from 'styled-components';
-import { breakpoints as bp } from '@/utils/layout';
-
-export const SubscriptionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-`;
-
-export const OptionsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-
-  @media (min-width: ${bp.lg}) {
-    flex-direction: row;
-  }
-`;
-
-export const SubscriptionOption = styled.div`
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 10px;
-  width: 300px;
-  text-align: center;
-  cursor: pointer;
-  &:hover {
-    background-color: #e0e0e0;
-  }
-
-  @media (min-width: ${bp.lg}) {
-    height: 500px;
-  }
-`;
-
-export const SubscriptionTitle = styled.h2`
-  font-size: 24px;
-`;
-
-export const SubscriptionDescription = styled.p`
-  font-size: 18px;
-  margin: 10px 0;
-`;
-
-export const SubscriptionPrice = styled.p`
-  font-size: 22px;
-  font-weight: bold;
-`;
-
-export const PaymentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-`;
-
-export const PaymentOptionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-
-  @media (min-width: ${bp.lg}) {
-    flex-direction: row;
-  }
-`;
-
-export const PaymentOption = styled.div`
-  margin: 5px;
-
-  @media (min-width: ${bp.lg}) {
-    margin: none;
-  }
-`;
-
-export const PaymentButton = styled.button`
-  background-color: #6a0c8e;
-  margin: 10px;
-  width: 300px;
-  color: white;
-  height: 100px;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 18px;
-  cursor: pointer;
-  &:hover {
-    background-color: #520668;
-  }
-`;
+import {
+  OptionsContainer,
+  PaymentButton,
+  PaymentContainer,
+  PaymentOption,
+  PaymentOptionContainer,
+  SubscriptionContainer,
+  SubscriptionDescription,
+  SubscriptionOption,
+  SubscriptionPrice,
+  SubscriptionTitle,
+} from './Subscription.styles';
 
 const Subscription = () => {
   const handleSubscriptionClick = (plan: string) => {
