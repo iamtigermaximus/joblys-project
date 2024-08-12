@@ -314,7 +314,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
       <AccordionContainer>
         <AccordionSection>
           <AccordionHeader>
-            <AccordionHeaderTitle>Job Description</AccordionHeaderTitle>
+            <AccordionHeaderTitle>Job Ad</AccordionHeaderTitle>
           </AccordionHeader>
           <InputContainer>
             <TextArea

@@ -190,7 +190,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
       <AccordionContainer>
         <AccordionSection>
           <AccordionHeader>
-            <AccordionHeaderTitle>Job Description</AccordionHeaderTitle>
+            <AccordionHeaderTitle>Job Ad</AccordionHeaderTitle>
           </AccordionHeader>
           <InputContainer>
             <TextArea
