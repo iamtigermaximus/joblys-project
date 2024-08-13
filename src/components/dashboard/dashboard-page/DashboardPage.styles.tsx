@@ -20,7 +20,6 @@ export const ResumesSectionContainer = styled.div`
   flex-direction: column;
 
   @media (min-width: ${bp.lg}) {
-    /* max-width: calc(50% - 10px); */
     width: 50%;
   }
 `;
@@ -29,7 +28,6 @@ export const CoverlettersSectionContainer = styled.div`
   flex-direction: column;
 
   @media (min-width: ${bp.lg}) {
-    /* max-width: calc(50% - 10px); */
     width: 50%;
   }
 `;
@@ -67,7 +65,6 @@ export const IconItem = styled.div`
 
 export const ItemsContainer = styled.h1`
   display: flex;
-  /* justify-content: space-around; */
   flex-direction: row;
   width: 100%;
 `;
@@ -79,7 +76,6 @@ export const CardContainer = styled.div`
   flex-direction: column;
   max-width: calc(50% - 10px);
   width: 100%;
-  /* padding: 30px; */
 
   @media (min-width: ${bp.sm}) {
     padding: 20px;
@@ -300,18 +296,12 @@ export const MiniCoverLetter = styled(MiniCoverLetterTemplate)`
   height: 100%;
 `;
 
-// export const MiniCoverletter = styled.div`
-//   width: 100%;
-//   height: 100%;
-// `;
-
 export const EditContainer = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 5vh;
-  /* z-index: 88; */
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -329,8 +319,6 @@ export const EditContainer = styled.div`
 
 export const EditButton = styled.button`
   background-color: white;
-  /* border: 1px solid green; */
-
   padding: 5px;
   border-radius: 5px;
   cursor: pointer;
@@ -375,7 +363,6 @@ export const EditContentItem = styled.div`
   display: flex;
   flex-direction: row;
   font-size: 16px;
-  /* gap: 5px; */
 
   &:hover {
     background-color: ${colors.darkPurple};
@@ -446,7 +433,6 @@ export const SidebarHeaderItem = styled.div`
   justify-content: center;
 
   @media (min-width: ${bp.lg}) {
-    /* padding: 20px; */
   }
 `;
 
@@ -464,7 +450,6 @@ export const SidebarResumeContent = styled.div`
 `;
 
 export const ResumeButton = styled.button`
-  /* Common button styles go here */
   padding: 8px 16px;
   height: 40px;
   font-size: 16px;
@@ -500,25 +485,15 @@ export const SidebarHeaderClose = styled.div`
 `;
 
 export const SidebarContentContainer = styled.div`
-  /* height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex: 1;
   gap: 10px;
-  width: 100%; */
   /* overflow-y: auto; */
-  /* position: relative; */
-
-  /* padding-bottom: 50px;
-  overflow-y: auto; */
-  /* background-color: pink;
-  display: flex;
-  justify-content: center;
-  overflow-y: auto; */
-  overflow-y: auto;
-  padding-bottom: 200px;
+  position: relative;
 `;
 
 export const ContentContainer = styled.div`
@@ -528,6 +503,9 @@ export const ContentContainer = styled.div`
   justify-content: space-between;
   scale: 0.9;
   overflow-y: auto;
+  height: 100%;
+  margin-bottom: 50px;
+  width: 100%;
 
   @media (min-width: ${bp.lg}) {
     scale: 0.7;
@@ -535,7 +513,7 @@ export const ContentContainer = styled.div`
   }
 
   @media (min-width: ${bp.lg}) {
-    scale: 0.9;
+    scale: 1;
     padding: 20px;
   }
 `;
@@ -690,7 +668,6 @@ export const ResumeButtonsContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   gap: 2px;
-  /* justify-content: space-around; */
   flex: 1;
 
   @media (min-width: ${bp.md}) {

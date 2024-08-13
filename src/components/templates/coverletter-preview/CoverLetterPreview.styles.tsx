@@ -341,6 +341,9 @@ export const ContentContainer = styled.div`
   justify-content: space-between;
   scale: 0.9;
   overflow-y: auto;
+  height: 100%;
+  margin-bottom: 50px;
+  width: 100%;
 
   @media (min-width: ${bp.lg}) {
     scale: 0.7;
