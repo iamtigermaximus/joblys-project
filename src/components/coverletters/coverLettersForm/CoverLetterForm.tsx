@@ -26,7 +26,6 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import ResumesDropdown from '@/components/resumes/ResumesDropdown';
-import CoverLetterTemplate from '@/components/templates/coverletter/coverletterTemplate/CoverLetterTemplate';
 import MiniCoverLetterTemplate from '@/components/templates/minicoverletter-template/MiniCoverLetterTemplate';
 
 interface CoverLetterFormProps {
@@ -61,40 +60,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   const [resumeId, setResumeId] = useState('');
   const [isLoading, setIsLoading] = useState(false); // Loading state variable
 
-  const [profileData, setProfileData] = useState<
-    { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
-  >([]);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        const response = await axios.get('/api/cv');
-        const resumes = response.data.body.resumes;
-
-        const data = resumes.map(
-          (resume: {
-            id: string;
-            content: any;
-            createdAt: string;
-            updatedAt: string;
-          }) => {
-            return {
-              id: resume.id,
-              resumeInfo: resume.content,
-              createdAt: resume.createdAt,
-              updatedAt: resume.updatedAt,
-            };
-          },
-        );
-        setProfileData(data);
-      } catch (error: any) {
-        setProfileData([]);
-      }
-    };
-
-    fetchProfileData();
-  }, []);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -152,7 +118,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
     } catch (error: any) {
       console.error('Error creating coverletter:', error.message);
     } finally {
-      setIsLoading(false); // Set loading state to false
+      setIsLoading(false);
     }
   };
 
@@ -206,10 +172,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
           </AccordionHeader>
         </AccordionSection>
 
-        <ResumesDropdown
-          resumes={profileData}
-          setSelectedResumeId={setResumeId}
-        />
+        <ResumesDropdown setSelectedResumeId={setResumeId} />
 
         <AccordionSection>
           <PreviewButtonSection>

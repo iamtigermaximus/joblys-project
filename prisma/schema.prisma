@@ -1,15 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
-
-// datasource db {
-//   provider  = "postgresql"
-//   url       = env("POSTGRES_PRISMA_URL") // use connection pooling
-//   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-// }
 
 datasource db {
   provider = "postgresql"
@@ -22,15 +13,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -44,23 +34,22 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
+  id            String          @id @default(cuid())
   fullname      String?
-  email         String?   @unique
-  emailVerified DateTime?
+  email         String?         @unique
   password      String?
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+  emailVerified DateTime?
   image         String?
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  name          String?
   accounts      Account[]
   sessions      Session[]
-
+  CoverLetters  CoverLetters[]
   Profile       Profiles?
   StructuredCVs StructuredCVs[]
-  CoverLetters  CoverLetters[]
 
-  @@map(name: "users")
+  @@map("users")
 }
 
 model VerificationToken {
@@ -72,37 +61,34 @@ model VerificationToken {
 }
 
 model Profiles {
-  id         String    @id @default(cuid())
-  owner      User      @relation(fields: [ownerId], references: [id])
-  ownerId    String    @unique
-  content    Json
+  id        String   @id @default(cuid())
+  ownerId   String   @unique
+  content   Json
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  owner     User     @relation(fields: [ownerId], references: [id])
 
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-
-  @@map(name: "profiles")
+  @@map("profiles")
 }
 
 model StructuredCVs {
-  id         String    @id @default(cuid())
-  owner      User      @relation(fields: [ownerId], references: [id])
-  ownerId    String
-  content    Json
+  id        String   @id @default(cuid())
+  ownerId   String
+  content   Json
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  owner     User     @relation(fields: [ownerId], references: [id])
 
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-
-  @@map(name: "structured_cvs")
+  @@map("structured_cvs")
 }
 
 model CoverLetters {
-  id         String  @id @default(cuid())
-  owner      User    @relation(fields: [ownerId], references: [id])
-  ownerId    String
-  content    Json
+  id        String   @id @default(cuid())
+  ownerId   String
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  owner     User     @relation(fields: [ownerId], references: [id])
 
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-
-  @@map(name: "cover_letters")  
+  @@map("cover_letters")
 }

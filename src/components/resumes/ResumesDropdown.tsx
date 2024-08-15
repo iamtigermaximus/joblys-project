@@ -96,25 +96,22 @@ const NoResumeSelected = styled.p`
 `;
 
 interface ResumesDropdownProps {
-  resumes: {
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    resumeInfo: Resume;
-  }[];
   setSelectedResumeId: (id: string) => void;
 }
 
+type ResumeData = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  resumeInfo: Resume;
+};
+
 const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
-  resumes,
   setSelectedResumeId,
 }) => {
-  const [profileData, setProfileData] = useState<
-    | { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
-    | null
-  >(null);
+  const [profileData, setProfileData] = useState<ResumeData[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [resumesList, setResumesList] = useState(resumes);
+  const [resumesList, setResumesList] = useState<ResumeData[]>([]);
   const [selectedResume, setSelectedResume] = useState<string>('');
 
   useEffect(() => {
@@ -123,7 +120,7 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
         const response = await axios.get('/api/cv');
         const resumes = response.data.body.resumes;
 
-        const data = resumes.map(
+        const data: ResumeData[] = resumes.map(
           (resume: {
             id: string;
             content: any;
@@ -138,23 +135,12 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
             };
           },
         );
+        const modifiedResumes: ResumeData[] = data.filter(
+          (resume: any) => resume.updatedAt !== resume.createdAt,
+        );
+
         setProfileData(data);
-        setResumesList(data);
-        console.log('DATA', data);
-        //   } catch (error: any) {
-        //     console.error('Error fetching profile data:', error.message);
-        //     // Handle unauthorized error or network issues
-        //     const localResumes = localStorage.getItem('localResumes');
-        //     if (localResumes) {
-        //       const parsedLocalResumes = JSON.parse(localResumes);
-        //       setProfileData(parsedLocalResumes);
-        //       setResumesList(parsedLocalResumes);
-        //     } else {
-        //       setProfileData([]);
-        //       setResumesList([]);
-        //     }
-        //   }
-        // };
+        setResumesList(modifiedResumes);
       } catch (error: any) {
         console.error('Error fetching profile data:', error.message);
         const localResumes = localStorage.getItem('localResumes');
@@ -183,7 +169,7 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
     return null;
   }
 
-  const selectedResumeData = resumes.find(
+  const selectedResumeData = profileData.find(
     resume => resume.id === selectedResume,
   );
   if (

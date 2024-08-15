@@ -33,13 +33,7 @@ const CoverLetterTemplate: React.FC<CoverLetterTemplateProps> = ({
   const [displayedContent, setDisplayedContent] = useState('');
 
   useEffect(() => {
-    // Reset displayed content when the content prop changes
-    setDisplayedContent('');
-
-    // Simulate content generation delay
-    setTimeout(() => {
-      setDisplayedContent(content);
-    }, 1000); // Adjust delay as needed
+    setDisplayedContent(content);
   }, [content]);
 
   // Check if content is a string
@@ -52,7 +46,6 @@ const CoverLetterTemplate: React.FC<CoverLetterTemplateProps> = ({
   const paragraphs = displayedContent
     .split('\n')
     .filter(paragraph => paragraph.trim() !== '');
-
   return (
     <Document style={styles.document}>
       <Page id="coverletter-template" size="A4" style={styles.page}>

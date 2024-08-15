@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
   }
 
   const prompt = `
-Task: You are provided a person's resume in a JSON format and a job description which they want to apply for. Write a matching cover letter for the person to apply for the job which emphasizes their relevant work experience and how they would be a good candidate. Write the cover letter in a professional tone. Write the cover letter in a way that it is not too long and not too short. The cover letter should be around 300 words. Output should be a string formatted as a professional letter. 
+Task: You are provided a person's resume in a JSON format and a job description which they want to apply for. Write a matching cover letter for the person to apply for the job which emphasizes their relevant work experience and how they would be a good candidate. Write the cover letter in a professional tone. Write the cover letter in a way that it is not too long and not too short. The cover letter should be around 300 words. 
 
 The cover letter should:
 - Start with a reference to the position being applied for, such as "Re: Frontend Developer".
@@ -57,7 +57,11 @@ The cover letter should:
 - Be divided into clear paragraphs with blank lines between them.
 - Do not include contact information of the applicant.
 - Do not include the date.
+
 - Do not include any templated content, like "[Recipient's Name]".
+- Do not include special characters like stars (*).
+- Do not wrap text withing quotes.
+- Do not include \n or \t characters.
 
 Resume:
 ${JSON.stringify(resume?.content)}
@@ -83,7 +87,6 @@ ${jobDescription}
 
   const newCoverletter = responseContent.trim();
 
-  // Log the new cover letter for debugging purposes
   console.log('Generated Cover Letter:', newCoverletter);
 
   try {
@@ -122,12 +125,7 @@ export async function GET(req: NextRequest) {
     });
 
     if (!coverLetters.length) {
-      return NextResponse.json(
-        // { message: 'no cover letters found' },
-        // { status: 404 },
-        { coverLetters: [] },
-        { status: 200 },
-      );
+      return NextResponse.json({ coverLetters: [] }, { status: 200 });
     }
 
     return NextResponse.json({ coverLetters }, { status: 200 });
