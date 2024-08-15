@@ -136,8 +136,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  console.log('Parsing the CV...');
-
   const formData = await req.formData();
   const file: File | null = formData?.get('file') as File;
 
@@ -159,7 +157,6 @@ export async function POST(req: NextRequest) {
     case FileType.PDF:
       const pdf = await pdfjs.getDocument({ data: await file.arrayBuffer() })
         .promise;
-
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const textContent = await page.getTextContent();
@@ -220,7 +217,6 @@ export async function POST(req: NextRequest) {
     });
   } catch (err) {
     console.log(`Error from OpenAI client: ${err}`);
-
     return NextResponse.json(
       {
         body: {
@@ -256,6 +252,34 @@ export async function POST(req: NextRequest) {
       { status: 500 },
     );
   }
+
+  // Adding unique IDs to each entry
+  structuredCVContent.professional = structuredCVContent.professional.map(
+    prof => ({
+      ...prof,
+      id: uuidv4(),
+    }),
+  );
+  structuredCVContent.educational = structuredCVContent.educational.map(
+    edu => ({
+      ...edu,
+      id: uuidv4(),
+    }),
+  );
+  structuredCVContent.skills = structuredCVContent.skills.map(skill => ({
+    ...skill,
+    id: uuidv4(),
+  }));
+  structuredCVContent.languages = structuredCVContent.languages.map(
+    language => ({
+      ...language,
+      id: uuidv4(),
+    }),
+  );
+  structuredCVContent.links = structuredCVContent.links.map(link => ({
+    ...link,
+    id: uuidv4(),
+  }));
 
   const validated = ProfileSchema.safeParse(structuredCVContent);
   if (!validated.success) {
