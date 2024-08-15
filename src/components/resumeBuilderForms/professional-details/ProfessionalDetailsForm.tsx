@@ -1,5 +1,4 @@
 'use client';
-
 import React, {
   Dispatch,
   FC,
@@ -56,9 +55,12 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   );
   const [checkedWorkIds, setCheckedWorkIds] = useState<string[]>(
     professional.work
-      .filter(work => work.endDate === 'present')
+      .filter(
+        work => work.endDate?.month === 'present' && work.endDate?.year === '',
+      )
       .map(work => work.id),
   );
+
   const [originalEndDates, setOriginalEndDates] = useState<
     Record<string, DateType>
   >({});
@@ -68,7 +70,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     const newOriginalEndDates: Record<string, DateType> = {};
 
     professional.work.forEach(work => {
-      if (work.endDate === 'present') {
+      if (work.endDate?.month === 'present' && work.endDate?.year === '') {
         newCheckedWorkIds.push(work.id);
       } else if (typeof work.endDate === 'object') {
         newOriginalEndDates[work.id] = work.endDate;
@@ -163,7 +165,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             ? {
                 ...experience,
                 [field]:
-                  field === 'endDate' || field === 'startDate'
+                  field === 'endDate'
                     ? typeof value === 'string'
                       ? value
                       : { ...(experience[field] as DateType), ...value }
@@ -244,24 +246,23 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     if (!experience) return;
 
     if (isChecked) {
-      // Save the current end date if it's not 'present'
-      if (experience.endDate !== 'present') {
+      if (experience.endDate.month !== 'present') {
         setOriginalEndDates(prevDates => ({
           ...prevDates,
           [experienceId]: experience.endDate as DateType,
         }));
       }
 
-      // Set end date to 'present'
-      handleInputChange(experienceId, 'endDate', 'present');
+      handleInputChange(experienceId, 'endDate', {
+        month: 'present',
+        year: '',
+      });
       setCheckedWorkIds(prevCheckedIds => [...prevCheckedIds, experienceId]);
     } else {
-      // Restore the original end date if it was saved
       const originalEndDate = originalEndDates[experienceId];
       if (originalEndDate) {
         handleInputChange(experienceId, 'endDate', originalEndDate);
       } else {
-        // If no original end date was saved, set to default empty state
         handleInputChange(experienceId, 'endDate', { month: '', year: '' });
       }
       setCheckedWorkIds(prevCheckedIds =>
@@ -392,7 +393,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                   <MonthSelect
                     disabled={checkedWorkIds.includes(experience.id)}
                     value={
-                      typeof experience.endDate === 'string'
+                      experience.endDate.month === 'present'
                         ? ''
                         : experience.endDate.month
                     }
@@ -412,7 +413,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                   <YearSelect
                     disabled={checkedWorkIds.includes(experience.id)}
                     value={
-                      typeof experience.endDate === 'string'
+                      experience.endDate.month === 'present'
                         ? ''
                         : experience.endDate.year
                     }

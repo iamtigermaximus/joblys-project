@@ -1,4 +1,5 @@
 'use client';
+
 import React, { FC, useState } from 'react';
 import {
   BasicDetail,
@@ -69,6 +70,31 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
     setIsClicked(!isClicked);
   };
   const templateClassName = isClicked ? 'clicked' : '';
+
+  const formatDate = (date: any) => {
+    if (typeof date === 'string') {
+      return date.toLowerCase() === 'present' ? 'Present' : date;
+    }
+    if (typeof date === 'object' && date?.month) {
+      return new Date(2022, parseInt(date.month) - 1).toLocaleString(
+        'default',
+        {
+          month: 'short',
+        },
+      );
+    }
+    return 'Jan';
+  };
+
+  const formatYear = (date: any) => {
+    if (typeof date === 'string') {
+      return date.toLowerCase() === 'present' ? '' : '';
+    }
+    if (typeof date === 'object' && date?.year) {
+      return date.year;
+    }
+    return '';
+  };
 
   return (
     <TemplateContainer>
@@ -153,7 +179,6 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
               <FirstName>{basic.firstName}</FirstName>
               <LastName>{basic.lastName}</LastName>
             </NameContainer>
-            {/* <JobName>Software Developer</JobName> */}
             <CurrentRole>{professional.currentRole}</CurrentRole>
           </Header>
           <SummaryContainer>{professional.summary}</SummaryContainer>
@@ -168,54 +193,15 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
                   </EmploymentDetail>
                   <DateContainer>
                     <Dates>
-                      <Month>
-                        {experience.startDate.month &&
-                        !isNaN(parseInt(experience.startDate.month)) ? (
-                          <>
-                            {new Date(
-                              2022,
-                              parseInt(experience.startDate.month) - 1,
-                            ).toLocaleString('default', {
-                              month: 'short',
-                            })}
-                          </>
-                        ) : (
-                          <>Jan</>
-                        )}
-                      </Month>
+                      <Month>{formatDate(experience.startDate)}</Month>
                       <Year>
                         {experience.startDate.year || new Date().getFullYear()}
                       </Year>
                     </Dates>
                     <DateSeparator> - </DateSeparator>
                     <Dates>
-                      <Month>
-                        {typeof experience.endDate === 'string' ||
-                        (typeof experience.endDate === 'object' &&
-                          'month' in experience.endDate)
-                          ? typeof experience.endDate === 'string'
-                            ? experience.endDate.toLowerCase() === 'present'
-                              ? 'Present'
-                              : 'Present'
-                            : new Date(
-                                2022,
-                                parseInt(experience.endDate.month) - 1,
-                              ).toLocaleString('default', {
-                                month: 'short',
-                              })
-                          : 'Jan'}
-                      </Month>
-                      <Year>
-                        {typeof experience.endDate === 'string' ||
-                        (typeof experience.endDate === 'object' &&
-                          'year' in experience.endDate)
-                          ? typeof experience.endDate === 'string'
-                            ? experience.endDate.toLowerCase() === 'present'
-                              ? ''
-                              : ''
-                            : experience.endDate.year
-                          : ''}
-                      </Year>
+                      <Month>{formatDate(experience.endDate)}</Month>
+                      <Year>{formatYear(experience.endDate)}</Year>
                     </Dates>
                   </DateContainer>
                 </EmploymentDetailContainer>
@@ -237,46 +223,15 @@ const ResumeTemplate: FC<ResumeTemplateProps> = ({ resumeInfo }) => {
                   </EducationDetail>
                   <DateContainer>
                     <Dates>
-                      <Month>
-                        {educ.startDate.month &&
-                        !isNaN(parseInt(educ.startDate.month)) ? (
-                          <>
-                            {new Date(
-                              2022,
-                              parseInt(educ.startDate.month) - 1,
-                            ).toLocaleString('default', {
-                              month: 'short',
-                            })}
-                          </>
-                        ) : (
-                          <>Jan</>
-                        )}
-                      </Month>
+                      <Month>{formatDate(educ.startDate)}</Month>
                       <Year>
                         {educ.startDate.year || new Date().getFullYear()}
                       </Year>
                     </Dates>
                     <DateSeparator> - </DateSeparator>
-
                     <Dates>
-                      <Month>
-                        {educ.endDate.month &&
-                        !isNaN(parseInt(educ.endDate.month)) ? (
-                          <>
-                            {new Date(
-                              2022,
-                              parseInt(educ.endDate.month) - 1,
-                            ).toLocaleString('default', {
-                              month: 'short',
-                            })}
-                          </>
-                        ) : (
-                          <>Jan</>
-                        )}
-                      </Month>
-                      <Year>
-                        {educ.endDate.year || new Date().getFullYear()}
-                      </Year>
+                      <Month>{formatDate(educ.endDate)}</Month>
+                      <Year>{formatYear(educ.endDate)}</Year>
                     </Dates>
                   </DateContainer>
                 </EducationDetailContainer>

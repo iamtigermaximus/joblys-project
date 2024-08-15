@@ -15,17 +15,24 @@ export interface BasicInfoType {
   additionalLinks: AdditionalLinkType[];
 }
 
-export interface DateType {
+export type DateType = {
   month: string;
   year: string;
-}
+};
+
+export type PresentEndDateType = {
+  month: 'present';
+  year: '';
+};
+
+export type EndDateType = DateType | PresentEndDateType;
 
 export interface ProfessionalExperienceType {
   id: string;
   jobTitle: string;
   company: string;
   startDate: DateType;
-  endDate: DateType | 'present';
+  endDate: EndDateType;
   jobDetails: string;
 }
 

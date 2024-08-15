@@ -1,6 +1,6 @@
-import { ProfessionalExperienceType } from '@/types/resume';
 import { FC } from 'react';
 import { StyleSheet, View, Text } from '@react-pdf/renderer';
+import { ProfessionalExperienceType } from '@/types/resume';
 
 const styles = StyleSheet.create({
   detailsContentContainer: {
@@ -63,21 +63,25 @@ const formatMonth = (month: string) => {
     October: 'Oct',
     November: 'Nov',
     December: 'Dec',
+    present: 'Present',
   };
   return monthMapping[month] || '';
 };
 
 const formatDate = (date: string | { month: string; year: string }) => {
-  if (date === 'present') {
-    return { month: 'Present', year: '' };
-  }
-  if (typeof date === 'object') {
+  if (typeof date === 'string') {
+    if (date.toLowerCase() === 'present') {
+      return { month: 'Present', year: '' };
+    }
+    return { month: '', year: '' };
+  } else if (date && typeof date === 'object') {
     return {
       month: formatMonth(date.month),
       year: date.year || '',
     };
+  } else {
+    return { month: '', year: '' };
   }
-  return { month: formatMonth('January'), year: '' };
 };
 
 export const EmploymentInfoComponent: FC<{
@@ -104,11 +108,9 @@ export const EmploymentInfoComponent: FC<{
                 <Text style={styles.dateSeparator}> - </Text>
                 <View style={styles.dates}>
                   <Text style={styles.month}>
-                    {endDate.month === 'Present' ? 'Present' : endDate.month}
+                    {endDate.month === 'present' ? 'Present' : endDate.month}
                   </Text>
-                  <Text style={styles.year}>
-                    {endDate.month === 'Present' ? '' : endDate.year}
-                  </Text>
+                  <Text style={styles.year}>{endDate.year}</Text>
                 </View>
               </View>
             )}

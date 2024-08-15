@@ -213,6 +213,31 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
   const skills = resumeInfo?.skills;
   const languages = resumeInfo?.languages;
 
+  const formatDate = (date: any) => {
+    if (typeof date === 'string') {
+      return date.toLowerCase() === 'present' ? 'Present' : date;
+    }
+    if (typeof date === 'object' && date?.month) {
+      return new Date(2022, parseInt(date.month) - 1).toLocaleString(
+        'default',
+        {
+          month: 'short',
+        },
+      );
+    }
+    return 'Jan';
+  };
+
+  const formatYear = (date: any) => {
+    if (typeof date === 'string') {
+      return date.toLowerCase() === 'present' ? '' : '';
+    }
+    if (typeof date === 'object' && date?.year) {
+      return date.year;
+    }
+    return '';
+  };
+
   const shouldDisplayTitle =
     !!(
       basic.firstName ||
@@ -353,19 +378,7 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
                         <View style={styles.dateContainer}>
                           <View style={styles.dates}>
                             <Text style={styles.month}>
-                              {info.startDate.month &&
-                              !isNaN(parseInt(info.startDate.month)) ? (
-                                <>
-                                  {new Date(
-                                    2022,
-                                    parseInt(info.startDate.month) - 1,
-                                  ).toLocaleString('default', {
-                                    month: 'short',
-                                  })}
-                                </>
-                              ) : (
-                                <>Jan</>
-                              )}
+                              {formatDate(info.startDate.month)}
                             </Text>
                             <Text style={styles.year}>
                               {info.startDate.year || new Date().getFullYear()}
@@ -374,22 +387,10 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
                           <Text style={styles.dateSeparator}> - </Text>
                           <View style={styles.dates}>
                             <Text style={styles.month}>
-                              {info.endDate.month &&
-                              !isNaN(parseInt(info.endDate.month)) ? (
-                                <>
-                                  {new Date(
-                                    2022,
-                                    parseInt(info.endDate.month) - 1,
-                                  ).toLocaleString('default', {
-                                    month: 'short',
-                                  })}
-                                </>
-                              ) : (
-                                <>Jan</>
-                              )}
+                              {formatDate(info.endDate.month)}
                             </Text>
                             <Text style={styles.year}>
-                              {info.endDate.year || new Date().getFullYear()}
+                              {formatYear(info.endDate)}
                             </Text>
                           </View>
                         </View>
@@ -415,19 +416,7 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
                       <View style={styles.dateContainer}>
                         <View style={styles.dates}>
                           <Text style={styles.month}>
-                            {info.startDate.month &&
-                            !isNaN(parseInt(info.startDate.month)) ? (
-                              <>
-                                {new Date(
-                                  2022,
-                                  parseInt(info.startDate.month) - 1,
-                                ).toLocaleString('default', {
-                                  month: 'short',
-                                })}
-                              </>
-                            ) : (
-                              <>Jan</>
-                            )}
+                            {formatDate(info.startDate.month)}
                           </Text>
                           <Text style={styles.year}>
                             {info.startDate.year || new Date().getFullYear()}
@@ -436,31 +425,10 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
                         <Text style={styles.dateSeparator}> - </Text>
                         <View style={styles.dates}>
                           <Text style={styles.month}>
-                            {typeof info.endDate === 'string' ||
-                            (typeof info.endDate === 'object' &&
-                              'month' in info.endDate)
-                              ? typeof info.endDate === 'string'
-                                ? info.endDate.toLowerCase() === 'present'
-                                  ? 'Present'
-                                  : 'Present'
-                                : new Date(
-                                    2022,
-                                    parseInt(info.endDate.month) - 1,
-                                  ).toLocaleString('default', {
-                                    month: 'short',
-                                  })
-                              : 'Jan'}
+                            {formatDate(info.endDate.month)}
                           </Text>
                           <Text style={styles.year}>
-                            {typeof info.endDate === 'string' ||
-                            (typeof info.endDate === 'object' &&
-                              'year' in info.endDate)
-                              ? typeof info.endDate === 'string'
-                                ? info.endDate.toLowerCase() === 'present'
-                                  ? ''
-                                  : ''
-                                : info.endDate.year
-                              : ''}
+                            {formatYear(info.endDate)}
                           </Text>
                         </View>
                       </View>
@@ -484,19 +452,7 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
                       <View style={styles.dateContainer}>
                         <View style={styles.dates}>
                           <Text style={styles.month}>
-                            {info.startDate.month &&
-                            !isNaN(parseInt(info.startDate.month)) ? (
-                              <>
-                                {new Date(
-                                  2022,
-                                  parseInt(info.startDate.month) - 1,
-                                ).toLocaleString('default', {
-                                  month: 'short',
-                                })}
-                              </>
-                            ) : (
-                              <>Jan</>
-                            )}
+                            {formatDate(info.startDate.month)}
                           </Text>
                           <Text style={styles.year}>
                             {info.startDate.year || new Date().getFullYear()}
@@ -505,31 +461,10 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
                         <Text style={styles.dateSeparator}> - </Text>
                         <View style={styles.dates}>
                           <Text style={styles.month}>
-                            {typeof info.endDate === 'string' ||
-                            (typeof info.endDate === 'object' &&
-                              'month' in info.endDate)
-                              ? typeof info.endDate === 'string'
-                                ? info.endDate.toLowerCase() === 'present'
-                                  ? 'Present'
-                                  : 'Present'
-                                : new Date(
-                                    2022,
-                                    parseInt(info.endDate.month) - 1,
-                                  ).toLocaleString('default', {
-                                    month: 'short',
-                                  })
-                              : 'Jan'}
+                            {formatDate(info.endDate.month)}
                           </Text>
                           <Text style={styles.year}>
-                            {typeof info.endDate === 'string' ||
-                            (typeof info.endDate === 'object' &&
-                              'year' in info.endDate)
-                              ? typeof info.endDate === 'string'
-                                ? info.endDate.toLowerCase() === 'present'
-                                  ? ''
-                                  : ''
-                                : info.endDate.year
-                              : ''}
+                            {formatYear(info.endDate)}
                           </Text>
                         </View>
                       </View>
@@ -686,19 +621,7 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
                       <View style={styles.dateContainer}>
                         <View style={styles.dates}>
                           <Text style={styles.month}>
-                            {info.startDate.month &&
-                            !isNaN(parseInt(info.startDate.month)) ? (
-                              <>
-                                {new Date(
-                                  2022,
-                                  parseInt(info.startDate.month) - 1,
-                                ).toLocaleString('default', {
-                                  month: 'short',
-                                })}
-                              </>
-                            ) : (
-                              <>Jan</>
-                            )}
+                            {formatDate(info.startDate.month)}
                           </Text>
                           <Text style={styles.year}>
                             {info.startDate.year || new Date().getFullYear()}
@@ -707,22 +630,10 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
                         <Text style={styles.dateSeparator}> - </Text>
                         <View style={styles.dates}>
                           <Text style={styles.month}>
-                            {info.endDate.month &&
-                            !isNaN(parseInt(info.endDate.month)) ? (
-                              <>
-                                {new Date(
-                                  2022,
-                                  parseInt(info.endDate.month) - 1,
-                                ).toLocaleString('default', {
-                                  month: 'short',
-                                })}
-                              </>
-                            ) : (
-                              <>Jan</>
-                            )}
+                            {formatDate(info.endDate.month)}
                           </Text>
                           <Text style={styles.year}>
-                            {info.endDate.year || new Date().getFullYear()}
+                            {formatYear(info.endDate)}
                           </Text>
                         </View>
                       </View>
@@ -748,19 +659,7 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
                     <View style={styles.dateContainer}>
                       <View style={styles.dates}>
                         <Text style={styles.month}>
-                          {info.startDate.month &&
-                          !isNaN(parseInt(info.startDate.month)) ? (
-                            <>
-                              {new Date(
-                                2022,
-                                parseInt(info.startDate.month) - 1,
-                              ).toLocaleString('default', {
-                                month: 'short',
-                              })}
-                            </>
-                          ) : (
-                            <>Jan</>
-                          )}
+                          {formatDate(info.startDate.month)}
                         </Text>
                         <Text style={styles.year}>
                           {info.startDate.year || new Date().getFullYear()}
@@ -769,31 +668,10 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
                       <Text style={styles.dateSeparator}> - </Text>
                       <View style={styles.dates}>
                         <Text style={styles.month}>
-                          {typeof info.endDate === 'string' ||
-                          (typeof info.endDate === 'object' &&
-                            'month' in info.endDate)
-                            ? typeof info.endDate === 'string'
-                              ? info.endDate.toLowerCase() === 'present'
-                                ? 'Present'
-                                : 'Present'
-                              : new Date(
-                                  2022,
-                                  parseInt(info.endDate.month) - 1,
-                                ).toLocaleString('default', {
-                                  month: 'short',
-                                })
-                            : 'Jan'}
+                          {formatDate(info.endDate.month)}
                         </Text>
                         <Text style={styles.year}>
-                          {typeof info.endDate === 'string' ||
-                          (typeof info.endDate === 'object' &&
-                            'year' in info.endDate)
-                            ? typeof info.endDate === 'string'
-                              ? info.endDate.toLowerCase() === 'present'
-                                ? ''
-                                : ''
-                              : info.endDate.year
-                            : ''}
+                          {formatYear(info.endDate)}
                         </Text>
                       </View>
                     </View>
