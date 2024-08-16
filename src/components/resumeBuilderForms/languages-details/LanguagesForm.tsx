@@ -54,9 +54,9 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
   return (
     <Container>
       <LanguagesDetailsContainer>
+        <InputLabel>Language:</InputLabel>
         {languages.map(enteredLanguage => (
           <InputContainer key={enteredLanguage.id}>
-            <InputLabel>Language:</InputLabel>
             <AddNewLanguageContainer>
               <Input
                 type="text"

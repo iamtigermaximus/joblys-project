@@ -51,6 +51,7 @@ const SkillsForm: FC<SkillsFormProps> = ({ skills, setResumeInfo }) => {
   return (
     <Container>
       <SkillsDetailsContainer>
+        <InputLabel>Skill:</InputLabel>
         {skills &&
           skills.length > 0 &&
           skills.map(enteredSkill => (
