@@ -22,6 +22,7 @@ import html2canvas from 'html2canvas';
 import { useParams } from 'next/navigation';
 import CoverLetterForm from '@/components/coverletters/coverLettersForm/CoverLetterForm';
 import CoverLetterTemplate from '@/components/templates/coverletter/coverletterTemplate/CoverLetterTemplate';
+import { Coverletter } from '@/types/coverletter';
 
 const CoverLetterBuilderPage: FC = () => {
   const params = useParams() as { id: string };
@@ -165,12 +166,23 @@ const CoverLetterBuilderPage: FC = () => {
   //   }
   // };
 
+  const coverLetterInfo: Coverletter = {
+    id: params.id,
+    content: coverletter,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+
   return (
     <ProfileBuilderContainer>
       <div>
         <title>Cover Letter Builder Page</title>
       </div>
-      <PageHeader id={params.id} resumeInfo={resumeInfo} />
+      <PageHeader
+        id={params.id}
+        resumeInfo={resumeInfo}
+        coverLetterInfo={coverLetterInfo}
+      />
       <FormViewerContainer>
         <ResumeFormContainer>
           <CoverLetterForm

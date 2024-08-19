@@ -53,14 +53,21 @@ import {
 import { IoCloseSharp, IoSettingsSharp } from 'react-icons/io5';
 import { FcGoogle } from 'react-icons/fc';
 import { Resume } from '@/types/resume';
+import { Coverletter } from '@/types/coverletter';
 import DownloadPDFButton from '@/components/templates/resume/defaultTemplate/DownloadPDFButton';
+import DownloadCoverLetterButton from '@/components/templates/coverletter/coverletterTemplate/DownloadCoverLetterButton';
 
 interface PageHeaderProps {
   id: string;
   resumeInfo: Resume;
+  coverLetterInfo?: Coverletter;
 }
 
-const PageHeader: FC<PageHeaderProps> = ({ id, resumeInfo }) => {
+const PageHeader: FC<PageHeaderProps> = ({
+  id,
+  resumeInfo,
+  coverLetterInfo,
+}) => {
   const router = useRouter();
   const pathname = usePathname();
   const isResumeBuilder = pathname === `/resume-builder/resumes/${id}`;
@@ -148,9 +155,19 @@ const PageHeader: FC<PageHeaderProps> = ({ id, resumeInfo }) => {
           )}
         </LeftContainer>
         <RightContainer>
-          <ResumeButton>
-            <DownloadPDFButton resumeInfo={resumeInfo} color="white" />
-          </ResumeButton>
+          {isResumeBuilder && (
+            <ResumeButton>
+              <DownloadPDFButton resumeInfo={resumeInfo} color="white" />
+            </ResumeButton>
+          )}
+          {isCoverLetterBuilder && (
+            <ResumeButton>
+              <DownloadCoverLetterButton
+                coverLetterInfo={coverLetterInfo}
+                color="white"
+              />
+            </ResumeButton>
+          )}
           {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
               <LogoutButton onClick={handleSignOut}>Log out</LogoutButton> */}
           {/* <ResumeButton>
