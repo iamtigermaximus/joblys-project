@@ -45,8 +45,8 @@ import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { Coverletter, initialCoverletter } from '@/types/coverletter';
 import { formatDistanceToNow } from 'date-fns';
-import { v4 as uuidv4 } from 'uuid';
-import ConfirmationModal from '../resume/defaultTemplate/ConfirmationModal';
+import ConfirmationModal from '../../templates/resume/defaultTemplate/ConfirmationModal';
+import UpgradeModal from '../../templates/resume/defaultTemplate/resume-helpers/UpgradeModal';
 import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
 
 interface CoverLetterPreviewProps {
@@ -69,6 +69,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
   );
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [coverLetterIdToDelete, setCoverLetterIdToDelete] = useState<
     string | null
   >(null);
@@ -114,10 +115,6 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
   };
 
   const handleCreateNewCoverLetter = async () => {
-    const handleNewCoverletter = () => {
-      const newId = uuidv4();
-      router.push(`/coverletter-builder/coverletters/${newId}`);
-    };
     try {
       const response = await fetch('/api/resume/upload', {
         method: 'POST',
@@ -128,7 +125,14 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
       });
 
       if (!response.ok) {
-        throw new Error('Failed to upload cover letter');
+        const {
+          body: { message },
+        } = await response.json();
+        if (message.includes('Cannot create more than')) {
+          console.log('Foo');
+          setShowUpgradeModal(true);
+        }
+        throw new Error(message);
       }
 
       const respJson = await response.json();
@@ -140,7 +144,6 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
       router.push(`/coverletter-builder/coverletters/${id}`);
     } catch (error: any) {
       console.error('Error uploading cover letter:', error.message);
-      handleNewCoverletter();
       return;
     }
   };
@@ -270,7 +273,11 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                                       style={{ marginRight: '5px' }}
                                     />
                                   </ContentItem>
-                                  <ContentItem> Download</ContentItem>
+                                  <ContentItem>
+                                    <DownloadCoverLetterButton
+                                      coverLetterInfo={coverLetter}
+                                    />
+                                  </ContentItem>
                                 </EditContentItem>
                               </EditContent>
                               <EditContent onClick={e => e.stopPropagation()}>
@@ -356,6 +363,9 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
           )}
           {showDeleteMessage && (
             <DeleteMessage>Cover letter deleted successfully!</DeleteMessage>
+          )}
+          {showUpgradeModal && (
+            <UpgradeModal onClose={() => setShowUpgradeModal(false)} />
           )}
         </CoverLetterContainer>
       ) : (
