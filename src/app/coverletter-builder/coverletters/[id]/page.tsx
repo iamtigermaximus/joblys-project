@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {
   FormViewerContainer,
-  ProfileBuilderContainer,
+  CoverletterBuilderContainer,
   ResumeFormContainer,
   ResumeTemplateContainer,
   CoverletterContentContainer,
@@ -174,7 +174,7 @@ const CoverLetterBuilderPage: FC = () => {
   };
 
   return (
-    <ProfileBuilderContainer>
+    <CoverletterBuilderContainer>
       <div>
         <title>Cover Letter Builder Page</title>
       </div>
@@ -199,7 +199,7 @@ const CoverLetterBuilderPage: FC = () => {
           </CoverletterContentContainer>
         </ResumeTemplateContainer>
       </FormViewerContainer>
-    </ProfileBuilderContainer>
+    </CoverletterBuilderContainer>
   );
 };
 

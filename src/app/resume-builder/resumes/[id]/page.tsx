@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import {
   FormViewerContainer,
-  ProfileBuilderContainer,
+  ResumeBuilderContainer,
   ResumeFormContainer,
   ResumeTemplateContainer,
 } from '../../../page.styles';
@@ -13,7 +13,7 @@ import DefaultTemplate from '@/components/templates/resume/defaultTemplate/Defau
 import ResumeForm from '@/components/resumeBuilderForms/resume-form/ResumeForm';
 import { Profile } from '@/types/profile';
 
-const ProfileBuilderPage: FC = () => {
+const ResumeBuilderPage: FC = () => {
   const params = useParams() as { id: string };
   const [resumeInfo, setResumeInfo] = useState(initialResume());
   const [existingData, setExistingData] = useState<Profile | null>(null);
@@ -38,7 +38,7 @@ const ProfileBuilderPage: FC = () => {
   }, [handleStoredResumeUpdate]);
 
   return (
-    <ProfileBuilderContainer>
+    <ResumeBuilderContainer>
       <div>
         <title>Resume Builder Page</title>
       </div>
@@ -58,8 +58,8 @@ const ProfileBuilderPage: FC = () => {
           <DefaultTemplate id="default-template" resumeInfo={resumeInfo} />
         </ResumeTemplateContainer>
       </FormViewerContainer>
-    </ProfileBuilderContainer>
+    </ResumeBuilderContainer>
   );
 };
 
-export default ProfileBuilderPage;
+export default ResumeBuilderPage;

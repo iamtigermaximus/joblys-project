@@ -19,13 +19,28 @@ export const Container = styled.div`
   }
 `;
 
-export const ProfileBuilderContainer = styled.div`
+// export const ProfileBuilderContainer = styled.div`
+//   display: flex;
+//   width: 100%;
+//   background-color: white;
+//   flex-direction: column;
+//   height: 100vh;
+//   /* position: fixed; */
+// `;
+
+export const ResumeBuilderContainer = styled.div`
   display: flex;
   width: 100%;
   background-color: white;
   flex-direction: column;
   height: 100vh;
-  /* position: fixed; */
+`;
+export const CoverletterBuilderContainer = styled.div`
+  display: flex;
+  width: 100%;
+  background-color: white;
+  flex-direction: column;
+  height: 100vh;
 `;
 
 export const BoxContainer = styled.div`
