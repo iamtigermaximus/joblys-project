@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { FaChevronCircleRight } from 'react-icons/fa';
@@ -23,7 +24,6 @@ import {
   ResumeContent,
   MiniDefault,
   EditContainer,
-  EditButton,
   EditModalOverlay,
   EditModalContent,
   EditContent,
@@ -53,6 +53,7 @@ import { Resume, initialResume } from '@/types/resume';
 import { Coverletter, initialCoverletter } from '@/types/coverletter';
 import { convertProfileToResume } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
+import DownloadCoverLetterButton from '@/components/templates/coverletter/coverletterTemplate/DownloadCoverLetterButton';
 
 interface DashboardPageProps {
   resumes: {
@@ -374,13 +375,6 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                         />
                       </ResumeContent>
                       <EditContainer>
-                        {/* <EditButton
-                          onClick={event =>
-                            handleEditButtonClick(event, resume.id)
-                          }
-                        >
-                          <CiMenuKebab />
-                        </EditButton> */}
                         {editModalOpenId === resume.id &&
                           activeElement === 'editModal' && (
                             <EditModalOverlay onClick={handleCloseEditModal}>
@@ -471,20 +465,6 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                                 />
                               </SidebarResumeContent>
                             )}
-                            {/* <SidebarTimestampContainer>
-                    <TimestampContainer>
-                      <TimestampItem>Created</TimestampItem>
-                      <TimestampItem>
-                        {formatTimestamp(resume.createdAt)}
-                      </TimestampItem>
-                    </TimestampContainer>
-                    <TimestampContainer>
-                      <TimestampItem>Edited</TimestampItem>
-                      <TimestampItem>
-                        {formatTimestamp(resume.updatedAt)}
-                      </TimestampItem>
-                    </TimestampContainer>
-                  </SidebarTimestampContainer> */}
                           </ContentContainer>
                         </SidebarContentContainer>
                         <ActionContainer>
@@ -557,13 +537,6 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                         <MiniCoverLetter content={coverLetter.content} />
                       </CoverLetterContent>
                       <EditContainer>
-                        {/* <EditButton
-                          onClick={event =>
-                            handleEditButtonClick(event, coverLetter.id)
-                          }
-                        >
-                          <CiMenuKebab />
-                        </EditButton> */}
                         {editModalOpenId === coverLetter.id &&
                           activeElement === 'editModal' && (
                             <EditModalOverlay onClick={handleCloseEditModal}>
@@ -657,8 +630,10 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                             Edit
                           </PreviewEditButton>
                           <PreviewDownloadButton>
-                            {/* <DownloadPDFButton /> */}
-                            Download
+                            <DownloadCoverLetterButton
+                              coverLetterInfo={coverLetter}
+                              color="white"
+                            />
                           </PreviewDownloadButton>
                         </ActionContainer>
                       </SidebarMenuContainer>
