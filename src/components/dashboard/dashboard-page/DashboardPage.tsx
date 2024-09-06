@@ -64,9 +64,11 @@ interface DashboardPageProps {
   }[];
   coverletters: {
     id: string;
+    content: string;
+    jobDescription: string;
+    resumeId: string;
     createdAt: string;
     updatedAt: string;
-    content: string;
   }[];
 }
 
@@ -104,11 +106,13 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
   };
 
   const generateFilename = (coverLetter: Coverletter) => {
-    const contentSnippet = coverLetter.createdAt
-      .split(' ')
-      .slice(0, 3)
-      .join(' ');
-    const date = new Date(coverLetter.updatedAt).toLocaleDateString();
+    let contentSnippet = 'Untitled';
+    if (coverLetter.createdAt && typeof coverLetter.createdAt === 'string') {
+      contentSnippet = coverLetter.createdAt.split(' ').slice(0, 3).join(' ');
+    }
+    const date = coverLetter.updatedAt
+      ? new Date(coverLetter.updatedAt).toLocaleDateString()
+      : 'Unknown Date';
     return `CoverLetter_${contentSnippet}_${date}`;
   };
 
@@ -255,12 +259,21 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
   const handleCoverLetterCardClick = (
     id: string,
     content: string,
+    jobDescription: string,
+    resumeId: string,
     createdAt: string,
     updatedAt: string,
   ) => {
     setActiveElement('sidebarMenu');
     setEditModalOpenId(id);
-    setSelectedCoverletter({ id, content, createdAt, updatedAt });
+    setSelectedCoverletter({
+      id,
+      content,
+      jobDescription,
+      resumeId,
+      createdAt,
+      updatedAt,
+    });
   };
 
   const handleCloseEditModal = () => {
@@ -528,6 +541,8 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                         handleCoverLetterCardClick(
                           coverLetter.id,
                           coverLetter.content,
+                          coverLetter.resumeId,
+                          coverLetter.jobDescription,
                           coverLetter.createdAt,
                           coverLetter.updatedAt,
                         )
@@ -587,7 +602,8 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                       </EditContainer>
                     </CardItem>
                     <TimeStampContainer>
-                      <Filename>{generateFilename(coverLetter)}</Filename>
+                      <Filename>Coverletter_{coverLetter.id}</Filename>
+                      {/* <Filename>{generateFilename(coverLetter)}</Filename> */}
                       <Timestamp>
                         Edited {formatTimestamp(coverLetter.updatedAt)}
                       </Timestamp>

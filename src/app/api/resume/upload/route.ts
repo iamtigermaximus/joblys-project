@@ -71,6 +71,8 @@ export async function POST(req: NextRequest) {
         data: {
           ownerId: token.sub!,
           content: content, // Pass the string content
+          jobDescription: coverletter.jobDescription || '',
+          resumeId: coverletter.resumeId || '',
         },
         select: {
           id: true,

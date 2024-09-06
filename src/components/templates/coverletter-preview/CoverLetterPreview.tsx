@@ -44,7 +44,7 @@ import {
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { Coverletter, initialCoverletter } from '@/types/coverletter';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow, format, parseISO } from 'date-fns';
 import ConfirmationModal from '../../templates/resume/defaultTemplate/ConfirmationModal';
 import UpgradeModal from '../../templates/resume/defaultTemplate/resume-helpers/UpgradeModal';
 import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
@@ -208,18 +208,30 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
   };
 
   const formatTimestamp = (timestamp: string) => {
-    const date = new Date(timestamp);
+    const date = parseISO(timestamp);
     return formatDistanceToNow(date, { addSuffix: true });
   };
 
   const generateFilename = (coverLetter: Coverletter) => {
-    const contentSnippet = coverLetter.createdAt
-      .split(' ')
-      .slice(0, 3)
-      .join(' ');
-    const date = new Date(coverLetter.updatedAt).toLocaleDateString();
-    return `CoverLetter_${contentSnippet}_${date}`;
+    if (!coverLetter.createdAt) {
+      console.error('Missing or empty createdAt property:', coverLetter);
+      return 'CoverLetter_UnknownDate';
+    }
+
+    try {
+      const createdDate = parseISO(coverLetter.createdAt);
+      if (isNaN(createdDate.getTime())) {
+        throw new Error('Invalid date');
+      }
+      const formattedDate = format(createdDate, 'yyyy-MM-dd');
+      console.log('Formatted Date:', formattedDate); // Debugging line
+      return `CoverLetter_${formattedDate}`;
+    } catch (error: any) {
+      console.error('Error parsing or formatting date:', error.message);
+      return 'CoverLetter_InvalidDate';
+    }
   };
+
   return (
     <>
       {viewMode === 'card' ? (
@@ -300,7 +312,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                     </EditContainer>
                   </CoverLetterCard>
                   <FilenameContainer>
-                    <Filename>{generateFilename(coverLetter)}</Filename>
+                    <Filename>Coverletter_{coverLetter.id}</Filename>
                     {/* <h4>Created At: {formatTimestamp(resume.createdAt)}</h4> */}
                     {/* <Timestamp>Edited {formatTimestamp(resume.updatedAt)}</Timestamp> */}
                     {coverLetter.updatedAt && (
@@ -378,16 +390,17 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
           {coverLettersList &&
             coverLettersList.map(coverLetter => (
               <CoverletterItemContainer key={coverLetter.id}>
-                <CoverletterItem>
-                  {generateFilename(coverLetter)}
-                </CoverletterItem>
-                <ListTimestampItem>
+                <FilenameContainer>
+                  <Filename>Coverletter_{coverLetter.id}</Filename>
+                  {/* <Filename>{generateFilename(coverLetter)}</Filename> */}
+                  {/* <h4>Created At: {formatTimestamp(resume.createdAt)}</h4> */}
+                  {/* <Timestamp>Edited {formatTimestamp(resume.updatedAt)}</Timestamp> */}
                   {coverLetter.updatedAt && (
                     <Timestamp>
                       Edited {formatTimestamp(coverLetter.updatedAt)}
                     </Timestamp>
                   )}
-                </ListTimestampItem>
+                </FilenameContainer>
                 <CoverletterButtonsContainer>
                   <ListContentItem
                     onClick={() => handleEditCoverLetter(coverLetter.id)}

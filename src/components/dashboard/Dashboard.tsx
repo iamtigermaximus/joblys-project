@@ -20,9 +20,11 @@ const Dashboard = () => {
   const [coverletterData, setCoverletterData] = useState<
     {
       id: string;
+      content: string;
+      jobDescription: string;
+      resumeId: string;
       createdAt: string;
       updatedAt: string;
-      content: string;
     }[]
   >([]);
 
@@ -57,11 +59,15 @@ const Dashboard = () => {
           (coverletter: {
             id: string;
             content: string;
+            jobDescription: string;
+            resumeId: string;
             createdAt: string;
             updatedAt: string;
           }) => ({
             id: coverletter.id,
             content: coverletter.content,
+            jobDescription: coverletter.jobDescription,
+            resumeId: coverletter.resumeId,
             createdAt: coverletter.createdAt,
             updatedAt: coverletter.updatedAt,
           }),

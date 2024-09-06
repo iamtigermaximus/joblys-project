@@ -39,6 +39,13 @@ export async function POST(req: NextRequest) {
         content: true,
       },
     });
+
+    if (!resume) {
+      return NextResponse.json(
+        { message: 'Resume not found' },
+        { status: 404 },
+      );
+    }
   } catch (err) {
     console.log(`Fetching structuredCV: ${err}`);
     return NextResponse.json(
@@ -88,26 +95,40 @@ ${jobDescription}
   const newCoverletter = responseContent.trim();
 
   console.log('Generated Cover Letter:', newCoverletter);
-
   try {
-    await prisma.coverLetters.update({
-      where: {
-        id: coverletterId,
-        ownerId: token.sub,
-      },
-      data: {
-        content: newCoverletter,
-      },
-    });
+    if (coverletterId) {
+      // Update existing cover letter
+      await prisma.coverLetters.update({
+        where: {
+          id: coverletterId,
+          ownerId: token.sub,
+        },
+        data: {
+          content: newCoverletter,
+          jobDescription, // Save the job description
+          resumeId, // Save the selected resume ID
+        },
+      });
+    } else {
+      // Create a new cover letter
+      await prisma.coverLetters.create({
+        data: {
+          ownerId: token.sub,
+          content: newCoverletter,
+          jobDescription, // Save the job description
+          resumeId, // Save the selected resume ID
+        },
+      });
+    }
   } catch (err) {
-    console.log(`Update coverLetters: ${err}`);
+    console.log(`Error saving cover letter: ${err}`);
     return NextResponse.json(
-      { message: 'internal server error' },
+      { message: 'Internal server error' },
       { status: 500 },
     );
   }
 
-  console.log('Successfully updated the cover letter');
+  console.log('Successfully saved the cover letter');
 
   return NextResponse.json({ message: 'success' }, { status: 200 });
 }
@@ -122,6 +143,12 @@ export async function GET(req: NextRequest) {
   try {
     const coverLetters = await prisma.coverLetters.findMany({
       where: { ownerId: token.sub },
+      select: {
+        id: true,
+        content: true,
+        jobDescription: true,
+        resumeId: true,
+      },
     });
 
     if (!coverLetters.length) {

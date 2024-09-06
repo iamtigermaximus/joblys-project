@@ -55,6 +55,8 @@ export async function GET(req: NextRequest) {
       select: {
         id: true,
         content: true,
+        jobDescription: true,
+        resumeId: true,
       },
     });
   } catch (err) {
@@ -86,6 +88,8 @@ export async function GET(req: NextRequest) {
       body: {
         id: coverletter?.id,
         profile: coverletter?.content,
+        jobDescription: coverletter?.jobDescription,
+        resumeId: coverletter?.resumeId,
       },
     },
     { status: 200 },

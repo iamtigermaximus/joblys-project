@@ -96,6 +96,7 @@ const NoResumeSelected = styled.p`
 `;
 
 interface ResumesDropdownProps {
+  selectedResumeId: string;
   setSelectedResumeId: (id: string) => void;
 }
 
@@ -107,12 +108,14 @@ type ResumeData = {
 };
 
 const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
+  selectedResumeId,
   setSelectedResumeId,
 }) => {
   const [profileData, setProfileData] = useState<ResumeData[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [resumesList, setResumesList] = useState<ResumeData[]>([]);
-  const [selectedResume, setSelectedResume] = useState<string>('');
+  const [selectedResume, setSelectedResume] =
+    useState<string>(selectedResumeId);
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -155,6 +158,10 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
 
     fetchProfileData();
   }, []);
+
+  useEffect(() => {
+    setSelectedResume(selectedResumeId);
+  }, [selectedResumeId]);
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSelectedResume(event.target.value);

@@ -88,17 +88,36 @@ const CoverLetterBuilderPage: FC = () => {
 
   const [resumeInfo, setResumeInfo] = useState(initialState);
   const [coverletter, setCoverletter] = useState<string>('');
+  const [jobDescription, setJobDescription] = useState<string>('');
+  const [resumeId, setResumeId] = useState<string>('');
 
   const handleStoredResumeUpdate = useCallback(async () => {
-    const response = await fetch(`/api/coverletter/${params.id}`);
-    if (response.status !== 200) {
-      return;
-    }
-    const responseJson = await response.json();
-    const coverletter: string | undefined = responseJson.body.profile;
+    try {
+      const response = await fetch(`/api/coverletter/${params.id}`);
+      if (response.status === 200) {
+        const responseJson = await response.json();
+        console.log('API Response:', responseJson); // Debugging log
+        const coverletter: string | undefined = responseJson.body.profile;
+        const jobDescription: string | undefined =
+          responseJson.body.jobDescription;
+        const resumeId: string | undefined = responseJson.body.resumeId;
 
-    if (coverletter) {
-      setCoverletter(coverletter);
+        if (coverletter) {
+          setCoverletter(coverletter);
+        }
+
+        if (jobDescription) {
+          setJobDescription(jobDescription);
+        }
+
+        if (resumeId) {
+          setResumeId(resumeId);
+        }
+      } else {
+        console.error('Failed to fetch cover letter details');
+      }
+    } catch (error) {
+      console.error('Error fetching cover letter details:', error);
     }
   }, [params.id]);
 
@@ -106,69 +125,11 @@ const CoverLetterBuilderPage: FC = () => {
     handleStoredResumeUpdate();
   }, [handleStoredResumeUpdate]);
 
-  // const captureToCanvas = async () => {
-  //   try {
-  //     const element = document.getElementById('coverletter-template');
-
-  //     if (!element) {
-  //       console.error("Element with id 'coverletter-template' not found");
-  //       return null;
-  //     }
-
-  //     const canvas = await html2canvas(element);
-  //     return canvas;
-  //   } catch (error) {
-  //     console.error('Error capturing canvas:', error);
-  //     return null;
-  //   }
-  // };
-
-  // const convertCanvasToPDF = async (canvas: HTMLCanvasElement | null) => {
-  //   try {
-  //     if (!canvas) {
-  //       console.error('Canvas is null');
-  //       return null;
-  //     }
-
-  //     const pdf = new jsPDF();
-  //     pdf.addImage(
-  //       canvas.toDataURL('image/png'),
-  //       'PNG',
-  //       0,
-  //       0,
-  //       pdf.internal.pageSize.getWidth(),
-  //       pdf.internal.pageSize.getHeight(),
-  //     );
-  //     return pdf;
-  //   } catch (error) {
-  //     console.error('Error converting canvas to PDF:', error);
-  //     return null;
-  //   }
-  // };
-
-  // const downloadPDF = (pdf: any) => {
-  //   try {
-  //     if (pdf) {
-  //       pdf.save('document.pdf');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error downloading PDF:', error);
-  //   }
-  // };
-
-  // const handleDownloadPDF = async () => {
-  //   try {
-  //     const canvas = await captureToCanvas();
-  //     const pdf = await convertCanvasToPDF(canvas);
-  //     downloadPDF(pdf);
-  //   } catch (error) {
-  //     console.error('Error handling download PDF:', error);
-  //   }
-  // };
-
   const coverLetterInfo: Coverletter = {
     id: params.id,
     content: coverletter,
+    resumeId: resumeId,
+    jobDescription: jobDescription,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
@@ -191,6 +152,8 @@ const CoverLetterBuilderPage: FC = () => {
             setResumeInfo={setResumeInfo}
             refreshStoredResume={handleStoredResumeUpdate}
             content={coverletter}
+            resumeId={resumeId}
+            jobDescription={jobDescription}
           />
         </ResumeFormContainer>
         <ResumeTemplateContainer>

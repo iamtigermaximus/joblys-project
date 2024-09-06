@@ -34,6 +34,8 @@ interface CoverLetterFormProps {
   setResumeInfo: React.Dispatch<React.SetStateAction<Resume>>;
   refreshStoredResume: () => void;
   content: string;
+  resumeId: string;
+  jobDescription: string;
 }
 
 const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
@@ -42,6 +44,8 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   setResumeInfo,
   refreshStoredResume,
   content,
+  resumeId: initialResumeId,
+  jobDescription: initialJobDescription,
 }) => {
   const [accordionState, setAccordionState] = useState({
     basic: true,
@@ -56,18 +60,51 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   const { data: session } = useSession();
   const [profileCreated, setProfileCreated] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [applyJobDescription, setApplyJobDescription] = useState('');
-  const [resumeId, setResumeId] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // Loading state variable
-
+  const [applyJobDescription, setApplyJobDescription] = useState<string>(
+    initialJobDescription,
+  );
+  const [resumeId, setResumeId] = useState<string>(initialResumeId);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // useEffect(() => {
+  //   if (!coverletterId) return;
+
+  //   const fetchCoverLetterDetails = async () => {
+  //     try {
+  //       const response = await fetch(`/api/coverletters/${coverletterId}`);
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch cover letter details.');
+  //       }
+  //       const data = await response.json();
+  //       console.log('Fetched data:', data);
+  //       setApplyJobDescription(data.jobDescription);
+  //       setResumeId(data.resumeId);
+  //     } catch (error: any) {
+  //       console.error('Error fetching cover letter details:', error.message);
+  //     }
+  //   };
+
+  //   fetchCoverLetterDetails();
+  // }, [coverletterId]);
+
+  useEffect(() => {
+    if (initialJobDescription) {
+      setApplyJobDescription(initialJobDescription);
+    }
+    if (initialResumeId) {
+      setResumeId(initialResumeId);
+    }
+  }, [initialJobDescription, initialResumeId]);
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  const handleApplyJobDescriptionChange = async (jobDescription: string) => {
-    setApplyJobDescription(jobDescription);
+  const handleApplyJobDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    setApplyJobDescription(e.target.value);
   };
 
   const handleClosePreview = () => {
@@ -92,14 +129,28 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   };
 
   const handleSubmitWriteCoverletter = async () => {
-    setIsLoading(true); // Set loading state to true
+    if (!session) {
+      setError('You need to be signed in to generate a cover letter.');
+      return;
+    }
+
+    if (!applyJobDescription || !resumeId) {
+      setError('Please select a resume and enter a job description.');
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
     try {
       const response = await fetch('/api/coverletterChanges', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
-          coverletterId: coverletterId,
-          resumeId: resumeId,
+          coverletterId,
           jobDescription: applyJobDescription,
+          resumeId,
         }),
       });
 
@@ -162,7 +213,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
             <TextArea
               placeholder="Paste job description here"
               value={applyJobDescription}
-              onChange={e => handleApplyJobDescriptionChange(e.target.value)}
+              onChange={handleApplyJobDescriptionChange}
             />
           </InputContainer>
         </AccordionSection>
@@ -172,7 +223,10 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
           </AccordionHeader>
         </AccordionSection>
 
-        <ResumesDropdown setSelectedResumeId={setResumeId} />
+        <ResumesDropdown
+          selectedResumeId={resumeId}
+          setSelectedResumeId={setResumeId}
+        />
 
         <AccordionSection>
           <PreviewButtonSection>
