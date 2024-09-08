@@ -65,8 +65,8 @@ interface DashboardPageProps {
   coverletters: {
     id: string;
     content: string;
-    jobDescription: string;
     resumeId: string;
+    jobDescription: string;
     createdAt: string;
     updatedAt: string;
   }[];
@@ -259,8 +259,8 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
   const handleCoverLetterCardClick = (
     id: string,
     content: string,
-    jobDescription: string,
     resumeId: string,
+    jobDescription: string,
     createdAt: string,
     updatedAt: string,
   ) => {
@@ -269,8 +269,8 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
     setSelectedCoverletter({
       id,
       content,
-      jobDescription,
       resumeId,
+      jobDescription,
       createdAt,
       updatedAt,
     });

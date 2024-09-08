@@ -78,7 +78,7 @@ ${jobDescription}
 `;
 
   const openaiResponse = await openAI.chat.completions.create({
-    model: 'gpt-4o',
+    model: 'gpt-3.5-turbo-instruct',
     messages: [{ role: 'user', content: prompt }],
     stream: false,
     temperature: 0,
@@ -97,7 +97,6 @@ ${jobDescription}
   console.log('Generated Cover Letter:', newCoverletter);
   try {
     if (coverletterId) {
-      // Update existing cover letter
       await prisma.coverLetters.update({
         where: {
           id: coverletterId,
@@ -105,8 +104,8 @@ ${jobDescription}
         },
         data: {
           content: newCoverletter,
-          jobDescription, // Save the job description
-          resumeId, // Save the selected resume ID
+          resumeId,
+          jobDescription,
         },
       });
     } else {
@@ -115,8 +114,8 @@ ${jobDescription}
         data: {
           ownerId: token.sub,
           content: newCoverletter,
-          jobDescription, // Save the job description
-          resumeId, // Save the selected resume ID
+          resumeId,
+          jobDescription,
         },
       });
     }
@@ -146,8 +145,10 @@ export async function GET(req: NextRequest) {
       select: {
         id: true,
         content: true,
-        jobDescription: true,
         resumeId: true,
+        jobDescription: true,
+        createdAt: true,
+        updatedAt: true,
       },
     });
 

@@ -207,11 +207,6 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
     }
   };
 
-  const formatTimestamp = (timestamp: string) => {
-    const date = parseISO(timestamp);
-    return formatDistanceToNow(date, { addSuffix: true });
-  };
-
   const generateFilename = (coverLetter: Coverletter) => {
     if (!coverLetter.createdAt) {
       console.error('Missing or empty createdAt property:', coverLetter);
@@ -230,6 +225,11 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
       console.error('Error parsing or formatting date:', error.message);
       return 'CoverLetter_InvalidDate';
     }
+  };
+
+  const formatTimestamp = (timestamp: string) => {
+    const date = new Date(timestamp);
+    return formatDistanceToNow(date, { addSuffix: true });
   };
 
   return (
