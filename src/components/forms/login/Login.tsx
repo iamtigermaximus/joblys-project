@@ -85,7 +85,7 @@ const Login = () => {
             'We cannot find an account with that email address. Please check your entry or create a new account.',
         });
       } else {
-        router.push('/eazyCV/profile');
+        router.push('/eazyCV/dashboard');
       }
     } catch (error) {
       setError('email', { type: 'manual', message: 'Unexpected error' });
