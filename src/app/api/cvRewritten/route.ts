@@ -18,9 +18,13 @@ Instructions:
   Rephrase for Impact: Rewrite the responsibility using strong past-tense action verbs and action-oriented language that showcases the user's relevant skills. 
   Maintain Meaning: Ensure the rewritten sentence accurately reflects the original accomplishment.
 
-Output:
-  Professional Achievements:  A bullet points list of {number_sentences} separate sentences. Each sentence should spotlight the user's achievements in concise and professional language, ideal for inclusion in a CV (without specifying the job title).
+Format:
+  - Each sentence should be a bullet point starting with "•". Ensure consistent formatting.
 
+Output:
+  Professional Achievements: A bullet points list of {number_sentences} separate sentences. Each sentence should spotlight the user's achievements in concise and professional language, ideal for inclusion in a CV.
+  Use the following bullet format:
+    • {achievement sentence}
 `;
 
 const openAI = new OpenAI({

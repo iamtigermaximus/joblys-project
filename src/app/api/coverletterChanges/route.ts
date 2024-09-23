@@ -78,7 +78,7 @@ ${jobDescription}
 `;
 
   const openaiResponse = await openAI.chat.completions.create({
-    model: 'gpt-3.5-turbo-instruct',
+    model: 'gpt-3.5-turbo',
     messages: [{ role: 'user', content: prompt }],
     stream: false,
     temperature: 0,
