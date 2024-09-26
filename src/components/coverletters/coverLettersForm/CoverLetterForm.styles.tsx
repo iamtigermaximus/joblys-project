@@ -247,3 +247,18 @@ export const CoverLetterContent = styled.div`
     transform: scale(0.9);
   }
 `;
+
+export const TooltipContainer = styled.div`
+  position: absolute;
+  top: 10;
+  left: 100;
+  transform: translateX(-100%);
+  z-index: 100;
+  padding: 10px;
+  background-color: ${colors.blueGray};
+  color: ${colors.white};
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  font-size: 11px;
+`;

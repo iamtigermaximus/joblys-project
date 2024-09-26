@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Resume } from '@/types/resume';
 import {
   AccordionContainer,
@@ -20,6 +20,7 @@ import {
   TemplatePreview,
   TemplatePreviewHeader,
   TextArea,
+  TooltipContainer,
 } from './CoverLetterForm.styles';
 import { FaArrowLeft, FaDownload } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
@@ -27,6 +28,7 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import ResumesDropdown from '@/components/resumes/ResumesDropdown';
 import MiniCoverLetterTemplate from '@/components/templates/minicoverletter-template/MiniCoverLetterTemplate';
+import { IoMdHelpCircleOutline } from 'react-icons/io';
 
 interface CoverLetterFormProps {
   coverletterId: string;
@@ -66,6 +68,36 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   const [resumeId, setResumeId] = useState<string>(initialResumeId);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [showHelpTooltip, setShowHelpTooltip] = useState(false);
+  const helpIconRef = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+
+  // Toggle tooltip
+  const toggleHelpTooltip = () => {
+    setShowHelpTooltip(prev => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        tooltipRef.current &&
+        !tooltipRef.current.contains(event.target as Node)
+      ) {
+        setShowHelpTooltip(false);
+      }
+    };
+
+    if (showHelpTooltip) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showHelpTooltip]);
 
   // useEffect(() => {
   //   if (!coverletterId) return;
@@ -208,6 +240,23 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
         <AccordionSection>
           <AccordionHeader>
             <AccordionHeaderTitle>Job Ad</AccordionHeaderTitle>
+            <AccordionHeaderTitle ref={helpIconRef}>
+              <IoMdHelpCircleOutline
+                onClick={toggleHelpTooltip}
+                style={{ cursor: 'pointer' }}
+              />
+              {showHelpTooltip && (
+                <TooltipContainer ref={tooltipRef}>
+                  <p>
+                    By pasting the job ad here, we&apos;ll extract essential
+                    information and keywords, allowing you to tailor your
+                    coverletter for the specific job. You can use this
+                    information to customize your coverletter and make your
+                    application more competitive.
+                  </p>
+                </TooltipContainer>
+              )}
+            </AccordionHeaderTitle>
           </AccordionHeader>
           <InputContainer>
             <TextArea
