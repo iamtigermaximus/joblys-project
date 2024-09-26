@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import BasicDetailsForm from '../basic-details/BasicDetailsForm';
 import ProfessionalDetailsForm from '../professional-details/ProfessionalDetailsForm';
 import EducationalDetailsForm from '../education-details/EducationalDetailsForm';
@@ -30,6 +30,7 @@ import {
   SectionTitle,
   FileUpload,
   UploadButton,
+  TooltipContainer,
 } from './ResumeForm.styles';
 import {
   FaArrowLeft,
@@ -43,15 +44,14 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import DownloadPDFButton from '@/components/templates/resume/defaultTemplate/DownloadPDFButton';
 import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
+
+import { convertProfileToResume, Profile } from '@/types/profile';
+
+import { IoMdHelpCircleOutline } from 'react-icons/io';
 import {
-  LoadingMessageContainer,
   LoadingMessage,
+  LoadingMessageContainer,
 } from '@/components/profile/create-profile/upload-cv/UploadCV.styles';
-import {
-  convertProfileToResume,
-  convertResumeToProfile,
-  Profile,
-} from '@/types/profile';
 
 interface ResumeFormProps {
   resumeId: string;
@@ -89,6 +89,42 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const [uploadMessage, setUploadMessage] = useState('');
   const [uploadMessageTimeout, setUploadMessageTimeout] =
     useState<NodeJS.Timeout | null>(null);
+  const [extractedJobDetails, setExtractedJobDetails] = useState<any>(null);
+  const [isExtracting, setIsExtracting] = useState(false);
+  const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(
+    null,
+  );
+
+  const [showHelpTooltip, setShowHelpTooltip] = useState(false);
+  const helpIconRef = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+
+  // Toggle tooltip visibility when help icon is clicked
+  const toggleHelpTooltip = () => {
+    setShowHelpTooltip(prev => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Check if the click is outside the tooltip
+      if (
+        tooltipRef.current &&
+        !tooltipRef.current.contains(event.target as Node)
+      ) {
+        setShowHelpTooltip(false); // Close the tooltip
+      }
+    };
+
+    if (showHelpTooltip) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showHelpTooltip]);
 
   useEffect(() => {
     return () => {
@@ -115,7 +151,6 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     formData.append('file', cvFile);
 
     try {
-      // First, upload to api/cv
       const cvResp = await fetch('/api/cv', {
         method: 'POST',
         body: formData,
@@ -123,10 +158,9 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
 
       if (cvResp.ok) {
         const cvData = await cvResp.json();
-        const structuredCVContent = cvData.body; // assuming structured content is returned here
+        const structuredCVContent = cvData.body;
         console.log('Structured CV Content:', structuredCVContent);
 
-        // Then, post the structured CV to api/profile
         const profileResp = await fetch('/api/profile', {
           method: 'POST',
           headers: {
@@ -141,7 +175,6 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           const profileResponseData = await profileResp.json();
           setUploadMessage('Upload successful!');
 
-          // Merge structured CV content with existing data
           const updatedProfileData = {
             ...existingData,
             ...profileResponseData.body,
@@ -173,9 +206,45 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     }
   };
 
-  const handleApplyJobDescriptionChange = async (jobDescription: string) => {
+  const handleApplyJobDescriptionChange = (jobDescription: string) => {
     setApplyJobDescription(jobDescription);
   };
+
+  // Automatically extract job details when job description changes
+  useEffect(() => {
+    if (!applyJobDescription) return;
+
+    // if (debounceTimeout) {
+    //   clearTimeout(debounceTimeout);
+    // }
+
+    const timeout = setTimeout(async () => {
+      setIsExtracting(true);
+      try {
+        const response = await fetch('/api/jobAdExtraction', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ job_description: applyJobDescription }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setExtractedJobDetails(data.data);
+          console.log('Extracted Job Details:', data.data);
+        } else {
+          console.error('Failed to extract job details');
+        }
+      } catch (error) {
+        console.error('Error extracting job details:', error);
+      } finally {
+        setIsExtracting(false);
+      }
+    }, 1000);
+
+    // setDebounceTimeout(timeout);
+  }, [applyJobDescription]);
 
   const handleClosePreview = () => {
     setClick(false);
@@ -315,6 +384,23 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         <AccordionSection>
           <AccordionHeader>
             <AccordionHeaderTitle>Job Ad</AccordionHeaderTitle>
+            <AccordionHeaderTitle ref={helpIconRef}>
+              <IoMdHelpCircleOutline
+                onClick={toggleHelpTooltip}
+                style={{ cursor: 'pointer' }}
+              />
+              {showHelpTooltip && (
+                <TooltipContainer ref={tooltipRef}>
+                  <p>
+                    By pasting the job ad here, we&apos;ll extract essential
+                    information and keywords, allowing you to tailor your resume
+                    for the specific job. You can use this information to
+                    customize your resume and make your application more
+                    competitive.
+                  </p>
+                </TooltipContainer>
+              )}
+            </AccordionHeaderTitle>
           </AccordionHeader>
           <InputContainer>
             <TextArea
@@ -324,6 +410,26 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             />
           </InputContainer>
         </AccordionSection>
+        {/* <AccordionSection>
+          <AccordionHeader>
+            <AccordionHeaderTitle>Extracted Job Details</AccordionHeaderTitle>
+          </AccordionHeader>
+          <AccordionContent>
+            {isExtracting ? (
+              <p>Extracting job details...</p>
+            ) : (
+              <div>
+                {extractedJobDetails ? (
+                  <TextArea>
+                    {JSON.stringify(extractedJobDetails, null, 2)}
+                  </TextArea>
+                ) : (
+                  <p>No job details extracted yet.</p>
+                )}
+              </div>
+            )}
+          </AccordionContent>
+        </AccordionSection> */}
 
         <AccordionSection>
           <AccordionHeader>
