@@ -12,7 +12,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: ${colors.offWhite};
+  background: transparent;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
@@ -65,10 +65,10 @@ export const LoginButton = styled.button`
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  background-color: ${colors.offWhite};
+  background-color: transparent;
   color: ${colors.darkPurple};
   border-radius: 5px;
-  border: 1px solid ${colors.blueGray};
+  border: 1px solid ${colors.darkPurple};
   padding: 5px;
   width: 60px;
   font-weight: 700;
@@ -76,6 +76,8 @@ export const LoginButton = styled.button`
   white-space: nowrap;
   height: 30px;
   cursor: pointer;
+  font-family: SuisseIntl, sans-serif;
+  line-height: 24px;
 
   &:hover {
     background-color: ${colors.darkPurple};
@@ -131,8 +133,8 @@ export const LogoImageContainer = styled.div`
   height: 30px;
 
   @media (min-width: ${bp.lg}) {
-    width: 150px;
-    height: 50px;
+    width: 160px;
+    height: 40px;
   }
 `;
 

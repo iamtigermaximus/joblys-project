@@ -11,7 +11,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: ${colors.offWhite};
+  background-color: transparent;
+
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
@@ -21,6 +22,8 @@ export const MenuContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  background-color: transparent;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 
   @media (min-width: ${bp.lg}) {
     padding: 0 20px;
@@ -42,7 +45,6 @@ export const Brand = styled(Link)`
   align-items: center;
   text-decoration: none;
   color: ${colors.white};
-  /* font-size: 30px; */
   padding: 0 10px;
   width: 100%;
 
@@ -104,7 +106,6 @@ export const SignupButton = styled.button`
 
 export const HeaderLinksContainer = styled.div`
   color: black;
-  /* border: 1px solid red; */
   font-weight: 700;
   height: 50px;
   width: 50px;
@@ -129,7 +130,6 @@ export const IconContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-
   text-decoration: none;
   border-radius: 50%;
 `;

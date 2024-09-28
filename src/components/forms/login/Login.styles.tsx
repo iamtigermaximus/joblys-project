@@ -12,7 +12,7 @@ export const Container = styled.div`
   height: 100vh;
   padding: 20px 30px;
   overflow-y: scroll;
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
 
   @media (min-width: ${bp.lg}) {
     padding: 50px 100px;
@@ -22,7 +22,7 @@ export const Container = styled.div`
 export const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${colors.white};
+  background: linear-gradient(145deg, #f8f7ff, #eae8ff);
   border-radius: 8px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   width: 100%;
@@ -48,13 +48,13 @@ export const LoginTitleContainer = styled.div`
 `;
 
 export const LoginTitle = styled.h1`
-  color: ${colors.purple};
+  color: #2e033b;
   padding: 5px;
   letter-spacing: 1px;
   font-size: 16px;
 
   @media (min-width: ${bp.md}) {
-    font-size: 25px;
+    font-size: 20px;
   }
 `;
 
@@ -71,25 +71,29 @@ export const InputContainer = styled.div`
 `;
 
 export const Input = styled.input`
-  border: 2px solid ${colors.blueGray};
+  border: 1px solid ${colors.purple};
   border-radius: 5px;
   padding: 10px;
   /* margin: 5px 0; */
   font-size: 10px;
   width: 100%;
-
   position: relative;
+  outline: none;
+
+  &:focus {
+    border: 1px solid ${colors.darkPurple};
+  }
 
   @media (min-width: ${bp.md}) {
     font-size: 15px;
-    padding: 20px;
+    padding: 15px 20px;
     /* margin: 5px; */
   }
 `;
 
 export const InputLabel = styled.label`
   font-size: 8px;
-  color: ${colors.blueGray};
+  color: ${colors.darkPurple};
   letter-spacing: 1px;
   margin: 5px 0;
 
@@ -114,7 +118,7 @@ export const ForgotPasswordLink = styled.h1`
   border-radius: 5px;
   /* padding: 10px 0; */
   margin: 0 20px;
-  color: ${colors.blueGray};
+  color: ${colors.purple};
   /* letter-spacing: 1px; */
 
   @media (min-width: ${bp.md}) {
@@ -150,7 +154,7 @@ export const SignInButton = styled.button`
 
   @media (min-width: ${bp.md}) {
     font-size: 15px;
-    padding: 20px;
+    padding: 15px 20px;
   }
 `;
 
@@ -186,7 +190,7 @@ export const CreateAccountTitle = styled.h1`
   border-radius: 5px;
   padding: 10px 0;
   margin: 0 20px;
-  color: ${colors.blueGray};
+  color: #2e033b;
   /* letter-spacing: 1px; */
 
   @media (min-width: ${bp.md}) {
@@ -202,7 +206,7 @@ export const CreateAccountButtonContainer = styled.div`
 `;
 
 export const CreateAccountButton = styled.button`
-  background: ${colors.blueGray};
+  background: ${colors.purple};
   color: ${colors.white};
   padding: 10px;
   width: 100%;
@@ -219,7 +223,7 @@ export const CreateAccountButton = styled.button`
 
   @media (min-width: ${bp.md}) {
     font-size: 15px;
-    padding: 20px;
+    padding: 15px 20px;
   }
 `;
 
@@ -268,7 +272,7 @@ export const ProviderButton = styled.button`
 
   @media (min-width: ${bp.md}) {
     font-size: 15px;
-    padding: 20px;
+    padding: 15px 20px;
   }
 `;
 

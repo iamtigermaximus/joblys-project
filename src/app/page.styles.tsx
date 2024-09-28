@@ -8,7 +8,7 @@ export const Container = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: #b4ecf9;
+  background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff);
   flex-direction: column;
 
   @media (-width: ${bp.md}) {
@@ -77,7 +77,7 @@ export const Box = styled.div`
 
 export const Box3 = styled.div`
   width: 100%;
-  background-color: aliceblue;
+  background: linear-gradient(145deg, #f8f7ff, #eae8ff);
   padding: 20px;
   border-radius: 10px;
 
@@ -117,10 +117,12 @@ export const BoxHeader = styled.div`
   display: flex;
   align-items: center;
   font-size: 22px;
-  color: ${colors.purple};
+  color: #2e033b;
   font-weight: 700;
   font-family: 'Honk', system-ui;
   white-space: nowrap;
+  font-family: SuisseIntl, sans-serif;
+  line-height: 24px;
 
   @media (min-width: ${bp.lg}) {
     font-size: 30px;
@@ -139,7 +141,8 @@ export const GetStartedButton = styled.button`
   margin: 0 2px;
   padding: 10px 20px;
   white-space: nowrap;
-  background-color: #232946;
+  background-color: ${colors.purple};
+  color: ${colors.offWhite};
   border-radius: 5px;
   border: none;
   color: white;
@@ -250,6 +253,10 @@ export const ImageContainer = styled.div`
 
 export const ValueProposition = styled.p`
   font-size: 14px;
+  color: #2e033b;
+  font-family: SuisseIntl, sans-serif;
+  line-height: 24px;
+
   @media (min-width: ${bp.lg}) {
     font-size: 16px;
   }
