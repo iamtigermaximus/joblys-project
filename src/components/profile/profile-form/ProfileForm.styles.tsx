@@ -74,7 +74,7 @@ export const AccordionHeader = styled.div`
 export const AccordionHeaderTitle = styled.h1`
   font-weight: 900;
   font-size: 20px;
-  color: black;
+  color: #2e033b;
   font-family: 'Roboto Rounded', sans-serif;
 `;
 export const AccordionContent = styled.div`
@@ -138,27 +138,25 @@ export const Input = styled.input`
   font-size: 14px;
   background-color: #f5f5f5;
   border: none;
-  color: black;
+  color: #2e033b;
   height: 40px;
   /* margin-bottom: 10px; */
   padding: 8px 12px;
   width: 100%;
 
   &:focus {
-    outline: 0.5px solid gray;
+    outline: 0.5px solid #2e033b;
   }
 
   @media (min-width: ${bp.md}) {
-    background-color: #f5f5f5;
     border: none;
-    color: black;
     height: 40px;
     /* margin-bottom: 10px; */
     padding: 8px 12px;
     width: 100%;
 
     &:focus {
-      outline: 0.5px solid gray;
+      outline: 0.5px solid #2e033b;
     }
   }
 `;
@@ -251,7 +249,7 @@ export const TextArea = styled.textarea`
   height: 100px;
   padding: 8px 12px;
   background-color: #f5f5f5;
-  color: black;
+  color: #2e033b;
   border: none;
   margin-bottom: 10px;
   width: 100%;
@@ -383,7 +381,7 @@ export const SectionTitleContainer = styled.div`
 `;
 
 export const SectionTitle = styled.h2`
-  color: ${colors.purple};
+  color: #2e033b;
   font-size: 16px;
 
   @media (min-width: ${bp.md}) {

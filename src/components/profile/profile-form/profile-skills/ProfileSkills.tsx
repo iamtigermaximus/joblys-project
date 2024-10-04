@@ -56,13 +56,12 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
   //   }
   // }, [existingData.skills]);
 
-
   useEffect(() => {
     // Generate unique IDs for existing skills if needed
     if (existingData.skills && existingData.skills.length > 0) {
       setSkillsData(
-        existingData.skills.map(
-          skill => (skill.id ? skill : { ...skill, id: uuidv4() }), 
+        existingData.skills.map(skill =>
+          skill.id ? skill : { ...skill, id: uuidv4() },
         ),
       );
     } else {
@@ -122,11 +121,11 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
         </AccordionHeaderTitle>
         <span>
           {isOpen ? (
-            <IconContainer style={{ fontSize: '24px' }}>
+            <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
               <FaCircleChevronUp />
             </IconContainer>
           ) : (
-            <IconContainer style={{ fontSize: '24px' }}>
+            <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
               <FaCircleChevronDown />
             </IconContainer>
           )}
@@ -155,7 +154,7 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
                   />
                   {isEditing && (
                     <IconContainer onClick={() => handleDeleteSkill(skill.id)}>
-                      <FaTrash />
+                      <FaTrash style={{ color: '#2e033b' }} />
                     </IconContainer>
                   )}
                 </SkillItemContainer>

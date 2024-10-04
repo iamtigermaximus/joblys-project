@@ -170,11 +170,11 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
         </AccordionHeaderTitle>
         <span>
           {isOpen ? (
-            <IconContainer style={{ fontSize: '24px' }}>
+            <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
               <FaCircleChevronUp />
             </IconContainer>
           ) : (
-            <IconContainer style={{ fontSize: '24px' }}>
+            <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
               <FaCircleChevronDown />
             </IconContainer>
           )}
@@ -197,7 +197,7 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
                     <TrashIconContainer
                       onClick={() => handleDeleteEducation(educ.id)}
                     >
-                      <FaTrash />
+                      <FaTrash style={{ color: '#2e033b' }} />
                     </TrashIconContainer>
                   )}
                 </div>

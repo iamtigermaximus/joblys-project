@@ -208,7 +208,7 @@ export const CreateButton = styled.button`
   width: 100%;
   overflow-y: hidden;
   height: 200px;
-  background: linear-gradient(145deg, #f8f7ff, #eae8ff);
+  background-color: #f8f7ff;
 
   &:hover {
     color: purple;

@@ -558,12 +558,16 @@ export const Timestamp = styled.h1`
 `;
 
 export const Filename = styled.h1`
-  color: black;
+  color: #2e033b;
   font-weight: bolder;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 12px;
+
+  &:hover {
+    color: ${colors.purple};
+  }
 
   @media (min-width: ${bp.sm}) {
     font-size: 14px;

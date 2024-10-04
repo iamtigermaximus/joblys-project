@@ -151,11 +151,11 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
         </AccordionHeaderTitle>
         <span>
           {isOpen ? (
-            <IconContainer style={{ fontSize: '24px' }}>
+            <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
               <FaCircleChevronUp />
             </IconContainer>
           ) : (
-            <IconContainer style={{ fontSize: '24px' }}>
+            <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
               <FaCircleChevronDown />
             </IconContainer>
           )}
@@ -229,7 +229,7 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
                     />
                     {isEditing && (
                       <IconContainer onClick={() => removeLink(link.id)}>
-                        <FaTrash />
+                        <FaTrash style={{ color: '#2e033b' }} />
                       </IconContainer>
                     )}
                   </NewLinkContainer>

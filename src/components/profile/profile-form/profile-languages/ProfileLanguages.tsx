@@ -125,11 +125,11 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
         </AccordionHeaderTitle>
         <span>
           {isOpen ? (
-            <IconContainer style={{ fontSize: '24px' }}>
+            <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
               <FaCircleChevronUp />
             </IconContainer>
           ) : (
-            <IconContainer style={{ fontSize: '24px' }}>
+            <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
               <FaCircleChevronDown />
             </IconContainer>
           )}
@@ -160,7 +160,7 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
                     <IconContainer
                       onClick={() => handleDeleteLanguage(language.id)}
                     >
-                      <FaTrash />
+                      <FaTrash style={{ color: '#2e033b' }} />
                     </IconContainer>
                   )}
                 </LanguageItemContainer>
