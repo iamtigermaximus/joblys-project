@@ -51,6 +51,7 @@ export const TitleItem = styled.div`
   font-weight: 900;
   padding: 10px 20px;
   letter-spacing: 1px;
+  color: #2e033b;
 `;
 
 export const IconItem = styled.div`
@@ -200,13 +201,14 @@ export const CreateButton = styled.button`
   justify-content: center;
   align-items: center;
   font-size: 11px;
-  color: gray;
-  border: 1px dashed gray;
+  color: #2e033b;
+  border: 1px dashed #2e033b;
   border-radius: 5px;
   cursor: pointer;
   width: 100%;
   overflow-y: hidden;
   height: 200px;
+  background: linear-gradient(145deg, #f8f7ff, #eae8ff);
 
   &:hover {
     color: purple;
@@ -256,12 +258,16 @@ export const TimeStampContainer = styled.div`
 `;
 
 export const Filename = styled.div`
-  color: black;
+  color: #2e033b;
   font-weight: bolder;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 11px;
+
+  &:hover {
+    color: ${colors.purple};
+  }
 
   @media (min-width: ${bp.sm}) {
     font-size: 14px;

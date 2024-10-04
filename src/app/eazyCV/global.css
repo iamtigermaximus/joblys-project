@@ -9,8 +9,6 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   border-top: 0.3vh solid #fb5d20;
-}
-
-body {
   background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff);
+  font-family: 'SuisseIntl', sans-serif;
 }

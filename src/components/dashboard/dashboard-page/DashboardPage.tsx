@@ -6,7 +6,6 @@ import { FaChevronCircleRight } from 'react-icons/fa';
 import { formatDistanceToNow } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
-import { CiMenuKebab } from 'react-icons/ci';
 import { IoCloseSharp } from 'react-icons/io5';
 import DownloadPDFButton from '../../templates/resume/defaultTemplate/DownloadPDFButton';
 import ConfirmationModal from '../../templates/resume/defaultTemplate/ConfirmationModal';
@@ -368,7 +367,10 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
           <TitleContainer>
             <TitleItem>Resume</TitleItem>
             <IconItem>
-              <FaChevronCircleRight onClick={handleResumesPage} />
+              <FaChevronCircleRight
+                onClick={handleResumesPage}
+                style={{ color: '#2e033b' }}
+              />
             </IconItem>
           </TitleContainer>
           <ItemsContainer>
@@ -514,11 +516,17 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
           <TitleContainer>
             <TitleItem>Cover Letters</TitleItem>
             <IconItem>
-              <FaChevronCircleRight onClick={handleCoverlettersPage} />
+              <FaChevronCircleRight
+                onClick={handleCoverlettersPage}
+                style={{ color: '#2e033b' }}
+              />
             </IconItem>
           </TitleContainer>
           <CreateButtonContainer>
-            <CreateButton onClick={handleCreateNewCoverLetter}>
+            <CreateButton
+              onClick={handleCreateNewCoverLetter}
+              style={{ color: '#2e033b' }}
+            >
               Create new cover letter
             </CreateButton>
           </CreateButtonContainer>
@@ -528,7 +536,10 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
           <TitleContainer>
             <TitleItem>Cover Letters</TitleItem>
             <IconItem>
-              <FaChevronCircleRight onClick={handleCoverlettersPage} />
+              <FaChevronCircleRight
+                onClick={handleCoverlettersPage}
+                style={{ color: '#2e033b' }}
+              />
             </IconItem>
           </TitleContainer>
           <ItemsContainer>

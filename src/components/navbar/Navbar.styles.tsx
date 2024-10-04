@@ -112,6 +112,7 @@ export const MenuItem = styled.div`
   color: ${colors.white};
   /* padding-left: 10px; */
   font-weight: 700;
+  font-family: SuisseIntl, sans-serif;
 
   @media (min-width: ${bp.lg}) {
     display: flex;
