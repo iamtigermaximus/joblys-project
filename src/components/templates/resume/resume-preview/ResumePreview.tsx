@@ -238,10 +238,8 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
     <>
       {viewMode === 'card' ? (
         <ResumeContainer>
-          <CreateResumeButton>
-            <ButtonLabel onClick={handleCreateNewResume}>
-              Create new resume
-            </ButtonLabel>
+          <CreateResumeButton onClick={handleCreateNewResume}>
+            <ButtonLabel>Create new resume</ButtonLabel>
           </CreateResumeButton>
           {resumesList.map(resume => (
             <React.Fragment key={resume.id}>

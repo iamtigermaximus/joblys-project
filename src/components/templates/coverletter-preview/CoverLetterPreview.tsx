@@ -236,10 +236,8 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
     <>
       {viewMode === 'card' ? (
         <CoverLetterContainer>
-          <CreateCoverLetterButton>
-            <ButtonLabel onClick={handleCreateNewCoverLetter}>
-              Create new coverletter
-            </ButtonLabel>
+          <CreateCoverLetterButton onClick={handleCreateNewCoverLetter}>
+            <ButtonLabel>Create new coverletter</ButtonLabel>
           </CreateCoverLetterButton>
           {coverLettersList &&
             coverLettersList.map(coverLetter => (
