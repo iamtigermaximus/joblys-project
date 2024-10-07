@@ -45,9 +45,10 @@ export const AccordionHeader = styled.div`
 export const AccordionHeaderTitle = styled.h1`
   font-weight: 900;
   font-size: 20px;
-  color: black;
+  color: #2e033b;
   font-family: 'Roboto Rounded', sans-serif;
 `;
+
 export const AccordionContent = styled.div`
   /* padding: 5px 0; */
 `;

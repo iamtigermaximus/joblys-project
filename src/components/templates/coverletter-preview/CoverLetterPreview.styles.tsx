@@ -490,9 +490,15 @@ export const DeleteMessage = styled.div`
   transform: translateX(-50%);
   background-color: #ef4444;
   color: white;
-  padding: 10px 20px;
+  padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  font-size: 10px;
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
 `;
 
 export const CardContainer = styled.div`

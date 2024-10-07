@@ -72,7 +72,7 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
               <TrashIcon
                 onClick={() => handleDeleteLanguage(enteredLanguage.id)}
               >
-                <FaTrash />
+                <FaTrash style={{ color: '#2e033b' }} />
               </TrashIcon>
             </AddNewLanguageContainer>
           </InputContainer>

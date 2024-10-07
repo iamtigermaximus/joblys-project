@@ -442,11 +442,15 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             <span onClick={() => toggleAccordion('basic')}>
               {accordionState.basic ? (
                 <IconContainer>
-                  <FaCircleChevronUp style={{ fontSize: '24px' }} />
+                  <FaCircleChevronUp
+                    style={{ fontSize: '24px', color: '#2e033b' }}
+                  />
                 </IconContainer>
               ) : (
                 <IconContainer>
-                  <FaCircleChevronDown style={{ fontSize: '24px' }} />
+                  <FaCircleChevronDown
+                    style={{ fontSize: '24px', color: '#2e033b' }}
+                  />
                 </IconContainer>
               )}
             </span>
@@ -470,11 +474,11 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('educational')}>
               {accordionState.educational ? (
-                <IconContainer style={{ fontSize: '24px' }}>
+                <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
                   <FaCircleChevronUp />
                 </IconContainer>
               ) : (
-                <IconContainer style={{ fontSize: '24px' }}>
+                <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
                   <FaCircleChevronDown />
                 </IconContainer>
               )}
@@ -501,11 +505,15 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             <span onClick={() => toggleAccordion('professional')}>
               {accordionState.professional ? (
                 <IconContainer>
-                  <FaCircleChevronUp style={{ fontSize: '24px' }} />
+                  <FaCircleChevronUp
+                    style={{ fontSize: '24px', color: '#2e033b' }}
+                  />
                 </IconContainer>
               ) : (
                 <IconContainer>
-                  <FaCircleChevronDown style={{ fontSize: '24px' }} />
+                  <FaCircleChevronDown
+                    style={{ fontSize: '24px', color: '#2e033b' }}
+                  />
                 </IconContainer>
               )}
             </span>
@@ -532,11 +540,11 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('skills')}>
               {accordionState.skills ? (
-                <IconContainer style={{ fontSize: '24px' }}>
+                <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
                   <FaCircleChevronUp />
                 </IconContainer>
               ) : (
-                <IconContainer style={{ fontSize: '24px' }}>
+                <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
                   <FaCircleChevronDown />
                 </IconContainer>
               )}
@@ -561,11 +569,11 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('languages')}>
               {accordionState.languages ? (
-                <IconContainer style={{ fontSize: '24px' }}>
+                <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
                   <FaCircleChevronUp />
                 </IconContainer>
               ) : (
-                <IconContainer style={{ fontSize: '24px' }}>
+                <IconContainer style={{ fontSize: '24px', color: '#2e033b' }}>
                   <FaCircleChevronDown />
                 </IconContainer>
               )}

@@ -174,7 +174,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
                 }
               />
               <TrashIcon onClick={() => handleDeleteLink(link.id)}>
-                <FaTrash />
+                <FaTrash style={{ color: '#2e033b' }} />
               </TrashIcon>
             </NewLinkContainer>
           </InputContainer>

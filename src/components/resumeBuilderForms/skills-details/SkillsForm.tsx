@@ -70,7 +70,7 @@ const SkillsForm: FC<SkillsFormProps> = ({ skills, setResumeInfo }) => {
                   }
                 />
                 <TrashIcon onClick={() => handleDeleteSkill(enteredSkill.id)}>
-                  <FaTrash />
+                  <FaTrash style={{ color: '#2e033b' }} />
                 </TrashIcon>
               </AddNewSkillContainer>
             </InputContainer>

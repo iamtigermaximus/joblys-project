@@ -24,7 +24,7 @@ export const HeaderContainer = styled.div`
 export const PageName = styled.h1`
   font-size: 20px;
   font-weight: 700;
-  color: black;
+  color: #2e033b;
 `;
 
 // export const CreateResumeButton = styled.button`
