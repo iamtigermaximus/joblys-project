@@ -87,6 +87,7 @@ export const PreviewResumeContainer = styled.div`
   padding: 10px;
   display: flex;
   align-items: center;
+  background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff);
 
   @media (max-width: ${bp.md}) {
     width: 375px;

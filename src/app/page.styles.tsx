@@ -201,7 +201,9 @@ export const ResumeTemplateContainer = styled.div`
     flex-direction: row;
     width: 100%;
     height: 100vh;
-    background-color: #f8f8f8;
+    /* background-color: #f8f8f8; */
+    background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff);
+
     overflow-y: auto;
     padding: 20px;
     -ms-overflow-style: none;
@@ -226,6 +228,7 @@ export const CoverletterContentContainer = styled.div`
 
 export const FormViewerContainer = styled.div`
   display: flex;
+  background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff);
 
   @media (min-width: ${bp.lg}) {
     flex-direction: row;

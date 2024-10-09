@@ -598,7 +598,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           {showSuccessMessage && (
             <PreviewButtonSection>
               <SuccessAlert>
-                You have successfully created a profile.
+                You have successfully created a resume.
               </SuccessAlert>
             </PreviewButtonSection>
           )}
