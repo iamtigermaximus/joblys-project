@@ -53,6 +53,7 @@ import { Coverletter, initialCoverletter } from '@/types/coverletter';
 import { convertProfileToResume } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
 import DownloadCoverLetterButton from '@/components/templates/coverletter/coverletterTemplate/DownloadCoverLetterButton';
+import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
 
 interface DashboardPageProps {
   resumes: {
@@ -444,9 +445,13 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                       </EditContainer>
                     </CardItem>
                     <TimeStampContainer>
-                      <Filename>
+                      {/* <Filename>
                         Resume {resume.resumeInfo.basic.firstName}{' '}
                         {resume.resumeInfo.basic.lastName}
+                      </Filename> */}
+                      <Filename>
+                        Resume_
+                        {formatFilenameFromDate(resume.createdAt)}
                       </Filename>
                       <Timestamp>
                         Edited {formatTimestamp(resume.updatedAt)}
@@ -613,8 +618,11 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                       </EditContainer>
                     </CardItem>
                     <TimeStampContainer>
-                      <Filename>Coverletter_{coverLetter.id}</Filename>
-                      {/* <Filename>{generateFilename(coverLetter)}</Filename> */}
+                      {/* <Filename>Coverletter_{coverLetter.id}</Filename> */}
+                      <Filename>
+                        Coverletter_
+                        {formatFilenameFromDate(coverLetter.createdAt)}
+                      </Filename>
                       <Timestamp>
                         Edited {formatTimestamp(coverLetter.updatedAt)}
                       </Timestamp>

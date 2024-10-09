@@ -54,6 +54,7 @@ import UpgradeModal from '../defaultTemplate/resume-helpers/UpgradeModal';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { convertProfileToResume } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
+import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
 
 interface MiniResumeProps {
   resumes: {
@@ -306,9 +307,13 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                   </EditContainer>
                 </ResumeCard>
                 <FilenameContainer>
-                  <Filename>
+                  {/* <Filename>
                     Resume {resume.resumeInfo.basic.firstName}{' '}
                     {resume.resumeInfo.basic.lastName}
+                  </Filename> */}
+                  <Filename>
+                    Resume_
+                    {formatFilenameFromDate(resume.createdAt)}
                   </Filename>
                   {resume.updatedAt && (
                     <Timestamp>
@@ -387,8 +392,8 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
           {resumesList.map(resume => (
             <ResumeItemContainer key={resume.id}>
               <ResumeItem>
-                Resume {resume.resumeInfo.basic.firstName}{' '}
-                {resume.resumeInfo.basic.lastName}
+                Resume_
+                {formatFilenameFromDate(resume.createdAt)}
               </ResumeItem>
               <ListTimestampItem>
                 {resume.updatedAt && (

@@ -5,6 +5,8 @@ import { Resume } from '@/types/resume';
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../utils/layout';
 import DefaultTemplate from '../templates/resume/defaultTemplate/DefaultTemplate';
+import { formatFilenameFromDate } from '../helpers/formHelpers';
+import { formatDistanceToNow } from 'date-fns';
 
 export const Container = styled.div`
   width: 100%;
@@ -95,6 +97,21 @@ const NoResumeSelected = styled.p`
   padding: 10px;
 `;
 
+export const Timestamp = styled.h1`
+  font-size: 10px;
+  color: gray;
+  font-size: 10px;
+  margin-left: 10px;
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 12px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 13px;
+  }
+`;
+
 interface ResumesDropdownProps {
   selectedResumeId: string;
   setSelectedResumeId: (id: string) => void;
@@ -116,6 +133,11 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
   const [resumesList, setResumesList] = useState<ResumeData[]>([]);
   const [selectedResume, setSelectedResume] =
     useState<string>(selectedResumeId);
+
+  const formatTimestamp = (timestamp: string) => {
+    const date = new Date(timestamp);
+    return formatDistanceToNow(date, { addSuffix: true });
+  };
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -189,13 +211,23 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
           <Option value="">Select a resume</Option>
           {resumesList &&
             resumesList.map(resume => {
-              const basicInfo = resume.resumeInfo.basic;
-              const firstName = basicInfo.firstName || 'Untitled resume';
-              const lastName = basicInfo.lastName || '';
-              const filename = `${firstName} ${lastName}`.trim();
+              // const basicInfo = resume.resumeInfo.basic;
+              // const firstName = basicInfo.firstName || 'Untitled resume';
+              // const lastName = basicInfo.lastName || '';
+              // const filename = `${firstName} ${lastName}`.trim();
+              const filename = `Resume ${formatFilenameFromDate(
+                resume.createdAt,
+              )}`;
+
               return (
                 <Option key={resume.id} value={resume.id}>
                   {filename}
+                  {''}
+                  {resume.updatedAt && (
+                    <Timestamp>
+                      Edited {formatTimestamp(resume.updatedAt)}
+                    </Timestamp>
+                  )}
                 </Option>
               );
             })}
@@ -217,13 +249,22 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
           <Option value="">Select a resume</Option>
           {resumesList &&
             resumesList.map(resume => {
-              const basicInfo = resume.resumeInfo.basic;
-              const firstName = basicInfo.firstName || 'Untitled resume';
-              const lastName = basicInfo.lastName || '';
-              const filename = `${firstName} ${lastName}`.trim();
+              // const basicInfo = resume.resumeInfo.basic;
+              // const firstName = basicInfo.firstName || 'Untitled resume';
+              // const lastName = basicInfo.lastName || '';
+              // const filename = `${firstName} ${lastName}`.trim();
+              const filename = `Resume ${formatFilenameFromDate(
+                resume.createdAt,
+              )}`;
               return (
                 <Option key={resume.id} value={resume.id}>
                   {filename}
+                  {''}
+                  {resume.updatedAt && (
+                    <Timestamp>
+                      Edited {formatTimestamp(resume.updatedAt)}
+                    </Timestamp>
+                  )}
                 </Option>
               );
             })}

@@ -48,6 +48,7 @@ import { formatDistanceToNow, format, parseISO } from 'date-fns';
 import ConfirmationModal from '../../templates/resume/defaultTemplate/ConfirmationModal';
 import UpgradeModal from '../../templates/resume/defaultTemplate/resume-helpers/UpgradeModal';
 import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
+import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
 
 interface CoverLetterPreviewProps {
   viewMode: 'list' | 'card';
@@ -310,7 +311,10 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                     </EditContainer>
                   </CoverLetterCard>
                   <FilenameContainer>
-                    <Filename>Coverletter_{coverLetter.id}</Filename>
+                    <Filename>
+                      Coverletter_
+                      {formatFilenameFromDate(coverLetter.createdAt)}
+                    </Filename>{' '}
                     {/* <h4>Created At: {formatTimestamp(resume.createdAt)}</h4> */}
                     {/* <Timestamp>Edited {formatTimestamp(resume.updatedAt)}</Timestamp> */}
                     {coverLetter.updatedAt && (
@@ -389,7 +393,10 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
             coverLettersList.map(coverLetter => (
               <CoverletterItemContainer key={coverLetter.id}>
                 <FilenameContainer>
-                  <Filename>Coverletter_{coverLetter.id}</Filename>
+                  <Filename>
+                    Coverletter_
+                    {formatFilenameFromDate(coverLetter.createdAt)}
+                  </Filename>{' '}
                   {/* <Filename>{generateFilename(coverLetter)}</Filename> */}
                   {/* <h4>Created At: {formatTimestamp(resume.createdAt)}</h4> */}
                   {/* <Timestamp>Edited {formatTimestamp(resume.updatedAt)}</Timestamp> */}
