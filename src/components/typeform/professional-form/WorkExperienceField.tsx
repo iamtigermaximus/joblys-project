@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { WorkExperience } from '@/types/profile';
 import { capitalizeFirstLetter } from '../../helpers/formHelpers';
 import {
+  AddButtonContainer,
   AddWorkExperience,
   AddWorkExperienceContainer,
   DateContainer,
@@ -11,6 +12,7 @@ import {
   ExperienceItem,
   InputLabel,
   MonthSelect,
+  Question,
   QuestionContainer,
   TextArea,
   TextInput,
@@ -94,6 +96,12 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
     onChange(newExperiences);
   };
 
+  const handleDeleteExperience = (id: string) => {
+    const updatedExperiences = experiences.filter(exp => exp.id !== id);
+    setExperiences(updatedExperiences);
+    onChange(updatedExperiences);
+  };
+
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
     return Array.from({ length: 50 }, (_, index) => currentYear - index);
@@ -111,7 +119,7 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <h4>7. Provide your professional details:</h4>
+          <Question>7. Provide your professional details:</Question>
         </QuestionContainer>
         {experiences.map(experience => (
           <ExperienceItem key={experience.id}>
@@ -215,6 +223,13 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
                     ))}
                   </YearSelect>
                 </DropdownContainer>
+                <AddButtonContainer>
+                  <AddWorkExperience
+                    onClick={() => handleDeleteExperience(experience.id)}
+                  >
+                    Delete
+                  </AddWorkExperience>
+                </AddButtonContainer>
               </TextInputContainer>
             </DateContainer>
 

@@ -8,6 +8,7 @@ import {
   AddMoreLanguage,
   AddMoreLanguageContainer,
   LanguagesFieldContainer,
+  Question,
   QuestionContainer,
   TextInput,
   TextInputContainer,
@@ -62,7 +63,7 @@ const LanguagesField: React.FC<LanguagesFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <h4>9.Which languages are you fluent in?</h4>
+          <Question>9.Which languages are you fluent in?</Question>
         </QuestionContainer>
         {languages.map(language => (
           <TextInputContainer key={language.id}>

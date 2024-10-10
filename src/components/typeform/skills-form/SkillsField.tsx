@@ -7,6 +7,7 @@ import { capitalizeFirstLetter } from '../../helpers/formHelpers';
 import {
   AddMoreSkill,
   AddMoreSkillContainer,
+  Question,
   QuestionContainer,
   SkillsFieldContainer,
   TextInput,
@@ -63,7 +64,7 @@ const SkillsField: React.FC<SkillsFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <h4>8.Add your skills:</h4>
+          <Question>8.Add your skills:</Question>
         </QuestionContainer>
         {skills.map(skill => (
           <TextInputContainer key={skill.id}>

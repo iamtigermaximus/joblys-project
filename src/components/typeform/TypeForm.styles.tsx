@@ -10,8 +10,7 @@ export const FormContainer = styled.div`
   width: 100%;
   /* border: 1px solid white; */
   /* height: 100%; */
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
-    rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), -2px -2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 export const FieldContainer = styled.div`

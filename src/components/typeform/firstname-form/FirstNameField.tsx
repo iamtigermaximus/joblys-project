@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { capitalizeFirstLetter } from '../../helpers/formHelpers';
 import {
   FormContainer,
+  Question,
   QuestionContainer,
   TextInput,
   TextInputContainer,
@@ -27,7 +28,7 @@ const FirstNameField: React.FC<FirstNameFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <h4>1.What is your first name?</h4>
+          <Question>1.What is your first name?</Question>
         </QuestionContainer>
         <TextInputContainer>
           <TextInput

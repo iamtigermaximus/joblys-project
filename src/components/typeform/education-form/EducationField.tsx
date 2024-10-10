@@ -16,6 +16,8 @@ import {
   YearSelect,
   AddEducationContainer,
   AddEducation,
+  AddButtonContainer,
+  Question,
 } from './EducationField.styles';
 
 // Month names
@@ -90,6 +92,12 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
     onChange(newEducations);
   };
 
+  const handleDeleteEducation = (id: string) => {
+    const updatedEducation = educations.filter(educ => educ.id !== id);
+    setEducations(updatedEducation);
+    onChange(updatedEducation);
+  };
+
   const generateMonths = () => monthNames;
 
   const generateYears = () => {
@@ -110,7 +118,7 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <h4>6. Provide your educational details:</h4>
+          <Question>6. Provide your educational details:</Question>
         </QuestionContainer>
         {educations.map(education => (
           <EducationItemsContainer key={education.id}>
@@ -214,6 +222,11 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
                 </DropdownContainer>
               </TextInputContainer>
             </DateContainer>
+            <AddButtonContainer>
+              <AddEducation onClick={() => handleDeleteEducation(education.id)}>
+                Delete
+              </AddEducation>
+            </AddButtonContainer>
           </EducationItemsContainer>
         ))}
         <AddEducationContainer>

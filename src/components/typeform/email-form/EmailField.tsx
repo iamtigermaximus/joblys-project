@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { motion } from 'framer-motion';
 import {
   FormContainer,
+  Question,
   QuestionContainer,
   TextInput,
   TextInputContainer,
@@ -26,7 +27,7 @@ const EmailField: React.FC<EmailFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <h4>3.What is your email?</h4>
+          <Question>3.What is your email?</Question>
         </QuestionContainer>
         <TextInputContainer>
           <TextInput

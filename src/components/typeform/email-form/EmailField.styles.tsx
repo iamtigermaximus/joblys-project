@@ -25,16 +25,21 @@ export const QuestionContainer = styled.div`
 export const TextInputContainer = styled.div`
   width: 100%;
 `;
+
 export const TextInput = styled.input`
   width: 100%;
   padding: 10px;
   /* margin-bottom: 5px; */
   border: none;
-  background-color: #f5f5f5;
+  background: linear-gradient(145deg, #f8f7ff, #eae8ff);
   outline: none;
   border-bottom: 0.5px solid gray;
 
   &:focus {
     border-bottom: 1px solid gray;
   }
+`;
+
+export const Question = styled.h4`
+  color: #2e033b;
 `;

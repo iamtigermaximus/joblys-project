@@ -49,7 +49,7 @@ export const TextInput = styled.input`
   padding: 10px;
   /* margin-bottom: 5px; */
   border: none;
-  background-color: #f5f5f5;
+  background: linear-gradient(145deg, #f8f7ff, #eae8ff);
   outline: none;
   border-bottom: 0.5px solid gray;
 
@@ -65,8 +65,17 @@ export const AddEducationContainer = styled.div`
   margin: 10px 0;
 `;
 
+export const AddButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
 export const AddEducation = styled.button`
   padding: 10px;
+  background-color: transparent;
+  border: 1px solid #2e033b;
 `;
 
 export const EducationItemsContainer = styled.div`
@@ -90,7 +99,7 @@ export const DropdownContainer = styled.div`
 
 export const MonthSelect = styled.select`
   width: 50%;
-  background-color: #f5f5f5;
+  background: linear-gradient(145deg, #f8f7ff, #eae8ff);
   height: 40px;
   padding: 8px;
   border: none;
@@ -101,10 +110,14 @@ export const MonthSelect = styled.select`
 
 export const YearSelect = styled.select`
   width: 50%;
-  background-color: #f5f5f5;
+  background: linear-gradient(145deg, #f8f7ff, #eae8ff);
   height: 40px;
   padding: 8px;
   border: none;
   font-size: 14px;
   color: gray;
+`;
+
+export const Question = styled.h4`
+  color: #2e033b;
 `;

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { capitalizeFirstLetter } from '../../helpers/formHelpers';
 import {
   FormContainer,
+  Question,
   QuestionContainer,
   TextInput,
 } from './LastNameField.styles';
@@ -26,7 +27,7 @@ const LastNameField: React.FC<LastNameFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <h4>2.What is your last name?</h4>
+          <Question>2.What is your last name?</Question>
         </QuestionContainer>
         <TextInput
           id="last-name"

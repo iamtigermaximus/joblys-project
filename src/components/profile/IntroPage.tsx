@@ -34,6 +34,7 @@ const IntroText = styled.p`
   align-items: center;
   justify-content: center;
   text-align: center;
+  color: #2e033b;
 `;
 
 const StartButton = styled.button`

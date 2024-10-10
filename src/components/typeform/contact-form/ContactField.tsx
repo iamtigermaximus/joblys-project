@@ -5,6 +5,7 @@ import {
   TextInputContainer,
   TextInput,
   FormContainer,
+  Question,
 } from './ContactField.styles';
 
 interface ContactFieldProps {
@@ -26,7 +27,7 @@ const ContactField: React.FC<ContactFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <h4>4.What is your phone number?</h4>
+          <Question>4.What is your phone number?</Question>
         </QuestionContainer>
         <TextInputContainer>
           <TextInput

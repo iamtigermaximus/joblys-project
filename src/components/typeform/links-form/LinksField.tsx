@@ -7,6 +7,7 @@ import {
   AddMoreLink,
   AddMoreLinkContainer,
   LinksFieldContainer,
+  Question,
   QuestionContainer,
   TextInput,
   TextInputContainer,
@@ -66,7 +67,7 @@ const LinksField: React.FC<LinksFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <h4>5.Provide your links:</h4>
+          <Question>5.Provide your links:</Question>
         </QuestionContainer>
         {links.map(link => (
           <TextInputContainer key={link.id}>

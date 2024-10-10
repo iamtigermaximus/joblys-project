@@ -30,7 +30,7 @@ export const TextInput = styled.input`
   padding: 10px;
   /* margin-bottom: 5px; */
   border: none;
-  background-color: #f5f5f5;
+  background: linear-gradient(145deg, #f8f7ff, #eae8ff);
   outline: none;
   border-bottom: 0.5px solid gray;
 
@@ -48,6 +48,8 @@ export const AddMoreSkillContainer = styled.div`
 
 export const AddMoreSkill = styled.button`
   padding: 10px;
+  background-color: transparent;
+  border: 1px solid #2e033b;
 `;
 
 export const TrashIcon = styled.button`
@@ -59,10 +61,16 @@ export const TrashIcon = styled.button`
   margin: 0 5px;
   font-size: 14px;
   cursor: pointer;
+  background: transparent;
+
 `;
 
 export const TextInputItem = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+`;
+
+export const Question = styled.h4`
+  color: #2e033b;
 `;
