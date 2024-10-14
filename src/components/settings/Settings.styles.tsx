@@ -67,6 +67,15 @@ export const Input = styled.input`
   background-color: #f5f5f5;
 `;
 
+export const SelectInput = styled.select`
+  padding: 12px;
+  /* border: 1px solid gray; */
+  border-radius: 5px;
+  /* width: 100%; */
+  border: none;
+  background-color: #f5f5f5;
+`;
+
 export const CommunicationContainer = styled.div`
   display: flex;
   flex-direction: row;
