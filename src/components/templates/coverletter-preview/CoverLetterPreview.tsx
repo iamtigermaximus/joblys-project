@@ -15,7 +15,6 @@ import {
   CoverLetterContent,
   CoverLetterListContainer,
   CoverletterButtonsContainer,
-  CoverletterItem,
   CoverletterItemContainer,
   CreateCoverLetterButton,
   DeleteMessage,
@@ -45,10 +44,10 @@ import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { Coverletter, initialCoverletter } from '@/types/coverletter';
 import { formatDistanceToNow, format, parseISO } from 'date-fns';
-import ConfirmationModal from '../../templates/resume/defaultTemplate/ConfirmationModal';
-import UpgradeModal from '../../templates/resume/defaultTemplate/resume-helpers/UpgradeModal';
-import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
 import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
+import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
+import ConfirmationModal from '../resume/defaultTemplate/ConfirmationModal';
+import UpgradeModal from '../resume/defaultTemplate/resume-helpers/UpgradeModal';
 
 interface CoverLetterPreviewProps {
   viewMode: 'list' | 'card';
@@ -62,12 +61,8 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
   const router = useRouter();
   const [editModalOpenId, setEditModalOpenId] = useState<string | null>(null);
   const [activeElement, setActiveElement] = useState<string | null>(null);
-  const [coverLettersList, setCoverLettersList] = useState(
-    [...coverLetters].sort(
-      (a, b) =>
-        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
-    ),
-  );
+  const [coverLettersList, setCoverLettersList] = useState<Coverletter[]>([]);
+
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
@@ -76,6 +71,19 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
   >(null);
   const [selectedCoverletter, setSelectedCoverletter] =
     useState<Coverletter | null>(null);
+
+  useEffect(() => {
+    if (Array.isArray(coverLetters)) {
+      const sortedCoverLetters = coverLetters
+        .filter(coverLetter => coverLetter !== undefined)
+        .filter(coverLetter => coverLetter.updatedAt !== coverLetter.createdAt)
+        .sort(
+          (a, b) =>
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+        );
+      setCoverLettersList(sortedCoverLetters);
+    }
+  }, [coverLetters]);
 
   const sidebarMenuRef = useRef<HTMLDivElement>(null);
 
@@ -205,26 +213,6 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
       } catch (error: any) {
         console.error('Error deleting cover letter:', error.message);
       }
-    }
-  };
-
-  const generateFilename = (coverLetter: Coverletter) => {
-    if (!coverLetter.createdAt) {
-      console.error('Missing or empty createdAt property:', coverLetter);
-      return 'CoverLetter_UnknownDate';
-    }
-
-    try {
-      const createdDate = parseISO(coverLetter.createdAt);
-      if (isNaN(createdDate.getTime())) {
-        throw new Error('Invalid date');
-      }
-      const formattedDate = format(createdDate, 'yyyy-MM-dd');
-      console.log('Formatted Date:', formattedDate); // Debugging line
-      return `CoverLetter_${formattedDate}`;
-    } catch (error: any) {
-      console.error('Error parsing or formatting date:', error.message);
-      return 'CoverLetter_InvalidDate';
     }
   };
 
@@ -376,7 +364,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
             />
           )}
           {showDeleteMessage && (
-            <DeleteMessage>Cover letter deleted successfully!</DeleteMessage>
+            <DeleteMessage>Coverletter deleted successfully!</DeleteMessage>
           )}
           {showUpgradeModal && (
             <UpgradeModal onClose={() => setShowUpgradeModal(false)} />
@@ -396,10 +384,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                   <Filename>
                     Coverletter_
                     {formatFilenameFromDate(coverLetter.createdAt)}
-                  </Filename>{' '}
-                  {/* <Filename>{generateFilename(coverLetter)}</Filename> */}
-                  {/* <h4>Created At: {formatTimestamp(resume.createdAt)}</h4> */}
-                  {/* <Timestamp>Edited {formatTimestamp(resume.updatedAt)}</Timestamp> */}
+                  </Filename>
                   {coverLetter.updatedAt && (
                     <Timestamp>
                       Edited {formatTimestamp(coverLetter.updatedAt)}

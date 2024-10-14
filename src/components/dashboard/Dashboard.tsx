@@ -77,10 +77,15 @@ const Dashboard = () => {
           (a: { updatedAt: string }, b: { updatedAt: string }) =>
             new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
         );
-        const sortedCoverletters = coverletterData.sort(
-          (a: { updatedAt: string }, b: { updatedAt: string }) =>
-            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
-        );
+        const sortedCoverletters = coverletterData
+          .filter(
+            (coverLetter: any) =>
+              coverLetter.updatedAt !== coverLetter.createdAt,
+          )
+          .sort(
+            (a: { updatedAt: string }, b: { updatedAt: string }) =>
+              new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+          );
 
         setResumeData(sortedResumes);
         setCoverletterData(sortedCoverletters);
