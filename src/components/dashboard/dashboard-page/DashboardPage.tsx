@@ -34,8 +34,8 @@ import {
   SidebarMenuContainer,
   SidebarHeader,
   SidebarHeaderItem,
-  ResumeButton,
-  ResumeButtonTitle,
+  PreviewTitleContainer,
+  PreviewTitle,
   SidebarHeaderClose,
   SidebarContentContainer,
   ContentContainer,
@@ -467,9 +467,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                       >
                         <SidebarHeader>
                           <SidebarHeaderItem>
-                            <ResumeButton>
-                              <ResumeButtonTitle>Resume</ResumeButtonTitle>
-                            </ResumeButton>
+                            <PreviewTitleContainer>
+                              <PreviewTitle>Resume</PreviewTitle>
+                            </PreviewTitleContainer>
                           </SidebarHeaderItem>
                           <SidebarHeaderClose onClick={handleCloseEditModal}>
                             <IoCloseSharp />
@@ -637,9 +637,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                       >
                         <SidebarHeader>
                           <SidebarHeaderItem>
-                            <ResumeButton>
-                              <ResumeButtonTitle>Coverletter</ResumeButtonTitle>
-                            </ResumeButton>
+                            <PreviewTitleContainer>
+                              <PreviewTitle>Coverletter</PreviewTitle>
+                            </PreviewTitleContainer>
                           </SidebarHeaderItem>
                           <SidebarHeaderClose onClick={handleCloseEditModal}>
                             <IoCloseSharp />

@@ -1,7 +1,7 @@
 import DefaultTemplate from '../defaultTemplate/DefaultTemplate';
 import styled from 'styled-components';
-import { breakpoints as bp } from '@/utils/layout';
-import colors from '@/utils/colors';
+import { breakpoints as bp } from '../../../../utils/layout';
+import colors from '../../../../utils/colors';
 
 export const ResumeContainer = styled.div`
   display: flex;
@@ -320,7 +320,7 @@ export const SidebarHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  /* gap: 20px; */
   padding: 20px;
 
   @media (min-width: ${bp.lg}) {
@@ -340,14 +340,10 @@ export const SidebarHeaderItem = styled.div`
   }
 `;
 
-export const ResumeButton = styled.button`
-  /* Common button styles go here */
+export const ResumeTitleContainer = styled.div`
   padding: 8px 16px;
   height: 40px;
   font-size: 16px;
-  border: 1px solid white;
-  cursor: pointer;
-  color: white;
   background-color: transparent;
   border-radius: 3px;
   display: flex;
@@ -356,8 +352,9 @@ export const ResumeButton = styled.button`
   justify-content: space-around;
 `;
 
-export const ResumeButtonTitle = styled.h1`
-  font-size: 16px;
+export const ResumeTitle = styled.h1`
+  font-size: 20px;
+  font-weight: 700;
   color: white;
   display: flex;
   align-items: center;
@@ -448,16 +445,17 @@ export const ActionContainer = styled.div`
 
 export const PreviewEditButton = styled.button`
   padding: 10px;
-  border: 0.5px solid gray;
+  border: none;
+  background-color: ${colors.purple};
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  background-color: transparent;
+  color: white;
   cursor: pointer;
 
   &:hover {
-    background-color: #f1f1f1;
+    background-color: ${colors.darkPurple};
   }
 `;
 

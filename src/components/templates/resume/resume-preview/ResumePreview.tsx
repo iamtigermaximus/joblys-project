@@ -26,8 +26,6 @@ import {
   MiniDefault,
   PreviewDownloadButton,
   PreviewEditButton,
-  ResumeButton,
-  ResumeButtonTitle,
   ResumeButtonsContainer,
   ResumeCard,
   ResumeContainer,
@@ -35,6 +33,8 @@ import {
   ResumeItem,
   ResumeItemContainer,
   ResumesListContainer,
+  ResumeTitle,
+  ResumeTitleContainer,
   SidebarContentContainer,
   SidebarHeader,
   SidebarHeaderClose,
@@ -331,9 +331,9 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                   >
                     <SidebarHeader>
                       <SidebarHeaderItem>
-                        <ResumeButton>
-                          <ResumeButtonTitle>Resume</ResumeButtonTitle>
-                        </ResumeButton>
+                        <ResumeTitleContainer>
+                          <ResumeTitle>Resume</ResumeTitle>
+                        </ResumeTitleContainer>
                       </SidebarHeaderItem>
                       <SidebarHeaderClose onClick={handleCloseEditModal}>
                         <IoCloseSharp />

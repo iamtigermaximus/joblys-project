@@ -8,8 +8,8 @@ import {
   CardContainer,
   ContentContainer,
   ContentItem,
-  CoverLetterButton,
-  CoverLetterButtonTitle,
+  CoverLetterTitle,
+  CoverLetterTitleContainer,
   CoverLetterCard,
   CoverLetterContainer,
   CoverLetterContent,
@@ -321,11 +321,9 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                     >
                       <SidebarHeader>
                         <SidebarHeaderItem>
-                          <CoverLetterButton>
-                            <CoverLetterButtonTitle>
-                              Coverletter
-                            </CoverLetterButtonTitle>
-                          </CoverLetterButton>
+                          <CoverLetterTitleContainer>
+                            <CoverLetterTitle>Coverletter</CoverLetterTitle>
+                          </CoverLetterTitleContainer>
                         </SidebarHeaderItem>
                         <SidebarHeaderClose onClick={handleCloseEditModal}>
                           <IoCloseSharp />
