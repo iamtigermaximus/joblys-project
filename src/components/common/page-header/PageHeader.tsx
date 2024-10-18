@@ -1,61 +1,31 @@
 'use client';
 import React, { FC, FormEvent, useEffect, useState } from 'react';
 import {
-  Button,
-  ButtonContainer,
   Header,
   HeaderLinksContainer,
   HeaderMenuContainer,
-  HorizontalLine,
   IconContainer,
-  Input,
-  InputContainer,
-  Label,
   LeftContainer,
-  LogoutButton,
   ModalItemContainer,
-  Provider,
-  ProviderButton,
-  ProviderIcon,
-  ProvidersContainer,
   ResumeButton,
   ResumeButtonIcon,
   ResumeButtonTitle,
   RightContainer,
-  SeparatorContainer,
-  SidebarContentContainer,
-  SidebarHeader,
-  SidebarHeaderClose,
-  SidebarHeaderItem,
-  SidebarMenuContainer,
-  SidebarText,
-  SignInButton,
-  TextContainer,
   UserModal,
-
-  // MenuLink,
-  // MenuLinkButton,
-  // RegisterButton,
-  // RegisterLink,
-  // SignInButton,
-  // SignInLink,
-  WelcomeTextContainer,
 } from './PageHeader.styles';
 import { useSession, signOut } from 'next-auth/react';
-import { FaBell, FaUser, FaArrowLeft } from 'react-icons/fa';
+import { FaUser, FaArrowLeft } from 'react-icons/fa';
 import { useRouter, usePathname } from 'next/navigation';
-import { SignOut } from '@/components/navbar/Navbar.styles';
 import {
   FaArrowRightFromBracket,
   FaArrowRightToBracket,
-  FaLinkedin,
 } from 'react-icons/fa6';
-import { IoCloseSharp, IoSettingsSharp } from 'react-icons/io5';
-import { FcGoogle } from 'react-icons/fc';
+import { IoSettingsSharp } from 'react-icons/io5';
 import { Resume } from '@/types/resume';
-import { Coverletter } from '@/types/coverletter';
 import DownloadPDFButton from '@/components/templates/resume/defaultTemplate/DownloadPDFButton';
+import { Coverletter } from '@/types/coverletter';
 import DownloadCoverLetterButton from '@/components/templates/coverletter/coverletterTemplate/DownloadCoverLetterButton';
+import { useLocale } from 'next-intl';
 
 interface PageHeaderProps {
   id: string;
@@ -70,9 +40,11 @@ const PageHeader: FC<PageHeaderProps> = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const isResumeBuilder = pathname === `/resume-builder/resumes/${id}`;
+  const locale = useLocale();
+  const isResumeBuilder =
+    pathname === `/${locale}/resume-builder/resumes/${id}`;
   const isCoverLetterBuilder =
-    pathname === `/coverletter-builder/coverletters/${id}`;
+    pathname === `/${locale}/coverletter-builder/coverletters/${id}`;
 
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
 
@@ -83,16 +55,19 @@ const PageHeader: FC<PageHeaderProps> = ({
   };
 
   useEffect(() => {
-    // Redirect to a login page if the session is not loading and the user is not authenticated
     if (status === 'authenticated') {
       if (!session) {
-        router.push('/login');
+        router.push(`/${locale}/login`);
       }
     }
   }, [status, session, router]);
 
   const navigateToResume = () => {
-    router.push('/eazyCV/resumes');
+    if (status === 'authenticated') {
+      router.push(`/${locale}/eazyCV/resumes`);
+    } else {
+      router.push(`/${locale}/login`);
+    }
   };
 
   const navigateToCoverLetter = () => {
@@ -101,12 +76,12 @@ const PageHeader: FC<PageHeaderProps> = ({
 
   const getHeaderStyles = (): React.CSSProperties => {
     switch (pathname) {
-      case `/resume-builder/resumes/${id}`:
+      case `/${locale}/resume-builder/resumes/${id}`:
         return {
           backgroundColor: '#520668',
           color: 'white',
         };
-      case `/coverletter-builder/coverletters/${id}`:
+      case `/${locale}/coverletter-builder/coverletters/${id}`:
         return {
           backgroundColor: '#520668',
           color: 'white',
@@ -122,7 +97,7 @@ const PageHeader: FC<PageHeaderProps> = ({
 
   const handleSignOut = async (e: FormEvent) => {
     e.preventDefault();
-    await signOut({ callbackUrl: '/eazyCV/dashboard' });
+    await signOut({ callbackUrl: '/' });
   };
   const welcomeText = session ? `Welcome, ${session.user?.name}!` : '';
 
@@ -132,6 +107,17 @@ const PageHeader: FC<PageHeaderProps> = ({
 
   const [click, setClick] = useState(false);
   const categoryMenu = () => setClick(!click);
+
+  const handleDownloadClick = () => {
+    if (!session) {
+      router.push('/login');
+    }
+  };
+
+  const handleSettings = () => {
+    router.push('/eazyCV/settings');
+    setIsUserModalOpen(false);
+  };
 
   return (
     <Header style={headerStyles}>
@@ -156,10 +142,15 @@ const PageHeader: FC<PageHeaderProps> = ({
         </LeftContainer>
         <RightContainer>
           {isResumeBuilder && (
-            <ResumeButton>
-              <DownloadPDFButton resumeInfo={resumeInfo} color="white" />
+            <ResumeButton onClick={session ? undefined : handleDownloadClick}>
+              <DownloadPDFButton
+                resumeInfo={resumeInfo}
+                color="white"
+                disabled={!session}
+              />
             </ResumeButton>
           )}
+
           {isCoverLetterBuilder && (
             <ResumeButton>
               <DownloadCoverLetterButton
@@ -168,69 +159,7 @@ const PageHeader: FC<PageHeaderProps> = ({
               />
             </ResumeButton>
           )}
-          {/* <WelcomeTextContainer>{welcomeText}</WelcomeTextContainer>
-              <LogoutButton onClick={handleSignOut}>Log out</LogoutButton> */}
-          {/* <ResumeButton>
-            <ResumeButtonTitle onClick={categoryMenu}>
-              Download
-            </ResumeButtonTitle>
-            {click && (
-              <SidebarMenuContainer
-                className={click ? 'category active' : 'category'}
-              >
-                <SidebarHeader>
-                  <SidebarHeaderItem>
-                    <ResumeButton>
-                      <ResumeButtonTitle>Account</ResumeButtonTitle>
-                    </ResumeButton>
-                  </SidebarHeaderItem>
-                  <SidebarHeaderClose onClick={categoryMenu}>
-                    <IoCloseSharp />
-                  </SidebarHeaderClose>
-                </SidebarHeader>
-                <SidebarContentContainer>
-                  <TextContainer>
-                    <SidebarText>What is your email address?</SidebarText>
-                  </TextContainer>
-                  <InputContainer>
-                    <Label>Email address</Label>
-                    <Input placeholder="" />
-                  </InputContainer>
-                  <ButtonContainer>
-                    <Button>Next</Button>
-                  </ButtonContainer>
-                  <SeparatorContainer>
-                    <HorizontalLine></HorizontalLine>
-                    <div style={{ padding: '0 5px', color: 'gray' }}>or</div>
-                    <HorizontalLine></HorizontalLine>
-                  </SeparatorContainer>
-                  <ProvidersContainer>
-                    <Provider>
-                      <ProviderButton>
-                        <ProviderIcon>
-                          <FcGoogle />
-                        </ProviderIcon>
-                        Continue with Google
-                      </ProviderButton>
-                    </Provider>
-                    <Provider>
-                      <ProviderButton>
-                        <ProviderIcon>
-                          <FaLinkedin />
-                        </ProviderIcon>
-                        Continue with LinkedIn
-                      </ProviderButton>
-                    </Provider>
-                  </ProvidersContainer>
-                </SidebarContentContainer>
-              </SidebarMenuContainer>
-            )}
-          </ResumeButton> */}
-          {/* <HeaderLinksContainer>
-              <IconContainer>
-                <FaBell />
-              </IconContainer>
-            </HeaderLinksContainer> */}
+
           <HeaderLinksContainer>
             <IconContainer onClick={toggleUserModal}>
               <FaUser />
@@ -242,7 +171,7 @@ const PageHeader: FC<PageHeaderProps> = ({
                   <UserModal>
                     <ModalItemContainer>
                       <IoSettingsSharp />
-                      <p>Settings</p>
+                      <p onClick={handleSettings}>Settings</p>
                     </ModalItemContainer>
                     <ModalItemContainer>
                       <FaArrowRightFromBracket />
