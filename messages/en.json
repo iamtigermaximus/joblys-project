@@ -1,6 +1,53 @@
 {
-  "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+  "LandingPage": {
+    "statement": "Apply smarter with",
+    "valueProposition": "Streamline your job application process with eazycv the ultimate platform for creating customized resumes and cover letters tailored to each job description. eazycv intelligently analyzes job postings and generates application materials that highlight your skills and experience effectively. Save time, impress employers, and secure interviews with eazycv at your fingertips.",
+    "getStarted": "GET STARTED"
+  },
+  "LandingNavbar": {
+    "login": "Log in",
+    "getStarted": "Get started"
+  },
+  "LoginPage": {
+    "login": "Log in",
+    "getStarted": "Get started",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot your password?",
+    "signin": "Sign in",
+    "google": "Continue with Google",
+    "linkedin": "Continue with LinkedIn",
+    "noAccount": "Dont't have an account yet?",
+    "createAccount": "Create account",
+    "error": "Required",
+    "enterEmail": "Enter email",
+    "enterPassword": "Enter password"
+  },
+  "SignUpPage": {
+    "signup": "Create an account",
+    "fullname": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "createUser": "Create user",
+    "errorName": "Full name is required.",
+    "errorEmail": "Email is required.",
+    "errorPword": "Password must be at least 8 characters long.",
+    "enterEmail": "Enter email",
+    "enterPassword": "Enter password",
+    "enterFullname": "Enter full name",
+    "google": "Continue with Google",
+    "linkedin": "Continue with LinkedIn"
+  },
+  "Navbar": {
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "resumes": "CV/Resume",
+    "coverletters": "Cover Letters",
+    "settings": "Settings",
+    "logout": "Log out",
+    "close": "Close",
+    "login": "Log in",
+    "letters": "Letters",
+    "out": "Log out"
   }
 }

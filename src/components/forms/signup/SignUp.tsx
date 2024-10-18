@@ -27,6 +27,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
 const signupSchema = z.object({
   fullname: z
@@ -52,6 +53,7 @@ interface FormData {
 }
 
 const SignUp = () => {
+  const t = useTranslations('SignUpPage');
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -120,14 +122,14 @@ const SignUp = () => {
         <InputForm onSubmit={handleSubmit(onSubmit)}>
           <InputContainer>
             <SignUpTitleContainer>
-              <SignUpTitle>Create an account</SignUpTitle>
+              <SignUpTitle>{t('signup')}</SignUpTitle>
             </SignUpTitleContainer>
-            <InputLabel>Full Name</InputLabel>
+            <InputLabel>{t('fullname')}</InputLabel>
             <Input
               type="text"
-              placeholder="Enter fullname"
+              placeholder={t('enterFullname')}
               {...register('fullname', { required: 'Full name is required' })}
-              defaultValue="" // Set an initial value
+              defaultValue=""
             />
             {errors.fullname && (
               <ErrorContainer>{errors.fullname.message}</ErrorContainer>
@@ -135,22 +137,22 @@ const SignUp = () => {
             <InputLabel>Email</InputLabel>
             <Input
               type="email"
-              placeholder="Enter email"
+              placeholder={t('enterEmail')}
               {...register('email', {
                 required: 'Email is required',
                 maxLength: 255,
                 pattern: /^\S+@\S+$/i,
               })}
-              defaultValue="" // Set an initial value
+              defaultValue=""
             />
             {errors.email && (
               <ErrorContainer>{errors.email.message}</ErrorContainer>
             )}
-            <InputLabel>Password</InputLabel>
+            <InputLabel>{t('password')}</InputLabel>
             <div>
               <Input
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Enter password"
+                placeholder={t('enterPassword')}
                 {...register('password', {
                   required: 'Password is required',
                   pattern: {
@@ -167,7 +169,7 @@ const SignUp = () => {
                     message: 'Password should not exceed 50 characters',
                   },
                 })}
-                defaultValue="" // Set an initial value
+                defaultValue=""
               />
               <EyeIcon onClick={togglePasswordVisibility}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -178,7 +180,7 @@ const SignUp = () => {
               <ErrorContainer>{errors.password.message}</ErrorContainer>
             )}
             <SignUpButtonContainer>
-              <SignUpButton type="submit">Create user</SignUpButton>
+              <SignUpButton type="submit">{t('createUser')}</SignUpButton>
             </SignUpButtonContainer>
           </InputContainer>
         </InputForm>
@@ -188,7 +190,7 @@ const SignUp = () => {
               <ProviderIcon>
                 <FcGoogle />
               </ProviderIcon>
-              Continue with Google
+              {t('google')}{' '}
             </ProviderButton>
           </ProviderContainer>
           <ProviderContainer>
@@ -196,7 +198,7 @@ const SignUp = () => {
               <ProviderIcon>
                 <FaLinkedin />
               </ProviderIcon>
-              Continue with LinkedIn
+              {t('linkedin')}
             </ProviderButton>
           </ProviderContainer>
         </Providers>

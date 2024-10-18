@@ -1,6 +1,52 @@
 {
-  "HomePage": {
-    "title": "finnish Hello world!",
-    "about": "finnish Go to the about page"
+  "LandingPage": {
+    "statement": "Hae fiksummin käyttämällä  ",
+    "valueProposition": "Tehosta työnhakuprosessiasi eazycv avulla – paras alusta räätälöityjen ansioluetteloiden ja työhakemusten luomiseen, jotka on mukautettu jokaiseen työpaikkailmoitukseen. eazycv analysoi älykkäästi työpaikkailmoitukset ja luo hakemusasiakirjat, jotka korostavat tehokkaasti taitojasi ja kokemustasi. Säästä aikaa, tee vaikutus työnantajiin ja varmista haastattelut eazycvavulla.",
+    "getStarted": "ALOITA"
+  },
+  "LandingNavbar": {
+    "login": "Kirjaudu",
+    "getStarted": "Aloita"
+  },
+  "LoginPage": {
+    "login": "Kirjaudu",
+    "getStarted": "Aloita",
+    "email": "Sähköposti",
+    "password": "Salasana",
+    "forgotPassword": "Unohditko salasanasi?",
+    "signin": "Kirjaudu ",
+    "google": "Jatka Google-tilillä",
+    "linkedin": "Jatka LinkedInillä",
+    "noAccount": "Eikö sinulla ole vielä tiliä?",
+    "createAccount": "Luo tili",
+    "enterEmail": "Anna sähköpostiosoite",
+    "enterPassword": "Anna salasana"
+  },
+  "SignUpPage": {
+    "signup": "Luo tili",
+    "fullname": "Koko nimi",
+    "email": "Email",
+    "password": "Password",
+    "createUser": "Luo käyttäjätunnus",
+    "errorName": "Full name is required.",
+    "errorEmail": "Email is required.",
+    "errorPword": "Password must be at least 8 characters long.",
+    "enterEmail": "Anna sähköpostiosoite",
+    "enterPassword": "Anna salasana",
+    "enterFullname": "Anna koko nimi.",
+    "google": "Jatka Google-tilillä",
+    "linkedin": "Jatka LinkedInillä"
+  },
+  "Navbar": {
+    "dashboard": "Koontinäyttö",
+    "profile": "Profiili",
+    "resumes": "CV/Ansioluettelo",
+    "coverletters": "Saatekirjeet",
+    "settings": "Asetukset",
+    "logout": "Kirjaudu ulos",
+    "close": "Sulje",
+    "login": "Kirjaudu",
+    "letters": "Kirjeet",
+    "out": "Ulos"
   }
 }

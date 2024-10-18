@@ -33,6 +33,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
 import { FaLinkedin } from 'react-icons/fa6';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 
 const credentialsSchema = z.object({
   email: z.string().min(1, 'Email is required').email('Invalid email'),
@@ -49,6 +50,7 @@ interface Credentials {
 }
 
 const Login = () => {
+  const t = useTranslations('LoginPage');
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const {
@@ -109,9 +111,9 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <InputContainer>
             <LoginTitleContainer>
-              <LoginTitle>Log In</LoginTitle>
+              <LoginTitle>{t('login')}</LoginTitle>
             </LoginTitleContainer>
-            <InputLabel>Email</InputLabel>
+            <InputLabel>{t('email')}</InputLabel>
             <Controller
               name="email"
               control={control}
@@ -119,7 +121,7 @@ const Login = () => {
                 <Input
                   type="email"
                   name="email"
-                  placeholder="Enter email"
+                  placeholder={t('enterEmail')}
                   value={field.value || ''}
                   onChange={field.onChange}
                 />
@@ -128,7 +130,7 @@ const Login = () => {
             {errors.email && (
               <ErrorContainer>{errors.email.message}</ErrorContainer>
             )}
-            <InputLabel>Password</InputLabel>
+            <InputLabel>{t('password')}</InputLabel>
             <Controller
               name="password"
               control={control}
@@ -137,7 +139,7 @@ const Login = () => {
                   <Input
                     type={showPassword ? 'text' : 'password'}
                     name="password"
-                    placeholder="Enter password"
+                    placeholder={t('enterPassword')}
                     value={field.value || ''}
                     onChange={field.onChange}
                   />
@@ -154,11 +156,11 @@ const Login = () => {
           </InputContainer>
           <ForgotPasswordContainer>
             <Link href={'/'}>
-              <ForgotPasswordLink>Forgot your password?</ForgotPasswordLink>
+              <ForgotPasswordLink>{t('forgotPassword')}</ForgotPasswordLink>
             </Link>
           </ForgotPasswordContainer>
           <SignInButtonContainer>
-            <SignInButton type="submit">Sign In</SignInButton>
+            <SignInButton type="submit">{t('signin')}</SignInButton>
           </SignInButtonContainer>
         </form>
         <Providers>
@@ -167,7 +169,7 @@ const Login = () => {
               <ProviderIcon>
                 <FcGoogle />
               </ProviderIcon>
-              Continue with Google
+              {t('google')}
             </ProviderButton>
           </ProviderContainer>
           <ProviderContainer>
@@ -175,18 +177,16 @@ const Login = () => {
               <ProviderIcon>
                 <FaLinkedin />
               </ProviderIcon>
-              Continue with LinkedIn
+              {t('linkedin')}
             </ProviderButton>
           </ProviderContainer>
         </Providers>
         <CreateAccountContainer>
-          <CreateAccountTitle>
-            Don&apos;t have an account yet?
-          </CreateAccountTitle>
+          <CreateAccountTitle>{t('noAccount')}</CreateAccountTitle>
         </CreateAccountContainer>
         <CreateAccountButtonContainer>
           <Link href={'/signup'}>
-            <CreateAccountButton>Create account</CreateAccountButton>
+            <CreateAccountButton>{t('createAccount')}</CreateAccountButton>
           </Link>
         </CreateAccountButtonContainer>
       </LoginContainer>

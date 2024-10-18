@@ -37,13 +37,16 @@ import {
   FaArrowRightToBracket,
 } from 'react-icons/fa6';
 import { IoSettingsSharp, IoDocumentTextSharp } from 'react-icons/io5';
-import NavLogo from '../../assets/Joblys-logo-RGB-white.png';
+import NavLogo from '@/assets/Joblys-logo-RGB-white.png';
 import { usePathname, useRouter } from 'next/navigation';
 import { MdHomeFilled } from 'react-icons/md';
 import { ImProfile } from 'react-icons/im';
 import { RiFileUserFill } from 'react-icons/ri';
+import { useTranslations, useLocale } from 'next-intl';
 
 const Navbar = () => {
+  const t = useTranslations('Navbar');
+  const locale = useLocale();
   const { data: session } = useSession();
   const router = useRouter();
   const [activeMenuItem, setActiveMenuItem] = useState('');
@@ -67,13 +70,13 @@ const Navbar = () => {
   const categoryMenu = () => setClick(!click);
 
   useEffect(() => {
-    if (pathname.startsWith('/eazyCV/dashboard')) {
+    if (pathname.startsWith(`/${locale}/eazyCV/dashboard`)) {
       setActiveMenuItem('dashboard');
-    } else if (pathname.startsWith('/eazyCV/profile')) {
+    } else if (pathname.startsWith(`/${locale}/eazyCV/profile`)) {
       setActiveMenuItem('profile');
-    } else if (pathname.startsWith('/eazyCV/resumes')) {
+    } else if (pathname.startsWith(`/${locale}/eazyCV/resumes`)) {
       setActiveMenuItem('resumes');
-    } else if (pathname.startsWith('/eazyCV/cover-letters')) {
+    } else if (pathname.startsWith(`/${locale}/eazyCV/cover-letters`)) {
       setActiveMenuItem('cover-letters');
     }
   }, [pathname]);
@@ -116,30 +119,30 @@ const Navbar = () => {
             <MenuItemContainer
               onClick={() => setActiveMenuItem('dashboard')}
               className={activeMenuItem === 'dashboard' ? 'active' : ''}
-              href="/eazyCV/dashboard"
+              href={`/${locale}/eazyCV/dashboard`}
             >
-              <MenuItem>Dashboard</MenuItem>
+              <MenuItem>{t('dashboard')}</MenuItem>
             </MenuItemContainer>
             <MenuItemContainer
               onClick={() => setActiveMenuItem('profile')}
               className={activeMenuItem === 'profile' ? 'active' : ''}
-              href="/eazyCV/profile"
+              href={`/${locale}/eazyCV/profile`}
             >
-              <MenuItem>Profile</MenuItem>
+              <MenuItem>{t('profile')}</MenuItem>
             </MenuItemContainer>
             <MenuItemContainer
               onClick={() => setActiveMenuItem('resumes')}
               className={activeMenuItem === 'resumes' ? 'active' : ''}
-              href="/eazyCV/resumes"
+              href={`/${locale}/eazyCV/resumes`}
             >
-              <MenuItem>CV/Resume</MenuItem>
+              <MenuItem>{t('resumes')}</MenuItem>
             </MenuItemContainer>
             <MenuItemContainer
               onClick={() => setActiveMenuItem('cover-letters')}
               className={activeMenuItem === 'cover-letters' ? 'active' : ''}
-              href="/eazyCV/cover-letters"
+              href={`/${locale}/eazyCV/cover-letters`}
             >
-              <MenuItem>Cover Letters</MenuItem>
+              <MenuItem>{t('coverletters')}</MenuItem>
             </MenuItemContainer>
           </MenuContainer>
           <LoginContainer>
@@ -150,19 +153,19 @@ const Navbar = () => {
                     <UserModal>
                       <ModalItemContainer>
                         <IoSettingsSharp />
-                        <p onClick={handleSettings}>Settings</p>
+                        <p onClick={handleSettings}>{t('settings')}</p>
                       </ModalItemContainer>
                       <ModalItemContainer>
                         <FaArrowRightFromBracket />
-                        <p onClick={handleSignOut}>Log out</p>
+                        <p onClick={handleSignOut}>{t('out')}</p>
                       </ModalItemContainer>
                       <CloseButton onClick={handleCloseModal}>
-                        Close
+                        {t('close')}{' '}
                       </CloseButton>
                     </UserModal>
                   ) : (
                     <UserModal>
-                      <p>Log in</p>
+                      <p> {t('login')}</p>
                     </UserModal>
                   )}
                 </>
@@ -184,7 +187,7 @@ const Navbar = () => {
                   <MenuItemIcon>
                     <FaUser />
                   </MenuItemIcon>
-                  Log in
+                  {t('login')}
                 </MenuItemLogin>
               </MenuItemContainer>
             )}
@@ -205,23 +208,27 @@ const Navbar = () => {
                 <TopUserModal>
                   <ModalItemContainer>
                     <IoSettingsSharp />
-                    <p onClick={handleSettings}>Settings</p>
+                    <p onClick={handleSettings}> {t('settings')}</p>
                   </ModalItemContainer>
                   <ModalItemContainer>
                     <FaArrowRightFromBracket />
-                    <p onClick={handleSignOut}>Log out</p>
+                    <p onClick={handleSignOut}> {t('out')}</p>
                   </ModalItemContainer>
 
-                  <CloseButton onClick={handleCloseModal}>Close</CloseButton>
+                  <CloseButton onClick={handleCloseModal}>
+                    {t('close')}
+                  </CloseButton>
                 </TopUserModal>
               ) : (
                 <TopUserModal>
                   <ModalItemContainer>
                     <FaArrowRightToBracket />
-                    <p onClick={handleSignIn}>Log in</p>
+                    <p onClick={handleSignIn}> {t('login')}</p>
                   </ModalItemContainer>
 
-                  <CloseButton onClick={handleCloseModal}>Close</CloseButton>
+                  <CloseButton onClick={handleCloseModal}>
+                    {t('close')}
+                  </CloseButton>
                 </TopUserModal>
               )}
             </>
@@ -229,50 +236,50 @@ const Navbar = () => {
         </TopNavbarModalContainer>
         <MobileMenuItemContainer>
           <MobileMenuItem
-            href="/eazyCV/dashboard"
+            href={`/${locale}/eazyCV/dashboard`}
             onClick={() => setActiveMenuItem('dashboard')}
             className={activeMenuItem === 'dashboard' ? 'active' : ''}
           >
             <MobileIconContainer>
               <MdHomeFilled />
             </MobileIconContainer>
-            Dashboard
+            {t('dashboard')}{' '}
           </MobileMenuItem>
         </MobileMenuItemContainer>
         <MobileMenuItemContainer>
           <MobileMenuItem
-            href="/eazyCV/profile"
+            href={`/${locale}/eazyCV/profile`}
             onClick={() => setActiveMenuItem('profile')}
             className={activeMenuItem === 'profile' ? 'active' : ''}
           >
             <MobileIconContainer>
               <RiFileUserFill />
             </MobileIconContainer>
-            Profile
+            {t('profile')}{' '}
           </MobileMenuItem>
         </MobileMenuItemContainer>
         <MobileMenuItemContainer>
           <MobileMenuItem
-            href="/eazyCV/resumes"
+            href={`/${locale}/eazyCV/resumes`}
             onClick={() => setActiveMenuItem('resumes')}
             className={activeMenuItem === 'resumes' ? 'active' : ''}
           >
             <MobileIconContainer>
               <ImProfile />
             </MobileIconContainer>
-            Resumes
+            {t('resumes')}{' '}
           </MobileMenuItem>
         </MobileMenuItemContainer>
         <MobileMenuItemContainer>
           <MobileMenuItem
-            href="/eazyCV/cover-letters"
+            href={`/${locale}/eazyCV/cover-letters`}
             onClick={() => setActiveMenuItem('cover-letters')}
             className={activeMenuItem === 'cover-letters' ? 'active' : ''}
           >
             <MobileIconContainer>
               <IoDocumentTextSharp />
             </MobileIconContainer>
-            Letters
+            {t('letters')}
           </MobileMenuItem>
         </MobileMenuItemContainer>
         {/* {session ? (

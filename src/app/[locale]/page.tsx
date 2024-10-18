@@ -17,9 +17,12 @@ import Image1 from '@/assets/joblys-hero.png';
 import { useRouter } from 'next/navigation';
 import LandingNavbar from '@/components/navbar/landing-navbar/LandingNavbar';
 import { v4 as uuidv4 } from 'uuid';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export default function Home({ id }: any) {
   const router = useRouter();
+  const t = useTranslations('LandingPage');
 
   const handleGetStartedClick = () => {
     if (!id) {
@@ -36,21 +39,99 @@ export default function Home({ id }: any) {
       <BoxContainer>
         <Box>
           <Box3>
-            <BoxHeader>Seamless. Joblys.</BoxHeader>
+            <BoxHeader>
+              {t('statement')}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  marginLeft: '5px',
+                }}
+              >
+                <span
+                  style={{
+                    color: '#520668',
+                  }}
+                >
+                  eazy
+                </span>{' '}
+                <span
+                  style={{
+                    color: '#f95d1d',
+                  }}
+                >
+                  cv
+                </span>{' '}
+              </div>
+              .
+            </BoxHeader>
             <BoxBody>
               <ValueProposition>
-                Simplify the job application process with Joblys, the platform
-                that crafts personalized resumes and cover letters tailored to
-                each job description. Let Joblys analyze job postings and
-                generate application materials that showcase your skills and
-                experience effectively. Save time, impress employers, and land
-                interviews with Joblys by your side.
+                {t('valueProposition')}
+
+                {/* Streamline your job application process with{' '}
+                <span
+                  style={{
+                    color: '#520668',
+                    fontWeight: '700',
+                  }}
+                >
+                  eazy
+                </span>
+                <span
+                  style={{
+                    color: '#f95d1d',
+                    fontWeight: '700',
+                  }}
+                >
+                  cv
+                </span>{' '}
+                the ultimate platform for creating customized resumes and cover
+                letters tailored to each job description.{' '}
+                <span
+                  style={{
+                    color: '#3E0450',
+                    fontWeight: '700',
+                  }}
+                >
+                  eazy
+                </span>
+                <span
+                  style={{
+                    color: '#f95d1d',
+                    fontWeight: '700',
+                  }}
+                >
+                  cv
+                </span>{' '}
+                intelligently analyzes job postings and generates application
+                materials that highlight your skills and experience effectively.
+                Save time, impress employers, and secure interviews with{' '}
+                <span
+                  style={{
+                    color: '#3E0450',
+                    fontWeight: '700',
+                  }}
+                >
+                  eazy
+                </span>
+                <span
+                  style={{
+                    color: '#f95d1d',
+                    fontWeight: '700',
+                  }}
+                >
+                  cv
+                </span>{' '}
+                at your fingertips. */}
               </ValueProposition>
             </BoxBody>
             <BoxHeader>
-              <GetStartedButton onClick={handleGetStartedClick}>
-                GET STARTED
-              </GetStartedButton>
+              <Link href={'/signup'}>
+                <GetStartedButton onClick={handleGetStartedClick}>
+                  {t('getStarted')}
+                </GetStartedButton>
+              </Link>
             </BoxHeader>
           </Box3>
         </Box>
