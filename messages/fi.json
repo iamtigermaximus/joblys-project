@@ -66,7 +66,8 @@
     "download": "Lataa",
     "delete": "Poista",
     "previewTitle": "Ansioluettelo",
-    "noData": "Profiilitietoja ei ole saatavilla"
+    "noData": "Profiilitietoja ei ole saatavilla",
+    "deleteMessage": "Ansioluettelo poistettiin onnistuneesti!"
   },
   "CoverlettersPage": {
     "title": "Saatekirjeet",
@@ -74,6 +75,12 @@
     "edit": "Muokkaa",
     "download": "Lataa",
     "delete": "Poista",
-    "previewTitle": "Saatekirje"
+    "previewTitle": "Saatekirje",
+    "deleteMessage": "Saatekirje poistettiin onnistuneesti!"
+  },
+  "ConfirmationModal": {
+    "confirmation": "Oletko varma, että haluat poistaa tämän?",
+    "delete": "Poista",
+    "cancel": "Peru"
   }
 }

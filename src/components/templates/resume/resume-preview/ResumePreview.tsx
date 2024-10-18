@@ -378,7 +378,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
             />
           )}
           {showDeleteMessage && (
-            <DeleteMessage>Resume deleted successfully!</DeleteMessage>
+            <DeleteMessage>{t('deleteMessage')} </DeleteMessage>
           )}
           {showUpgradeModal && (
             <UpgradeModal onClose={() => setShowUpgradeModal(false)} />
@@ -388,7 +388,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
         <ResumesListContainer>
           <ListCreateResumeButton>
             <ButtonLabel onClick={handleCreateNewResume}>
-              + Create new resume
+              {t('buttonLabel')}
             </ButtonLabel>
           </ListCreateResumeButton>
           {resumesList.map(resume => (
@@ -424,7 +424,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
             />
           )}
           {showDeleteMessage && (
-            <DeleteMessage>Resume deleted successfully!</DeleteMessage>
+            <DeleteMessage>{t('deleteMessage')} </DeleteMessage>
           )}
           {showUpgradeModal && (
             <UpgradeModal onClose={() => setShowUpgradeModal(false)} />

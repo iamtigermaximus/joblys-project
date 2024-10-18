@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { useTranslations } from 'next-intl';
 
 interface ConfirmationModalProps {
   onConfirm: () => void;
@@ -66,17 +67,17 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({
   onConfirm,
   onCancel,
 }) => {
+  const t = useTranslations('ConfirmationModal');
+
   return (
     <>
       <BackgroundOverlay />
       <ModalContainer>
         <ModalContent>
-          <ConfirmationMessage>
-            Are you sure you want to delete this resume?
-          </ConfirmationMessage>
+          <ConfirmationMessage>{t('confirmation')}</ConfirmationMessage>
           <ButtonContainer>
-            <DeleteButton onClick={onConfirm}> Delete</DeleteButton>
-            <CancelButton onClick={onCancel}>Cancel</CancelButton>
+            <DeleteButton onClick={onConfirm}>{t('delete')}</DeleteButton>
+            <CancelButton onClick={onCancel}>{t('cancel')}</CancelButton>
           </ButtonContainer>
         </ModalContent>
       </ModalContainer>

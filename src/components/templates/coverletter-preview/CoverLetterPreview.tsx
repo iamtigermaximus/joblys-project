@@ -366,7 +366,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
             />
           )}
           {showDeleteMessage && (
-            <DeleteMessage>Coverletter deleted successfully!</DeleteMessage>
+            <DeleteMessage>{t('deleteMessage')} </DeleteMessage>
           )}
           {showUpgradeModal && (
             <UpgradeModal onClose={() => setShowUpgradeModal(false)} />
