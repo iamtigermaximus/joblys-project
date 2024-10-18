@@ -11,6 +11,7 @@ import Loader from '../common/loader/Loader';
 import CoverLetterPreview from '../templates/coverletter-preview/CoverLetterPreview';
 import { MdViewModule, MdViewList } from 'react-icons/md';
 import { Coverletter } from '@/types/coverletter';
+import { useTranslations } from 'next-intl';
 
 interface CoverletterData {
   id: string;
@@ -20,6 +21,7 @@ interface CoverletterData {
 }
 
 const CoverLetters = () => {
+  const t = useTranslations('CoverlettersPage');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [viewMode, setViewMode] = useState<'card' | 'list'>('card');
@@ -58,7 +60,7 @@ const CoverLetters = () => {
   return (
     <Container>
       <HeaderContainer>
-        <PageName>Cover Letters</PageName>
+        <PageName>{t('title')}</PageName>
         <ViewModeContainer>
           <ViewMode
             onClick={() => handleViewModeChange('card')}

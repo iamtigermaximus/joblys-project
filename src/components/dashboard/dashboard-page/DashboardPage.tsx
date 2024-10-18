@@ -54,6 +54,7 @@ import { convertProfileToResume } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
 import DownloadCoverLetterButton from '@/components/templates/coverletter/coverletterTemplate/DownloadCoverLetterButton';
 import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
+import { useTranslations } from 'next-intl';
 
 interface DashboardPageProps {
   resumes: {
@@ -76,6 +77,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
   resumes,
   coverletters,
 }) => {
+  const t = useTranslations('DashboardPage');
   const { data: session } = useSession();
   const router = useRouter();
   const [editModalOpenId, setEditModalOpenId] = useState<string | null>(null);
@@ -352,21 +354,21 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
       {resumesList && resumesList.length === 0 ? (
         <ResumesSectionContainer>
           <TitleContainer>
-            <TitleItem>Resume</TitleItem>
+            <TitleItem>{t('resumeTitle')}</TitleItem>
             <IconItem>
               <FaChevronCircleRight onClick={handleResumesPage} />
             </IconItem>
           </TitleContainer>
           <CreateButtonContainer>
             <CreateButton onClick={handleCreateNewResume}>
-              Create new resume
+              {t('resumeButtonLabel')}
             </CreateButton>
           </CreateButtonContainer>
         </ResumesSectionContainer>
       ) : (
         <ResumesSectionContainer>
           <TitleContainer>
-            <TitleItem>Resume</TitleItem>
+            <TitleItem>{t('resumeTitle')}</TitleItem>
             <IconItem>
               <FaChevronCircleRight
                 onClick={handleResumesPage}
@@ -407,7 +409,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                                         handleEditResume(resume.id)
                                       }
                                     >
-                                      Edit
+                                      {t('edit')}
                                     </ContentItem>
                                   </EditContentItem>
                                 </EditContent>
@@ -436,7 +438,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                                         style={{ marginRight: '5px' }}
                                       />
                                     </ContentItem>
-                                    <ContentItem> Delete</ContentItem>
+                                    <ContentItem> {t('delete')}</ContentItem>
                                   </EditContentItem>
                                 </EditContent>
                               </EditModalContent>
@@ -468,7 +470,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                         <SidebarHeader>
                           <SidebarHeaderItem>
                             <PreviewTitleContainer>
-                              <PreviewTitle>Resume</PreviewTitle>
+                              <PreviewTitle>
+                                {t('previewResumeTitle')}
+                              </PreviewTitle>
                             </PreviewTitleContainer>
                           </SidebarHeaderItem>
                           <SidebarHeaderClose onClick={handleCloseEditModal}>
@@ -491,7 +495,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                           <PreviewEditButton
                             onClick={() => handleEditResume(resume.id)}
                           >
-                            Edit
+                            {t('edit')}
                           </PreviewEditButton>
                           <PreviewDownloadButton>
                             <DownloadPDFButton
@@ -519,7 +523,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
       {coverLettersList && coverLettersList.length === 0 ? (
         <CoverlettersSectionContainer>
           <TitleContainer>
-            <TitleItem>Cover Letters</TitleItem>
+            <TitleItem>{t('coverletterTitle')}</TitleItem>
             <IconItem>
               <FaChevronCircleRight
                 onClick={handleCoverlettersPage}
@@ -532,14 +536,14 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
               onClick={handleCreateNewCoverLetter}
               style={{ color: '#2e033b' }}
             >
-              Create new cover letter
+              {t('coverletterButtonLabel')}
             </CreateButton>
           </CreateButtonContainer>
         </CoverlettersSectionContainer>
       ) : (
         <CoverlettersSectionContainer>
           <TitleContainer>
-            <TitleItem>Cover Letters</TitleItem>
+            <TitleItem>{t('coverletterTitle')}</TitleItem>
             <IconItem>
               <FaChevronCircleRight
                 onClick={handleCoverlettersPage}
@@ -584,7 +588,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                                         handleEditCoverletter(coverLetter.id)
                                       }
                                     >
-                                      Edit
+                                      {t('edit')}
                                     </ContentItem>
                                   </EditContentItem>
                                 </EditContent>
@@ -609,7 +613,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                                         style={{ marginRight: '5px' }}
                                       />
                                     </ContentItem>
-                                    <ContentItem> Delete</ContentItem>
+                                    <ContentItem> {t('delete')}</ContentItem>
                                   </EditContentItem>
                                 </EditContent>
                               </EditModalContent>
@@ -638,7 +642,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                         <SidebarHeader>
                           <SidebarHeaderItem>
                             <PreviewTitleContainer>
-                              <PreviewTitle>Coverletter</PreviewTitle>
+                              <PreviewTitle>
+                                {t('previewCoverletterTitle')}
+                              </PreviewTitle>{' '}
                             </PreviewTitleContainer>
                           </SidebarHeaderItem>
                           <SidebarHeaderClose onClick={handleCloseEditModal}>
@@ -662,7 +668,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                               handleEditCoverletter(coverLetter.id)
                             }
                           >
-                            Edit
+                            {t('edit')}
                           </PreviewEditButton>
                           <PreviewDownloadButton>
                             <DownloadCoverLetterButton

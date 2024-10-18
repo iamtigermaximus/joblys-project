@@ -13,8 +13,10 @@ import Loader from '../common/loader/Loader';
 import { useSession } from 'next-auth/react';
 import { MdViewModule, MdViewList } from 'react-icons/md';
 import ResumePreview from '../templates/resume/resume-preview/ResumePreview';
+import { useTranslations } from 'next-intl';
 
 const Resumes = () => {
+  const t = useTranslations('ResumesPage');
   const [resumeData, setResumeData] = useState<
     | { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
     | null
@@ -81,7 +83,7 @@ const Resumes = () => {
   }
 
   if (!resumeData) {
-    return <div>No profile data available</div>;
+    return <div>{t('noData')}</div>;
   }
   const handleViewModeChange = (mode: 'card' | 'list') => {
     setViewMode(mode);
@@ -90,7 +92,7 @@ const Resumes = () => {
   return (
     <Container>
       <HeaderContainer>
-        <PageName>Resumes</PageName>
+        <PageName>{t('title')}</PageName>
         <ViewModeContainer>
           <ViewMode
             onClick={() => handleViewModeChange('card')}

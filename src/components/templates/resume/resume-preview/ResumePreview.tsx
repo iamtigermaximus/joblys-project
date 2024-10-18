@@ -55,6 +55,7 @@ import { FaRegCreditCard } from 'react-icons/fa6';
 import { convertProfileToResume } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
 import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
+import { useTranslations } from 'next-intl';
 
 interface MiniResumeProps {
   resumes: {
@@ -67,6 +68,7 @@ interface MiniResumeProps {
 }
 
 const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
+  const t = useTranslations('ResumesPage');
   const router = useRouter();
   const [editModalOpenId, setEditModalOpenId] = useState<string | null>(null);
   const [activeElement, setActiveElement] = useState<string | null>(null);
@@ -240,7 +242,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
       {viewMode === 'card' ? (
         <ResumeContainer>
           <CreateResumeButton onClick={handleCreateNewResume}>
-            <ButtonLabel>Create new resume</ButtonLabel>
+            <ButtonLabel> {t('buttonLabel')}</ButtonLabel>
           </CreateResumeButton>
           {resumesList.map(resume => (
             <React.Fragment key={resume.id}>

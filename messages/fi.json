@@ -48,5 +48,32 @@
     "login": "Kirjaudu",
     "letters": "Kirjeet",
     "out": "Ulos"
+  },
+  "DashboardPage": {
+    "resumeTitle": "Ansioluettelot",
+    "coverletterTitle": "Saatekirjeet",
+    "previewResumeTitle": "Ansioluettelo",
+    "previewCoverletterTitle": "Saatekirje",
+    "edit": "Muokkaa",
+    "download": "Lataa",
+    "resumeButtonLabel": "+ Luo uusi ansioluettelo",
+    "coverletterButtonLabel": "+ Luo uusi saatekirje"
+  },
+  "ResumesPage": {
+    "title": "Ansioluettelot",
+    "buttonLabel": "+ Luo uusi ansioluettelo",
+    "edit": "Muokkaa",
+    "download": "Lataa",
+    "delete": "Poista",
+    "previewTitle": "Ansioluettelo",
+    "noData": "Profiilitietoja ei ole saatavilla"
+  },
+  "CoverlettersPage": {
+    "title": "Saatekirjeet",
+    "buttonLabel": "+ Luo uusi saatekirje",
+    "edit": "Muokkaa",
+    "download": "Lataa",
+    "delete": "Poista",
+    "previewTitle": "Saatekirje"
   }
 }

@@ -48,6 +48,7 @@ import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
 import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
 import ConfirmationModal from '../resume/defaultTemplate/ConfirmationModal';
 import UpgradeModal from '../resume/defaultTemplate/resume-helpers/UpgradeModal';
+import { useTranslations } from 'next-intl';
 
 interface CoverLetterPreviewProps {
   viewMode: 'list' | 'card';
@@ -58,6 +59,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
   viewMode,
   coverLetters,
 }) => {
+  const t = useTranslations('CoverlettersPage');
   const router = useRouter();
   const [editModalOpenId, setEditModalOpenId] = useState<string | null>(null);
   const [activeElement, setActiveElement] = useState<string | null>(null);
@@ -226,7 +228,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
       {viewMode === 'card' ? (
         <CoverLetterContainer>
           <CreateCoverLetterButton onClick={handleCreateNewCoverLetter}>
-            <ButtonLabel>Create new coverletter</ButtonLabel>
+            <ButtonLabel>{t('buttonLabel')}</ButtonLabel>
           </CreateCoverLetterButton>
           {coverLettersList &&
             coverLettersList.map(coverLetter => (
@@ -261,7 +263,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                                       handleEditCoverLetter(coverLetter.id)
                                     }
                                   >
-                                    Edit
+                                    {t('edit')}
                                   </ContentItem>
                                 </EditContentItem>
                               </EditContent>
@@ -290,7 +292,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                                       style={{ marginRight: '5px' }}
                                     />
                                   </ContentItem>
-                                  <ContentItem> Delete</ContentItem>
+                                  <ContentItem> {t('delete')}</ContentItem>
                                 </EditContentItem>
                               </EditContent>
                             </EditModalContent>
@@ -322,7 +324,9 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                       <SidebarHeader>
                         <SidebarHeaderItem>
                           <CoverLetterTitleContainer>
-                            <CoverLetterTitle>Coverletter</CoverLetterTitle>
+                            <CoverLetterTitle>
+                              {t('previewTitle')}
+                            </CoverLetterTitle>{' '}
                           </CoverLetterTitleContainer>
                         </SidebarHeaderItem>
                         <SidebarHeaderClose onClick={handleCloseEditModal}>
@@ -342,7 +346,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                         <PreviewEditButton
                           onClick={() => handleEditCoverLetter(coverLetter.id)}
                         >
-                          Edit
+                          {t('edit')}{' '}
                         </PreviewEditButton>
                         <PreviewDownloadButton>
                           <DownloadCoverLetterButton
@@ -372,7 +376,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
         <CoverLetterListContainer>
           <ListCreateCoverletterButton>
             <ButtonLabel onClick={handleCreateNewCoverLetter}>
-              + Create new coverletter
+              {t('buttonLabel')}{' '}
             </ButtonLabel>
           </ListCreateCoverletterButton>
           {coverLettersList &&

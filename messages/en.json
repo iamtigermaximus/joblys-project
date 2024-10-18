@@ -49,5 +49,30 @@
     "login": "Log in",
     "letters": "Letters",
     "out": "Log out"
+  },
+  "DashboardPage": {
+    "resumeTitle": "Resumes",
+    "coverletterTitle": "Cover Letters",
+    "previewResumeTitle": "Resume",
+    "previewCoverletterTitle": "Coverletter",
+    "edit": "Edit",
+    "download": "Download"
+  },
+  "ResumesPage": {
+    "title": "Resumes",
+    "buttonLabel": "+ Create new resume",
+    "edit": "Edit",
+    "download": "Download",
+    "delete": "Delete",
+    "previewTitle": "Resume",
+    "noData": "No profile data available"
+  },
+  "CoverlettersPage": {
+    "title": "Cover Letters",
+    "buttonLabel": "+ Create new coverletter",
+    "edit": "Edit",
+    "download": "Download",
+    "delete": "Delete",
+    "previewTitle": "Coverletter"
   }
 }
