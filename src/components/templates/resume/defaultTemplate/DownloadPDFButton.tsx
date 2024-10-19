@@ -4,6 +4,7 @@ import DefaultTemplate from './DefaultTemplate';
 import { Resume } from '@/types/resume';
 import styled from 'styled-components';
 import { View, Text } from '@react-pdf/renderer';
+import { useTranslations } from 'next-intl';
 
 const PDFDownload = styled(PDFDownloadLink)<{ disabled?: boolean }>`
   text-decoration: none;
@@ -26,6 +27,7 @@ const DownloadPDFButton: React.FC<DownloadPDFButtonProps> = ({
   color = 'gray',
   disabled = false,
 }) => {
+  const t = useTranslations('ResumesPage');
   const fileName = `${resumeInfo.basic.firstName}${resumeInfo.basic.lastName}Resume.pdf`;
 
   return (
@@ -41,13 +43,13 @@ const DownloadPDFButton: React.FC<DownloadPDFButtonProps> = ({
         >
           {({ blob, url, loading, error }) => (
             <View>
-              <Text>{loading ? 'Download' : 'Download'}</Text>
+              <Text>{loading ? t('download') : t('download')}</Text>
             </View>
           )}
         </PDFDownload>
       ) : (
         <View>
-          <Text style={{ color: 'white' }}>Download</Text>
+          <Text style={{ color: 'white' }}>{t('download')}</Text>
         </View>
       )}
     </View>

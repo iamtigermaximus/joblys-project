@@ -453,6 +453,7 @@ export const PreviewEditButton = styled.button`
   border-radius: 5px;
   color: white;
   cursor: pointer;
+  min-width: 80px;
 
   &:hover {
     background-color: ${colors.darkPurple};
@@ -469,6 +470,7 @@ export const PreviewDownloadButton = styled.button`
   border-radius: 5px;
   color: white;
   cursor: pointer;
+  min-width: 80px;
 
   &:hover {
     background-color: ${colors.darkPurple};
