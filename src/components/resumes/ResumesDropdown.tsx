@@ -7,6 +7,7 @@ import { breakpoints as bp } from '../../utils/layout';
 import DefaultTemplate from '../templates/resume/defaultTemplate/DefaultTemplate';
 import { formatFilenameFromDate } from '../helpers/formHelpers';
 import { formatDistanceToNow } from 'date-fns';
+import { useTranslations } from 'next-intl';
 
 export const Container = styled.div`
   width: 100%;
@@ -128,6 +129,7 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
   selectedResumeId,
   setSelectedResumeId,
 }) => {
+  const t = useTranslations('CoverletterBuilder');
   const [profileData, setProfileData] = useState<ResumeData[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [resumesList, setResumesList] = useState<ResumeData[]>([]);
@@ -208,7 +210,7 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
     return (
       <Container>
         <Select onChange={handleSelectChange} value={selectedResume}>
-          <Option value="">Select a resume</Option>
+          <Option value="">{t('selectResume')}</Option>
           {resumesList &&
             resumesList.map(resume => {
               // const basicInfo = resume.resumeInfo.basic;
@@ -246,7 +248,7 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
     return (
       <Container>
         <Select onChange={handleSelectChange} value={selectedResume}>
-          <Option value="">Select a resume</Option>
+          <Option value="">{t('selectResume')}</Option>
           {resumesList &&
             resumesList.map(resume => {
               // const basicInfo = resume.resumeInfo.basic;
@@ -269,7 +271,7 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
               );
             })}
         </Select>
-        <NoResumeSelected>No resume selected</NoResumeSelected>
+        <NoResumeSelected>{t('noResumeSelected')}</NoResumeSelected>
       </Container>
     );
   }

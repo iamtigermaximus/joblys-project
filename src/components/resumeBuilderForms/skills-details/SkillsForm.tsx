@@ -15,6 +15,7 @@ import {
 import { FaTrash } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 import { capitalizeFirstLetter } from '@/components/helpers/formHelpers';
+import { useTranslations } from 'next-intl';
 
 interface SkillsFormProps {
   skills: SkillType[];
@@ -22,6 +23,7 @@ interface SkillsFormProps {
 }
 
 const SkillsForm: FC<SkillsFormProps> = ({ skills, setResumeInfo }) => {
+  const t = useTranslations('ResumeBuilder');
   const handleInputChange = (id: string, value: string) => {
     setResumeInfo(prevInfo => ({
       ...prevInfo,
@@ -51,12 +53,11 @@ const SkillsForm: FC<SkillsFormProps> = ({ skills, setResumeInfo }) => {
   return (
     <Container>
       <SkillsDetailsContainer>
-        <InputLabel>Skill:</InputLabel>
+        <InputLabel>{t('skillsTitle')}</InputLabel>
         {skills &&
           skills.length > 0 &&
           skills.map(enteredSkill => (
             <InputContainer key={enteredSkill.id}>
-              <InputLabel>Skill:</InputLabel>
               <AddNewSkillContainer>
                 <Input
                   type="text"
@@ -76,7 +77,9 @@ const SkillsForm: FC<SkillsFormProps> = ({ skills, setResumeInfo }) => {
             </InputContainer>
           ))}
         <AddNewSkillContainer>
-          <AddButton onClick={handleAddMoreSkills}>Add new skill</AddButton>
+          <AddButton onClick={handleAddMoreSkills}>
+            {t('addNewSkill')}
+          </AddButton>
         </AddNewSkillContainer>
       </SkillsDetailsContainer>
     </Container>

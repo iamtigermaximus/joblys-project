@@ -19,6 +19,7 @@ import {
 import { EducationType, Resume } from '@/types/resume';
 import { v4 as uuidv4 } from 'uuid';
 import { capitalizeFirstLetter } from '@/components/helpers/formHelpers';
+import { useTranslations } from 'next-intl';
 
 interface EducationalDetailsFormProps {
   educational: EducationType[];
@@ -29,6 +30,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
   educational,
   setResumeInfo,
 }) => {
+  const t = useTranslations('ResumeBuilder');
   useEffect(() => {
     console.log('Educational data:', educational);
   }, [educational]);
@@ -112,10 +114,10 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
           <EducationContainer key={educ.id}>
             <InputRow>
               <InputContainer>
-                <InputLabel>School:</InputLabel>
+                <InputLabel>{t('school')}</InputLabel>
                 <Input
                   type="text"
-                  placeholder="ex. College, University, school"
+                  placeholder="ex. College, University, School"
                   value={educ.school}
                   onChange={e =>
                     handleInputChange(
@@ -127,7 +129,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                 />
               </InputContainer>
               <InputContainer>
-                <InputLabel>Course/Degree:</InputLabel>
+                <InputLabel>{t('course')}</InputLabel>
                 <Input
                   type="text"
                   placeholder="ex. Bachelors, Masters"
@@ -144,7 +146,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
             </InputRow>
             <InputRow>
               <InputContainer>
-                <InputLabel>Start date:</InputLabel>
+                <InputLabel>{t('startDate')}</InputLabel>
                 <DropdownContainer>
                   <MonthSelect
                     value={educ.startDate.month}
@@ -179,7 +181,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
                 </DropdownContainer>
               </InputContainer>
               <InputContainer>
-                <InputLabel>End date:</InputLabel>
+                <InputLabel>{t('endDate')}</InputLabel>
                 <DropdownContainer>
                   <MonthSelect
                     value={educ.endDate.month}
@@ -224,14 +226,14 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
             </InputRow>
             <ButtonsContainer>
               <TrashIcon onClick={() => handleDeleteEducation(educ.id)}>
-                Remove
+                {t('remove')}
               </TrashIcon>
             </ButtonsContainer>
           </EducationContainer>
         ))}
         <AddEducationContainer>
           <AddEducationButton onClick={handleAddEducation}>
-            Add education +
+            {t('addNewEducation')}{' '}
           </AddEducationButton>
         </AddEducationContainer>
       </EducationalDetailsContainer>

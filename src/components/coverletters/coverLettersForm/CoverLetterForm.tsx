@@ -25,10 +25,10 @@ import {
 import { FaArrowLeft, FaDownload } from 'react-icons/fa6';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import axios from 'axios';
 import ResumesDropdown from '@/components/resumes/ResumesDropdown';
-import MiniCoverLetterTemplate from '@/components/templates/minicoverletter-template/MiniCoverLetterTemplate';
 import { IoMdHelpCircleOutline } from 'react-icons/io';
+import { useTranslations } from 'next-intl';
+import MiniCoverLetterTemplate from '@/components/templates/minicoverletter-template/MiniCoverLetterTemplate';
 
 interface CoverLetterFormProps {
   coverletterId: string;
@@ -49,6 +49,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   resumeId: initialResumeId,
   jobDescription: initialJobDescription,
 }) => {
+  const t = useTranslations('CoverletterBuilder');
   const [accordionState, setAccordionState] = useState({
     basic: true,
     professional: false,
@@ -98,27 +99,6 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [showHelpTooltip]);
-
-  // useEffect(() => {
-  //   if (!coverletterId) return;
-
-  //   const fetchCoverLetterDetails = async () => {
-  //     try {
-  //       const response = await fetch(`/api/coverletters/${coverletterId}`);
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch cover letter details.');
-  //       }
-  //       const data = await response.json();
-  //       console.log('Fetched data:', data);
-  //       setApplyJobDescription(data.jobDescription);
-  //       setResumeId(data.resumeId);
-  //     } catch (error: any) {
-  //       console.error('Error fetching cover letter details:', error.message);
-  //     }
-  //   };
-
-  //   fetchCoverLetterDetails();
-  // }, [coverletterId]);
 
   useEffect(() => {
     if (initialJobDescription) {
@@ -222,7 +202,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
             </HeaderItem>
           </TemplateHeaderItem>
           <TemplateHeaderItem>
-            <HeaderItem>PREVIEW</HeaderItem>
+            <HeaderItem>{t('preview')}</HeaderItem>
           </TemplateHeaderItem>
           <TemplateHeaderItem>
             <HeaderItem onClick={handleSignIn}>
@@ -239,7 +219,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
       <AccordionContainer>
         <AccordionSection>
           <AccordionHeader>
-            <AccordionHeaderTitle>Job Ad</AccordionHeaderTitle>
+            <AccordionHeaderTitle>{t('jobAd')}</AccordionHeaderTitle>
             <AccordionHeaderTitle ref={helpIconRef}>
               <IoMdHelpCircleOutline
                 onClick={toggleHelpTooltip}
@@ -247,20 +227,14 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
               />
               {showHelpTooltip && (
                 <TooltipContainer ref={tooltipRef}>
-                  <p>
-                    By pasting the job ad here, we&apos;ll extract essential
-                    information and keywords, allowing you to tailor your
-                    coverletter for the specific job. You can use this
-                    information to customize your coverletter and make your
-                    application more competitive.
-                  </p>
+                  <p>{t('helpTooltip')}</p>
                 </TooltipContainer>
               )}
             </AccordionHeaderTitle>
           </AccordionHeader>
           <InputContainer>
             <TextArea
-              placeholder="Paste job description here"
+              placeholder={t('jobAdPlaceholder')}
               value={applyJobDescription}
               onChange={handleApplyJobDescriptionChange}
             />
@@ -268,7 +242,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
         </AccordionSection>
         <AccordionSection>
           <AccordionHeader>
-            <AccordionHeaderTitle>Resumes</AccordionHeaderTitle>
+            <AccordionHeaderTitle>{t('resumesTitle')}</AccordionHeaderTitle>
           </AccordionHeader>
         </AccordionSection>
 
@@ -279,17 +253,17 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
 
         <AccordionSection>
           <PreviewButtonSection>
-            <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
+            <PreviewButton onClick={resumeTemplate}>
+              {t('preview')}
+            </PreviewButton>
             <GenerateButton onClick={handleSubmitWriteCoverletter}>
-              {isLoading ? 'Generating...' : 'Generate a cover letter'}{' '}
+              {isLoading ? t('generating') : t('generateCoverletter')}
               {/* Update button text based on loading state */}
             </GenerateButton>
           </PreviewButtonSection>
           {showSuccessMessage && (
             <PreviewButtonSection>
-              <SuccessAlert>
-                You have successfully created a cover letter.
-              </SuccessAlert>
+              <SuccessAlert>{t('successAlert')} </SuccessAlert>
             </PreviewButtonSection>
           )}
         </AccordionSection>

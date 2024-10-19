@@ -214,6 +214,7 @@ export const TrashIcon = styled.button`
   padding: 10px;
   white-space: nowrap;
   max-width: 200px;
+  min-width: 80px;
 
   &:hover {
     background: ${colors.blueGray};
@@ -234,6 +235,7 @@ export const EnhanceButton = styled.button`
   padding: 10px;
   white-space: nowrap;
   max-width: 200px;
+  min-width: 80px;
 
   &:hover {
     background: ${colors.white};

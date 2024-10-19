@@ -48,10 +48,8 @@ import DefaultTemplate from '@/components/templates/resume/defaultTemplate/Defau
 import { convertProfileToResume, Profile } from '@/types/profile';
 
 import { IoMdHelpCircleOutline } from 'react-icons/io';
-import {
-  LoadingMessage,
-  LoadingMessageContainer,
-} from '@/components/profile/create-profile/upload-cv/UploadCV.styles';
+import { useTranslations } from 'next-intl';
+import { LoadingMessage, LoadingMessageContainer } from '@/components/profile/create-profile/upload-cv/UploadCV.styles';
 
 interface ResumeFormProps {
   resumeId: string;
@@ -70,6 +68,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   existingData,
   setExistingData,
 }) => {
+  const t = useTranslations('ResumeBuilder');
   const [accordionState, setAccordionState] = useState({
     basic: true,
     professional: false,
@@ -99,19 +98,18 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const helpIconRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
-  // Toggle tooltip visibility when help icon is clicked
+  // Toggle tooltip
   const toggleHelpTooltip = () => {
     setShowHelpTooltip(prev => !prev);
   };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // Check if the click is outside the tooltip
       if (
         tooltipRef.current &&
         !tooltipRef.current.contains(event.target as Node)
       ) {
-        setShowHelpTooltip(false); // Close the tooltip
+        setShowHelpTooltip(false);
       }
     };
 
@@ -340,7 +338,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
       {session && (
         <UploadSection>
           <SectionTitleContainer>
-            <SectionTitle>Upload existing resume</SectionTitle>
+            <SectionTitle>{t('uploadTitle')}</SectionTitle>
           </SectionTitleContainer>
           <FileUpload
             type="file"
@@ -348,7 +346,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             onChange={handleFileChange}
           />
           <UploadButton onClick={handleUploadCV} disabled={isUploading}>
-            {isUploading ? 'Uploading...' : 'Upload'}
+            {isUploading ? t('uploading') : t('upload')}
           </UploadButton>
           <LoadingMessageContainer>
             {uploadMessage && <LoadingMessage>{uploadMessage}</LoadingMessage>}
@@ -366,7 +364,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </HeaderItem>
           </TemplateHeaderItem>
           <TemplateHeaderItem>
-            <HeaderItem>PREVIEW</HeaderItem>
+            <HeaderItem>{t('preview')}</HeaderItem>
           </TemplateHeaderItem>
           <TemplateHeaderItem>
             <HeaderItem>
@@ -383,7 +381,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
       <AccordionContainer>
         <AccordionSection>
           <AccordionHeader>
-            <AccordionHeaderTitle>Job Ad</AccordionHeaderTitle>
+            <AccordionHeaderTitle>{t('jobAd')}</AccordionHeaderTitle>
             <AccordionHeaderTitle ref={helpIconRef}>
               <IoMdHelpCircleOutline
                 onClick={toggleHelpTooltip}
@@ -391,20 +389,14 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
               />
               {showHelpTooltip && (
                 <TooltipContainer ref={tooltipRef}>
-                  <p>
-                    By pasting the job ad here, we&apos;ll extract essential
-                    information and keywords, allowing you to tailor your resume
-                    for the specific job. You can use this information to
-                    customize your resume and make your application more
-                    competitive.
-                  </p>
+                  <p>{t('helpTooltip')}</p>
                 </TooltipContainer>
               )}
             </AccordionHeaderTitle>
           </AccordionHeader>
           <InputContainer>
             <TextArea
-              placeholder="Paste job description here"
+              placeholder={t('jobAdPlaceholder')}
               value={applyJobDescription}
               onChange={e => handleApplyJobDescriptionChange(e.target.value)}
             />
@@ -437,7 +429,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
               style={{ color: accordionState.basic ? '' : 'gray' }}
               onClick={() => toggleAccordion('basic')}
             >
-              Personal Details
+              {t('basicsTitle')}{' '}
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('basic')}>
               {accordionState.basic ? (
@@ -470,7 +462,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
               style={{ color: accordionState.educational ? '' : 'gray' }}
               onClick={() => toggleAccordion('educational')}
             >
-              Educational Details
+              {t('educationTitle')}
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('educational')}>
               {accordionState.educational ? (
@@ -500,7 +492,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
               style={{ color: accordionState.professional ? '' : 'gray' }}
               onClick={() => toggleAccordion('professional')}
             >
-              Professional Details
+              {t('professionalTitle')}
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('professional')}>
               {accordionState.professional ? (
@@ -536,7 +528,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
               style={{ color: accordionState.skills ? '' : 'gray' }}
               onClick={() => toggleAccordion('skills')}
             >
-              Skills
+              {t('skillsTitle')}
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('skills')}>
               {accordionState.skills ? (
@@ -565,7 +557,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
               style={{ color: accordionState.languages ? '' : 'gray' }}
               onClick={() => toggleAccordion('languages')}
             >
-              Languages
+              {t('languagesTitle')}
             </AccordionHeaderTitle>
             <span onClick={() => toggleAccordion('languages')}>
               {accordionState.languages ? (
@@ -592,14 +584,12 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           <PreviewButtonSection>
             <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
             <CreateProfileButton onClick={handleSubmit}>
-              Create Resume
+              {t('createResume')}
             </CreateProfileButton>
           </PreviewButtonSection>
           {showSuccessMessage && (
             <PreviewButtonSection>
-              <SuccessAlert>
-                You have successfully created a resume.
-              </SuccessAlert>
+              <SuccessAlert>{t('successMessage')} </SuccessAlert>
             </PreviewButtonSection>
           )}
         </AccordionSection>

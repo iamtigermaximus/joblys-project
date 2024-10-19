@@ -25,7 +25,7 @@ import { Resume } from '@/types/resume';
 import DownloadPDFButton from '@/components/templates/resume/defaultTemplate/DownloadPDFButton';
 import { Coverletter } from '@/types/coverletter';
 import DownloadCoverLetterButton from '@/components/templates/coverletter/coverletterTemplate/DownloadCoverLetterButton';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface PageHeaderProps {
   id: string;
@@ -38,6 +38,7 @@ const PageHeader: FC<PageHeaderProps> = ({
   resumeInfo,
   coverLetterInfo,
 }) => {
+  const t = useTranslations('PageHeader');
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
@@ -128,7 +129,7 @@ const PageHeader: FC<PageHeaderProps> = ({
               <ResumeButtonIcon>
                 <FaArrowLeft />
               </ResumeButtonIcon>
-              <ResumeButtonTitle> Resume</ResumeButtonTitle>
+              <ResumeButtonTitle> {t('resumeButton')}</ResumeButtonTitle>
             </ResumeButton>
           )}
           {isCoverLetterBuilder && (
@@ -136,7 +137,7 @@ const PageHeader: FC<PageHeaderProps> = ({
               <ResumeButtonIcon>
                 <FaArrowLeft />
               </ResumeButtonIcon>
-              <ResumeButtonTitle> Cover Letters</ResumeButtonTitle>
+              <ResumeButtonTitle> {t('coverletterButton')}</ResumeButtonTitle>
             </ResumeButton>
           )}
         </LeftContainer>
@@ -171,18 +172,18 @@ const PageHeader: FC<PageHeaderProps> = ({
                   <UserModal>
                     <ModalItemContainer>
                       <IoSettingsSharp />
-                      <p onClick={handleSettings}>Settings</p>
+                      <p onClick={handleSettings}>{t('settings')}</p>
                     </ModalItemContainer>
                     <ModalItemContainer>
                       <FaArrowRightFromBracket />
-                      <p onClick={handleSignOut}>Log out</p>
+                      <p onClick={handleSignOut}>{t('logout')}</p>
                     </ModalItemContainer>
                   </UserModal>
                 ) : (
                   <UserModal>
                     <ModalItemContainer onClick={handleSignIn}>
                       <FaArrowRightToBracket />
-                      <p>Log in</p>
+                      <p>{t('login')}</p>
                     </ModalItemContainer>
                   </UserModal>
                 )}

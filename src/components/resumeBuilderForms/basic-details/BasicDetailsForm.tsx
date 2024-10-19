@@ -17,6 +17,7 @@ import { BasicInfoType, Resume } from '@/types/resume';
 import { v4 as uuidv4 } from 'uuid';
 import { FaTrash } from 'react-icons/fa';
 import { capitalizeFirstLetter } from '@/components/helpers/formHelpers';
+import { useTranslations } from 'next-intl';
 
 interface BasicDetailsFormProps {
   basic: BasicInfoType;
@@ -27,6 +28,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
   basic,
   setResumeInfo,
 }) => {
+  const t = useTranslations('ResumeBuilder');
   const [additionalLinks, setAdditionalLinks] = useState<string[]>(['']);
 
   const handleAddMoreLinks = () => {
@@ -86,10 +88,10 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
       <BasicDetailsContainer>
         <InputRow>
           <InputContainer>
-            <InputLabel>First Name:</InputLabel>
+            <InputLabel>{t('firstname')}</InputLabel>
             <Input
               type="text"
-              placeholder="Your first name"
+              placeholder={t('firstnamePlaceholder')}
               value={basic.firstName}
               onChange={e =>
                 handleInputChange(
@@ -100,10 +102,10 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
             />
           </InputContainer>
           <InputContainer>
-            <InputLabel>Last Name:</InputLabel>
+            <InputLabel>{t('lastname')}</InputLabel>
             <Input
               type="text"
-              placeholder="Your last name"
+              placeholder={t('lastnamePlaceholder')}
               value={basic.lastName}
               onChange={e =>
                 handleInputChange(
@@ -116,19 +118,19 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
         </InputRow>
         <InputRow>
           <InputContainer>
-            <InputLabel>Phone number:</InputLabel>
+            <InputLabel>{t('phone')}</InputLabel>
             <Input
               type="tel"
-              placeholder="Phone number"
+              placeholder={t('phonePlaceholder')}
               value={basic.phoneNumber}
               onChange={e => handleInputChange('phoneNumber', e.target.value)}
             />
           </InputContainer>
           <InputContainer>
-            <InputLabel>Email address:</InputLabel>
+            <InputLabel>{t('email')}</InputLabel>
             <Input
               type="email"
-              placeholder="Your email"
+              placeholder={t('emailPlaceholder')}
               value={basic.email}
               onChange={e => handleInputChange('email', e.target.value)}
             />
@@ -136,10 +138,10 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
         </InputRow>
         <InputRow>
           <InputContainer>
-            <InputLabel>Address:</InputLabel>
+            <InputLabel>{t('address')}</InputLabel>
             <Input
               type="text"
-              placeholder="Address"
+              placeholder={t('addressPlaceholder')}
               value={basic.address}
               onChange={e =>
                 handleInputChange(
@@ -152,7 +154,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
         </InputRow>
         <InputRow>
           <InputContainer>
-            <InputLabel>LinkedIn:</InputLabel>
+            <InputLabel>{t('linkedin')}</InputLabel>
             <Input
               type="url"
               placeholder="https://example.com"
@@ -163,7 +165,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
         </InputRow>
         {basic.additionalLinks.map(link => (
           <InputContainer key={link.id}>
-            <InputLabel>Additional Link</InputLabel>
+            <InputLabel>{t('link')}</InputLabel>
             <NewLinkContainer>
               <Input
                 type="url"
@@ -182,7 +184,7 @@ const BasicDetailsForm: FC<BasicDetailsFormProps> = ({
 
         <AddMoreLinksContainer>
           <AddMoreLinksButton onClick={handleAddMoreLinks}>
-            Add more links +
+            {t('addNewLink')}
           </AddMoreLinksButton>
         </AddMoreLinksContainer>
       </BasicDetailsContainer>

@@ -15,6 +15,7 @@ import {
 import { FaTrash } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 import { capitalizeFirstLetter } from '@/components/helpers/formHelpers';
+import { useTranslations } from 'next-intl';
 
 interface LanguagesFormProps {
   languages: LanguageType[];
@@ -25,6 +26,7 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
   languages,
   setResumeInfo,
 }) => {
+  const t = useTranslations('ResumeBuilder');
   const handleInputChange = (id: string, value: string) => {
     setResumeInfo(prevInfo => ({
       ...prevInfo,
@@ -54,7 +56,7 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
   return (
     <Container>
       <LanguagesDetailsContainer>
-        <InputLabel>Language:</InputLabel>
+        <InputLabel>{t('languagesTitle')}</InputLabel>
         {languages.map(enteredLanguage => (
           <InputContainer key={enteredLanguage.id}>
             <AddNewLanguageContainer>
@@ -79,7 +81,7 @@ const LanguagesForm: FC<LanguagesFormProps> = ({
         ))}
         <AddNewLanguageContainer>
           <AddButton onClick={handleAddMoreLanguages}>
-            Add new language
+            {t('addNewLanguage')}{' '}
           </AddButton>
         </AddNewLanguageContainer>
       </LanguagesDetailsContainer>

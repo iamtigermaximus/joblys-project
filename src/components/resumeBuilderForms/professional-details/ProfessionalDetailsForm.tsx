@@ -31,6 +31,7 @@ import {
 import { DateType, ProfessionalExperienceType, Resume } from '@/types/resume';
 import { v4 as uuidv4 } from 'uuid';
 import { capitalizeFirstLetter } from '@/components/helpers/formHelpers';
+import { useTranslations } from 'next-intl';
 
 interface ProfessionalDetailsFormProps {
   resumeId: string;
@@ -49,6 +50,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   setResumeInfo,
   refreshStoredResume,
 }) => {
+  const t = useTranslations('ResumeBuilder');
   const [summary, setSummary] = useState(professional.summary || '');
   const [currentRole, setCurrentRole] = useState(
     professional.currentRole || '',
@@ -212,20 +214,27 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   };
 
   const handleJobDescriptionEnhance = async (id: string) => {
-    const resp = await fetch('/api/cvRewritten', {
-      method: 'POST',
-      body: JSON.stringify({
-        resumeId,
-        id,
-      }),
-    });
+    try {
+      const resp = await fetch('/api/cvRewritten', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          resumeId,
+          id,
+        }),
+      });
 
-    if (resp.status !== 201) {
-      console.log('Error ' + resp.status);
-      return;
+      if (resp.status !== 201) {
+        console.log('Error ' + resp.status);
+        return;
+      }
+
+      refreshStoredResume();
+    } catch (error) {
+      console.error('Error enhancing job description:', error);
     }
-
-    refreshStoredResume();
   };
 
   const handleDeleteWorkExperience = (id: string) => {
@@ -275,9 +284,9 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     <Container>
       <ProfessionalDetailsContainer>
         <InputContainer>
-          <InputLabel>Summary:</InputLabel>
+          <InputLabel>{t('summary')}</InputLabel>
           <TextArea
-            placeholder="Introduce yourself by pitching your skills & explaining how they can be of value to a company"
+            placeholder={t('summaryPlaceholder')}
             value={summary}
             onChange={e =>
               handleSummaryChange(capitalizeFirstLetter(e.target.value))
@@ -286,12 +295,12 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
           />
           <ButtonsContainer>
             <EnhanceButton onClick={handleGenerateSummary}>
-              Generate summary
+              {t('generateSummary')}{' '}
             </EnhanceButton>
           </ButtonsContainer>
         </InputContainer>
         <InputContainer>
-          <InputLabel>Current Role:</InputLabel>
+          <InputLabel>{t('currentRole')}</InputLabel>
           <Input
             type="text"
             placeholder="ex. Software developer"
@@ -301,12 +310,12 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             }
           />
         </InputContainer>
-        <InputLabel>Work Experience:</InputLabel>
+        <InputLabel>{t('workExperience')}</InputLabel>
         {professional.work.map(experience => (
           <WorkExperienceContainer key={experience.id}>
             <InputRow>
               <InputContainer>
-                <InputLabel>Job title:</InputLabel>
+                <InputLabel>{t('jobTitle')}</InputLabel>
                 <Input
                   type="text"
                   placeholder="ex. Software developer"
@@ -321,7 +330,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                 />
               </InputContainer>
               <InputContainer>
-                <InputLabel>Company:</InputLabel>
+                <InputLabel>{t('company')}</InputLabel>
                 <Input
                   type="text"
                   placeholder="Company name"
@@ -338,7 +347,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             </InputRow>
             <InputRow>
               <InputContainer>
-                <InputLabel>Start date:</InputLabel>
+                <InputLabel>{t('startDate')}</InputLabel>
                 <DropdownContainer>
                   <MonthSelect
                     value={experience.startDate.month}
@@ -374,7 +383,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
               </InputContainer>
               <InputContainer>
                 <InputLabelContainer>
-                  <InputLabel>End date:</InputLabel>
+                  <InputLabel>{t('endDate')}</InputLabel>
                   <CheckboxContainer>
                     <CheckboxInput
                       type="checkbox"
@@ -385,7 +394,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                       }
                     />
                     <CheckboxLabel htmlFor={`present-${experience.id}`}>
-                      Present
+                      {t('present')}{' '}
                     </CheckboxLabel>
                   </CheckboxContainer>
                 </InputLabelContainer>
@@ -435,9 +444,9 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             </InputRow>
             <InputRow>
               <InputContainer>
-                <InputLabel>Job description:</InputLabel>
+                <InputLabel>{t('jobDescription')}</InputLabel>
                 <TextArea
-                  placeholder="Job duties & accomplishments"
+                  placeholder={t('jobDescriptionPlaceholder')}
                   value={experience.jobDetails}
                   onChange={e =>
                     handleInputChange(
@@ -453,19 +462,19 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
               <EnhanceButton
                 onClick={() => handleJobDescriptionEnhance(experience.id)}
               >
-                Enhance
+                {t('enhance')}
               </EnhanceButton>
               <TrashIcon
                 onClick={() => handleDeleteWorkExperience(experience.id)}
               >
-                Remove
+                {t('remove')}
               </TrashIcon>
             </ButtonsContainer>
           </WorkExperienceContainer>
         ))}
         <AddWorkExperienceContainer>
           <AddWorkExperienceButton onClick={handleAddWorkExperience}>
-            Add work experience
+            {t('addNewExperience')}
           </AddWorkExperienceButton>
         </AddWorkExperienceContainer>
       </ProfessionalDetailsContainer>
