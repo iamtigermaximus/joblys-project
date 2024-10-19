@@ -30,6 +30,7 @@ import {
 import { Education, Profile, DateInfo } from '@/types/profile';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { useTranslations } from 'next-intl';
 
 export interface ProfileEducationProps {
   existingData: Profile;
@@ -50,6 +51,7 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
   handleCancelEdit,
   setExistingData,
 }) => {
+  const t = useTranslations('ProfilePage');
   const [educationData, setEducationData] = useState<Education[]>(
     existingData.educational || [],
   );
@@ -166,7 +168,7 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
     <AccordionSection>
       <AccordionHeader onClick={toggleAccordion}>
         <AccordionHeaderTitle style={{ color: isOpen ? '' : 'gray' }}>
-          Educational Details
+          {t('educationTitle')}{' '}
         </AccordionHeaderTitle>
         <span>
           {isOpen ? (
@@ -186,7 +188,7 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
             <ButtonContainer>
               {!isEditing && (
                 <Button onClick={() => setIsEditing(true)}>
-                  <FaEdit /> Edit
+                  <FaEdit /> {t('edit')}
                 </Button>
               )}
             </ButtonContainer>
@@ -203,22 +205,22 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
                 </div>
                 <InputRow>
                   <InputContainer>
-                    <InputLabel>School:</InputLabel>
+                    <InputLabel>{t('school')}</InputLabel>
                     <Input
                       type="text"
                       name="school"
-                      placeholder="School"
+                      placeholder={t('schoolPlaceholder')}
                       value={educ.school}
                       onChange={e => handleInputChange(e, educ.id, 'school')}
                       readOnly={!isEditing}
                     />
                   </InputContainer>
                   <InputContainer>
-                    <InputLabel>Course/Degree:</InputLabel>
+                    <InputLabel>{t('course')}</InputLabel>
                     <Input
                       type="text"
                       name="course"
-                      placeholder="Course"
+                      placeholder={t('coursePlaceholder')}
                       value={educ.course}
                       onChange={e => handleInputChange(e, educ.id, 'course')}
                       readOnly={!isEditing}
@@ -227,7 +229,7 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
                 </InputRow>
                 <InputRow>
                   <InputContainer>
-                    <InputLabel>Start date:</InputLabel>
+                    <InputLabel>{t('startDate')}</InputLabel>
                     <DateInfoContainer>
                       <Input
                         type="text"
@@ -248,7 +250,7 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
                     </DateInfoContainer>
                   </InputContainer>
                   <InputContainer>
-                    <InputLabel>End date:</InputLabel>
+                    <InputLabel>{t('endDate')}</InputLabel>
                     <DateInfoContainer>
                       <Input
                         type="text"
@@ -275,17 +277,17 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
             {isEditing && (
               <AddButtonContainer>
                 <AddButton onClick={handleAddEducation}>
-                  Add new education
+                  {t('addNewEducation')}{' '}
                 </AddButton>
               </AddButtonContainer>
             )}
             {isEditing && (
               <ActionButtonContainer>
                 <ActionButton onClick={handleCancelEdit}>
-                  <FaTimes /> Cancel
+                  <FaTimes /> {t('cancel')}
                 </ActionButton>
                 <ActionButton onClick={handleSaveEdit}>
-                  <FaCheck /> Done
+                  <FaCheck /> {t('done')}
                 </ActionButton>
               </ActionButtonContainer>
             )}

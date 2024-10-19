@@ -29,6 +29,7 @@ import {
   AddButton,
 } from '../ProfileForm.styles';
 import axios from 'axios';
+import { useTranslations } from 'next-intl';
 
 interface ProfileData {
   firstName: string;
@@ -62,6 +63,7 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
   setIsEditing,
   handleCancelEdit,
 }) => {
+  const t = useTranslations('ProfilePage');
   const [profileData, setProfileData] = useState<ProfileData>(existingData);
 
   useEffect(() => {
@@ -147,7 +149,7 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
     <AccordionSection>
       <AccordionHeader onClick={toggleAccordion}>
         <AccordionHeaderTitle style={{ color: isOpen ? '' : 'gray' }}>
-          Personal Details
+          {t('basicsTitle')}{' '}
         </AccordionHeaderTitle>
         <span>
           {isOpen ? (
@@ -167,26 +169,26 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
             <ButtonContainer>
               {!isEditing && (
                 <Button onClick={() => setIsEditing(true)}>
-                  <FaEdit /> Edit
+                  <FaEdit /> {t('edit')}
                 </Button>
               )}
             </ButtonContainer>
             <InputRow>
               <InputContainer>
-                <InputLabel>First Name:</InputLabel>
+                <InputLabel>{t('firstname')}</InputLabel>
                 <Input
                   type="text"
-                  placeholder="Your first name"
+                  placeholder={t('firstnamePlaceholder')}
                   value={profileData.firstName}
                   onChange={e => handleInputChange(e, 'firstName')}
                   readOnly={!isEditing}
                 />
               </InputContainer>
               <InputContainer>
-                <InputLabel>Last Name:</InputLabel>
+                <InputLabel>{t('lastname')}</InputLabel>
                 <Input
                   type="text"
-                  placeholder="Your last name"
+                  placeholder={t('lastnamePlaceholder')}
                   value={profileData.lastName}
                   onChange={e => handleInputChange(e, 'lastName')}
                   readOnly={!isEditing}
@@ -195,20 +197,20 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
             </InputRow>
             <InputRow>
               <InputContainer>
-                <InputLabel>Email address:</InputLabel>
+                <InputLabel>{t('email')}</InputLabel>
                 <Input
                   type="email"
-                  placeholder="Your email"
+                  placeholder={t('emailPlaceholder')}
                   value={profileData.email}
                   onChange={e => handleInputChange(e, 'email')}
                   readOnly={!isEditing}
                 />
               </InputContainer>
               <InputContainer>
-                <InputLabel>Phone number:</InputLabel>
+                <InputLabel>{t('phone')}</InputLabel>
                 <Input
                   type="tel"
-                  placeholder="Phone number"
+                  placeholder={t('phonePlaceholder')}
                   value={profileData.contact}
                   onChange={e => handleInputChange(e, 'contact')}
                   readOnly={!isEditing}
@@ -218,7 +220,7 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
             <InputRow>
               {profileData.links.map(link => (
                 <InputContainer key={link.id}>
-                  <InputLabel>Link</InputLabel>
+                  <InputLabel>{t('link')}</InputLabel>
                   <NewLinkContainer>
                     <Input
                       type="url"
@@ -239,16 +241,16 @@ const ProfileBasics: FC<ProfileBasicsProps> = ({
 
             {isEditing && (
               <AddButtonContainer>
-                <AddButton onClick={addNewLink}>Add new link</AddButton>
+                <AddButton onClick={addNewLink}>{t('addNewLink')}</AddButton>
               </AddButtonContainer>
             )}
             {isEditing && (
               <ActionButtonContainer>
                 <ActionButton onClick={handleCancelEdit}>
-                  <FaTimes /> Cancel
+                  <FaTimes /> {t('cancel')}
                 </ActionButton>
                 <ActionButton onClick={() => handleSaveEdit(profileData)}>
-                  <FaCheck /> Done
+                  <FaCheck /> {t('done')}
                 </ActionButton>
               </ActionButtonContainer>
             )}

@@ -26,6 +26,7 @@ import {
 } from '../ProfileForm.styles';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { useTranslations } from 'next-intl';
 
 export interface ProfileSkillsProps {
   existingData: Profile;
@@ -46,6 +47,7 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
   handleCancelEdit,
   setExistingData,
 }) => {
+  const t = useTranslations('ProfilePage');
   const [skillsData, setSkillsData] = useState<Skill[]>(existingData.skills);
 
   // useEffect(() => {
@@ -117,7 +119,7 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
     <AccordionSection>
       <AccordionHeader onClick={toggleAccordion}>
         <AccordionHeaderTitle style={{ color: isOpen ? '' : 'gray' }}>
-          Skills
+          {t('skillsTitle')}{' '}
         </AccordionHeaderTitle>
         <span>
           {isOpen ? (
@@ -137,7 +139,7 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
             <ButtonContainer>
               {!isEditing && (
                 <Button onClick={() => setIsEditing(true)}>
-                  <FaEdit /> Edit
+                  <FaEdit /> {t('edit')}
                 </Button>
               )}
             </ButtonContainer>
@@ -147,7 +149,7 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
                   <Input
                     type="text"
                     name="skill"
-                    placeholder="Skill"
+                    placeholder="{t('skillPlaceholder')}"
                     value={skill.name}
                     onChange={e => handleInputChange(e, skill.id)}
                     readOnly={!isEditing}
@@ -162,17 +164,19 @@ const ProfileSkills: FC<ProfileSkillsProps> = ({
             ))}
             {isEditing && (
               <AddButtonContainer>
-                <AddButton onClick={handleAddSkill}>Add new skill</AddButton>
+                <AddButton onClick={handleAddSkill}>
+                  {t('addNewSkill')}
+                </AddButton>
               </AddButtonContainer>
             )}
 
             {isEditing && (
               <ActionButtonContainer>
                 <ActionButton onClick={handleCancelEdit}>
-                  <FaTimes /> Cancel
+                  <FaTimes /> {t('cancel')}
                 </ActionButton>
                 <ActionButton onClick={handleSaveEdit}>
-                  <FaCheck /> Done
+                  <FaCheck /> {t('done')}
                 </ActionButton>
               </ActionButtonContainer>
             )}

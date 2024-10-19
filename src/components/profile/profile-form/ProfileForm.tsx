@@ -21,6 +21,7 @@ import {
   LoadingMessage,
   LoadingMessageContainer,
 } from '../create-profile/upload-cv/UploadCV.styles';
+import { useTranslations } from 'next-intl';
 
 interface ProfileFormProps {
   existingData: Profile;
@@ -31,6 +32,7 @@ const ProfileForm: FC<ProfileFormProps> = ({
   existingData,
   setExistingData,
 }) => {
+  const t = useTranslations('ProfilePage');
   const [accordionState, setAccordionState] = useState({
     basic: true,
     professional: false,
@@ -179,7 +181,7 @@ const ProfileForm: FC<ProfileFormProps> = ({
       {session && (
         <UploadSection>
           <SectionTitleContainer>
-            <SectionTitle>Upload existing resume</SectionTitle>
+            <SectionTitle>{t('uploadTitle')}</SectionTitle>
           </SectionTitleContainer>
           <FileUpload
             type="file"
@@ -187,7 +189,7 @@ const ProfileForm: FC<ProfileFormProps> = ({
             onChange={handleFileChange}
           />
           <UploadButton onClick={handleUploadCV} disabled={isUploading}>
-            {isUploading ? 'Uploading...' : 'Upload'}
+            {isUploading ? t('uploading') : t('upload')}
           </UploadButton>
           <LoadingMessageContainer>
             {uploadMessage && <LoadingMessage>{uploadMessage}</LoadingMessage>}

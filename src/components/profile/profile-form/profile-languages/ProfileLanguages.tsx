@@ -27,6 +27,7 @@ import {
 } from '../ProfileForm.styles';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { useTranslations } from 'next-intl';
 
 export interface ProfileLanguagesProps {
   existingData: Profile;
@@ -47,6 +48,7 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
   handleCancelEdit,
   setExistingData,
 }) => {
+  const t = useTranslations('ProfilePage');
   const [languagesData, setLanguagesData] = useState<Language[]>(
     existingData.languages,
   );
@@ -121,7 +123,7 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
     <AccordionSection>
       <AccordionHeader onClick={toggleAccordion}>
         <AccordionHeaderTitle style={{ color: isOpen ? '' : 'gray' }}>
-          Languages
+          {t('languagesTitle')}{' '}
         </AccordionHeaderTitle>
         <span>
           {isOpen ? (
@@ -151,7 +153,7 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
                   <Input
                     type="text"
                     name="language"
-                    placeholder="Language"
+                    placeholder={t('languagePlaceholder')}
                     value={language.name}
                     onChange={e => handleInputChange(e, language.id)}
                     readOnly={!isEditing}
@@ -169,17 +171,17 @@ const ProfileLanguages: FC<ProfileLanguagesProps> = ({
             {isEditing && (
               <AddButtonContainer>
                 <AddButton onClick={handleAddLanguage}>
-                  Add new language
+                  {t('addNewLanguage')}{' '}
                 </AddButton>
               </AddButtonContainer>
             )}
             {isEditing && (
               <ActionButtonContainer>
                 <ActionButton onClick={handleCancelEdit}>
-                  <FaTimes /> Cancel
+                  <FaTimes /> {t('cancel')}
                 </ActionButton>
                 <ActionButton onClick={handleSaveEdit}>
-                  <FaCheck /> Done
+                  <FaCheck /> {t('done')}
                 </ActionButton>
               </ActionButtonContainer>
             )}

@@ -32,6 +32,7 @@ import {
 import { FaEdit, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { useTranslations } from 'next-intl';
 
 export interface ProfileProfessionalProps {
   existingData: Profile;
@@ -52,6 +53,7 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
   handleCancelEdit,
   setExistingData,
 }) => {
+  const t = useTranslations('ProfilePage');
   const [workData, setWorkData] = useState<WorkExperience[]>(
     existingData.professional || [],
   );
@@ -155,7 +157,7 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
     <AccordionSection>
       <AccordionHeader onClick={toggleAccordion}>
         <AccordionHeaderTitle style={{ color: isOpen ? '' : 'gray' }}>
-          Professional Details
+          {t('professionalTitle')}{' '}
         </AccordionHeaderTitle>
         <span>
           {isOpen ? (
@@ -175,7 +177,7 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
             <ButtonContainer>
               {!isEditing && (
                 <Button onClick={() => setIsEditing(true)}>
-                  <FaEdit /> Edit
+                  <FaEdit /> {t('edit')}
                 </Button>
               )}
             </ButtonContainer>
@@ -192,22 +194,22 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
                 </div>
                 <InputRow>
                   <InputContainer>
-                    <InputLabel>Job Title:</InputLabel>
+                    <InputLabel>{t('jobTitle')}</InputLabel>
                     <Input
                       type="text"
                       name="jobTitle"
-                      placeholder="Job Title"
+                      placeholder={t('jobTitlePlaceholder')}
                       value={work.jobTitle}
                       onChange={e => handleInputChange(e, work.id, 'jobTitle')}
                       readOnly={!isEditing}
                     />
                   </InputContainer>
                   <InputContainer>
-                    <InputLabel>Company:</InputLabel>
+                    <InputLabel>{t('company')}</InputLabel>
                     <Input
                       type="text"
                       name="company"
-                      placeholder="Company"
+                      placeholder={t('companyPlaceholder')}
                       value={work.company}
                       onChange={e => handleInputChange(e, work.id, 'company')}
                       readOnly={!isEditing}
@@ -216,7 +218,7 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
                 </InputRow>
                 <InputRow>
                   <InputContainer>
-                    <InputLabel>Start date:</InputLabel>
+                    <InputLabel>{t('startDate')}</InputLabel>
                     <DateInfoContainer>
                       <Input
                         type="text"
@@ -237,7 +239,7 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
                     </DateInfoContainer>
                   </InputContainer>
                   <InputContainer>
-                    <InputLabel>End date:</InputLabel>
+                    <InputLabel>{t('endDate')}</InputLabel>
                     <DateInfoContainer>
                       <Input
                         type="text"
@@ -259,12 +261,12 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
                   </InputContainer>
                 </InputRow>
                 <InputRow>
-                  <InputLabel>Job details:</InputLabel>
+                  <InputLabel>{t('jobDetails')}</InputLabel>
                   <ItemContainer></ItemContainer>
                   <ItemContainer>
                     <TextArea
                       name="jobDetails"
-                      placeholder="Describe your role and achievements"
+                      placeholder={t('jobDetailsPlaceholder')}
                       value={work.jobDetails}
                       onChange={e =>
                         handleInputChange(e, work.id, 'jobDetails')
@@ -278,17 +280,17 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
             {isEditing && (
               <AddButtonContainer>
                 <AddButton onClick={handleAddExperience}>
-                  Add new experience
+                  {t('addNewExperience')}{' '}
                 </AddButton>
               </AddButtonContainer>
             )}
             {isEditing && (
               <ActionButtonContainer>
                 <ActionButton onClick={handleCancelEdit}>
-                  <FaTimes /> Cancel
+                  <FaTimes /> {t('cancel')}
                 </ActionButton>
                 <ActionButton onClick={handleSaveEdit}>
-                  <FaCheck /> Done
+                  <FaCheck /> {t('done')}
                 </ActionButton>
               </ActionButtonContainer>
             )}
