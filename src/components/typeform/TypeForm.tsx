@@ -7,6 +7,7 @@ import {
   ButtonGroup,
   Button,
 } from './TypeForm.styles';
+import { useTranslations } from 'next-intl';
 interface TypeFormProps {
   children: ReactNode[];
   formData: Profile;
@@ -20,6 +21,7 @@ const TypeForm: React.FC<TypeFormProps> = ({
   setFormData,
   onSubmit,
 }) => {
+  const t = useTranslations('ProfileBuilder');
   const [fields, setFields] = useState(0);
   const router = useRouter();
 
@@ -45,12 +47,12 @@ const TypeForm: React.FC<TypeFormProps> = ({
         <FieldContainer> {children[fields]}</FieldContainer>
       </FormContainer>
       <ButtonGroup>
-        {fields > 0 && <Button onClick={prevField}>Back</Button>}
+        {fields > 0 && <Button onClick={prevField}>{t('backButton')}</Button>}
         {fields < children.length - 1 && (
-          <Button onClick={nextField}>Next</Button>
+          <Button onClick={nextField}>{t('nextButton')}</Button>
         )}
         {fields === children.length - 1 && (
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button onClick={handleSubmit}>{t('submitButton')}</Button>
         )}
       </ButtonGroup>
     </>

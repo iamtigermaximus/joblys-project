@@ -14,6 +14,7 @@ import {
   TextInputItem,
   TrashIcon,
 } from './LinksField.styles';
+import { useTranslations } from 'next-intl';
 
 interface Links {
   linkedin: string;
@@ -26,6 +27,7 @@ interface LinksFieldProps {
 }
 
 const LinksField: React.FC<LinksFieldProps> = ({ value, onChange }) => {
+  const t = useTranslations('ProfileBuilder');
   const [links, setLinks] = useState<Link[]>(() => {
     return value.length > 0 ? value : [{ id: uuidv4(), url: '' }];
   });
@@ -67,14 +69,14 @@ const LinksField: React.FC<LinksFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <Question>5.Provide your links:</Question>
+          <Question>{t('qLinks')}</Question>
         </QuestionContainer>
         {links.map(link => (
           <TextInputContainer key={link.id}>
             <TextInputItem>
               <TextInput
                 type="text"
-                placeholder="Link"
+                placeholder={t('linkPlaceholder')}
                 value={link.url}
                 onChange={e => handleLinkChange(link.id, e.target.value)}
               />
@@ -85,7 +87,7 @@ const LinksField: React.FC<LinksFieldProps> = ({ value, onChange }) => {
           </TextInputContainer>
         ))}
         <AddMoreLinkContainer>
-          <AddMoreLink onClick={handleAddLink}>Add Additional Link</AddMoreLink>
+          <AddMoreLink onClick={handleAddLink}>{t('addNewLink')}</AddMoreLink>
         </AddMoreLinkContainer>
       </motion.div>
     </LinksFieldContainer>

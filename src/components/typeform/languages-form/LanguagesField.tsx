@@ -15,6 +15,7 @@ import {
   TextInputItem,
   TrashIcon,
 } from './LanguagesField.styles';
+import { useTranslations } from 'next-intl';
 
 interface LanguagesFieldProps {
   value: Language[];
@@ -22,6 +23,7 @@ interface LanguagesFieldProps {
 }
 
 const LanguagesField: React.FC<LanguagesFieldProps> = ({ value, onChange }) => {
+  const t = useTranslations('ProfileBuilder');
   const [languages, setLanguages] = useState<Language[]>(() => {
     return value.length > 0 ? value : [{ id: uuidv4(), name: '' }];
   });
@@ -63,14 +65,14 @@ const LanguagesField: React.FC<LanguagesFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <Question>9.Which languages are you fluent in?</Question>
+          <Question>{t('qLanguages')}</Question>
         </QuestionContainer>
         {languages.map(language => (
           <TextInputContainer key={language.id}>
             <TextInputItem>
               <TextInput
                 type="text"
-                placeholder="Language"
+                placeholder={t('languagePlaceholder')}
                 value={language.name}
                 onChange={e =>
                   handleLanguageChange(
@@ -87,7 +89,7 @@ const LanguagesField: React.FC<LanguagesFieldProps> = ({ value, onChange }) => {
         ))}
         <AddMoreLanguageContainer>
           <AddMoreLanguage onClick={handleAddLanguage}>
-            Add Language
+            {t('addLanguage')}
           </AddMoreLanguage>
         </AddMoreLanguageContainer>
       </motion.div>

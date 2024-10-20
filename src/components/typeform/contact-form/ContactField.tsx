@@ -7,6 +7,7 @@ import {
   FormContainer,
   Question,
 } from './ContactField.styles';
+import { useTranslations } from 'next-intl';
 
 interface ContactFieldProps {
   value: string;
@@ -14,6 +15,8 @@ interface ContactFieldProps {
 }
 
 const ContactField: React.FC<ContactFieldProps> = ({ value, onChange }) => {
+  const t = useTranslations('ProfileBuilder');
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
@@ -27,13 +30,13 @@ const ContactField: React.FC<ContactFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <Question>4.What is your phone number?</Question>
+          <Question>{t('qPhone')}</Question>
         </QuestionContainer>
         <TextInputContainer>
           <TextInput
             id="contact"
             required
-            placeholder="Type your answer here"
+            placeholder={t('qPlaceholder')}
             value={value}
             onChange={handleChange}
           />

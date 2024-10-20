@@ -16,9 +16,10 @@ import {
   YearSelect,
   AddEducationContainer,
   AddEducation,
-  AddButtonContainer,
   Question,
+  AddButtonContainer,
 } from './EducationField.styles';
+import { useTranslations } from 'next-intl';
 
 // Month names
 const monthNames = [
@@ -42,6 +43,8 @@ interface EducationFieldProps {
 }
 
 const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
+  const t = useTranslations('ProfileBuilder');
+
   const [educations, setEducations] = useState<Education[]>(() => {
     return value.length > 0
       ? value
@@ -118,14 +121,14 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <Question>6. Provide your educational details:</Question>
+          <Question>{t('qEducation')}</Question>
         </QuestionContainer>
         {educations.map(education => (
           <EducationItemsContainer key={education.id}>
             <TextInputContainer>
               <TextInput
                 type="text"
-                placeholder="Course"
+                placeholder={t('coursePlaceholder')}
                 value={education.course}
                 onChange={e =>
                   handleEducationChange(
@@ -139,7 +142,7 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
             <TextInputContainer>
               <TextInput
                 type="text"
-                placeholder="School"
+                placeholder={t('schoolPlaceholder')}
                 value={education.school}
                 onChange={e =>
                   handleEducationChange(
@@ -152,7 +155,7 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
             </TextInputContainer>
             <DateContainer>
               <TextInputContainer>
-                <InputLabel>Start date:</InputLabel>
+                <InputLabel>{t('startDate')}</InputLabel>
                 <DropdownContainer>
                   <MonthSelect
                     value={education.startDate.month}
@@ -187,7 +190,7 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
                 </DropdownContainer>
               </TextInputContainer>
               <TextInputContainer>
-                <InputLabel>End date:</InputLabel>
+                <InputLabel>{t('endDate')}</InputLabel>
                 <DropdownContainer>
                   <MonthSelect
                     value={education.endDate.month}
@@ -224,14 +227,14 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
             </DateContainer>
             <AddButtonContainer>
               <AddEducation onClick={() => handleDeleteEducation(education.id)}>
-                Delete
+                {t('delete')}
               </AddEducation>
             </AddButtonContainer>
           </EducationItemsContainer>
         ))}
         <AddEducationContainer>
           <AddEducation onClick={handleAddEducation}>
-            Add Education
+            {t('addEducation')}
           </AddEducation>
         </AddEducationContainer>
       </motion.div>

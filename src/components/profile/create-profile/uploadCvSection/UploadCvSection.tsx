@@ -11,8 +11,10 @@ import {
   UploadCVSection,
 } from './UploadCvSection.styles';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const UploadCvSection = () => {
+  const t = useTranslations('ProfileBuilder');
   const router = useRouter();
 
   const handleUpload = () => {
@@ -22,12 +24,14 @@ const UploadCvSection = () => {
   return (
     <CreateProfileSection>
       <SectionTitleContainer>
-        <SectionTitle>Upload CV</SectionTitle>
+        <SectionTitle>{t('uploadCvTitle')}</SectionTitle>
       </SectionTitleContainer>
       <UploadCVSection>
-        <SectionSubTitle>Drop your file to upload</SectionSubTitle>{' '}
+        <SectionSubTitle>{t('dropFileTitle')}</SectionSubTitle>
         <InputContainer>
-          <UploadButton onClick={handleUpload}>Choose file</UploadButton>
+          <UploadButton onClick={handleUpload}>
+            {t('chooseFileButton')}
+          </UploadButton>
         </InputContainer>
         <FileTypeContainer>
           <FileType>

@@ -20,6 +20,7 @@ import {
   WorkExperienceContainer,
   YearSelect,
 } from './WorkExperienceField.styles';
+import { useTranslations } from 'next-intl';
 
 // Month names
 const monthNames = [
@@ -46,6 +47,7 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
   value,
   onChange,
 }) => {
+  const t = useTranslations('ProfileBuilder');
   const [experiences, setExperiences] = useState<WorkExperience[]>(() => {
     return value.length > 0
       ? value
@@ -119,14 +121,14 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <Question>7. Provide your professional details:</Question>
+          <Question>{t('qProfessional')}</Question>
         </QuestionContainer>
         {experiences.map(experience => (
           <ExperienceItem key={experience.id}>
             <TextInputContainer>
               <TextInput
                 type="text"
-                placeholder="Job Title"
+                placeholder={t('jobTitlePlaceholder')}
                 value={experience.jobTitle}
                 onChange={e =>
                   handleExperienceChange(
@@ -141,7 +143,7 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
             <TextInputContainer>
               <TextInput
                 type="text"
-                placeholder="Company"
+                placeholder={t('companyPlaceholder')}
                 value={experience.company}
                 onChange={e =>
                   handleExperienceChange(
@@ -155,7 +157,7 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
 
             <DateContainer>
               <TextInputContainer>
-                <InputLabel>Start date:</InputLabel>
+                <InputLabel>{t('startDate')}</InputLabel>
                 <DropdownContainer>
                   <MonthSelect
                     value={experience.startDate.month}
@@ -190,7 +192,7 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
                 </DropdownContainer>
               </TextInputContainer>
               <TextInputContainer>
-                <InputLabel>End date:</InputLabel>
+                <InputLabel>{t('endDate')}</InputLabel>
                 <DropdownContainer>
                   <MonthSelect
                     value={experience.endDate.month}
@@ -223,19 +225,12 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
                     ))}
                   </YearSelect>
                 </DropdownContainer>
-                <AddButtonContainer>
-                  <AddWorkExperience
-                    onClick={() => handleDeleteExperience(experience.id)}
-                  >
-                    Delete
-                  </AddWorkExperience>
-                </AddButtonContainer>
               </TextInputContainer>
             </DateContainer>
 
             <TextInputContainer>
               <TextArea
-                placeholder="Job Details"
+                placeholder={t('jobDetailsPlaceholder')}
                 value={experience.jobDetails}
                 onChange={e =>
                   handleExperienceChange(
@@ -246,11 +241,18 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
                 }
               />
             </TextInputContainer>
+            <AddButtonContainer>
+              <AddWorkExperience
+                onClick={() => handleDeleteExperience(experience.id)}
+              >
+                {t('delete')}
+              </AddWorkExperience>
+            </AddButtonContainer>
           </ExperienceItem>
         ))}
         <AddWorkExperienceContainer>
           <AddWorkExperience onClick={handleAddExperience}>
-            Add Experience
+            {t('addExperience')}
           </AddWorkExperience>
         </AddWorkExperienceContainer>
       </motion.div>

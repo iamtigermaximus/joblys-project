@@ -1,6 +1,8 @@
+'use client';
 import React from 'react';
 import styled from 'styled-components';
 import { breakpoints as bp } from '@/utils/layout';
+import { useTranslations } from 'next-intl';
 
 export const Container = styled.div`
   display: flex;
@@ -55,15 +57,14 @@ interface IntroPageProps {
 }
 
 const IntroPage: React.FC<IntroPageProps> = ({ onStart }) => {
+  const t = useTranslations('ProfileBuilder');
+
   return (
     <Container>
       <IntroContainer>
-        <IntroText>
-          Welcome! This is a profile builder tool designed to help you create
-          your professional profile.
-        </IntroText>
-        <IntroText>Please click the button below to get started.</IntroText>
-        <StartButton onClick={onStart}>Start</StartButton>
+        <IntroText>{t('welcomeTexts')}</IntroText>
+        <IntroText>{t('intro')}</IntroText>
+        <StartButton onClick={onStart}>{t('start')}</StartButton>
       </IntroContainer>
     </Container>
   );

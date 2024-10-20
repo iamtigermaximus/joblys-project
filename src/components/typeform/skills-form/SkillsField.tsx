@@ -15,6 +15,7 @@ import {
   TextInputItem,
   TrashIcon,
 } from './SkillsField.styles';
+import { useTranslations } from 'next-intl';
 
 interface SkillsFieldProps {
   value: Skill[];
@@ -22,6 +23,7 @@ interface SkillsFieldProps {
 }
 
 const SkillsField: React.FC<SkillsFieldProps> = ({ value, onChange }) => {
+  const t = useTranslations('ProfileBuilder');
   const [skills, setSkills] = useState<Skill[]>(() => {
     return value.length > 0 ? value : [{ id: uuidv4(), name: '' }];
   });
@@ -64,14 +66,14 @@ const SkillsField: React.FC<SkillsFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <Question>8.Add your skills:</Question>
+          <Question>{t('qSkills')}</Question>
         </QuestionContainer>
         {skills.map(skill => (
           <TextInputContainer key={skill.id}>
             <TextInputItem>
               <TextInput
                 type="text"
-                placeholder="Skill"
+                placeholder={t('skillPlaceholder')}
                 value={skill.name}
                 onChange={e =>
                   handleSkillChange(
@@ -87,7 +89,7 @@ const SkillsField: React.FC<SkillsFieldProps> = ({ value, onChange }) => {
           </TextInputContainer>
         ))}
         <AddMoreSkillContainer>
-          <AddMoreSkill onClick={handleAddSkill}>Add Skill</AddMoreSkill>
+          <AddMoreSkill onClick={handleAddSkill}>{t('addSkill')}</AddMoreSkill>
         </AddMoreSkillContainer>
       </motion.div>
     </SkillsFieldContainer>

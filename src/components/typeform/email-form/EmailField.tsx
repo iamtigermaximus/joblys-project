@@ -7,6 +7,7 @@ import {
   TextInput,
   TextInputContainer,
 } from './EmailField.styles';
+import { useTranslations } from 'next-intl';
 
 interface EmailFieldProps {
   value: string;
@@ -14,6 +15,7 @@ interface EmailFieldProps {
 }
 
 const EmailField: React.FC<EmailFieldProps> = ({ value, onChange }) => {
+  const t = useTranslations('ProfileBuilder');
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
@@ -27,12 +29,12 @@ const EmailField: React.FC<EmailFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <Question>3.What is your email?</Question>
+          <Question>{t('qEmail')}</Question>
         </QuestionContainer>
         <TextInputContainer>
           <TextInput
             id="email-id"
-            placeholder="Type your answer here"
+            placeholder={t('qPlaceholder')}
             value={value}
             onChange={handleChange}
           />

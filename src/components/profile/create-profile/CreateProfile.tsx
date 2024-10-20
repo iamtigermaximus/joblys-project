@@ -8,7 +8,7 @@ import {
   ProfileContainer,
   TitleContainer,
 } from './CreateProfile.styles';
-import { FaCircleChevronDown, FaCircleChevronUp } from 'react-icons/fa6';
+// import { FaCircleChevronDown, FaCircleChevronUp } from 'react-icons/fa6';
 import UploadCvSection from './uploadCvSection/UploadCvSection';
 import BuildProfileSection from './buildProfileSection/BuildProfileSection';
 import axios from 'axios';
@@ -17,11 +17,12 @@ import Loader from '@/components/common/loader/Loader';
 import ProfileForm from '@/components/profile/profile-form/ProfileForm';
 import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const CreateProfile = () => {
+  const t = useTranslations('ProfileBuilder');
   const [existingData, setExistingData] = useState<Profile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  // const [error, setError] = useState(null);
   const { data: session, status } = useSession();
   const router = useRouter();
   const [accordionState, setAccordionState] = useState({
@@ -76,7 +77,7 @@ const CreateProfile = () => {
           }
         } else if (err.request) {
           console.error('Network error:', err.message);
-          setError('Network error. Please try again.'); // Adjusted type
+          setError('Network error. Please try again.');
         } else {
           console.error('Error:', err.message);
           setError(err.message);
@@ -108,7 +109,7 @@ const CreateProfile = () => {
       ) : (
         <Container>
           <TitleContainer>
-            <PageTitle>Please create your profile</PageTitle>
+            <PageTitle>{t('pageTitle')}</PageTitle>
           </TitleContainer>
           <CreateProfileContainer>
             <UploadCvSection />

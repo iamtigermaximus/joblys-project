@@ -8,6 +8,7 @@ import {
   TextInput,
   TextInputContainer,
 } from './FirstNameField.styles';
+import { useTranslations } from 'next-intl';
 
 interface FirstNameFieldProps {
   value: string;
@@ -15,6 +16,7 @@ interface FirstNameFieldProps {
 }
 
 const FirstNameField: React.FC<FirstNameFieldProps> = ({ value, onChange }) => {
+  const t = useTranslations('ProfileBuilder');
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(capitalizeFirstLetter(e.target.value));
   };
@@ -28,12 +30,12 @@ const FirstNameField: React.FC<FirstNameFieldProps> = ({ value, onChange }) => {
         style={{ width: '100%' }}
       >
         <QuestionContainer>
-          <Question>1.What is your first name?</Question>
+          <Question>{t('qFirstname')}</Question>
         </QuestionContainer>
         <TextInputContainer>
           <TextInput
             id="first-name"
-            placeholder="Type your answer here"
+            placeholder={t('qPlaceholder')}
             value={value}
             onChange={handleChange}
           />

@@ -10,8 +10,10 @@ import {
 } from './BuildProfileSection.styles';
 import { initialResume } from '@/types/resume';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const BuildProfileSection = () => {
+  const t = useTranslations('ProfileBuilder');
   const router = useRouter();
 
   const handleBuildProfile = async () => {
@@ -40,13 +42,13 @@ const BuildProfileSection = () => {
   return (
     <CreateProfileSection>
       <SectionTitleContainer>
-        <SectionTitle>Build your profile</SectionTitle>
+        <SectionTitle>{t('buildProfileTitle')}</SectionTitle>
       </SectionTitleContainer>
       <ProfileBuildSection>
-        <SectionSubTitle>Create your profile in Joblys</SectionSubTitle>
+        <SectionSubTitle>{t('createProfileTitle')}</SectionSubTitle>
         <InputContainer>
           <BuildProfileButton onClick={handleBuildProfile}>
-            Build Profile
+            {t('buildProfileButton')}
           </BuildProfileButton>
         </InputContainer>
       </ProfileBuildSection>
