@@ -73,6 +73,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   const [showHelpTooltip, setShowHelpTooltip] = useState(false);
   const helpIconRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
+  const [isGeneratingCoverletter, setIsGeneratingCoverletter] = useState(false);
 
   // Toggle tooltip
   const toggleHelpTooltip = () => {
@@ -153,6 +154,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
 
     setIsLoading(true);
     setError(null);
+    setIsGeneratingCoverletter(true);
     try {
       const response = await fetch('/api/coverletterChanges', {
         method: 'POST',
@@ -173,6 +175,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
       setProfileCreated(true);
       setShowSuccessMessage(true);
       refreshStoredResume();
+      setIsGeneratingCoverletter(false);
 
       // Hide success message after 3 seconds
       setTimeout(() => {
@@ -182,6 +185,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
       console.error('Error creating coverletter:', error.message);
     } finally {
       setIsLoading(false);
+      setIsGeneratingCoverletter(false);
     }
   };
 
@@ -256,7 +260,16 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
             <PreviewButton onClick={resumeTemplate}>
               {t('preview')}
             </PreviewButton>
-            <GenerateButton onClick={handleSubmitWriteCoverletter}>
+            <GenerateButton
+              onClick={handleSubmitWriteCoverletter}
+              disabled={isGeneratingCoverletter}
+              style={{
+                backgroundColor: isGeneratingCoverletter
+                  ? '#494A66'
+                  : '#520668',
+                cursor: isGeneratingCoverletter ? 'not-allowed' : 'pointer',
+              }}
+            >
               {isLoading ? t('generating') : t('generateCoverletter')}
               {/* Update button text based on loading state */}
             </GenerateButton>

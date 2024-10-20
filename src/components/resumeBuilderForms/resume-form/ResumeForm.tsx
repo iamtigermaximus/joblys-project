@@ -49,7 +49,10 @@ import { convertProfileToResume, Profile } from '@/types/profile';
 
 import { IoMdHelpCircleOutline } from 'react-icons/io';
 import { useTranslations } from 'next-intl';
-import { LoadingMessage, LoadingMessageContainer } from '@/components/profile/create-profile/upload-cv/UploadCV.styles';
+import {
+  LoadingMessage,
+  LoadingMessageContainer,
+} from '@/components/profile/create-profile/upload-cv/UploadCV.styles';
 
 interface ResumeFormProps {
   resumeId: string;
@@ -97,6 +100,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const [showHelpTooltip, setShowHelpTooltip] = useState(false);
   const helpIconRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
+  const [isCreatingResume, setIsCreatingResume] = useState(false);
 
   // Toggle tooltip
   const toggleHelpTooltip = () => {
@@ -266,6 +270,8 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   };
 
   const handleSubmitResume = async () => {
+    setIsCreatingResume(true); // Start resume creation process
+
     try {
       const generatedFilename = () => {
         const firstName = resumeInfo.basic.firstName || 'FirstName';
@@ -293,8 +299,10 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
       setTimeout(() => {
         setShowSuccessMessage(false);
       }, 3000);
+      setIsCreatingResume(false); // Resume creation process completed
     } catch (error: any) {
       console.error('Error uploading resume:', error.message);
+      setIsCreatingResume(false); // Ensure the process is marked as finished
     }
   };
 
@@ -583,7 +591,14 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         <AccordionSection>
           <PreviewButtonSection>
             <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
-            <CreateProfileButton onClick={handleSubmit}>
+            <CreateProfileButton
+              onClick={handleSubmit}
+              disabled={isCreatingResume}
+              style={{
+                backgroundColor: isCreatingResume ? '#494A66' : '#520668',
+                cursor: isCreatingResume ? 'not-allowed' : 'pointer',
+              }}
+            >
               {t('createResume')}
             </CreateProfileButton>
           </PreviewButtonSection>

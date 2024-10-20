@@ -67,6 +67,9 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     Record<string, DateType>
   >({});
 
+  const [isEnhancing, setIsEnhancing] = useState<Record<string, boolean>>({});
+  const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
+
   useEffect(() => {
     const newCheckedWorkIds: string[] = [];
     const newOriginalEndDates: Record<string, DateType> = {};
@@ -180,6 +183,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
   };
 
   const handleGenerateSummary = async () => {
+    setIsGeneratingSummary(true);
     try {
       const payload = {
         resumeId,
@@ -208,12 +212,15 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
           summary: data.generatedSummary,
         },
       }));
+      setIsGeneratingSummary(false);
     } catch (error) {
       console.error('Error generating summary:', error);
+      setIsGeneratingSummary(false);
     }
   };
 
   const handleJobDescriptionEnhance = async (id: string) => {
+    setIsEnhancing(prev => ({ ...prev, [id]: true }));
     try {
       const resp = await fetch('/api/cvRewritten', {
         method: 'POST',
@@ -232,8 +239,10 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
       }
 
       refreshStoredResume();
+      setIsEnhancing(prev => ({ ...prev, [id]: false }));
     } catch (error) {
       console.error('Error enhancing job description:', error);
+      setIsEnhancing(prev => ({ ...prev, [id]: false }));
     }
   };
 
@@ -294,7 +303,15 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             maxLength={600}
           />
           <ButtonsContainer>
-            <EnhanceButton onClick={handleGenerateSummary}>
+            <EnhanceButton
+              onClick={handleGenerateSummary}
+              disabled={isGeneratingSummary}
+              style={{
+                backgroundColor: isGeneratingSummary ? '#5F607B' : '#494A66 ',
+                cursor: isGeneratingSummary ? 'not-allowed' : 'pointer',
+                color: isGeneratingSummary ? '#FFFFFF' : '#ffff',
+              }}
+            >
               {t('generateSummary')}{' '}
             </EnhanceButton>
           </ButtonsContainer>
@@ -461,6 +478,16 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             <ButtonsContainer>
               <EnhanceButton
                 onClick={() => handleJobDescriptionEnhance(experience.id)}
+                disabled={isEnhancing[experience.id] || false}
+                style={{
+                  backgroundColor: isEnhancing[experience.id]
+                    ? '#5F607B'
+                    : '#494A66 ',
+                  cursor: isEnhancing[experience.id]
+                    ? 'not-allowed'
+                    : 'pointer',
+                  color: isEnhancing[experience.id] ? '#FFFFFF' : '#ffff',
+                }}
               >
                 {t('enhance')}
               </EnhanceButton>

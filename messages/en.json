@@ -63,7 +63,9 @@
     "previewResumeTitle": "Resume",
     "previewCoverletterTitle": "Coverletter",
     "edit": "Edit",
-    "download": "Download"
+    "download": "Download",
+    "resumeButtonLabel": "+ Create new resume",
+    "coverletterButtonLabel": "+ Create new coverletter"
   },
   "ResumesPage": {
     "title": "Resumes",
@@ -127,7 +129,7 @@
     "addNewExperience": "Add new experience",
     "skillsTitle": "Skills",
     "addNewSkill": "Add new skill",
-    "LanguagesTitle": "Languages",
+    "languagesTitle": "Languages",
     "addNewLanguage": "Add new language"
   },
   "ResumeBuilder": {
