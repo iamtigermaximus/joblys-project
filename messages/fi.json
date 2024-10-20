@@ -6,7 +6,8 @@
   },
   "LandingNavbar": {
     "login": "Kirjaudu",
-    "getStarted": "Aloita"
+    "getStarted": "Aloita",
+    "notFound": "Sivua ei löydy!"
   },
   "PageHeader": {
     "resumeButton": "Ansioluettelot",

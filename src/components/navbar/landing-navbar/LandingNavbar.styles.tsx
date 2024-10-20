@@ -68,7 +68,7 @@ export const LoginButton = styled.button`
   background-color: transparent;
   color: ${colors.darkPurple};
   border-radius: 5px;
-  border: 1px solid ${colors.darkPurple};
+  border: 1px solid ${colors.purple};
   padding: 5px;
   width: 60px;
   font-weight: 700;
@@ -144,4 +144,30 @@ export const LogoImage = styled(Image)`
   align-items: center;
   width: 100%;
   height: 100%;
+`;
+
+export const StyledSelect = styled.select`
+  appearance: none;
+  background-color: transparent;
+  color: #000;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #520668;
+  }
+`;
+
+export const StyledOption = styled.option`
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #520668;
+  }
 `;

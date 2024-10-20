@@ -6,7 +6,8 @@
   },
   "LandingNavbar": {
     "login": "Log in",
-    "getStarted": "Get started"
+    "getStarted": "Get started",
+    "notFound": "Page not found!"
   },
   "PageHeader": {
     "resumeButton": "Resumes",

@@ -18,11 +18,12 @@ import { useRouter } from 'next/navigation';
 import LandingNavbar from '@/components/navbar/landing-navbar/LandingNavbar';
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 export default function Home({ id }: any) {
   const router = useRouter();
   const t = useTranslations('LandingPage');
+  const locale = useLocale();
 
   const handleGetStartedClick = () => {
     if (!id) {
@@ -35,7 +36,7 @@ export default function Home({ id }: any) {
 
   return (
     <Container>
-      <LandingNavbar />
+      <LandingNavbar locale={locale} />
       <BoxContainer>
         <Box>
           <Box3>
