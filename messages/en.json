@@ -168,7 +168,7 @@
     "addNewExperience": "Add new experience +",
     "skillsTitle": "Skills",
     "addNewSkill": "Add new skill",
-    "LanguagesTitle": "Languages",
+    "languagesTitle": "Languages",
     "addNewLanguage": "Add new language +",
     "preview": "Preview",
     "jobAd": "Job Ad",
@@ -187,8 +187,10 @@
     "enhance": "Enhance",
     "remove": "Remove",
     "present": "Present",
-    "address": "Address",
-    "linkedin": "LinkedIn"
+    "address": "Address:",
+    "addressPlaceholder": "Address",
+    "linkedin": "LinkedIn:",
+    "link": "Link:"
   },
   "CoverletterBuilder": {
     "jobAd": "Job Ad",
