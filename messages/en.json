@@ -242,5 +242,20 @@
     "backButton": "Back",
     "submitButton": "Submit",
     "nextButton": "Next"
+  },
+  "SettingsPage": {
+    "accountTitle": "Account",
+    "profileTitle": "Profile",
+    "emailLabel": "Email address:",
+    "languageLabel": "Language:",
+    "preferencesLabel": "Communication preferences<",
+    "communicationItem": "Receive updates, offers and career tips",
+    "deleteAccount": "Delete account",
+    "saveButton": "Save",
+    "firstname": "First Name:",
+    "lastname": "Last Name:",
+    "phone": "Phone number:",
+    "address": "Address:",
+    "downloadData": "Download your data"
   }
 }

@@ -29,13 +29,15 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import Loader from '../common/loader/Loader';
 import ISO6391 from 'iso-639-1';
+import { useTranslations } from 'next-intl';
 
 const Settings = () => {
+  const t = useTranslations('SettingsPage');
   const { data: session } = useSession();
   const [resumeData, setResumeData] = useState<Resume | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('en'); // Default language
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('en'); 
 
   const languageOptions = ISO6391.getAllCodes().map(code => ({
     value: code,
@@ -93,15 +95,15 @@ const Settings = () => {
     <Container>
       <ContentContainer>
         <TextContainer>
-          <TextItem>Account</TextItem>
+          <TextItem>{t('accountTitle')}</TextItem>
         </TextContainer>
         <SectionContainer>
           <InputContainer>
-            <Label>Email address</Label>
+            <Label>{t('emailLabel')}</Label>
             <Input value={resumeData.basic.email || ''} readOnly />
           </InputContainer>
           <InputContainer>
-            <Label>Language</Label>
+            <Label>{t('languageLabel')}</Label>
             {/* <Input /> */}
             <SelectInput
               value={selectedLanguage}
@@ -115,39 +117,37 @@ const Settings = () => {
             </SelectInput>
           </InputContainer>
           <InputContainer>
-            <Label>Communication preferences</Label>
+            <Label>{t('preferencesLabel')}</Label>
             <CommunicationContainer>
               <Input type="checkbox" />
-              <CommunicationItem>
-                Receive updates, offers and career tips
-              </CommunicationItem>
+              <CommunicationItem>{t('communicationItem')} </CommunicationItem>
             </CommunicationContainer>
           </InputContainer>
           <ActionsContainer>
-            <DeleteAccountButton>Delete account</DeleteAccountButton>
-            <SaveButton onClick={handleSave}>Save</SaveButton>
+            <DeleteAccountButton>{t('deleteAccount')}</DeleteAccountButton>
+            <SaveButton onClick={handleSave}>{t('saveButton')}</SaveButton>
           </ActionsContainer>
         </SectionContainer>
         <TextContainer>
-          <TextItem>Profile</TextItem>
+          <TextItem>{t('profileTitle')}</TextItem>
         </TextContainer>
         <SectionContainer>
           <NameContainer>
             <InputContainer>
-              <Label>First name</Label>
+              <Label>{t('firstname')}</Label>
               <Input value={resumeData.basic.firstName || ''} readOnly />
             </InputContainer>
             <InputContainer>
-              <Label>Last name</Label>
+              <Label>{t('lastname')}</Label>
               <Input value={resumeData.basic.lastName || ''} readOnly />
             </InputContainer>
           </NameContainer>
           <InputContainer>
-            <Label>Phone number</Label>
+            <Label>{t('phone')}</Label>
             <Input value={resumeData.basic.phoneNumber || ''} readOnly />
           </InputContainer>
           <InputContainer>
-            <Label>Address</Label>
+            <Label>{t('address')}</Label>
             <Input value={resumeData.basic.address || ''} readOnly />
           </InputContainer>
           {/* <NameContainer>
@@ -161,8 +161,8 @@ const Settings = () => {
             </InputContainer>
           </NameContainer> */}
           <ActionsContainer>
-            <DownloadDataButton>Download your data</DownloadDataButton>
-            <SaveButton>Save</SaveButton>
+            <DownloadDataButton> {t('downloadData')}</DownloadDataButton>
+            <SaveButton>{t('saveButton')}</SaveButton>
           </ActionsContainer>
         </SectionContainer>
       </ContentContainer>

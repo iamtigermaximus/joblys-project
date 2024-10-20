@@ -243,5 +243,20 @@
     "backButton": "Takaisin",
     "submitButton": "Lähetä",
     "nextButton": "Seuraava"
+  },
+  "SettingsPage": {
+    "accountTitle": "Tili",
+    "profileTitle": "Profiili",
+    "emailLabel": "Sähköpostiosoite:",
+    "languageLabel": "Kieli:",
+    "preferencesLabel": "Viestintäasetukset",
+    "communicationItem": "Vastaanota päivityksiä, tarjouksia ja uravinkkejä",
+    "deleteAccount": "Poista tili",
+    "saveButton": "Tallenna",
+    "firstname": "Etunimi::",
+    "lastname": "Sukunimi:",
+    "phone": "Puhelinnumero:",
+    "address": "Osoite:",
+    "downloadData": "Lataa tietosi"
   }
 }

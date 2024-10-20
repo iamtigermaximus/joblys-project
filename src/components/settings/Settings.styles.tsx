@@ -102,6 +102,10 @@ export const SaveButton = styled.button`
   padding: 8px 12px;
   background-color: ${colors.purple};
   color: ${colors.white};
+
+  &:hover {
+    background-color: ${colors.darkPurple};
+  }
 `;
 
 export const DeleteAccountButton = styled.button`
