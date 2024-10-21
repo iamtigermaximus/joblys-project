@@ -70,8 +70,16 @@ export const AddButton = styled.button`
   cursor: pointer;
   padding: 10px;
 
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+
   &:hover {
-    background: ${colors.darkPurple};
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
+    color: ${colors.white};
   }
 
   @media (min-width: ${bp.md}) {
@@ -82,7 +90,8 @@ export const AddButton = styled.button`
 export const AddNewLanguageContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   padding: 10px 0;
 `;
 

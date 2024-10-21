@@ -79,8 +79,16 @@ export const LoginButton = styled.button`
   font-family: SuisseIntl, sans-serif;
   line-height: 24px;
 
+  transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
+
   &:hover {
-    background-color: ${colors.darkPurple};
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
+    border: none;
     color: ${colors.white};
   }
 
@@ -108,8 +116,16 @@ export const GetStartedButton = styled.button`
   height: 30px;
   cursor: pointer;
 
+  transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
+
   &:hover {
-    background-color: ${colors.darkPurple};
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
+    border: none;
     color: ${colors.white};
   }
 

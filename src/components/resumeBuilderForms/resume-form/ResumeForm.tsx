@@ -590,7 +590,9 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         </AccordionSection>
         <AccordionSection>
           <PreviewButtonSection>
-            <PreviewButton onClick={resumeTemplate}>Preview</PreviewButton>
+            <PreviewButton onClick={resumeTemplate}>
+              {t('preview')}
+            </PreviewButton>
             <CreateProfileButton
               onClick={handleSubmit}
               disabled={isCreatingResume}

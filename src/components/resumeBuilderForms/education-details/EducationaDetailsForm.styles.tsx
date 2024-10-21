@@ -76,11 +76,11 @@ export const AddEducationContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 10px;
+  padding: 10px 0;
   width: 100%;
 
   @media (min-width: ${bp.md}) {
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
   }
 `;
 
@@ -99,8 +99,16 @@ export const AddEducationButton = styled.button`
   cursor: pointer;
   padding: 10px;
 
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+
   &:hover {
-    background: ${colors.darkPurple};
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
+    color: ${colors.white};
   }
 
   @media (min-width: ${bp.md}) {
@@ -180,8 +188,15 @@ export const TrashIcon = styled.button`
   max-width: 200px;
   min-width: 80px;
 
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+
   &:hover {
-    background-color: ${colors.blueGray};
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
     color: ${colors.white};
   }
 `;

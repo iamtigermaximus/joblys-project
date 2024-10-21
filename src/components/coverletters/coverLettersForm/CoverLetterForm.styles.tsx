@@ -133,8 +133,16 @@ export const PreviewButton = styled.button`
   border-radius: 3px;
   width: 110px;
 
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+
   &:hover {
-    background-color: ${colors.darkPurple};
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
+    color: ${colors.white};
   }
 
   @media (min-width: ${bp.lg}) {
@@ -164,8 +172,16 @@ export const GenerateButton = styled.button`
   border-radius: 3px;
   width: 200px;
 
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+
   &:hover {
-    background-color: ${colors.darkPurple};
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
+    color: ${colors.white};
   }
 `;
 

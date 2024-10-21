@@ -140,7 +140,6 @@ export const Input = styled.input`
   border: none;
   color: #2e033b;
   height: 40px;
-  /* margin-bottom: 10px; */
   padding: 8px 12px;
   width: 100%;
 
@@ -149,9 +148,9 @@ export const Input = styled.input`
   }
 
   @media (min-width: ${bp.md}) {
+    background-color: #f5f5f5;
     border: none;
     height: 40px;
-    /* margin-bottom: 10px; */
     padding: 8px 12px;
     width: 100%;
 
@@ -339,7 +338,7 @@ export const Button = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  padding: 4px;
+  padding: 6px;
   width: 80px;
   background-color: ${colors.purple};
   color: ${colors.white};
@@ -347,9 +346,17 @@ export const Button = styled.button`
   cursor: pointer;
   white-space: nowrap;
   gap: 2px;
+  border: none;
+
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 
   &:hover {
-    background-color: ${colors.darkPurple};
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
     color: ${colors.white};
   }
 `;
@@ -359,7 +366,7 @@ export const ActionButton = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  padding: 4px;
+  padding: 6px;
   width: 80px;
   background-color: ${colors.blueGray};
   color: ${colors.white};
@@ -367,9 +374,17 @@ export const ActionButton = styled.button`
   cursor: pointer;
   white-space: nowrap;
   gap: 2px;
+  border: none;
+
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 
   &:hover {
-    background-color: ${colors.purple};
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
     color: ${colors.white};
   }
 `;
@@ -396,9 +411,17 @@ export const UploadButton = styled.button`
   color: ${colors.white};
   border-radius: 5px;
   border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 
   &:hover {
-    cursor: pointer;
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
+    color: ${colors.white};
   }
 `;
 
@@ -456,7 +479,7 @@ export const AddButton = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  padding: 4px;
+  padding: 6px;
   width: 150px;
   background-color: ${colors.purple};
   color: ${colors.white};
@@ -464,9 +487,16 @@ export const AddButton = styled.button`
   cursor: pointer;
   white-space: nowrap;
   gap: 2px;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 
   &:hover {
-    background-color: ${colors.darkPurple};
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
     color: ${colors.white};
   }
 `;

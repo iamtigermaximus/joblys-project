@@ -147,29 +147,17 @@ export const GetStartedButton = styled.button`
   border: none;
   color: white;
   cursor: pointer;
-  /* moz-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out; */
+  transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
 
   &:hover {
-    background-color: ${colors.darkPurple};
-    color: ${colors.white};
-
-    /* background-position: 100% 0;
-    moz-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
-    -webkit-transition: all 0.4s ease-in-out;
-    transition: all 0.4s ease-in-out;
-
-    background-image: linear-gradient(
-      to right,
-      #354aac,
-      #5e3586,
-      #385aa4,
-      #5d139a
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
     );
-    box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75); */
+    border: none;
+    color: ${colors.white};
   }
 
   @media (min-width: ${bp.lg}) {

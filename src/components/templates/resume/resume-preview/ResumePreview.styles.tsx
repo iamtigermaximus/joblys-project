@@ -267,9 +267,16 @@ export const EditContentItem = styled.div`
   flex-direction: row;
   /* gap: 5px; */
 
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+
   &:hover {
-    background-color: ${colors.darkPurple};
-    color: white;
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
+    color: ${colors.white};
   }
 `;
 
@@ -455,8 +462,16 @@ export const PreviewEditButton = styled.button`
   cursor: pointer;
   min-width: 80px;
 
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+
   &:hover {
-    background-color: ${colors.darkPurple};
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
+    color: ${colors.white};
   }
 `;
 
@@ -472,8 +487,16 @@ export const PreviewDownloadButton = styled.button`
   cursor: pointer;
   min-width: 80px;
 
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+
   &:hover {
-    background-color: ${colors.darkPurple};
+    background: linear-gradient(
+      90deg,
+      rgba(69, 26, 128, 0.9),
+      rgba(75, 30, 138, 0.9),
+      rgba(106, 13, 173, 0.9)
+    );
+    color: ${colors.white};
   }
 `;
 
