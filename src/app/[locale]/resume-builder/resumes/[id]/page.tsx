@@ -12,6 +12,7 @@ import { Resume, initialResume } from '@/types/resume';
 import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
 import ResumeForm from '@/components/resumeBuilderForms/resume-form/ResumeForm';
 import { Profile } from '@/types/profile';
+import Classic from '@/components/templates/resume/classic/Classic';
 
 const ResumeBuilderPage: FC = () => {
   const params = useParams() as { id: string };
@@ -55,7 +56,7 @@ const ResumeBuilderPage: FC = () => {
           />
         </ResumeFormContainer>
         <ResumeTemplateContainer>
-          <DefaultTemplate id="default-template" resumeInfo={resumeInfo} />
+          <Classic id="default-template" resumeInfo={resumeInfo} />
         </ResumeTemplateContainer>
       </FormViewerContainer>
     </ResumeBuilderContainer>

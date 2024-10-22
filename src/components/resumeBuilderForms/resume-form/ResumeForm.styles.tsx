@@ -84,10 +84,12 @@ export const TemplatePreview = styled.div`
 
 export const PreviewResumeContainer = styled.div`
   margin: auto;
-  padding: 10px;
+  /* padding: 10px; */
   display: flex;
   align-items: center;
-  background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff);
+  width: 100%;
+  /* background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff); */
+  /* background-color: pink; */
 
   @media (max-width: ${bp.md}) {
     width: 375px;
@@ -99,8 +101,9 @@ export const PreviewResumeContainer = styled.div`
 `;
 
 export const ResumeContent = styled.div`
-  transform: scale(0.95, 0.45);
+  transform: scale(1, 0.3);
   transform-origin: top;
+  width: 100%;
 
   @media (min-width: ${bp.md}) {
     transform: scale(1);

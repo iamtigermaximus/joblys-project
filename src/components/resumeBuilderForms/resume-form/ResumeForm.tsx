@@ -53,6 +53,7 @@ import {
   LoadingMessage,
   LoadingMessageContainer,
 } from '@/components/profile/create-profile/upload-cv/UploadCV.styles';
+import Classic from '@/components/templates/resume/classic/Classic';
 
 interface ResumeFormProps {
   resumeId: string;
@@ -382,7 +383,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         </TemplatePreviewHeader>
         <PreviewResumeContainer>
           <ResumeContent>
-            <DefaultTemplate id="default-template" resumeInfo={resumeInfo} />
+            <Classic id="default-template" resumeInfo={resumeInfo} />
           </ResumeContent>
         </PreviewResumeContainer>
       </TemplatePreview>

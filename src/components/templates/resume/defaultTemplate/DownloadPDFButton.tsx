@@ -5,6 +5,7 @@ import { Resume } from '@/types/resume';
 import styled from 'styled-components';
 import { View, Text } from '@react-pdf/renderer';
 import { useTranslations } from 'next-intl';
+import Classic from '../classic/Classic';
 
 const PDFDownload = styled(PDFDownloadLink)<{ disabled?: boolean }>`
   text-decoration: none;
@@ -34,9 +35,7 @@ const DownloadPDFButton: React.FC<DownloadPDFButtonProps> = ({
     <View>
       {!disabled ? (
         <PDFDownload
-          document={
-            <DefaultTemplate resumeInfo={resumeInfo} id="resume-template" />
-          }
+          document={<Classic resumeInfo={resumeInfo} id="resume-template" />}
           fileName={fileName}
           color={color}
           disabled={disabled}

@@ -193,7 +193,7 @@ export const ResumeTemplateContainer = styled.div`
     background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff);
 
     overflow-y: auto;
-    padding: 20px;
+    padding: 50px 20px;
     -ms-overflow-style: none;
     scrollbar-width: none;
 

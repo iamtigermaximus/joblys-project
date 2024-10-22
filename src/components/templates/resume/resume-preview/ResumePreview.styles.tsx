@@ -2,6 +2,7 @@ import DefaultTemplate from '../defaultTemplate/DefaultTemplate';
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../../../utils/layout';
 import colors from '../../../../utils/colors';
+import Classic from '../classic/Classic';
 
 export const ResumeContainer = styled.div`
   display: flex;
@@ -114,10 +115,12 @@ export const ResumeContent = styled.div`
   position: relative;
   top: 0;
   left: 0;
-  transform: scale(0.8, 0.3);
+  transform: scale(1, 0.3);
+  width: 100%;
+  height: 100%;
 
   @media (min-width: ${bp.sm}) {
-    transform: scale(0.9, 0.3);
+    transform: scale(1);
   }
 
   @media (min-width: ${bp.md}) {
@@ -125,7 +128,7 @@ export const ResumeContent = styled.div`
   }
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(0.85, 0.35);
+    transform: scale(1, 0.35);
   }
 
   @media (min-width: ${bp.xl}) {
@@ -150,7 +153,7 @@ export const CreateResumeButton = styled.div`
   flex: 1 1 calc(50% - 10px);
   max-width: calc(50%-10px);
   height: 250px;
-  border: 1px solid #ccc;
+  border: 1px dashed #ccc;
   overflow: hidden;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -159,6 +162,11 @@ export const CreateResumeButton = styled.div`
   align-items: center;
   position: relative;
   cursor: pointer;
+
+  &:hover {
+    color: #520668;
+    border: 1px dashed #520668;
+  }
 
   @media (min-width: ${bp.sm}) {
     max-width: calc(50%-10px);
@@ -191,7 +199,7 @@ export const ButtonLabel = styled.h1`
   }
 `;
 
-export const MiniDefault = styled(DefaultTemplate)`
+export const MiniDefault = styled(Classic)`
   width: 100%;
   height: 100%;
 `;

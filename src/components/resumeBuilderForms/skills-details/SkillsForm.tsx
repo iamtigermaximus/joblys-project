@@ -61,7 +61,7 @@ const SkillsForm: FC<SkillsFormProps> = ({ skills, setResumeInfo }) => {
               <AddNewSkillContainer>
                 <Input
                   type="text"
-                  placeholder="eg. Javascript"
+                  placeholder="eg. Javascript, Communication Skills,Effective Time Management"
                   value={enteredSkill.name}
                   onChange={e =>
                     handleInputChange(

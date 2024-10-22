@@ -2,6 +2,7 @@ import { breakpoints as bp } from '@/utils/layout';
 import colors from '@/utils/colors';
 import styled from 'styled-components';
 import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
+import Classic from '@/components/templates/resume/classic/Classic';
 import MiniCoverLetterTemplate from '@/components/templates/minicoverletter-template/MiniCoverLetterTemplate';
 
 export const Container = styled.div`
@@ -128,22 +129,23 @@ export const ResumeContent = styled.div`
   top: 0;
   left: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transform: scale(0.45, 0.25);
+  width: 100%;
+  transform: scale(1, 0.3);
 
   @media (min-width: ${bp.xs}) {
-    transform: scale(0.48, 0.35);
+    transform: scale(0.9, 0.3);
   }
 
   @media (min-width: ${bp.sm}) {
-    transform: scale(0.55, 0.35);
+    transform: scale(1, 0.35);
   }
 
   @media (min-width: ${bp.md}) {
-    transform: scale(0.77, 0.35);
+    transform: scale(1, 0.35);
   }
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(0.7, 0.45);
+    transform: scale(1, 0.3);
   }
 `;
 
@@ -292,7 +294,7 @@ export const Timestamp = styled.div`
   }
 `;
 
-export const MiniDefault = styled(DefaultTemplate)`
+export const MiniDefault = styled(Classic)`
   width: 100%;
   height: 100%;
 `;
@@ -458,6 +460,7 @@ export const SidebarResumeContent = styled.div`
 export const PreviewTitleContainer = styled.div`
   padding: 8px 16px;
   height: 40px;
+  font-size: 16px;
   color: white;
   background-color: transparent;
   border-radius: 3px;
@@ -581,6 +584,7 @@ export const PreviewEditButton = styled.button`
   color: white;
   cursor: pointer;
   min-width: 80px;
+
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 
   &:hover {
