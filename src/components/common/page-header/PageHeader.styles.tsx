@@ -12,8 +12,6 @@ export const Header = styled.div`
   justify-content: space-between;
   background-color: ${colors.white};
   height: 6vh;
-
-  /* height: 100px; */
   padding: 10px;
 
   @media (min-width: ${bp.lg}) {
@@ -60,7 +58,6 @@ export const RightContainer = styled.div`
 `;
 
 export const MenuLinkButton = styled.button`
-  /* margin: 0 5px; */
   padding: 5px 10px;
   white-space: nowrap;
   background-color: transparent;
@@ -189,7 +186,6 @@ export const IconContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-
   text-decoration: none;
   border-radius: 50%;
   cursor: pointer;
@@ -234,7 +230,6 @@ export const ResumeButtonTitle = styled.h1`
 `;
 
 export const ResumeButtonIcon = styled.span`
-  /* Common button styles go here */
   font-size: 16px;
   color: white;
   display: flex;
@@ -335,7 +330,6 @@ export const SidebarHeaderItem = styled.div`
   justify-content: center;
 
   @media (min-width: ${bp.lg}) {
-    /* padding: 20px; */
   }
 `;
 
@@ -357,7 +351,6 @@ export const SidebarContentContainer = styled.div`
 
 export const Input = styled.input`
   padding: 12px;
-  /* border: 1px solid gray; */
   border-radius: 5px;
   width: 100%;
   border: none;
@@ -469,4 +462,30 @@ export const ProviderIcon = styled.span`
   font-weight: 500;
   padding: 0 10px;
   font-size: 15px;
+`;
+
+export const StyledSelect = styled.select`
+  appearance: none;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:focus {
+    outline: none;
+    border: 1px solid white;
+  }
+`;
+
+export const StyledOption = styled.option`
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #520668;
+  }
 `;

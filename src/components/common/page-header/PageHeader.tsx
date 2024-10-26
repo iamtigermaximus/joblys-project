@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import {
   Header,
   HeaderLinksContainer,
@@ -11,6 +11,8 @@ import {
   ResumeButtonIcon,
   ResumeButtonTitle,
   RightContainer,
+  StyledOption,
+  StyledSelect,
   UserModal,
 } from './PageHeader.styles';
 import { useSession, signOut } from 'next-auth/react';
@@ -48,7 +50,7 @@ const PageHeader: FC<PageHeaderProps> = ({
     pathname === `/${locale}/coverletter-builder/coverletters/${id}`;
 
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
-
+  const currentLocale = pathname.split('/')[1] || 'en';
   const { data: session, status } = useSession();
 
   const toggleUserModal = () => {
@@ -61,7 +63,7 @@ const PageHeader: FC<PageHeaderProps> = ({
         router.push(`/${locale}/login`);
       }
     }
-  }, [status, session, router]);
+  }, [status, session, router, locale]);
 
   const navigateToResume = () => {
     if (status === 'authenticated') {
@@ -118,6 +120,12 @@ const PageHeader: FC<PageHeaderProps> = ({
   const handleSettings = () => {
     router.push('/eazyCV/settings');
     setIsUserModalOpen(false);
+  };
+
+  const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const newLocale = e.target.value as string;
+    const path = pathname.split('/').slice(2).join('/');
+    router.push(`/${newLocale}/${path}`);
   };
 
   return (
@@ -190,6 +198,10 @@ const PageHeader: FC<PageHeaderProps> = ({
               </>
             )}
           </HeaderLinksContainer>
+          <StyledSelect value={currentLocale} onChange={handleLanguageChange}>
+            <StyledOption value="en">EN</StyledOption>
+            <StyledOption value="fi">FI</StyledOption>
+          </StyledSelect>
         </RightContainer>
       </HeaderMenuContainer>
     </Header>
