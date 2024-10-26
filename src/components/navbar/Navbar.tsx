@@ -1,11 +1,12 @@
 'use client';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import {
   Backdrop,
   Brand,
   BrandContainer,
   BurgerMenu,
   CloseButton,
+  LanguageContainer,
   LoginContainer,
   LogoImage,
   LogoImageContainer,
@@ -25,6 +26,8 @@ import {
   NavbarContainer,
   NavbarIcon,
   NavbarItemsContainer,
+  StyledOption,
+  StyledSelect,
   TopNavbarLoginContainer,
   TopNavbarModalContainer,
   TopUserModal,
@@ -52,6 +55,7 @@ const Navbar = () => {
   const [activeMenuItem, setActiveMenuItem] = useState('');
   const pathname = usePathname();
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+  const currentLocale = pathname.split('/')[1] || 'en';
 
   let userName = session?.user.name;
   if (userName && userName.includes(' ')) {
@@ -79,7 +83,7 @@ const Navbar = () => {
     } else if (pathname.startsWith(`/${locale}/eazyCV/cover-letters`)) {
       setActiveMenuItem('cover-letters');
     }
-  }, [pathname]);
+  }, [pathname, locale]);
 
   const handleSignOut = async (e: FormEvent) => {
     e.preventDefault();
@@ -93,6 +97,12 @@ const Navbar = () => {
 
   const handleSignIn = () => {
     router.push('/login');
+  };
+
+  const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const newLocale = e.target.value as string;
+    const path = pathname.split('/').slice(2).join('/');
+    router.push(`/${newLocale}/${path}`);
   };
 
   return (
@@ -112,6 +122,15 @@ const Navbar = () => {
                 />
               </LogoImageContainer>
             </Brand>
+            <LanguageContainer>
+              <StyledSelect
+                value={currentLocale}
+                onChange={handleLanguageChange}
+              >
+                <StyledOption value="en">EN</StyledOption>
+                <StyledOption value="fi">FI</StyledOption>
+              </StyledSelect>
+            </LanguageContainer>
           </BrandContainer>
         </MenuContainer>
         <Menu>
@@ -312,6 +331,10 @@ const Navbar = () => {
         <NavbarIcon onClick={toggleUserModal}>
           <FaUser />
         </NavbarIcon>
+        <StyledSelect value={currentLocale} onChange={handleLanguageChange}>
+          <StyledOption value="en">EN</StyledOption>
+          <StyledOption value="fi">FI</StyledOption>
+        </StyledSelect>
       </TopNavbarLoginContainer>
     </NavbarContainer>
   );

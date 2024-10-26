@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import {
   Brand,
   BrandContainer,
@@ -7,17 +7,31 @@ import {
   HeaderLinksContainer,
   IconContainer,
   MenuContainer,
+  StyledOption,
+  StyledSelect,
 } from './FormHeader.styles';
 import Image from 'next/image';
 import NavLogo from '../../../assets/Joblys-logo-RGB-purple.png';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { FaUser } from 'react-icons/fa';
 
-const FormHeader = () => {
+interface FormHeaderProps {
+  locale: string;
+}
+
+const FormHeader = ({ locale }: FormHeaderProps) => {
   const router = useRouter();
+  const pathname = usePathname();
+  const currentLocale = pathname.split('/')[1] || 'en';
 
   const handleLogin = () => {
-    router.push('/login');
+    router.push(`/${currentLocale}/login`);
+  };
+
+  const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const newLocale = e.target.value as string;
+    const path = pathname.split('/').slice(2).join('/');
+    router.push(`/${newLocale}/${path}`);
   };
   return (
     <Container>
@@ -26,8 +40,8 @@ const FormHeader = () => {
           <Brand href="/">
             <Image
               src={NavLogo}
-              width={150}
-              height={50}
+              width={160}
+              height={40}
               alt="hero-image"
               priority
             />
@@ -37,6 +51,10 @@ const FormHeader = () => {
           <IconContainer onClick={handleLogin}>
             <FaUser />
           </IconContainer>
+          <StyledSelect value={currentLocale} onChange={handleLanguageChange}>
+            <StyledOption value="en">EN</StyledOption>
+            <StyledOption value="fi">FI</StyledOption>
+          </StyledSelect>
         </HeaderLinksContainer>
       </MenuContainer>
     </Container>

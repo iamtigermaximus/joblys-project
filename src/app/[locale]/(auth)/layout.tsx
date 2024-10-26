@@ -32,7 +32,7 @@ export default async function AuthLayout({
         <NextIntlClientProvider messages={messages}>
           <NextAuthProvider>
             <StyledComponentsRegistry>
-              <FormHeader />
+              <FormHeader locale={locale} />
               {children}
             </StyledComponentsRegistry>
           </NextAuthProvider>

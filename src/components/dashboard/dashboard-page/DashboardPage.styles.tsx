@@ -69,6 +69,7 @@ export const ItemsContainer = styled.h1`
   display: flex;
   flex-direction: row;
   width: 100%;
+  gap: 5px;
 `;
 
 export const CardContainer = styled.div`

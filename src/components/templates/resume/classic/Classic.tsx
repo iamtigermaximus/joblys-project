@@ -19,12 +19,11 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
     display: 'flex',
-    // minHeight: '800px',
     width: '100%',
-    // boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    // border: '1px solid red',
-    // padding: '50px',
-    padding: 30,
+    paddingLeft: 50,
+    paddingRight: 50,
+    paddingBottom: 50,
+    paddingTop: 50,
     backgroundColor: 'white',
   },
   sectionContainer: {
@@ -34,7 +33,8 @@ const styles = StyleSheet.create({
     // border: '1px solid red',
     padding: '10px',
     marginBottom: '10px',
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
+    flexGrow: 1,
   },
 
   skillsSectionContainer: {
@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     // border: '1px solid gray',
     padding: '5px',
     marginBottom: '10px',
-    flexWrap: 'wrap',
   },
   skillsItemContainer: {
     marginBottom: 5,
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
     // border: '1px solid gray',
     padding: '5px',
     marginBottom: '10px',
-    flexWrap: 'wrap',
   },
 
   sectionItemContainer: {
@@ -85,22 +83,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '35%',
     minWidth: '100px',
-    // height: '100%',
-    // minHeight: '800px',
   },
   contentContainer: {
     display: 'flex',
     flexDirection: 'column',
     width: '65%',
     minWidth: '100px',
-    // border: '1px solid red',
     flexWrap: 'wrap',
   },
   basicTitleContainer: {
     display: 'flex',
     padding: '5px 0',
     borderBottom: '.3px solid gray',
-    // backgroundColor: 'gray',
   },
   basicsTitle: {
     color: 'black',
@@ -207,23 +201,25 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     // whiteSpace: 'nowrap',
     fontSize: '10px',
+    marginBottom: 2,
   },
   school: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
     fontSize: '10px',
-    marginBottom: '5px',
+    marginBottom: 2,
   },
   jobTitle: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
     fontSize: '10px',
+    marginBottom: 2,
   },
   company: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
     fontSize: '10px',
-    marginBottom: '5px',
+    marginBottom: 2,
   },
 
   language: {
@@ -254,536 +250,6 @@ const styles = StyleSheet.create({
     // flexWrap: 'wrap',
   },
 });
-// const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
-//   const basic = resumeInfo?.basic;
-//   const professional = resumeInfo?.professional;
-//   const educational = resumeInfo?.educational;
-//   const skills = resumeInfo?.skills;
-//   const languages = resumeInfo?.languages;
-
-//   const formatDate = (date: any) => {
-//     if (typeof date === 'string') {
-//       return date.toLowerCase() === 'present' ? 'Present' : date;
-//     }
-//     if (typeof date === 'object' && date?.month) {
-//       return new Date(2022, parseInt(date.month) - 1).toLocaleString(
-//         'default',
-//         {
-//           month: 'short',
-//         },
-//       );
-//     }
-//     return 'Jan';
-//   };
-
-//   const formatYear = (date: any) => {
-//     if (typeof date === 'string') {
-//       return date.toLowerCase() === 'present' ? '' : '';
-//     }
-//     if (typeof date === 'object' && date?.year) {
-//       return date.year;
-//     }
-//     return '';
-//   };
-
-//   const shouldDisplayTitle =
-//     !!(
-//       basic.firstName ||
-//       basic.lastName ||
-//       basic.email ||
-//       basic.phoneNumber ||
-//       basic.address ||
-//       basic.linkedin ||
-//       (basic.additionalLinks && basic.additionalLinks.length > 0)
-//     ) ||
-//     (skills && skills && skills.length > 1) ||
-//     (languages && languages && languages.length > 1) ||
-//     !!(
-//       (professional.work && professional.work.length > 1) ||
-//       professional.summary
-//     ) ||
-//     !!(educational && educational.length > 1);
-
-//   const shouldSplit = professional.work.length > 2;
-
-//   return (
-//     <Document style={styles.document}>
-//       {shouldSplit ? (
-//         <>
-//           <Page id="resume-template" size="A4" style={styles.page}>
-//             <View style={styles.headerNameContainer}>
-//               <Text style={styles.headerName}>{basic.firstName}</Text>
-//               <Text style={styles.headerName}>{basic.lastName}</Text>
-//             </View>
-//             <View style={styles.currentRoleContainer}>
-//               <Text style={styles.headerCurrentRole}>
-//                 {professional.currentRole}
-//               </Text>
-//             </View>
-
-//             {shouldDisplayTitle && (
-//               <View style={styles.basicTitleContainer}>
-//                 <Text style={styles.basicsTitle}>Summary</Text>
-//               </View>
-//             )}
-//             <View style={styles.summaryContainer}>
-//               <Text style={styles.summary}>{professional.summary}</Text>
-//             </View>
-//             {shouldDisplayTitle && (
-//               <View style={styles.basicTitleContainer}>
-//                 <Text style={styles.basicsTitle}>Personal Details</Text>
-//               </View>
-//             )}
-
-//             <View style={styles.sectionContainer}>
-//               <View style={styles.sectionItemContainer}>
-//                 {shouldDisplayTitle && (
-//                   <View style={styles.basicContentContainer}>
-//                     <Text style={styles.basicsItemTitle}>Name</Text>
-//                   </View>
-//                 )}
-//                 <View style={styles.contentContainer}>
-//                   <View style={styles.basicsNameContainer}>
-//                     <Text style={styles.basicsItemTitle}>
-//                       {basic.firstName}
-//                     </Text>
-//                     <Text style={styles.basicsItemTitle}>{basic.lastName}</Text>
-//                   </View>
-//                 </View>
-//               </View>
-//               <View style={styles.sectionItemContainer}>
-//                 {shouldDisplayTitle && (
-//                   <View style={styles.basicContentContainer}>
-//                     <Text style={styles.basicsItemTitle}>Email address</Text>
-//                   </View>
-//                 )}
-//                 <View style={styles.contentContainer}>
-//                   <Text style={styles.basicsItemTitle}>{basic.email}</Text>
-//                 </View>
-//               </View>
-//               <View style={styles.sectionItemContainer}>
-//                 {shouldDisplayTitle && (
-//                   <View style={styles.basicContentContainer}>
-//                     <Text style={styles.basicsItemTitle}>Phone number</Text>
-//                   </View>
-//                 )}
-//                 <View style={styles.contentContainer}>
-//                   <Text style={styles.basicsItemTitle}>
-//                     {basic.phoneNumber}
-//                   </Text>
-//                 </View>
-//               </View>
-//               <View style={styles.sectionItemContainer}>
-//                 {shouldDisplayTitle && (
-//                   <View style={styles.basicContentContainer}>
-//                     <Text style={styles.basicsItemTitle}>Address</Text>
-//                   </View>
-//                 )}
-//                 <View style={styles.contentContainer}>
-//                   <Text style={styles.basicsItemTitle}>{basic.address}</Text>
-//                 </View>
-//               </View>
-//               <View style={styles.sectionItemContainer}>
-//                 {shouldDisplayTitle && (
-//                   <View style={styles.basicContentContainer}>
-//                     <Text style={styles.basicsItemTitle}>LinkedIn</Text>
-//                   </View>
-//                 )}
-//                 <View style={styles.contentContainer}>
-//                   <Text style={styles.basicsItemTitle}>{basic.linkedin}</Text>
-//                 </View>
-//               </View>
-//               <View style={styles.additionalLinksContainer}>
-//                 {basic?.additionalLinks.map(link => (
-//                   <>
-//                     <View style={styles.sectionItemContainer}>
-//                       {shouldDisplayTitle && (
-//                         <View style={styles.basicContentContainer}>
-//                           <Text style={styles.basicsItemTitle}>
-//                             Additional link
-//                           </Text>
-//                         </View>
-//                       )}
-//                       <View style={styles.contentContainer} key={link.id}>
-//                         <a href={link.url}>
-//                           <Text style={styles.basicsItemTitle}>{link.url}</Text>
-//                         </a>
-//                       </View>
-//                     </View>
-//                   </>
-//                 ))}
-//               </View>
-//             </View>
-//             {shouldDisplayTitle && (
-//               <View style={styles.basicTitleContainer}>
-//                 <Text style={styles.basicsTitle}>Education</Text>
-//               </View>
-//             )}
-//             <View style={styles.sectionContainer}>
-//               {educational?.length > 0 &&
-//                 educational.map(info => (
-//                   <View style={styles.sectionItemContainer} key={info.id}>
-//                     {info.school && (
-//                       <View style={styles.basicContentContainer}>
-//                         <View style={styles.dateContainer}>
-//                           <View style={styles.dates}>
-//                             <Text style={styles.month}>
-//                               {formatDate(info.startDate.month)}
-//                             </Text>
-//                             <Text style={styles.year}>
-//                               {info.startDate.year || new Date().getFullYear()}
-//                             </Text>
-//                           </View>
-//                           <Text style={styles.dateSeparator}>
-//                             <MdOutlineRemove />
-//                           </Text>
-//                           <View style={styles.dates}>
-//                             <Text style={styles.month}>
-//                               {formatDate(info.endDate.month)}
-//                             </Text>
-//                             <Text style={styles.year}>
-//                               {formatYear(info.endDate)}
-//                             </Text>
-//                           </View>
-//                         </View>
-//                       </View>
-//                     )}
-//                     <View style={styles.contentContainer}>
-//                       <Text style={styles.course}>{info.course}</Text>
-//                       <Text style={styles.school}>{info.school}</Text>
-//                     </View>
-//                   </View>
-//                 ))}
-//             </View>
-//             {shouldDisplayTitle && (
-//               <View style={styles.basicTitleContainer}>
-//                 <Text style={styles.basicsTitle}>Employment</Text>
-//               </View>
-//             )}
-//             <View style={styles.sectionContainer}>
-//               {professional.work.slice(0, 2).map(info => (
-//                 <View style={styles.sectionItemContainer} key={info.id}>
-//                   {info.jobTitle && (
-//                     <View style={styles.basicContentContainer}>
-//                       <View style={styles.dateContainer}>
-//                         <View style={styles.dates}>
-//                           <Text style={styles.month}>
-//                             {formatDate(info.startDate.month)}
-//                           </Text>
-//                           <Text style={styles.year}>
-//                             {info.startDate.year || new Date().getFullYear()}
-//                           </Text>
-//                         </View>
-//                         <Text style={styles.dateSeparator}>
-//                           <MdOutlineRemove />
-//                         </Text>
-//                         <View style={styles.dates}>
-//                           <Text style={styles.month}>
-//                             {formatDate(info.endDate.month)}
-//                           </Text>
-//                           <Text style={styles.year}>
-//                             {formatYear(info.endDate)}
-//                           </Text>
-//                         </View>
-//                       </View>
-//                     </View>
-//                   )}
-//                   <View style={styles.contentContainer}>
-//                     <Text style={styles.jobTitle}>{info.jobTitle}</Text>
-//                     <Text style={styles.company}>{info.company}</Text>
-//                     <Text style={styles.description}>{info.jobDetails}</Text>
-//                   </View>
-//                 </View>
-//               ))}
-//             </View>
-//           </Page>
-//           <Page id="resume-template" size="A4" style={styles.page}>
-//             <View style={styles.sectionContainer}>
-//               {professional.work.slice(2).map(info => (
-//                 <View style={styles.sectionItemContainer} key={info.id}>
-//                   {info.jobTitle && (
-//                     <View style={styles.basicContentContainer}>
-//                       <View style={styles.dateContainer}>
-//                         <View style={styles.dates}>
-//                           <Text style={styles.month}>
-//                             {formatDate(info.startDate.month)}
-//                           </Text>
-//                           <Text style={styles.year}>
-//                             {info.startDate.year || new Date().getFullYear()}
-//                           </Text>
-//                         </View>
-//                         <Text style={styles.dateSeparator}>
-//                           <MdOutlineRemove />
-//                         </Text>
-//                         <View style={styles.dates}>
-//                           <Text style={styles.month}>
-//                             {formatDate(info.endDate.month)}
-//                           </Text>
-//                           <Text style={styles.year}>
-//                             {formatYear(info.endDate)}
-//                           </Text>
-//                         </View>
-//                       </View>
-//                     </View>
-//                   )}
-//                   <View style={styles.contentContainer}>
-//                     <Text style={styles.jobTitle}>{info.jobTitle}</Text>
-//                     <Text style={styles.company}>{info.company}</Text>
-//                     <Text style={styles.description}>{info.jobDetails}</Text>
-//                   </View>
-//                 </View>
-//               ))}
-//             </View>
-//             {shouldDisplayTitle && (
-//               <View style={styles.basicTitleContainer}>
-//                 <Text style={styles.basicsTitle}>Skills</Text>
-//               </View>
-//             )}
-//             <View style={styles.skillsSectionContainer}>
-//               {skills &&
-//                 skills.map(skill => (
-//                   <View style={styles.skillsItemContainer} key={skill.id}>
-//                     <Text style={styles.skill}>
-//                       <TbPointFilled />
-//                       {skill.name}
-//                     </Text>
-//                   </View>
-//                 ))}
-//             </View>
-//             {shouldDisplayTitle && (
-//               <View style={styles.basicTitleContainer}>
-//                 <Text style={styles.basicsTitle}>Languages</Text>
-//               </View>
-//             )}
-//             <View style={styles.languagesSectionContainer}>
-//               {languages &&
-//                 languages.map(language => (
-//                   <View style={styles.languagesItemContainer} key={language.id}>
-//                     <Text style={styles.language}>
-//                       <TbPointFilled />
-//                       {language.name}
-//                     </Text>
-//                   </View>
-//                 ))}
-//             </View>
-//           </Page>
-//         </>
-//       ) : (
-//         <Page id="resume-template" size="A4" style={styles.page}>
-//           <View style={styles.headerNameContainer}>
-//             <Text style={styles.headerName}>{basic.firstName}</Text>
-//             <Text style={styles.headerName}>{basic.lastName}</Text>
-//           </View>
-//           <View style={styles.currentRoleContainer}>
-//             <Text style={styles.headerCurrentRole}>
-//               {professional.currentRole}
-//             </Text>
-//           </View>
-
-//           {shouldDisplayTitle && (
-//             <View style={styles.basicTitleContainer}>
-//               <Text style={styles.basicsTitle}>Summary</Text>
-//             </View>
-//           )}
-//           <View style={styles.summaryContainer}>
-//             <Text style={styles.summary}>{professional.summary}</Text>
-//           </View>
-//           {shouldDisplayTitle && (
-//             <View style={styles.basicTitleContainer}>
-//               <Text style={styles.basicsTitle}>Personal Details</Text>
-//             </View>
-//           )}
-
-//           <View style={styles.sectionContainer}>
-//             <View style={styles.sectionItemContainer}>
-//               {shouldDisplayTitle && (
-//                 <View style={styles.basicContentContainer}>
-//                   <Text style={styles.basicsItemTitle}>Name</Text>
-//                 </View>
-//               )}
-//               <View style={styles.contentContainer}>
-//                 <View style={styles.basicsNameContainer}>
-//                   <Text style={styles.basicsItemTitle}>{basic.firstName}</Text>
-//                   <Text style={styles.basicsItemTitle}>{basic.lastName}</Text>
-//                 </View>
-//               </View>
-//             </View>
-//             <View style={styles.sectionItemContainer}>
-//               {shouldDisplayTitle && (
-//                 <View style={styles.basicContentContainer}>
-//                   <Text style={styles.basicsItemTitle}>Email address</Text>
-//                 </View>
-//               )}
-//               <View style={styles.contentContainer}>
-//                 <Text style={styles.basicsItemTitle}>{basic.email}</Text>
-//               </View>
-//             </View>
-//             <View style={styles.sectionItemContainer}>
-//               {shouldDisplayTitle && (
-//                 <View style={styles.basicContentContainer}>
-//                   <Text style={styles.basicsItemTitle}>Phone number</Text>
-//                 </View>
-//               )}
-//               <View style={styles.contentContainer}>
-//                 <Text style={styles.basicsItemTitle}>{basic.phoneNumber}</Text>
-//               </View>
-//             </View>
-//             <View style={styles.sectionItemContainer}>
-//               {shouldDisplayTitle && (
-//                 <View style={styles.basicContentContainer}>
-//                   <Text style={styles.basicsItemTitle}>Address</Text>
-//                 </View>
-//               )}
-//               <View style={styles.contentContainer}>
-//                 <Text style={styles.basicsItemTitle}>{basic.address}</Text>
-//               </View>
-//             </View>
-//             <View style={styles.sectionItemContainer}>
-//               {shouldDisplayTitle && (
-//                 <View style={styles.basicContentContainer}>
-//                   <Text style={styles.basicsItemTitle}>LinkedIn</Text>
-//                 </View>
-//               )}
-//               <View style={styles.contentContainer}>
-//                 <Text style={styles.basicsItemTitle}>{basic.linkedin}</Text>
-//               </View>
-//             </View>
-//             <View style={styles.additionalLinksContainer}>
-//               {basic?.additionalLinks.map(link => (
-//                 <>
-//                   <View style={styles.sectionItemContainer}>
-//                     {shouldDisplayTitle && (
-//                       <View style={styles.basicContentContainer}>
-//                         <Text style={styles.basicsItemTitle}>
-//                           Additional link
-//                         </Text>
-//                       </View>
-//                     )}
-//                     <View style={styles.contentContainer} key={link.id}>
-//                       <a href={link.url}>
-//                         <Text style={styles.basicsItemTitle}>{link.url}</Text>
-//                       </a>
-//                     </View>
-//                   </View>
-//                 </>
-//               ))}
-//             </View>
-//           </View>
-//           {shouldDisplayTitle && (
-//             <View style={styles.basicTitleContainer}>
-//               <Text style={styles.basicsTitle}>Education</Text>
-//             </View>
-//           )}
-//           <View style={styles.sectionContainer}>
-//             {educational?.length > 0 &&
-//               educational.map(info => (
-//                 <View style={styles.sectionItemContainer} key={info.id}>
-//                   {info.school && (
-//                     <View style={styles.basicContentContainer}>
-//                       <View style={styles.dateContainer}>
-//                         <View style={styles.dates}>
-//                           <Text style={styles.month}>
-//                             {formatDate(info.startDate.month)}
-//                           </Text>
-//                           <Text style={styles.year}>
-//                             {info.startDate.year || new Date().getFullYear()}
-//                           </Text>
-//                         </View>
-//                         <Text style={styles.dateSeparator}>
-//                           <MdOutlineRemove />
-//                         </Text>
-//                         <View style={styles.dates}>
-//                           <Text style={styles.month}>
-//                             {formatDate(info.endDate.month)}
-//                           </Text>
-//                           <Text style={styles.year}>
-//                             {formatYear(info.endDate)}
-//                           </Text>
-//                         </View>
-//                       </View>
-//                     </View>
-//                   )}
-//                   <View style={styles.contentContainer}>
-//                     <Text>{info.course}</Text>
-//                     <Text>{info.school}</Text>
-//                   </View>
-//                 </View>
-//               ))}
-//           </View>
-//           {shouldDisplayTitle && (
-//             <View style={styles.basicTitleContainer}>
-//               <Text style={styles.basicsTitle}>Employment</Text>
-//             </View>
-//           )}
-//           <View style={styles.sectionContainer}>
-//             {professional.work.map(info => (
-//               <View style={styles.sectionItemContainer} key={info.id}>
-//                 {info.jobTitle && (
-//                   <View style={styles.basicContentContainer}>
-//                     <View style={styles.dateContainer}>
-//                       <View style={styles.dates}>
-//                         <Text style={styles.month}>
-//                           {formatDate(info.startDate.month)}
-//                         </Text>
-//                         <Text style={styles.year}>
-//                           {info.startDate.year || new Date().getFullYear()}
-//                         </Text>
-//                       </View>
-//                       <Text style={styles.dateSeparator}>
-//                         <MdOutlineRemove />
-//                       </Text>
-//                       <View style={styles.dates}>
-//                         <Text style={styles.month}>
-//                           {formatDate(info.endDate.month)}
-//                         </Text>
-//                         <Text style={styles.year}>
-//                           {formatYear(info.endDate)}
-//                         </Text>
-//                       </View>
-//                     </View>
-//                   </View>
-//                 )}
-//                 <View style={styles.contentContainer}>
-//                   <Text>{info.jobTitle}</Text>
-//                   <Text>{info.company}</Text>
-//                   <Text style={styles.description}>{info.jobDetails}</Text>
-//                 </View>
-//               </View>
-//             ))}
-//           </View>
-//           {shouldDisplayTitle && (
-//             <View style={styles.basicTitleContainer}>
-//               <Text style={styles.basicsTitle}>Skills</Text>
-//             </View>
-//           )}
-//           <View style={styles.skillsSectionContainer}>
-//             {skills &&
-//               skills.map(skill => (
-//                 <View style={styles.skillsItemContainer} key={skill.id}>
-//                   <Text style={styles.skill}>{skill.name}</Text>
-//                 </View>
-//               ))}
-//           </View>
-//           {shouldDisplayTitle && (
-//             <View style={styles.basicTitleContainer}>
-//               <Text style={styles.basicsTitle}>Languages</Text>
-//             </View>
-//           )}
-//           <View style={styles.languagesSectionContainer}>
-//             {languages &&
-//               languages.map(language => (
-//                 <View style={styles.languagesItemContainer} key={language.id}>
-//                   <Text>{language.name}</Text>
-//                 </View>
-//               ))}
-//           </View>
-//         </Page>
-//       )}
-//     </Document>
-//   );
-// };
-
-// export default Classic;
 
 const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
   const basic = resumeInfo?.basic;
@@ -834,8 +300,6 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
       professional.summary
     ) ||
     !!(educational && educational.length > 1);
-
-  const shouldSplit = professional.work.length > 2;
 
   return (
     <Document style={styles.document}>
@@ -930,7 +394,7 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
                     </View>
                   )}
                   <View style={styles.contentContainer} key={link.id}>
-                    <a href={link.url}>
+                    <a href={link.url} style={{ textDecoration: 'none' }}>
                       <Text style={styles.basicsItemTitle}>{link.url}</Text>
                     </a>
                   </View>

@@ -107,9 +107,9 @@ export const SignupButton = styled.button`
 export const HeaderLinksContainer = styled.div`
   color: black;
   font-weight: 700;
-  height: 50px;
-  width: 50px;
   display: flex;
+  flex-direction: row;
+  gap: 5px;
   justify-content: center;
   align-items: center;
   padding: 5px 3px;
@@ -128,8 +128,34 @@ export const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  height: 40px;
+  width: 40px;
   text-decoration: none;
   border-radius: 50%;
+`;
+
+export const StyledSelect = styled.select`
+  appearance: none;
+  background-color: transparent;
+  color: #000;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #520668;
+  }
+`;
+
+export const StyledOption = styled.option`
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #520668;
+  }
 `;

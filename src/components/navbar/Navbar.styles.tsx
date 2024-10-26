@@ -40,14 +40,14 @@ export const NavbarItemsContainer = styled.div`
 
 export const BrandContainer = styled.div`
   padding: 5px;
-  letter-spacing: 1px;
-  width: 150px;
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
 
   @media (min-width: ${bp.lg}) {
     margin: 20px 0;
+    gap: 10px;
   }
 `;
 
@@ -75,6 +75,7 @@ export const MenuContainer = styled.div`
 
   @media (min-width: ${bp.lg}) {
     flex-direction: column;
+    padding: 0 10px;
   }
 `;
 
@@ -563,8 +564,8 @@ export const LogoImageContainer = styled.div`
   height: 30px;
 
   @media (min-width: ${bp.lg}) {
-    width: 150px;
-    height: 50px;
+    width: 160px;
+    height: 40px;
   }
 `;
 
@@ -574,4 +575,39 @@ export const LogoImage = styled(Image)`
   align-items: center;
   width: 100%;
   height: 100%;
+`;
+
+export const LanguageContainer = styled.div`
+  display: none;
+  @media (min-width: ${bp.lg}) {
+    display: flex;
+    background-color: transparent;
+    height: 25px;
+  }
+`;
+
+export const StyledSelect = styled.select`
+  appearance: none;
+  background-color: transparent;
+  color: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  padding: 4px;
+  /* display: flex; */
+  /* justify-content: center;
+  align-items: center; */
+
+  &:focus {
+    outline: none;
+    border: 1px solid white;
+  }
+`;
+
+export const StyledOption = styled.option`
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #520668;
+  }
 `;
