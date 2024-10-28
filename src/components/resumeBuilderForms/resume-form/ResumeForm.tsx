@@ -31,6 +31,9 @@ import {
   FileUpload,
   UploadButton,
   TooltipContainer,
+  FileUploadButton,
+  UploadInputContainer,
+  FilenameContainer,
 } from './ResumeForm.styles';
 import {
   FaArrowLeft,
@@ -46,14 +49,13 @@ import DownloadPDFButton from '@/components/templates/resume/defaultTemplate/Dow
 import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
 
 import { convertProfileToResume, Profile } from '@/types/profile';
-
 import { IoMdHelpCircleOutline } from 'react-icons/io';
 import { useTranslations } from 'next-intl';
+import Classic from '@/components/templates/resume/classic/Classic';
 import {
   LoadingMessage,
   LoadingMessageContainer,
 } from '@/components/profile/create-profile/upload-cv/UploadCV.styles';
-import Classic from '@/components/templates/resume/classic/Classic';
 
 interface ResumeFormProps {
   resumeId: string;
@@ -349,11 +351,29 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
           <SectionTitleContainer>
             <SectionTitle>{t('uploadTitle')}</SectionTitle>
           </SectionTitleContainer>
-          <FileUpload
+          {/* <FileUpload
             type="file"
             accept=".docx,.pdf"
             onChange={handleFileChange}
-          />
+            aria-label="finnish"
+          /> */}
+          <UploadInputContainer>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <FileUpload
+                id="file-upload"
+                type="file"
+                accept=".docx,.pdf"
+                onChange={handleFileChange}
+                aria-label={t('chooseFile')}
+              />
+              <FileUploadButton htmlFor="file-upload">
+                {cvFile ? t('chooseFile') : t('chooseFile')}
+              </FileUploadButton>
+              <FilenameContainer>
+                {cvFile ? cvFile.name : t('noChosenFile')}
+              </FilenameContainer>
+            </div>
+          </UploadInputContainer>
           <UploadButton onClick={handleUploadCV} disabled={isUploading}>
             {isUploading ? t('uploading') : t('upload')}
           </UploadButton>

@@ -131,7 +131,9 @@
     "skillsTitle": "Skills",
     "addNewSkill": "Add new skill",
     "languagesTitle": "Languages",
-    "addNewLanguage": "Add new language"
+    "addNewLanguage": "Add new language",
+    "chooseFile": "Choose File",
+    "noChosenFile": "No chosen file"
   },
   "ResumeBuilder": {
     "uploadTitle": "Upload existing resume",
@@ -193,7 +195,9 @@
     "address": "Address:",
     "addressPlaceholder": "Address",
     "linkedin": "LinkedIn:",
-    "link": "Link:"
+    "link": "Link:",
+    "chooseFile": "Choose File",
+    "noChosenFile": "No chosen file"
   },
   "CoverletterBuilder": {
     "jobAd": "Job Ad",

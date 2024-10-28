@@ -8,20 +8,24 @@ import ProfileProfessional from '@/components/profile/profile-form/profile-profe
 import ProfileSkills from '@/components/profile/profile-form/profile-skills/ProfileSkills';
 import ProfileLanguages from '@/components/profile/profile-form/profile-languages/ProfileLanguages';
 import {
+  FilenameContainer,
   FileUpload,
+  FileUploadButton,
   ProfileFormContainer,
   SectionTitle,
   SectionTitleContainer,
   UploadButton,
+  UploadInputContainer,
   UploadSection,
 } from './ProfileForm.styles';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+
+import { useTranslations } from 'next-intl';
 import {
   LoadingMessage,
   LoadingMessageContainer,
 } from '../create-profile/upload-cv/UploadCV.styles';
-import { useTranslations } from 'next-intl';
 
 interface ProfileFormProps {
   existingData: Profile;
@@ -74,7 +78,6 @@ const ProfileForm: FC<ProfileFormProps> = ({
     formData.append('file', cvFile);
 
     try {
-      // First, upload to api/cv
       const cvResp = await fetch('/api/cv', {
         method: 'POST',
         body: formData,
@@ -82,10 +85,9 @@ const ProfileForm: FC<ProfileFormProps> = ({
 
       if (cvResp.ok) {
         const cvData = await cvResp.json();
-        const structuredCVContent = cvData.body; // assuming structured content is returned here
+        const structuredCVContent = cvData.body;
         console.log('Structured CV Content:', structuredCVContent);
 
-        // Then, post the structured CV to api/profile
         const profileResp = await fetch('/api/profile', {
           method: 'POST',
           headers: {
@@ -98,7 +100,6 @@ const ProfileForm: FC<ProfileFormProps> = ({
           const profileResponseData = await profileResp.json();
           setUploadMessage('Upload successful!');
 
-          // Merge structured CV content with existing data
           const updatedProfileData = {
             ...existingData,
             ...profileResponseData.body,
@@ -183,11 +184,23 @@ const ProfileForm: FC<ProfileFormProps> = ({
           <SectionTitleContainer>
             <SectionTitle>{t('uploadTitle')}</SectionTitle>
           </SectionTitleContainer>
-          <FileUpload
-            type="file"
-            accept=".docx,.pdf"
-            onChange={handleFileChange}
-          />
+          <UploadInputContainer>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <FileUpload
+                id="file-upload"
+                type="file"
+                accept=".docx,.pdf"
+                onChange={handleFileChange}
+                aria-label={t('chooseFile')}
+              />
+              <FileUploadButton htmlFor="file-upload">
+                {cvFile ? t('chooseFile') : t('chooseFile')}
+              </FileUploadButton>
+              <FilenameContainer>
+                {cvFile ? cvFile.name : t('noChosenFile')}
+              </FilenameContainer>
+            </div>
+          </UploadInputContainer>
           <UploadButton onClick={handleUploadCV} disabled={isUploading}>
             {isUploading ? t('uploading') : t('upload')}
           </UploadButton>

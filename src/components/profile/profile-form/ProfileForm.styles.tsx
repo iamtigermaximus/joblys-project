@@ -425,27 +425,27 @@ export const UploadButton = styled.button`
   }
 `;
 
-export const FileUpload = styled.input`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${colors.purple};
-  color: ${colors.white};
-  border-radius: 5px;
-  font-size: 12px;
-  margin: 5px;
-  padding: 10px 6px;
-  margin: 10px;
-  height: 40px;
-  &:hover {
-    cursor: pointer;
-  }
+// export const FileUpload = styled.input`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: ${colors.purple};
+//   color: ${colors.white};
+//   border-radius: 5px;
+//   font-size: 12px;
+//   margin: 5px;
+//   padding: 10px 6px;
+//   margin: 10px;
+//   height: 40px;
+//   &:hover {
+//     cursor: pointer;
+//   }
 
-  @media (min-width: ${bp.md}) {
-    font-size: 15px;
-    margin: 10px;
-  }
-`;
+//   @media (min-width: ${bp.md}) {
+//     font-size: 15px;
+//     margin: 10px;
+//   }
+// `;
 
 export const UploadSection = styled.div`
   display: flex;
@@ -499,4 +499,54 @@ export const AddButton = styled.button`
     );
     color: ${colors.white};
   }
+`;
+
+// Styled input for the file upload button
+export const FileUpload = styled.input`
+  display: none; // Hide the original file input
+`;
+
+export const FileUploadButton = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.white};
+  color: ${colors.darkPurple};
+  border-radius: 3px;
+  font-size: 14px;
+  height: 25px;
+  margin: 10px;
+  min-width: 100px;
+  max-width: 150px;
+  cursor: pointer;
+  padding: 4px 6px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  @media (min-width: ${bp.md}) {
+    font-size: 14px;
+  }
+`;
+
+export const UploadInputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 5px;
+  width: 300px;
+  margin-bottom: 10px;
+  background-color: ${colors.purple};
+  height: 40px;
+`;
+
+export const FilenameContainer = styled.div`
+  font-size: 14px;
+  margin-left: 10px;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
 `;

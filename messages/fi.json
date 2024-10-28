@@ -130,7 +130,9 @@
     "skillsTitle": "Taidot",
     "addNewSkill": "Lisää uusi taito",
     "languagesTitle": "Kielet",
-    "addNewLanguage": "Lisää uusi kieli"
+    "addNewLanguage": "Lisää uusi kieli",
+    "chooseFile": "Valitse tiedosto",
+    "noChosenFile": "Ei valittua tiedostoa"
   },
   "ResumeBuilder": {
     "uploadTitle": "Lataa olemassa oleva ansioluettelo",
@@ -190,7 +192,9 @@
     "present": "Nykyinen",
     "address": "Osoite:",
     "addressPlaceholder": "Osoite",
-    "linkedin": "LinkedIn:"
+    "linkedin": "LinkedIn:",
+    "chooseFile": "Valitse tiedosto",
+    "noChosenFile": "Ei valittua tiedostoa"
   },
   "CoverletterBuilder": {
     "jobAd": "Työpaikkailmoitus",
