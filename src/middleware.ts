@@ -44,8 +44,12 @@ import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
 
 // Define your protected routes
-const protectedRoutes = ['/eazyCV/dashboard'];
-
+const protectedRoutes = [
+  '/eazyCV/dashboard',
+  '/eazyCV/profile',
+  '/eazyCV/resumes',
+  '/eazyCV/cover-letters',
+];
 // Create the NextIntl middleware
 const intlMiddleware = createMiddleware(routing);
 
@@ -58,6 +62,10 @@ export default async function middleware(req: NextRequest) {
   if (intlResponse) {
     return intlResponse;
   }
+
+  const isProtected = protectedRoutes.some(route =>
+    req.nextUrl.pathname.startsWith(route),
+  );
 
   // Now handle authentication
   if (!isAuthenticated() && protectedRoutes.includes(req.nextUrl.pathname)) {

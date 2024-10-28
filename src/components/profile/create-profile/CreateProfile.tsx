@@ -52,10 +52,10 @@ const CreateProfile = () => {
   };
 
   useEffect(() => {
-    if (!session) {
-      router.push('/login');
-      return;
-    }
+    // if (!session) {
+    //   router.push('/login');
+    //   return;
+    // }
 
     const fetchProfile = async () => {
       setIsLoading(true);

@@ -101,8 +101,12 @@ const Navbar = () => {
 
   const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const newLocale = e.target.value as string;
-    const path = pathname.split('/').slice(2).join('/');
-    router.push(`/${newLocale}/${path}`);
+
+    // Keep the path after the language segment (if it exists)
+    const pathWithoutLocale = pathname.split('/').slice(2).join('/');
+
+    // Redirect to the new locale, keeping the same path
+    router.push(`/${newLocale}/${pathWithoutLocale}`);
   };
 
   return (
