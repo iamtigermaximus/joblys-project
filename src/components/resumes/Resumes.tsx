@@ -45,6 +45,7 @@ const Resumes = () => {
       setIsLoading(true);
       try {
         const response = await axios.get('/api/cv');
+        console.log('Fetched resumes:', response.data.body.resumes);
         const resumes = response.data.body.resumes;
 
         const data = resumes.map(
@@ -62,10 +63,18 @@ const Resumes = () => {
             };
           },
         );
-        setResumeData(data);
+
+        // const modifiedResumes = data.filter(
+        //   (resume: any) => resume.updatedAt !== resume.createdAt,
+        // );
+        const modifiedResumes = data;
+
+        console.log('Modified resumes:', modifiedResumes);
+
+        setResumeData(modifiedResumes);
         setIsLoading(false);
-        console.log('DATA', data);
       } catch (error: any) {
+        console.error('Error fetching resumes:', error);
         setError(error.message);
         setIsLoading(false);
       }

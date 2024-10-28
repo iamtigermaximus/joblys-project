@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     display: 'flex',
     width: '100%',
-    gap: 20,
   },
   page: {
     flexDirection: 'column',
@@ -29,30 +28,29 @@ const styles = StyleSheet.create({
   sectionContainer: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '3px',
-    // border: '1px solid red',
-    padding: '10px',
-    marginBottom: '10px',
-    // flexWrap: 'wrap',
-    flexGrow: 1,
+    padding: 5,
+    marginBottom: 10,
   },
 
   skillsSectionContainer: {
     display: 'flex',
     flexDirection: 'row',
-    gap: '3px',
+    gap: 3,
     // border: '1px solid gray',
-    padding: '5px',
-    marginBottom: '10px',
+    padding: 5,
+    marginBottom: 10,
+    flexWrap: 'wrap',
   },
   skillsItemContainer: {
     marginBottom: 5,
-    minWidth: '100px',
+    minWidth: '150px',
+    display: 'flex',
+    flexDirection: 'row',
   },
   skill: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
-    fontSize: '10px',
+    fontSize: 10,
   },
   bulletContainer: {
     display: 'flex',
@@ -62,10 +60,10 @@ const styles = StyleSheet.create({
   languagesSectionContainer: {
     display: 'flex',
     flexDirection: 'row',
-    gap: '3px',
+    gap: 3,
     // border: '1px solid gray',
-    padding: '5px',
-    marginBottom: '10px',
+    padding: 5,
+    marginBottom: 10,
   },
 
   sectionItemContainer: {
@@ -76,6 +74,8 @@ const styles = StyleSheet.create({
   languagesItemContainer: {
     marginBottom: 5,
     minWidth: '100px',
+    display: 'flex',
+    flexDirection: 'row',
   },
 
   basicContentContainer: {
@@ -98,16 +98,17 @@ const styles = StyleSheet.create({
   },
   basicsTitle: {
     color: 'black',
-    fontSize: '14px',
+    fontSize: 14,
     fontWeight: 700,
-    paddingLeft: '5px',
+    paddingLeft: 5,
   },
 
   basicsItemTitle: {
     color: 'black',
-    fontSize: '10px',
+    fontSize: 10,
     textDecoration: 'none',
     flexWrap: 'wrap',
+    marginBottom: 3,
   },
 
   basicsNameContainer: {
@@ -130,17 +131,17 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     // wordBreak: 'break-all',
     whiteSpace: 'wrap',
-    fontSize: '16px',
+    fontSize: 16,
   },
   currentRoleContainer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '3px',
+    padding: 3,
   },
   headerCurrentRole: {
     color: '#232946',
-    fontSize: '12px',
+    fontSize: 12,
     maxWidth: '100%',
     // wordBreak: 'break-all',
     // whiteSpace: 'wrap',
@@ -151,18 +152,18 @@ const styles = StyleSheet.create({
   },
   detailsTitle: {
     color: '#232946',
-    fontSize: '14px',
-    paddingBottom: '5px',
+    fontSize: 14,
+    paddingBottom: 5,
     borderBottom: '0.5px solid #232946',
   },
   summaryContainer: {
     display: 'flex',
     width: '100%',
     // paddingBottom: '10px',
-    gap: '3px',
+    gap: 3,
     // border: '1px solid gray',
-    padding: '5px',
-    marginBottom: '10px',
+    padding: 5,
+    marginBottom: 10,
   },
   summary: {
     color: '#232946',
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
     // whiteSpace: 'wrap',
     padding: '5px 0',
     // lineHeight: '1.2',
-    fontSize: '10px',
+    fontSize: 10,
   },
   additionalLinksContainer: {
     display: 'flex',
@@ -200,32 +201,32 @@ const styles = StyleSheet.create({
   course: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
-    fontSize: '10px',
-    marginBottom: 2,
+    fontSize: 10,
+    marginBottom: 3,
   },
   school: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
-    fontSize: '10px',
-    marginBottom: 2,
+    fontSize: 10,
+    marginBottom: 3,
   },
   jobTitle: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
-    fontSize: '10px',
-    marginBottom: 2,
+    fontSize: 10,
+    marginBottom: 3,
   },
   company: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
-    fontSize: '10px',
-    marginBottom: 2,
+    fontSize: 10,
+    marginBottom: 3,
   },
 
   language: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
-    fontSize: '10px',
+    fontSize: 10,
   },
   dateContainer: {
     display: 'flex',
@@ -234,20 +235,32 @@ const styles = StyleSheet.create({
     padding: '2px 0',
     flexWrap: 'wrap',
   },
-  dates: { display: 'flex', flexDirection: 'row', gap: 5 },
+  dates: { display: 'flex', flexDirection: 'row', gap: 5, marginBottom: 3 },
   month: { fontSize: '10px' },
-  year: { fontSize: '10px', marginRight: '5px' },
+  year: { fontSize: 10, marginRight: 5 },
   dateSeparator: {
-    fontSize: '14px',
+    fontSize: 14,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   description: {
-    fontSize: '10px',
+    fontSize: 10,
     padding: '5px 0',
     // lineHeight: '1.2',
     // flexWrap: 'wrap',
+  },
+  bulletPoint: {
+    fontSize: 10,
+    marginRight: 5,
+  },
+
+  skillsContentContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '65%',
+    minWidth: '100px',
+    flexWrap: 'wrap',
   },
 });
 
@@ -303,7 +316,7 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
 
   return (
     <Document style={styles.document}>
-      <Page id="resume-template" size="A4" style={styles.page}>
+      <Page id="resume-template" style={styles.page}>
         <View style={styles.headerNameContainer}>
           <Text style={styles.headerName}>{basic.firstName}</Text>
           <Text style={styles.headerName}>{basic.lastName}</Text>
@@ -486,26 +499,38 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
             <Text style={styles.basicsTitle}>Skills</Text>
           </View>
         )}
-        <View style={styles.skillsSectionContainer}>
-          {skills &&
-            skills.map(skill => (
-              <View style={styles.skillsItemContainer} key={skill.id}>
-                <Text style={styles.skill}>{skill.name}</Text>
-              </View>
-            ))}
+        <View style={styles.sectionContainer}>
+          <View style={styles.sectionItemContainer}>
+            <View style={styles.basicContentContainer}></View>
+            <View style={styles.skillsContentContainer}>
+              {skills &&
+                skills.map(skill => (
+                  <View style={styles.skillsItemContainer} key={skill.id}>
+                    <Text style={styles.bulletPoint}>•</Text>
+                    <Text style={styles.skill}>{skill.name}</Text>
+                  </View>
+                ))}
+            </View>
+          </View>
         </View>
         {shouldDisplayTitle && (
           <View style={styles.basicTitleContainer}>
             <Text style={styles.basicsTitle}>Languages</Text>
           </View>
         )}
-        <View style={styles.languagesSectionContainer}>
-          {languages &&
-            languages.map(language => (
-              <View style={styles.languagesItemContainer} key={language.id}>
-                <Text style={styles.language}>{language.name}</Text>
-              </View>
-            ))}
+        <View style={styles.sectionContainer}>
+          <View style={styles.sectionItemContainer}>
+            <View style={styles.basicContentContainer}></View>
+            <View style={styles.contentContainer}>
+              {languages &&
+                languages.map(language => (
+                  <View style={styles.languagesItemContainer} key={language.id}>
+                    <Text style={styles.bulletPoint}>•</Text>
+                    <Text style={styles.language}>{language.name}</Text>
+                  </View>
+                ))}
+            </View>
+          </View>
         </View>
       </Page>
     </Document>
