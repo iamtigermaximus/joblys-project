@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     width: '100%',
     height: '100%',
+    backgroundColor: 'white',
   },
   page: {
     flexDirection: 'column',

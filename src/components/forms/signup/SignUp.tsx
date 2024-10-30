@@ -86,15 +86,24 @@ const SignUp = () => {
       });
 
       if (response.ok) {
-        router.push('/login');
+        const loginResponse = await signIn('credentials', {
+          redirect: false,
+          email: data.email,
+          password: data.password,
+        });
+
+        if (loginResponse?.ok) {
+          router.push('/eazyCV/profile');
+        } else {
+          console.error('Automatic login failed.');
+        }
       } else {
         console.error('Registration failed.');
       }
+
       reset();
-      router.push('/login');
     } catch (error) {
       if (error instanceof z.ZodError) {
-        // Handle schema validation errors here
         error.errors.forEach(validationError => {
           setError(validationError.path[0] as keyof FormData, {
             type: 'manual',
