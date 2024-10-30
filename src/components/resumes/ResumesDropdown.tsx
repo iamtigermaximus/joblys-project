@@ -8,6 +8,7 @@ import DefaultTemplate from '../templates/resume/defaultTemplate/DefaultTemplate
 import { formatFilenameFromDate } from '../helpers/formHelpers';
 import { formatDistanceToNow } from 'date-fns';
 import { useTranslations } from 'next-intl';
+import Classic from '../templates/resume/classic/Classic';
 
 export const Container = styled.div`
   width: 100%;
@@ -236,7 +237,7 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
         </Select>
         <SelectedResumeContainer>
           <SelectedResume>
-            <DefaultTemplate
+            <Classic
               id={selectedResumeData.id}
               resumeInfo={selectedResumeData.resumeInfo}
             />

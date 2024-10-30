@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingLeft: 50,
     paddingRight: 50,
-    paddingBottom: 50,
-    paddingTop: 50,
+    paddingBottom: 40,
+    paddingTop: 40,
     backgroundColor: 'white',
   },
   sectionContainer: {
@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     padding: 5,
     marginBottom: 10,
+    flexWrap: 'wrap',
   },
 
   skillsSectionContainer: {
@@ -248,7 +249,8 @@ const styles = StyleSheet.create({
     fontSize: 10,
     padding: '5px 0',
     // lineHeight: '1.2',
-    // flexWrap: 'wrap',
+    flexWrap: 'wrap',
+    marginTop: 5,
   },
   bulletPoint: {
     fontSize: 10,
@@ -397,22 +399,18 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
           </View>
           <View style={styles.additionalLinksContainer}>
             {basic?.additionalLinks.map(link => (
-              <>
-                <View style={styles.sectionItemContainer}>
-                  {shouldDisplayTitle && (
-                    <View style={styles.basicContentContainer}>
-                      <Text style={styles.basicsItemTitle}>
-                        Additional link
-                      </Text>
-                    </View>
-                  )}
-                  <View style={styles.contentContainer} key={link.id}>
-                    <a href={link.url} style={{ textDecoration: 'none' }}>
-                      <Text style={styles.basicsItemTitle}>{link.url}</Text>
-                    </a>
+              <View style={styles.sectionItemContainer} key={link.id}>
+                {shouldDisplayTitle && (
+                  <View style={styles.basicContentContainer}>
+                    <Text style={styles.basicsItemTitle}>Additional link</Text>
                   </View>
+                )}
+                <View style={styles.contentContainer} key={link.id}>
+                  <a href={link.url} style={{ textDecoration: 'none' }}>
+                    <Text style={styles.basicsItemTitle}>{link.url}</Text>
+                  </a>
                 </View>
-              </>
+              </View>
             ))}
           </View>
         </View>
