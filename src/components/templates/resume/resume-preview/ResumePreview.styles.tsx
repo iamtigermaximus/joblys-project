@@ -1,4 +1,3 @@
-import DefaultTemplate from '../defaultTemplate/DefaultTemplate';
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../../../utils/layout';
 import colors from '../../../../utils/colors';
@@ -85,11 +84,14 @@ export const Filename = styled.h1`
 
 export const ResumeCard = styled.div<{ isLast?: boolean }>`
   height: 250px;
+  height: 100%;
   overflow: hidden;
   position: relative;
-  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
-    rgba(17, 17, 26, 0.1) 0px 0px 8px;
   cursor: pointer;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   @media (min-width: ${bp.sm}) {
     height: 300px;
@@ -117,7 +119,7 @@ export const ResumeContent = styled.div`
   left: 0;
   transform: scale(1, 0.3);
   width: 100%;
-  height: 100%;
+  height: 100vh;
 
   @media (min-width: ${bp.sm}) {
     transform: scale(1);

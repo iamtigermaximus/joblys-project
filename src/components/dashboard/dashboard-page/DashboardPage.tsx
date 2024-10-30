@@ -34,8 +34,6 @@ import {
   SidebarMenuContainer,
   SidebarHeader,
   SidebarHeaderItem,
-  PreviewTitleContainer,
-  PreviewTitle,
   SidebarHeaderClose,
   SidebarContentContainer,
   ContentContainer,
@@ -47,6 +45,8 @@ import {
   CoverlettersSectionContainer,
   CoverLetterContent,
   MiniCoverLetter,
+  PreviewTitleContainer,
+  PreviewTitle,
 } from './DashboardPage.styles';
 import { Resume, initialResume } from '@/types/resume';
 import { Coverletter, initialCoverletter } from '@/types/coverletter';
@@ -390,6 +390,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                         <MiniDefault
                           id={resume.id}
                           resumeInfo={resume.resumeInfo}
+                          isMini={true}
                         />
                       </ResumeContent>
                       <EditContainer>
@@ -447,10 +448,6 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                       </EditContainer>
                     </CardItem>
                     <TimeStampContainer>
-                      {/* <Filename>
-                        Resume {resume.resumeInfo.basic.firstName}{' '}
-                        {resume.resumeInfo.basic.lastName}
-                      </Filename> */}
                       <Filename>
                         Resume_
                         {formatFilenameFromDate(resume.createdAt)}
@@ -569,7 +566,10 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                       }
                     >
                       <CoverLetterContent>
-                        <MiniCoverLetter content={coverLetter.content} />
+                        <MiniCoverLetter
+                          content={coverLetter.content}
+                          isMini={true}
+                        />
                       </CoverLetterContent>
                       <EditContainer>
                         {editModalOpenId === coverLetter.id &&
@@ -599,7 +599,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                                         style={{ marginRight: '5px' }}
                                       />
                                     </ContentItem>
-                                    <ContentItem> Download</ContentItem>
+                                    <ContentItem>{t('download')}</ContentItem>
                                   </EditContentItem>
                                 </EditContent>
                                 <EditContent onClick={e => e.stopPropagation()}>
@@ -622,7 +622,6 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                       </EditContainer>
                     </CardItem>
                     <TimeStampContainer>
-                      {/* <Filename>Coverletter_{coverLetter.id}</Filename> */}
                       <Filename>
                         Coverletter_
                         {formatFilenameFromDate(coverLetter.createdAt)}
@@ -644,7 +643,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                             <PreviewTitleContainer>
                               <PreviewTitle>
                                 {t('previewCoverletterTitle')}
-                              </PreviewTitle>{' '}
+                              </PreviewTitle>
                             </PreviewTitleContainer>
                           </SidebarHeaderItem>
                           <SidebarHeaderClose onClick={handleCloseEditModal}>

@@ -7,6 +7,7 @@ import { StyleSheet, Page, View, Text, Document } from '@react-pdf/renderer';
 interface ClassicTemplateProps {
   resumeInfo: Resume;
   id: string;
+  isMini?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -14,6 +15,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     display: 'flex',
     width: '100%',
+    height: '100%',
+  },
+  miniPage: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    paddingTop: 20,
+    width: '100%',
+    height: '100%',
   },
   page: {
     flexDirection: 'column',
@@ -48,10 +58,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+
   skill: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
     fontSize: 10,
+  },
+  miniSkill: {
+    fontWeight: 700,
+    fontSize: 6,
   },
   bulletContainer: {
     display: 'flex',
@@ -78,12 +93,25 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  miniBasicContentContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '35%',
+    minWidth: '10px',
+  },
 
   basicContentContainer: {
     display: 'flex',
     flexDirection: 'column',
     width: '35%',
     minWidth: '100px',
+  },
+  miniContentContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '65%',
+    minWidth: '10px',
+    flexWrap: 'wrap',
   },
   contentContainer: {
     display: 'flex',
@@ -97,11 +125,25 @@ const styles = StyleSheet.create({
     padding: '5px 0',
     borderBottom: '.3px solid gray',
   },
+  miniBasicsTitle: {
+    color: 'black',
+    fontSize: 10,
+    fontWeight: 700,
+    paddingLeft: 5,
+  },
+
   basicsTitle: {
     color: 'black',
     fontSize: 14,
     fontWeight: 700,
     paddingLeft: 5,
+  },
+  miniBasicsItemTitle: {
+    color: 'black',
+    fontSize: 6,
+    textDecoration: 'none',
+    flexWrap: 'wrap',
+    marginBottom: 3,
   },
 
   basicsItemTitle: {
@@ -126,6 +168,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  miniHeaderName: {
+    color: '#232946',
+    maxWidth: '100%',
+    whiteSpace: 'wrap',
+    fontSize: 12,
+  },
   headerName: {
     color: '#232946',
     // fontSize: '25px',
@@ -139,6 +187,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 3,
+  },
+  miniHeaderCurrentRole: {
+    color: '#232946',
+    fontSize: 10,
+    maxWidth: '100%',
   },
   headerCurrentRole: {
     color: '#232946',
@@ -165,6 +218,15 @@ const styles = StyleSheet.create({
     // border: '1px solid gray',
     padding: 5,
     marginBottom: 10,
+  },
+  miniSummary: {
+    color: '#232946',
+    width: '100%',
+    // wordBreak: 'break-all',
+    // whiteSpace: 'wrap',
+    padding: '5px 0',
+    // lineHeight: '1.2',
+    fontSize: 6,
   },
   summary: {
     color: '#232946',
@@ -199,10 +261,22 @@ const styles = StyleSheet.create({
     padding: '5px 0',
     width: '100%',
   },
+  miniCourse: {
+    fontWeight: 700,
+    // whiteSpace: 'nowrap',
+    fontSize: 6,
+    marginBottom: 3,
+  },
   course: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
     fontSize: 10,
+    marginBottom: 3,
+  },
+  miniSchool: {
+    fontWeight: 700,
+    // whiteSpace: 'nowrap',
+    fontSize: 6,
     marginBottom: 3,
   },
   school: {
@@ -211,10 +285,22 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginBottom: 3,
   },
+  miniJobTitle: {
+    fontWeight: 700,
+    // whiteSpace: 'nowrap',
+    fontSize: 6,
+    marginBottom: 3,
+  },
   jobTitle: {
     fontWeight: 700,
     // whiteSpace: 'nowrap',
     fontSize: 10,
+    marginBottom: 3,
+  },
+  miniCompany: {
+    fontWeight: 700,
+    // whiteSpace: 'nowrap',
+    fontSize: 6,
     marginBottom: 3,
   },
   company: {
@@ -222,6 +308,11 @@ const styles = StyleSheet.create({
     // whiteSpace: 'nowrap',
     fontSize: 10,
     marginBottom: 3,
+  },
+  miniLanguage: {
+    fontWeight: 700,
+    // whiteSpace: 'nowrap',
+    fontSize: 6,
   },
 
   language: {
@@ -237,13 +328,28 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   dates: { display: 'flex', flexDirection: 'row', gap: 5, marginBottom: 3 },
-  month: { fontSize: '10px' },
+  miniMonth: { fontSize: 6 },
+  month: { fontSize: 10 },
+  miniYear: { fontSize: 6 },
   year: { fontSize: 10, marginRight: 5 },
+  miniDateSeparator: {
+    fontSize: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   dateSeparator: {
     fontSize: 14,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  miniDescription: {
+    fontSize: 6,
+    padding: '5px 0',
+    // lineHeight: '1.2',
+    flexWrap: 'wrap',
+    marginTop: 5,
   },
   description: {
     fontSize: 10,
@@ -266,7 +372,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
+const Classic: FC<ClassicTemplateProps> = ({ resumeInfo, isMini }) => {
   const basic = resumeInfo?.basic;
   const professional = resumeInfo?.professional;
   const educational = resumeInfo?.educational;
@@ -318,96 +424,264 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
 
   return (
     <Document style={styles.document}>
-      <Page id="resume-template" style={styles.page}>
+      <Page id="resume-template" style={isMini ? styles.miniPage : styles.page}>
         <View style={styles.headerNameContainer}>
-          <Text style={styles.headerName}>{basic.firstName}</Text>
-          <Text style={styles.headerName}>{basic.lastName}</Text>
+          <Text style={isMini ? styles.miniHeaderName : styles.headerName}>
+            {basic.firstName}
+          </Text>
+          <Text style={isMini ? styles.miniHeaderName : styles.headerName}>
+            {basic.lastName}
+          </Text>
         </View>
         <View style={styles.currentRoleContainer}>
-          <Text style={styles.headerCurrentRole}>
+          <Text
+            style={
+              isMini ? styles.miniHeaderCurrentRole : styles.headerCurrentRole
+            }
+          >
             {professional.currentRole}
           </Text>
         </View>
 
         {shouldDisplayTitle && (
           <View style={styles.basicTitleContainer}>
-            <Text style={styles.basicsTitle}>Summary</Text>
+            <Text style={isMini ? styles.miniBasicsTitle : styles.basicsTitle}>
+              Summary
+            </Text>
           </View>
         )}
         <View style={styles.summaryContainer}>
-          <Text style={styles.summary}>{professional.summary}</Text>
+          <Text style={isMini ? styles.miniSummary : styles.summary}>
+            {professional.summary}
+          </Text>
         </View>
         {shouldDisplayTitle && (
           <View style={styles.basicTitleContainer}>
-            <Text style={styles.basicsTitle}>Personal Details</Text>
+            <Text style={isMini ? styles.miniBasicsTitle : styles.basicsTitle}>
+              Personal Details
+            </Text>
           </View>
         )}
 
         <View style={styles.sectionContainer}>
           <View style={styles.sectionItemContainer}>
             {shouldDisplayTitle && (
-              <View style={styles.basicContentContainer}>
-                <Text style={styles.basicsItemTitle}>Name</Text>
+              <View
+                style={
+                  isMini
+                    ? styles.miniBasicContentContainer
+                    : styles.basicContentContainer
+                }
+              >
+                <Text
+                  style={
+                    isMini ? styles.miniBasicsItemTitle : styles.basicsItemTitle
+                  }
+                >
+                  Name
+                </Text>
               </View>
             )}
-            <View style={styles.contentContainer}>
+            <View
+              style={
+                isMini ? styles.miniContentContainer : styles.contentContainer
+              }
+            >
+              {' '}
               <View style={styles.basicsNameContainer}>
-                <Text style={styles.basicsItemTitle}>{basic.firstName}</Text>
-                <Text style={styles.basicsItemTitle}>{basic.lastName}</Text>
+                <Text
+                  style={
+                    isMini ? styles.miniBasicsItemTitle : styles.basicsItemTitle
+                  }
+                >
+                  {basic.firstName}
+                </Text>
+                <Text
+                  style={
+                    isMini ? styles.miniBasicsItemTitle : styles.basicsItemTitle
+                  }
+                >
+                  {basic.lastName}
+                </Text>
               </View>
             </View>
           </View>
           <View style={styles.sectionItemContainer}>
             {shouldDisplayTitle && (
-              <View style={styles.basicContentContainer}>
-                <Text style={styles.basicsItemTitle}>Email address</Text>
+              <View
+                style={
+                  isMini
+                    ? styles.miniBasicContentContainer
+                    : styles.basicContentContainer
+                }
+              >
+                <Text
+                  style={
+                    isMini ? styles.miniBasicsItemTitle : styles.basicsItemTitle
+                  }
+                >
+                  Email address
+                </Text>
               </View>
             )}
-            <View style={styles.contentContainer}>
-              <Text style={styles.basicsItemTitle}>{basic.email}</Text>
+            <View
+              style={
+                isMini ? styles.miniContentContainer : styles.contentContainer
+              }
+            >
+              {' '}
+              <Text
+                style={
+                  isMini ? styles.miniBasicsItemTitle : styles.basicsItemTitle
+                }
+              >
+                {basic.email}
+              </Text>
             </View>
           </View>
           <View style={styles.sectionItemContainer}>
             {shouldDisplayTitle && (
-              <View style={styles.basicContentContainer}>
-                <Text style={styles.basicsItemTitle}>Phone number</Text>
+              <View
+                style={
+                  isMini
+                    ? styles.miniBasicContentContainer
+                    : styles.basicContentContainer
+                }
+              >
+                {' '}
+                <Text
+                  style={
+                    isMini ? styles.miniBasicsItemTitle : styles.basicsItemTitle
+                  }
+                >
+                  Phone number
+                </Text>
               </View>
             )}
-            <View style={styles.contentContainer}>
-              <Text style={styles.basicsItemTitle}>{basic.phoneNumber}</Text>
+            <View
+              style={
+                isMini ? styles.miniContentContainer : styles.contentContainer
+              }
+            >
+              {' '}
+              <Text
+                style={
+                  isMini ? styles.miniBasicsItemTitle : styles.basicsItemTitle
+                }
+              >
+                {basic.phoneNumber}
+              </Text>
             </View>
           </View>
           <View style={styles.sectionItemContainer}>
             {shouldDisplayTitle && (
-              <View style={styles.basicContentContainer}>
-                <Text style={styles.basicsItemTitle}>Address</Text>
+              <View
+                style={
+                  isMini
+                    ? styles.miniBasicContentContainer
+                    : styles.basicContentContainer
+                }
+              >
+                {' '}
+                <Text
+                  style={
+                    isMini ? styles.miniBasicsItemTitle : styles.basicsItemTitle
+                  }
+                >
+                  Address
+                </Text>
               </View>
             )}
-            <View style={styles.contentContainer}>
-              <Text style={styles.basicsItemTitle}>{basic.address}</Text>
+            <View
+              style={
+                isMini ? styles.miniContentContainer : styles.contentContainer
+              }
+            >
+              {' '}
+              <Text
+                style={
+                  isMini ? styles.miniBasicsItemTitle : styles.basicsItemTitle
+                }
+              >
+                {basic.address}
+              </Text>
             </View>
           </View>
           <View style={styles.sectionItemContainer}>
             {shouldDisplayTitle && (
-              <View style={styles.basicContentContainer}>
-                <Text style={styles.basicsItemTitle}>LinkedIn</Text>
+              <View
+                style={
+                  isMini
+                    ? styles.miniBasicContentContainer
+                    : styles.basicContentContainer
+                }
+              >
+                {' '}
+                <Text
+                  style={
+                    isMini ? styles.miniBasicsItemTitle : styles.basicsItemTitle
+                  }
+                >
+                  LinkedIn
+                </Text>
               </View>
             )}
-            <View style={styles.contentContainer}>
-              <Text style={styles.basicsItemTitle}>{basic.linkedin}</Text>
+            <View
+              style={
+                isMini ? styles.miniContentContainer : styles.contentContainer
+              }
+            >
+              {' '}
+              <Text
+                style={
+                  isMini ? styles.miniBasicsItemTitle : styles.basicsItemTitle
+                }
+              >
+                {basic.linkedin}
+              </Text>
             </View>
           </View>
           <View style={styles.additionalLinksContainer}>
             {basic?.additionalLinks.map(link => (
               <View style={styles.sectionItemContainer} key={link.id}>
                 {shouldDisplayTitle && (
-                  <View style={styles.basicContentContainer}>
-                    <Text style={styles.basicsItemTitle}>Additional link</Text>
+                  <View
+                    style={
+                      isMini
+                        ? styles.miniBasicContentContainer
+                        : styles.basicContentContainer
+                    }
+                  >
+                    {' '}
+                    <Text
+                      style={
+                        isMini
+                          ? styles.miniBasicsItemTitle
+                          : styles.basicsItemTitle
+                      }
+                    >
+                      Additional link
+                    </Text>
                   </View>
                 )}
-                <View style={styles.contentContainer} key={link.id}>
+                <View
+                  style={
+                    isMini
+                      ? styles.miniContentContainer
+                      : styles.contentContainer
+                  }
+                  key={link.id}
+                >
                   <a href={link.url} style={{ textDecoration: 'none' }}>
-                    <Text style={styles.basicsItemTitle}>{link.url}</Text>
+                    <Text
+                      style={
+                        isMini
+                          ? styles.miniBasicsItemTitle
+                          : styles.basicsItemTitle
+                      }
+                    >
+                      {link.url}
+                    </Text>
                   </a>
                 </View>
               </View>
@@ -416,7 +690,9 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
         </View>
         {shouldDisplayTitle && (
           <View style={styles.basicTitleContainer}>
-            <Text style={styles.basicsTitle}>Education</Text>
+            <Text style={isMini ? styles.miniBasicsTitle : styles.basicsTitle}>
+              Education
+            </Text>
           </View>
         )}
         <View style={styles.sectionContainer}>
@@ -424,88 +700,146 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
             educational.map(info => (
               <View style={styles.sectionItemContainer} key={info.id}>
                 {info.school && (
-                  <View style={styles.basicContentContainer}>
+                  <View
+                    style={
+                      isMini
+                        ? styles.miniBasicContentContainer
+                        : styles.basicContentContainer
+                    }
+                  >
+                    {' '}
                     <View style={styles.dateContainer}>
                       <View style={styles.dates}>
-                        <Text style={styles.month}>
+                        <Text style={isMini ? styles.miniMonth : styles.month}>
                           {formatDate(info.startDate.month)}
                         </Text>
-                        <Text style={styles.year}>
+                        <Text style={isMini ? styles.miniYear : styles.year}>
                           {info.startDate.year || new Date().getFullYear()}
                         </Text>
                       </View>
-                      <Text style={styles.dateSeparator}> - </Text>
+                      <Text
+                        style={
+                          isMini
+                            ? styles.miniDateSeparator
+                            : styles.dateSeparator
+                        }
+                      >
+                        -{' '}
+                      </Text>
                       <View style={styles.dates}>
-                        <Text style={styles.month}>
+                        <Text style={isMini ? styles.miniMonth : styles.month}>
                           {formatDate(info.endDate.month)}
                         </Text>
-                        <Text style={styles.year}>
+                        <Text style={isMini ? styles.miniYear : styles.year}>
                           {formatYear(info.endDate)}
                         </Text>
                       </View>
                     </View>
                   </View>
                 )}
-                <View style={styles.contentContainer}>
-                  <Text style={styles.course}>{info.course}</Text>
-                  <Text style={styles.school}>{info.school}</Text>
+                <View
+                  style={
+                    isMini
+                      ? styles.miniContentContainer
+                      : styles.contentContainer
+                  }
+                >
+                  {' '}
+                  <Text style={isMini ? styles.miniCourse : styles.course}>
+                    {info.course}
+                  </Text>
+                  <Text style={isMini ? styles.miniSchool : styles.school}>
+                    {info.school}
+                  </Text>
                 </View>
               </View>
             ))}
         </View>
         {shouldDisplayTitle && (
           <View style={styles.basicTitleContainer}>
-            <Text style={styles.basicsTitle}>Employment</Text>
+            <Text style={isMini ? styles.miniBasicsTitle : styles.basicsTitle}>
+              Employment
+            </Text>
           </View>
         )}
         <View style={styles.sectionContainer}>
           {professional.work.map(info => (
             <View style={styles.sectionItemContainer} key={info.id}>
               {info.jobTitle && (
-                <View style={styles.basicContentContainer}>
+                <View
+                  style={
+                    isMini
+                      ? styles.miniBasicContentContainer
+                      : styles.basicContentContainer
+                  }
+                >
+                  {' '}
                   <View style={styles.dateContainer}>
                     <View style={styles.dates}>
-                      <Text style={styles.month}>
+                      <Text style={isMini ? styles.miniMonth : styles.month}>
                         {formatDate(info.startDate.month)}
                       </Text>
-                      <Text style={styles.year}>
+                      <Text style={isMini ? styles.miniYear : styles.year}>
                         {info.startDate.year || new Date().getFullYear()}
                       </Text>
                     </View>
                     <Text style={styles.dateSeparator}> - </Text>
                     <View style={styles.dates}>
-                      <Text style={styles.month}>
+                      <Text style={isMini ? styles.miniMonth : styles.month}>
                         {formatDate(info.endDate.month)}
                       </Text>
-                      <Text style={styles.year}>
+                      <Text style={isMini ? styles.miniYear : styles.year}>
                         {formatYear(info.endDate)}
                       </Text>
                     </View>
                   </View>
                 </View>
               )}
-              <View style={styles.contentContainer}>
-                <Text style={styles.jobTitle}>{info.jobTitle}</Text>
-                <Text style={styles.company}>{info.company}</Text>
-                <Text style={styles.description}>{info.jobDetails}</Text>
+              <View
+                style={
+                  isMini ? styles.miniContentContainer : styles.contentContainer
+                }
+              >
+                {' '}
+                <Text style={isMini ? styles.miniJobTitle : styles.jobTitle}>
+                  {info.jobTitle}
+                </Text>
+                <Text style={isMini ? styles.miniCompany : styles.company}>
+                  {info.company}
+                </Text>
+                <Text
+                  style={isMini ? styles.miniDescription : styles.description}
+                >
+                  {info.jobDetails}
+                </Text>
               </View>
             </View>
           ))}
         </View>
         {shouldDisplayTitle && (
           <View style={styles.basicTitleContainer}>
-            <Text style={styles.basicsTitle}>Skills</Text>
+            <Text style={isMini ? styles.miniBasicsTitle : styles.basicsTitle}>
+              Skills
+            </Text>
           </View>
         )}
         <View style={styles.sectionContainer}>
           <View style={styles.sectionItemContainer}>
-            <View style={styles.basicContentContainer}></View>
+            <View
+              style={
+                isMini
+                  ? styles.miniBasicContentContainer
+                  : styles.basicContentContainer
+              }
+            ></View>{' '}
             <View style={styles.skillsContentContainer}>
               {skills &&
                 skills.map(skill => (
                   <View style={styles.skillsItemContainer} key={skill.id}>
                     <Text style={styles.bulletPoint}>•</Text>
-                    <Text style={styles.skill}>{skill.name}</Text>
+                    <Text style={isMini ? styles.miniSkill : styles.skill}>
+                      {skill.name}
+                    </Text>
                   </View>
                 ))}
             </View>
@@ -513,18 +847,35 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo }) => {
         </View>
         {shouldDisplayTitle && (
           <View style={styles.basicTitleContainer}>
-            <Text style={styles.basicsTitle}>Languages</Text>
+            <Text style={isMini ? styles.miniBasicsTitle : styles.basicsTitle}>
+              Languages
+            </Text>
           </View>
         )}
         <View style={styles.sectionContainer}>
           <View style={styles.sectionItemContainer}>
-            <View style={styles.basicContentContainer}></View>
-            <View style={styles.contentContainer}>
+            <View
+              style={
+                isMini
+                  ? styles.miniBasicContentContainer
+                  : styles.basicContentContainer
+              }
+            ></View>
+            <View
+              style={
+                isMini ? styles.miniContentContainer : styles.contentContainer
+              }
+            >
+              {' '}
               {languages &&
                 languages.map(language => (
                   <View style={styles.languagesItemContainer} key={language.id}>
                     <Text style={styles.bulletPoint}>•</Text>
-                    <Text style={styles.language}>{language.name}</Text>
+                    <Text
+                      style={isMini ? styles.miniLanguage : styles.language}
+                    >
+                      {language.name}
+                    </Text>
                   </View>
                 ))}
             </View>

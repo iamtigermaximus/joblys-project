@@ -8,12 +8,12 @@ import {
   CardContainer,
   ContentContainer,
   ContentItem,
-  CoverLetterTitle,
-  CoverLetterTitleContainer,
   CoverLetterCard,
   CoverLetterContainer,
   CoverLetterContent,
   CoverLetterListContainer,
+  CoverLetterTitle,
+  CoverLetterTitleContainer,
   CoverletterButtonsContainer,
   CoverletterItemContainer,
   CreateCoverLetterButton,
@@ -44,11 +44,12 @@ import { FaRegEdit, FaDownload, FaTrashAlt } from 'react-icons/fa';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { Coverletter, initialCoverletter } from '@/types/coverletter';
 import { formatDistanceToNow, format, parseISO } from 'date-fns';
+
 import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
+import { useTranslations } from 'next-intl';
 import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
 import ConfirmationModal from '../resume/defaultTemplate/ConfirmationModal';
 import UpgradeModal from '../resume/defaultTemplate/resume-helpers/UpgradeModal';
-import { useTranslations } from 'next-intl';
 
 interface CoverLetterPreviewProps {
   viewMode: 'list' | 'card';
@@ -239,7 +240,10 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                     isLast={true}
                   >
                     <CoverLetterContent>
-                      <MiniCoverLetter content={coverLetter.content} />
+                      <MiniCoverLetter
+                        content={coverLetter.content}
+                        isMini={true}
+                      />
                     </CoverLetterContent>
                     <EditContainer>
                       <EditButton
@@ -263,7 +267,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                                       handleEditCoverLetter(coverLetter.id)
                                     }
                                   >
-                                    {t('edit')}
+                                    {t('edit')}{' '}
                                   </ContentItem>
                                 </EditContentItem>
                               </EditContent>
@@ -326,7 +330,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                           <CoverLetterTitleContainer>
                             <CoverLetterTitle>
                               {t('previewTitle')}
-                            </CoverLetterTitle>{' '}
+                            </CoverLetterTitle>
                           </CoverLetterTitleContainer>
                         </SidebarHeaderItem>
                         <SidebarHeaderClose onClick={handleCloseEditModal}>

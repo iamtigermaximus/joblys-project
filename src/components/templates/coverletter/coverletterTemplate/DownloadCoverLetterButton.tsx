@@ -2,10 +2,9 @@ import React from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import styled from 'styled-components';
 import { View, Text } from '@react-pdf/renderer';
-// import CoverLetterTemplate from './CoverLetterTemplate';
-import MiniCoverLetterTemplate from '../../minicoverletter-template/MiniCoverLetterTemplate';
 import { Coverletter } from '@/types/coverletter';
 import { useTranslations } from 'next-intl';
+import CoverLetterTemplate from './CoverLetterTemplate';
 
 const PDFDownload = styled(PDFDownloadLink)`
   text-decoration: none;
@@ -26,11 +25,12 @@ const DownloadCoverLetterButton: React.FC<DownloadCoverLetterButtonProps> = ({
   color = 'gray',
 }) => {
   const t = useTranslations('CoverlettersPage');
+
   const content = coverLetterInfo?.content || '';
   return (
     <View>
       <PDFDownload
-        document={<MiniCoverLetterTemplate content={content} />}
+        document={<CoverLetterTemplate content={content} />}
         color={color}
       >
         {({ blob, url, loading, error }) => (

@@ -1,7 +1,7 @@
 'use client';
 
 import colors from '@/utils/colors';
-import { breakpoints as bp } from '@/utils/layout';
+import { breakpoints as bp } from '../../utils/layout';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -9,6 +9,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff);
+
   flex-direction: column;
 
   @media (-width: ${bp.md}) {
@@ -35,6 +36,7 @@ export const ResumeBuilderContainer = styled.div`
   flex-direction: column;
   height: 100vh;
 `;
+
 export const CoverletterBuilderContainer = styled.div`
   display: flex;
   width: 100%;
@@ -141,12 +143,16 @@ export const GetStartedButton = styled.button`
   margin: 0 2px;
   padding: 10px 20px;
   white-space: nowrap;
-  background-color: ${colors.purple};
-  color: ${colors.offWhite};
   border-radius: 5px;
   border: none;
-  color: white;
+  background-color: ${colors.purple};
+  color: ${colors.offWhite};
   cursor: pointer;
+  /* moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out; */
+
   transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
 
   &:hover {
@@ -188,10 +194,8 @@ export const ResumeTemplateContainer = styled.div`
     justify-content: center;
     flex-direction: row;
     width: 100%;
-    height: 100vh;
-    /* background-color: #f8f8f8; */
+    height: 100%;
     background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff);
-
     overflow-y: auto;
     padding: 50px 20px;
     -ms-overflow-style: none;
@@ -208,6 +212,7 @@ export const CoverletterContentContainer = styled.div`
 
   @media (min-width: ${bp.lg}) {
     min-height: 500px;
+    height: 100vh;
     background-color: white;
     width: 100%;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

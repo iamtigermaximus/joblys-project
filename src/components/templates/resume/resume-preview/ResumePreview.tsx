@@ -257,6 +257,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                     <MiniDefault
                       id={resume.id}
                       resumeInfo={resume.resumeInfo}
+                      isMini={true}
                     />
                   </ResumeContent>
                   <EditContainer>
@@ -277,7 +278,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                                 <ContentItem
                                   onClick={() => handleEditResume(resume.id)}
                                 >
-                                  Edit
+                                  {t('edit')}
                                 </ContentItem>
                               </EditContentItem>
                             </EditContent>
@@ -300,7 +301,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                                 <ContentItem>
                                   <FaTrashAlt style={{ marginRight: '5px' }} />
                                 </ContentItem>
-                                <ContentItem> Delete</ContentItem>
+                                <ContentItem>{t('delete')}</ContentItem>
                               </EditContentItem>
                             </EditContent>
                           </EditModalContent>
@@ -309,10 +310,6 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                   </EditContainer>
                 </ResumeCard>
                 <FilenameContainer>
-                  {/* <Filename>
-                    Resume {resume.resumeInfo.basic.firstName}{' '}
-                    {resume.resumeInfo.basic.lastName}
-                  </Filename> */}
                   <Filename>
                     Resume_
                     {formatFilenameFromDate(resume.createdAt)}
@@ -334,7 +331,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                     <SidebarHeader>
                       <SidebarHeaderItem>
                         <ResumeTitleContainer>
-                          <ResumeTitle>Resume</ResumeTitle>
+                          <ResumeTitle> {t('previewTitle')}</ResumeTitle>
                         </ResumeTitleContainer>
                       </SidebarHeaderItem>
                       <SidebarHeaderClose onClick={handleCloseEditModal}>
@@ -357,7 +354,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                       <PreviewEditButton
                         onClick={() => handleEditResume(resume.id)}
                       >
-                        Edit
+                        {t('edit')}{' '}
                       </PreviewEditButton>
                       <PreviewDownloadButton>
                         <DownloadPDFButton
@@ -378,7 +375,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
             />
           )}
           {showDeleteMessage && (
-            <DeleteMessage>{t('deleteMessage')} </DeleteMessage>
+            <DeleteMessage> {t('deleteMessage')} </DeleteMessage>
           )}
           {showUpgradeModal && (
             <UpgradeModal onClose={() => setShowUpgradeModal(false)} />

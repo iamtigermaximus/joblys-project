@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { breakpoints as bp } from '@/utils/layout';
 import colors from '@/utils/colors';
-import MiniCoverLetterTemplate from '../minicoverletter-template/MiniCoverLetterTemplate';
+import CoverLetterTemplate from '../coverletter/coverletterTemplate/CoverLetterTemplate';
 
 export const CoverLetterContainer = styled.div`
   display: flex;
@@ -41,10 +41,14 @@ export const CoverLetterCard = styled.div<{ isLast?: boolean }>`
   } */
 
   height: 250px;
+  height: 100%;
   overflow: hidden;
   position: relative;
-  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
-    rgba(17, 17, 26, 0.1) 0px 0px 8px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: white;
 
   @media (min-width: ${bp.sm}) {
@@ -67,15 +71,16 @@ export const CoverLetterCard = styled.div<{ isLast?: boolean }>`
 export const CoverLetterContent = styled.div`
   display: flex;
   justify-content: center;
-  transform-origin: top left;
+  transform-origin: left top;
   position: relative;
   top: 0;
   left: 0;
-  transform: scale(1, 0.2);
-  background-color: white;
+  transform: scale(1, 0.3);
+  width: 100%;
+  height: 100vh;
 
   @media (min-width: ${bp.sm}) {
-    transform: scale(0.9, 0.3);
+    transform: scale(1);
   }
 
   @media (min-width: ${bp.md}) {
@@ -83,7 +88,7 @@ export const CoverLetterContent = styled.div`
   }
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(0.85, 0.35);
+    transform: scale(1, 0.35);
   }
 
   @media (min-width: ${bp.xl}) {
@@ -94,8 +99,7 @@ export const CreateCoverLetterButton = styled.div`
   flex: 1 1 calc(50% - 10px);
   max-width: calc(50%-10px);
   height: 250px;
-  /* min-width: 150px; */
-  border: 1px solid #ccc;
+  border: 1px dashed #ccc;
   overflow: hidden;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -105,13 +109,19 @@ export const CreateCoverLetterButton = styled.div`
   position: relative;
   cursor: pointer;
 
+  &:hover {
+    color: #520668;
+    border: 1px dashed #520668;
+  }
+
   @media (min-width: ${bp.sm}) {
     max-width: calc(50%-10px);
     height: 300px;
   }
 
   @media (min-width: ${bp.md}) {
-    height: 400px;
+    max-width: calc(33.33% - 15px);
+    height: 300px;
   }
 
   @media (min-width: ${bp.lg}) {
@@ -139,7 +149,7 @@ export const ButtonLabel = styled.h1`
   }
 `;
 
-export const MiniCoverLetter = styled(MiniCoverLetterTemplate)`
+export const MiniCoverLetter = styled(CoverLetterTemplate)`
   width: 100%;
   height: 100%;
 `;
@@ -167,7 +177,7 @@ export const EditContainer = styled.div`
   left: 0;
   width: 100%;
   height: 5vh;
-  /* z-index: 88; */
+  z-index: 88;
   display: flex;
   justify-content: flex-end;
   align-items: center;

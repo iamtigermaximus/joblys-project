@@ -3,7 +3,7 @@ import colors from '@/utils/colors';
 import styled from 'styled-components';
 import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
 import Classic from '@/components/templates/resume/classic/Classic';
-import MiniCoverLetterTemplate from '@/components/templates/minicoverletter-template/MiniCoverLetterTemplate';
+import CoverLetterTemplate from '@/components/templates/coverletter/coverletterTemplate/CoverLetterTemplate';
 
 export const Container = styled.div`
   width: 100%;
@@ -300,7 +300,7 @@ export const MiniDefault = styled(Classic)`
   height: 100%;
 `;
 
-export const MiniCoverLetter = styled(MiniCoverLetterTemplate)`
+export const MiniCoverLetter = styled(CoverLetterTemplate)`
   width: 100%;
   height: 100%;
 `;
