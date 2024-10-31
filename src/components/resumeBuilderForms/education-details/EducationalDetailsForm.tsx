@@ -35,20 +35,22 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
     console.log('Educational data:', educational);
   }, [educational]);
 
-  const generateMonths = () => [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+  const generateMonths = () => {
+    return [
+      t('months.January'),
+      t('months.February'),
+      t('months.March'),
+      t('months.April'),
+      t('months.May'),
+      t('months.June'),
+      t('months.July'),
+      t('months.August'),
+      t('months.September'),
+      t('months.October'),
+      t('months.November'),
+      t('months.December'),
+    ];
+  };
 
   const generateYears = () => {
     const currentYear = new Date().getFullYear();

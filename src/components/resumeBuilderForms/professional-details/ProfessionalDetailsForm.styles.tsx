@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { breakpoints as bp } from '../../../utils/layout';
 import colors from '../../../utils/colors';
 
@@ -38,6 +38,7 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 0 6px;
 `;
 
 export const TextArea = styled.textarea`
@@ -206,6 +207,7 @@ export const ButtonsContainer = styled.div`
   width: 100%;
   justify-content: flex-end;
   gap: 5px;
+  padding: 0 6px;
 `;
 
 export const TrashIcon = styled.button`
@@ -284,4 +286,27 @@ export const CheckboxLabel = styled.label`
   font-size: 14px;
   color: ${colors.darkPurple};
   padding: 5px;
+`;
+
+const spin = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Spinner = styled.div`
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-left-color: #ffffff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: ${spin} 1s linear infinite;
+
+  position: absolute;
+  top: 10px;
+  left: 40%;
+  transform: translateX(-40%);
 `;

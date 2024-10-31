@@ -14,6 +14,7 @@ import {
   ProfileFormContainer,
   SectionTitle,
   SectionTitleContainer,
+  Spinner,
   UploadButton,
   UploadInputContainer,
   UploadSection,
@@ -201,8 +202,27 @@ const ProfileForm: FC<ProfileFormProps> = ({
               </FilenameContainer>
             </div>
           </UploadInputContainer>
-          <UploadButton onClick={handleUploadCV} disabled={isUploading}>
-            {isUploading ? t('uploading') : t('upload')}
+          <UploadButton
+            onClick={handleUploadCV}
+            disabled={isUploading}
+            style={{
+              position: 'relative',
+            }}
+          >
+            {isUploading ? (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Spinner />
+                {t('uploading')}
+              </div>
+            ) : (
+              t('upload')
+            )}
           </UploadButton>
           <LoadingMessageContainer>
             {uploadMessage && <LoadingMessage>{uploadMessage}</LoadingMessage>}

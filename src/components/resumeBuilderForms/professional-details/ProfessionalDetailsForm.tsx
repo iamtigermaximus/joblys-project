@@ -23,6 +23,7 @@ import {
   InputRow,
   MonthSelect,
   ProfessionalDetailsContainer,
+  Spinner,
   TextArea,
   TrashIcon,
   WorkExperienceContainer,
@@ -108,20 +109,22 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
     }));
   };
 
-  const generateMonths = () => [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+  const generateMonths = () => {
+    return [
+      t('months.January'),
+      t('months.February'),
+      t('months.March'),
+      t('months.April'),
+      t('months.May'),
+      t('months.June'),
+      t('months.July'),
+      t('months.August'),
+      t('months.September'),
+      t('months.October'),
+      t('months.November'),
+      t('months.December'),
+    ];
+  };
 
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
@@ -487,9 +490,24 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
                     ? 'not-allowed'
                     : 'pointer',
                   color: isEnhancing[experience.id] ? '#FFFFFF' : '#ffff',
+                  position: 'relative',
+                  padding: '12px 20px',
                 }}
               >
-                {t('enhance')}
+                {isEnhancing[experience.id] ? (
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Spinner />
+                    <span>{t('enhance')}</span>
+                  </div>
+                ) : (
+                  t('enhance')
+                )}
               </EnhanceButton>
               <TrashIcon
                 onClick={() => handleDeleteWorkExperience(experience.id)}

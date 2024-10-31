@@ -34,6 +34,7 @@ import {
   FileUploadButton,
   UploadInputContainer,
   FilenameContainer,
+  Spinner,
 } from './ResumeForm.styles';
 import {
   FaArrowLeft,
@@ -49,6 +50,7 @@ import DownloadPDFButton from '@/components/templates/resume/defaultTemplate/Dow
 import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
 
 import { convertProfileToResume, Profile } from '@/types/profile';
+
 import { IoMdHelpCircleOutline } from 'react-icons/io';
 import { useTranslations } from 'next-intl';
 import Classic from '@/components/templates/resume/classic/Classic';
@@ -374,8 +376,27 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
               </FilenameContainer>
             </div>
           </UploadInputContainer>
-          <UploadButton onClick={handleUploadCV} disabled={isUploading}>
-            {isUploading ? t('uploading') : t('upload')}
+          <UploadButton
+            onClick={handleUploadCV}
+            disabled={isUploading}
+            style={{
+              position: 'relative',
+            }}
+          >
+            {isUploading ? (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Spinner />
+                {t('uploading')}
+              </div>
+            ) : (
+              t('upload')
+            )}
           </UploadButton>
           <LoadingMessageContainer>
             {uploadMessage && <LoadingMessage>{uploadMessage}</LoadingMessage>}
@@ -620,9 +641,24 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
               style={{
                 backgroundColor: isCreatingResume ? '#494A66' : '#520668',
                 cursor: isCreatingResume ? 'not-allowed' : 'pointer',
+                position: 'relative',
+                padding: '12px 20px',
               }}
             >
-              {t('createResume')}
+              {isCreatingResume ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Spinner />
+                  {t('createResume')}
+                </div>
+              ) : (
+                t('createResume')
+              )}
             </CreateProfileButton>
           </PreviewButtonSection>
           {showSuccessMessage && (

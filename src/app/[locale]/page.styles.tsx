@@ -194,7 +194,7 @@ export const ResumeTemplateContainer = styled.div`
     justify-content: center;
     flex-direction: row;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff);
     overflow-y: auto;
     padding: 50px 20px;

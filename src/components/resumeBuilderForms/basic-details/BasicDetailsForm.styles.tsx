@@ -36,6 +36,7 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 0 6px;
 `;
 
 export const Input = styled.input`

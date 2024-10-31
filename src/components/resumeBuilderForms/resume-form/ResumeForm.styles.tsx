@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { breakpoints as bp } from '../../../utils/layout';
 import colors from '../../../utils/colors';
 
@@ -38,7 +38,7 @@ export const AccordionHeader = styled.div`
   border-bottom: 1px solid #f5f5f5;
 
   height: 50px;
-  padding: 4px 0;
+  padding: 4px 6px;
   align-items: center;
 `;
 
@@ -224,6 +224,8 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 4px 6px;
+  background-color: white;
 `;
 
 export const TextArea = styled.textarea`
@@ -405,4 +407,27 @@ export const FilenameContainer = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 150px;
+`;
+
+const spin = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Spinner = styled.div`
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-left-color: #ffffff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: ${spin} 1s linear infinite;
+
+  position: absolute;
+  top: 10px;
+  left: 40%;
+  transform: translateX(-40%);
 `;

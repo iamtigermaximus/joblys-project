@@ -15,6 +15,7 @@ import {
   PreviewButton,
   PreviewButtonSection,
   PreviewCoverLetterContainer,
+  Spinner,
   SuccessAlert,
   TemplateHeaderItem,
   TemplatePreview,
@@ -268,10 +269,24 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
                   ? '#494A66'
                   : '#520668',
                 cursor: isGeneratingCoverletter ? 'not-allowed' : 'pointer',
+                position: 'relative',
+                padding: '12px 20px',
               }}
             >
-              {isLoading ? t('generating') : t('generateCoverletter')}
-              {/* Update button text based on loading state */}
+              {isGeneratingCoverletter ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Spinner />
+                  {t('generateCoverletter')}
+                </div>
+              ) : (
+                t('generateCoverletter')
+              )}{' '}
             </GenerateButton>
           </PreviewButtonSection>
           {showSuccessMessage && (

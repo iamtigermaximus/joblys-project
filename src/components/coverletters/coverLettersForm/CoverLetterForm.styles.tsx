@@ -1,6 +1,6 @@
 import colors from '@/utils/colors';
 import { breakpoints as bp } from '@/utils/layout';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -36,7 +36,6 @@ export const AccordionHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   border-bottom: 1px solid #f5f5f5;
-
   height: 50px;
   padding: 4px 0;
   align-items: center;
@@ -49,9 +48,7 @@ export const AccordionHeaderTitle = styled.h1`
   font-family: 'Roboto Rounded', sans-serif;
 `;
 
-export const AccordionContent = styled.div`
-  /* padding: 5px 0; */
-`;
+export const AccordionContent = styled.div``;
 
 export const IconContainer = styled.div`
   display: flex;
@@ -79,7 +76,6 @@ export const TemplatePreview = styled.div`
   }
 
   @media (min-width: ${bp.lg}) {
-    /* display: none; */
   }
 `;
 
@@ -105,7 +101,6 @@ export const TemplateHeaderItem = styled.div`
 `;
 
 export const HeaderItem = styled.h1`
-  /* Common button styles go here */
   padding: 8px 16px;
   height: 40px;
   font-size: 16px;
@@ -171,7 +166,6 @@ export const GenerateButton = styled.button`
   border: none;
   border-radius: 3px;
   width: 200px;
-
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 
   &:hover {
@@ -278,4 +272,27 @@ export const TooltipContainer = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 200px;
   font-size: 11px;
+`;
+
+const spin = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Spinner = styled.div`
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-left-color: #ffffff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: ${spin} 1s linear infinite;
+
+  position: absolute;
+  top: 10px;
+  left: 40%;
+  transform: translateX(-40%);
 `;
