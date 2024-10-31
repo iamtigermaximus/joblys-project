@@ -35,6 +35,7 @@ import {
   UploadInputContainer,
   FilenameContainer,
   Spinner,
+  IconWrapper,
 } from './ResumeForm.styles';
 import {
   FaArrowLeft,
@@ -432,7 +433,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         <AccordionSection>
           <AccordionHeader>
             <AccordionHeaderTitle>{t('jobAd')}</AccordionHeaderTitle>
-            <AccordionHeaderTitle ref={helpIconRef}>
+            <IconWrapper ref={helpIconRef}>
               <IoMdHelpCircleOutline
                 onClick={toggleHelpTooltip}
                 style={{ cursor: 'pointer' }}
@@ -442,7 +443,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
                   <p>{t('helpTooltip')}</p>
                 </TooltipContainer>
               )}
-            </AccordionHeaderTitle>
+            </IconWrapper>
           </AccordionHeader>
           <InputContainer>
             <TextArea

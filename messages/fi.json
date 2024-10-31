@@ -214,7 +214,8 @@
       "October": "Lokakuu",
       "November": "Marraskuu",
       "December": "Joulukuu"
-    }
+    },
+    "enhanceTooltip": "Napsauta parannuspainiketta parantaaksesi työkokemuksen kuvausta. Lisää yksityiskohtia ja asiaankuuluvia avainsanoja saadaksesi parempia tuloksia."
   },
   "CoverletterBuilder": {
     "jobAd": "Työpaikkailmoitus",

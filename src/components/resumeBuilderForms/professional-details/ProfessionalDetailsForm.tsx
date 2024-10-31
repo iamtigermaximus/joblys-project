@@ -5,6 +5,7 @@ import React, {
   SetStateAction,
   useState,
   useEffect,
+  useRef,
 } from 'react';
 import {
   AddWorkExperienceButton,
@@ -16,6 +17,7 @@ import {
   Container,
   DropdownContainer,
   EnhanceButton,
+  IconWrapper,
   Input,
   InputContainer,
   InputLabel,
@@ -25,6 +27,7 @@ import {
   ProfessionalDetailsContainer,
   Spinner,
   TextArea,
+  TooltipContainer,
   TrashIcon,
   WorkExperienceContainer,
   YearSelect,
@@ -33,6 +36,7 @@ import { DateType, ProfessionalExperienceType, Resume } from '@/types/resume';
 import { v4 as uuidv4 } from 'uuid';
 import { capitalizeFirstLetter } from '@/components/helpers/formHelpers';
 import { useTranslations } from 'next-intl';
+import { IoMdHelpCircleOutline } from 'react-icons/io';
 
 interface ProfessionalDetailsFormProps {
   resumeId: string;
@@ -70,6 +74,34 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
 
   const [isEnhancing, setIsEnhancing] = useState<Record<string, boolean>>({});
   const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
+  const [showHelpTooltip, setShowHelpTooltip] = useState<string | null>(null);
+  const helpIconRef = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+
+  const toggleHelpTooltip = (id: string) => {
+    setShowHelpTooltip(prevId => (prevId === id ? null : id));
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        tooltipRef.current &&
+        !tooltipRef.current.contains(event.target as Node)
+      ) {
+        setShowHelpTooltip(null);
+      }
+    };
+
+    if (showHelpTooltip) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showHelpTooltip]);
 
   useEffect(() => {
     const newCheckedWorkIds: string[] = [];
@@ -464,7 +496,32 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             </InputRow>
             <InputRow>
               <InputContainer>
-                <InputLabel>{t('jobDescription')}</InputLabel>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <InputLabel>{t('jobDescription')}</InputLabel>
+                  <IconWrapper ref={helpIconRef}>
+                    <IoMdHelpCircleOutline
+                      onClick={() => toggleHelpTooltip(experience.id)}
+                      style={{
+                        cursor: 'pointer',
+                        color: 'black',
+                        fontSize: '20px',
+                      }}
+                    />
+                    {showHelpTooltip === experience.id && (
+                      <TooltipContainer ref={tooltipRef}>
+                        <p>{t('enhanceTooltip')}</p>
+                      </TooltipContainer>
+                    )}
+                  </IconWrapper>
+                </div>
+
                 <TextArea
                   placeholder={t('jobDescriptionPlaceholder')}
                   value={experience.jobDetails}

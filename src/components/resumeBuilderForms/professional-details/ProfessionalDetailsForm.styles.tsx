@@ -310,3 +310,40 @@ export const Spinner = styled.div`
   left: 40%;
   transform: translateX(-40%);
 `;
+
+// export const TooltipContainer = styled.div`
+//   top: 10px;
+//   /* left: 100px; */
+//   right: 100px;
+//   transform: translateX(-100%);
+//   z-index: 200;
+//   padding: 10px;
+//   background-color: ${colors.blueGray};
+//   color: ${colors.white};
+//   border-radius: 5px;
+//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//   width: 200px;
+//   font-size: 11px;
+// `;
+
+export const TooltipContainer = styled.div`
+  position: absolute;
+  top: 25px;
+  /* bottom: -10px; // Adjust this as needed for positioning */
+  left: -220px; // Adjust this for alignment to the left
+  padding: 10px;
+  /* background-color: ${colors.purple}; */
+  background-color: #800080;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 12px;
+  width: 220px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* z-index: 200; */
+  white-space: wrap;
+`;
+
+export const IconWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`;

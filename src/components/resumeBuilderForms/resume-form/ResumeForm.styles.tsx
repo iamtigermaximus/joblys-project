@@ -348,9 +348,10 @@ export const TooltipContainer = styled.div`
   top: 10;
   left: 100;
   transform: translateX(-100%);
-  z-index: 100;
+  /* z-index: 100; */
   padding: 10px;
-  background-color: ${colors.blueGray};
+  /* background-color: ${colors.blueGray}; */
+  background-color: #800080;
   color: ${colors.white};
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -430,4 +431,9 @@ export const Spinner = styled.div`
   top: 10px;
   left: 40%;
   transform: translateX(-40%);
+`;
+
+export const IconWrapper = styled.div`
+  position: relative;
+  display: inline-block;
 `;
