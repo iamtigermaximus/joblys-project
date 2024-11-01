@@ -56,6 +56,7 @@ const SignUp = () => {
   const t = useTranslations('SignUpPage');
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [displayError, setDisplayError] = useState(''); // **New state variable for error display**
 
   const {
     register,
@@ -98,7 +99,25 @@ const SignUp = () => {
           console.error('Automatic login failed.');
         }
       } else {
-        console.error('Registration failed.');
+        const errorData = await response.json();
+        if (errorData.message === 'Email already exists') {
+          setError('email', {
+            type: 'manual',
+            message:
+              'An account with this email already exists. Please log in.',
+          });
+          setDisplayError(
+            'An account with this email already exists. Please log in.',
+          );
+        } else {
+          console.error('Registration failed:', errorData.message);
+          setDisplayError(
+            'An account with this email already exists. Please log in.100',
+          );
+          setTimeout(() => {
+            setDisplayError('');
+          }, 5000);
+        }
       }
 
       reset();
@@ -112,6 +131,7 @@ const SignUp = () => {
         });
       } else {
         console.error('Unexpected error:', error);
+        setDisplayError('Unexpected error occurred. Please try again.'); // **Set generic error for unexpected errors**
       }
     }
   };
@@ -124,6 +144,13 @@ const SignUp = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleInputChange = (field: keyof FormData) => {
+    // Clear the specific error for the field
+    setError(field, { type: 'manual', message: '' });
+    // Also clear the general display error
+    setDisplayError('');
   };
   return (
     <Container>
@@ -139,6 +166,7 @@ const SignUp = () => {
               placeholder={t('enterFullname')}
               {...register('fullname', { required: 'Full name is required' })}
               defaultValue=""
+              onChange={() => handleInputChange('fullname')}
             />
             {errors.fullname && (
               <ErrorContainer>{errors.fullname.message}</ErrorContainer>
@@ -153,6 +181,7 @@ const SignUp = () => {
                 pattern: /^\S+@\S+$/i,
               })}
               defaultValue=""
+              onChange={() => handleInputChange('email')}
             />
             {errors.email && (
               <ErrorContainer>{errors.email.message}</ErrorContainer>
@@ -179,6 +208,7 @@ const SignUp = () => {
                   },
                 })}
                 defaultValue=""
+                onChange={() => handleInputChange('password')}
               />
               <EyeIcon onClick={togglePasswordVisibility}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -191,6 +221,7 @@ const SignUp = () => {
             <SignUpButtonContainer>
               <SignUpButton type="submit">{t('createUser')}</SignUpButton>
             </SignUpButtonContainer>
+            {displayError && <ErrorContainer>{displayError}</ErrorContainer>}
           </InputContainer>
         </InputForm>
         <Providers>
