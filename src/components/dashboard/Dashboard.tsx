@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [resumeData, setResumeData] = useState<
     {
       id: string;
+      name: string;
       createdAt: string;
       updatedAt: string;
       resumeInfo: Resume;
@@ -20,6 +21,7 @@ const Dashboard = () => {
   const [coverletterData, setCoverletterData] = useState<
     {
       id: string;
+      name: string;
       content: string;
       jobDescription: string;
       resumeId: string;
@@ -44,11 +46,13 @@ const Dashboard = () => {
         const resumeData = resumeResponse.data.body.resumes.map(
           (resume: {
             id: string;
+            name: string;
             content: any;
             createdAt: string;
             updatedAt: string;
           }) => ({
             id: resume.id,
+            name: resume.name,
             resumeInfo: resume.content,
             createdAt: resume.createdAt,
             updatedAt: resume.updatedAt,
@@ -58,6 +62,7 @@ const Dashboard = () => {
         const coverletterData = coverletterResponse.data.coverLetters.map(
           (coverletter: {
             id: string;
+            name: string;
             content: string;
             jobDescription: string;
             resumeId: string;
@@ -65,6 +70,7 @@ const Dashboard = () => {
             updatedAt: string;
           }) => ({
             id: coverletter.id,
+            name: coverletter.name,
             content: coverletter.content,
             jobDescription: coverletter.jobDescription,
             resumeId: coverletter.resumeId,
@@ -89,9 +95,6 @@ const Dashboard = () => {
 
         setResumeData(sortedResumes);
         setCoverletterData(sortedCoverletters);
-
-        // setResumeData(resumeData);
-        // setCoverletterData(coverletterData);
         setIsLoading(false);
       } catch (error: any) {
         setError(error.message);

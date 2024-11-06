@@ -59,12 +59,14 @@ import { useTranslations } from 'next-intl';
 interface DashboardPageProps {
   resumes: {
     id: string;
+    name: string;
     createdAt: string;
     updatedAt: string;
     resumeInfo: Resume;
   }[];
   coverletters: {
     id: string;
+    name: string;
     content: string;
     resumeId: string;
     jobDescription: string;
@@ -260,6 +262,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
 
   const handleCoverLetterCardClick = (
     id: string,
+    name: string,
     content: string,
     resumeId: string,
     jobDescription: string,
@@ -270,6 +273,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
     setEditModalOpenId(id);
     setSelectedCoverletter({
       id,
+      name,
       content,
       resumeId,
       jobDescription,
@@ -448,10 +452,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                       </EditContainer>
                     </CardItem>
                     <TimeStampContainer>
-                      <Filename>
-                        Resume_
-                        {formatFilenameFromDate(resume.createdAt)}
-                      </Filename>
+                      <Filename>{resume.name}</Filename>
                       <Timestamp>
                         Edited {formatTimestamp(resume.updatedAt)}
                       </Timestamp>
@@ -557,6 +558,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                       onClick={() =>
                         handleCoverLetterCardClick(
                           coverLetter.id,
+                          coverLetter.name,
                           coverLetter.content,
                           coverLetter.resumeId,
                           coverLetter.jobDescription,
@@ -622,10 +624,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                       </EditContainer>
                     </CardItem>
                     <TimeStampContainer>
-                      <Filename>
-                        Coverletter_
-                        {formatFilenameFromDate(coverLetter.createdAt)}
-                      </Filename>
+                      <Filename>{coverLetter.name}</Filename>
                       <Timestamp>
                         Edited {formatTimestamp(coverLetter.updatedAt)}
                       </Timestamp>

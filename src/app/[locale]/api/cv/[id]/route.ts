@@ -54,6 +54,7 @@ export async function GET(req: NextRequest) {
       },
       select: {
         id: true,
+        name: true,
         content: true,
       },
     });
@@ -85,6 +86,7 @@ export async function GET(req: NextRequest) {
     {
       body: {
         id: structuredCV?.id,
+        name: structuredCV?.name,
         profile: structuredCV?.content,
       },
     },

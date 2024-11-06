@@ -60,6 +60,7 @@ import { useTranslations } from 'next-intl';
 interface MiniResumeProps {
   resumes: {
     id: string;
+    name: string;
     createdAt: string;
     updatedAt: string;
     resumeInfo: Resume;
@@ -310,10 +311,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                   </EditContainer>
                 </ResumeCard>
                 <FilenameContainer>
-                  <Filename>
-                    Resume_
-                    {formatFilenameFromDate(resume.createdAt)}
-                  </Filename>
+                  <Filename>{resume.name}</Filename>
                   {resume.updatedAt && (
                     <Timestamp>
                       Edited {formatTimestamp(resume.updatedAt)}

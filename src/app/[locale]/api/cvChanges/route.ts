@@ -17,7 +17,11 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let { id, resume } = (await req.json()) as { id: string; resume: Resume };
+  let { id, name, resume } = (await req.json()) as {
+    id: string;
+    name: string;
+    resume: Resume;
+  };
   if (!resume || !id) {
     return NextResponse.json(
       {
@@ -50,6 +54,7 @@ export async function POST(req: NextRequest) {
         ownerId: token.sub,
       },
       data: {
+        name: name as any,
         content: resume as any,
       },
     });

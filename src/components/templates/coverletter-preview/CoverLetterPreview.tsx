@@ -305,10 +305,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                     </EditContainer>
                   </CoverLetterCard>
                   <FilenameContainer>
-                    <Filename>
-                      Coverletter_
-                      {formatFilenameFromDate(coverLetter.createdAt)}
-                    </Filename>{' '}
+                    <Filename>{coverLetter.name}</Filename>{' '}
                     {/* <h4>Created At: {formatTimestamp(resume.createdAt)}</h4> */}
                     {/* <Timestamp>Edited {formatTimestamp(resume.updatedAt)}</Timestamp> */}
                     {coverLetter.updatedAt && (

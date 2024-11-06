@@ -14,11 +14,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: 'invalid token' }, { status: 401 });
   }
 
-  const { coverletterId, resumeId, jobDescription } = (await req.json()) as {
-    coverletterId: string;
-    resumeId: string;
-    jobDescription: string;
-  };
+  const { coverletterId, name, resumeId, jobDescription } =
+    (await req.json()) as {
+      coverletterId: string;
+      name: string;
+      resumeId: string;
+      jobDescription: string;
+    };
 
   if (!coverletterId || !resumeId || !jobDescription) {
     return NextResponse.json(
@@ -26,6 +28,8 @@ export async function POST(req: NextRequest) {
       { status: 400 },
     );
   }
+
+  console.log('Coverletter name' + name);
 
   let resume;
   try {
@@ -104,6 +108,7 @@ ${jobDescription}
         },
         data: {
           content: newCoverletter,
+          name: name,
           resumeId,
           jobDescription,
         },
@@ -113,6 +118,7 @@ ${jobDescription}
       await prisma.coverLetters.create({
         data: {
           ownerId: token.sub,
+          name: name,
           content: newCoverletter,
           resumeId,
           jobDescription,
@@ -144,6 +150,7 @@ export async function GET(req: NextRequest) {
       where: { ownerId: token.sub },
       select: {
         id: true,
+        name: true,
         content: true,
         resumeId: true,
         jobDescription: true,

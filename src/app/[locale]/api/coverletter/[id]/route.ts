@@ -54,6 +54,7 @@ export async function GET(req: NextRequest) {
       },
       select: {
         id: true,
+        name: true,
         content: true,
         jobDescription: true,
         resumeId: true,
@@ -87,6 +88,7 @@ export async function GET(req: NextRequest) {
     {
       body: {
         id: coverletter?.id,
+        name: coverletter?.name,
         profile: coverletter?.content,
         jobDescription: coverletter?.jobDescription,
         resumeId: coverletter?.resumeId,

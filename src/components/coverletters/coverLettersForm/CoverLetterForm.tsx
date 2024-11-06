@@ -33,6 +33,8 @@ import MiniCoverLetterTemplate from '@/components/templates/minicoverletter-temp
 
 interface CoverLetterFormProps {
   coverletterId: string;
+  name: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
   resumeInfo: Resume;
   setResumeInfo: React.Dispatch<React.SetStateAction<Resume>>;
   refreshStoredResume: () => void;
@@ -43,6 +45,8 @@ interface CoverLetterFormProps {
 
 const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   coverletterId,
+  name,
+  setName,
   resumeInfo,
   setResumeInfo,
   refreshStoredResume,
@@ -143,6 +147,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   };
 
   const handleSubmitWriteCoverletter = async () => {
+    console.log('submitting coverletter');
     if (!session) {
       setError('You need to be signed in to generate a cover letter.');
       return;
@@ -164,6 +169,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
         },
         body: JSON.stringify({
           coverletterId,
+          name,
           jobDescription: applyJobDescription,
           resumeId,
         }),
@@ -221,6 +227,24 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
           </CoverLetterContent>
         </PreviewCoverLetterContainer>
       </TemplatePreview>
+
+      <AccordionContainer>
+        <AccordionSection>
+          <AccordionHeader>
+            <AccordionHeaderTitle>
+              {t('coverletterNameInputLabel')}
+            </AccordionHeaderTitle>
+          </AccordionHeader>
+          <InputContainer>
+            <TextArea
+              placeholder={t('coverletterNamePlaceholder')}
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+          </InputContainer>
+        </AccordionSection>
+      </AccordionContainer>
+
       <AccordionContainer>
         <AccordionSection>
           <AccordionHeader>

@@ -14,11 +14,18 @@ import { useSession } from 'next-auth/react';
 import { MdViewModule, MdViewList } from 'react-icons/md';
 import ResumePreview from '../templates/resume/resume-preview/ResumePreview';
 import { useTranslations } from 'next-intl';
+import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
 
 const Resumes = () => {
   const t = useTranslations('ResumesPage');
   const [resumeData, setResumeData] = useState<
-    | { id: string; createdAt: string; updatedAt: string; resumeInfo: Resume }[]
+    | {
+        id: string;
+        name: string;
+        createdAt: string;
+        updatedAt: string;
+        resumeInfo: Resume;
+      }[]
     | null
   >(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,12 +58,14 @@ const Resumes = () => {
         const data = resumes.map(
           (resume: {
             id: string;
+            name: string;
             content: any;
             createdAt: string;
             updatedAt: string;
           }) => {
             return {
               id: resume.id,
+              name: resume.name || formatFilenameFromDate(resume.createdAt),
               resumeInfo: resume.content,
               createdAt: resume.createdAt,
               updatedAt: resume.updatedAt,

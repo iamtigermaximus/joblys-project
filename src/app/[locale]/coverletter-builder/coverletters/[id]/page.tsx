@@ -1,6 +1,5 @@
 'use client';
 import React, { FC, useEffect, useState, useCallback } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import {
   FormViewerContainer,
   CoverletterBuilderContainer,
@@ -17,15 +16,26 @@ import {
   Resume,
   SkillType,
 } from '@/types/resume';
-import html2canvas from 'html2canvas';
-// import jsPDF from 'jspdf';
 import { useParams } from 'next/navigation';
 import CoverLetterForm from '@/components/coverletters/coverLettersForm/CoverLetterForm';
 import CoverLetterTemplate from '@/components/templates/coverletter/coverletterTemplate/CoverLetterTemplate';
 import { Coverletter } from '@/types/coverletter';
+import { useTranslations } from 'next-intl';
 
 const CoverLetterBuilderPage: FC = () => {
   const params = useParams() as { id: string };
+  const t = useTranslations('CoverlettersPage');
+
+  const generateCoverletterInitialName = () => {
+    const today = new Date();
+    const date = today.getDate().toString().padStart(2, '0');
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const year = today.getFullYear();
+    const hours = today.getHours().toString().padStart(2, '0');
+    const minutes = today.getMinutes().toString().padStart(2, '0');
+    const prefix = t('coverletterNamePlaceholderPrefix');
+    return `${prefix} ${date}/${month}/${year} ${hours}:${minutes}`;
+  };
 
   const initialBasicInfo: BasicInfoType = {
     firstName: '',
@@ -87,6 +97,9 @@ const CoverLetterBuilderPage: FC = () => {
   };
 
   const [resumeInfo, setResumeInfo] = useState(initialState);
+  const [coverletterName, setCoverletterName] = useState<string>(
+    generateCoverletterInitialName(),
+  );
   const [coverletter, setCoverletter] = useState<string>('');
   const [jobDescription, setJobDescription] = useState<string>('');
   const [resumeId, setResumeId] = useState<string>('');
@@ -96,14 +109,19 @@ const CoverLetterBuilderPage: FC = () => {
       const response = await fetch(`/api/coverletter/${params.id}`);
       if (response.status === 200) {
         const responseJson = await response.json();
-        console.log('API Response:', responseJson); // Debugging log
+        console.log('API Response:', responseJson);
         const coverletter: string | undefined = responseJson.body.profile;
+        const name: string | undefined = responseJson.body.name;
         const jobDescription: string | undefined =
           responseJson.body.jobDescription;
         const resumeId: string | undefined = responseJson.body.resumeId;
 
         if (coverletter) {
           setCoverletter(coverletter);
+        }
+
+        if (name) {
+          setCoverletterName(name);
         }
 
         if (jobDescription) {
@@ -127,6 +145,7 @@ const CoverLetterBuilderPage: FC = () => {
 
   const coverLetterInfo: Coverletter = {
     id: params.id,
+    name: coverletterName,
     content: coverletter,
     resumeId: resumeId,
     jobDescription: jobDescription,
@@ -148,6 +167,8 @@ const CoverLetterBuilderPage: FC = () => {
         <ResumeFormContainer>
           <CoverLetterForm
             coverletterId={params.id}
+            name={coverletterName}
+            setName={setCoverletterName}
             resumeInfo={resumeInfo}
             setResumeInfo={setResumeInfo}
             refreshStoredResume={handleStoredResumeUpdate}

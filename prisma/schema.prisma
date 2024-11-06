@@ -73,6 +73,7 @@ model Profiles {
 
 model StructuredCVs {
   id        String   @id @default(cuid())
+  name       String?
   ownerId   String
   content   Json
   createdAt DateTime @default(now()) @map("created_at")
@@ -84,6 +85,7 @@ model StructuredCVs {
 
 model CoverLetters {
   id        String   @id @default(cuid())
+  name       String?
   ownerId   String
   content   String
   resumeId        String?

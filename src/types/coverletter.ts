@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export interface Coverletter {
   id: string;
+  name: string;
   content: string;
   resumeId: string;
   jobDescription: string;
@@ -21,6 +22,7 @@ export const CoverletterSchema = z.object({
 export function initialCoverletter(): Coverletter {
   return {
     id: '',
+    name: '',
     content: '',
     resumeId: '',
     jobDescription: '',

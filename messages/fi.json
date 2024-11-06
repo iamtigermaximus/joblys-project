@@ -132,7 +132,21 @@
     "languagesTitle": "Kielet",
     "addNewLanguage": "Lisää uusi kieli",
     "chooseFile": "Valitse tiedosto",
-    "noChosenFile": "Ei valittua tiedostoa"
+    "noChosenFile": "Ei valittua tiedostoa",
+    "months": {
+      "January": "Tammikuu",
+      "February": "Helmikuu",
+      "March": "Maaliskuu",
+      "April": "Huhtikuu",
+      "May": "Toukokuu",
+      "June": "Kesäkuu",
+      "July": "Heinäkuu",
+      "August": "Elokuu",
+      "September": "Syyskuu",
+      "October": "Lokakuu",
+      "November": "Marraskuu",
+      "December": "Joulukuu"
+    }
   },
   "ResumeBuilder": {
     "uploadTitle": "Lataa olemassa oleva ansioluettelo",
@@ -268,7 +282,21 @@
     "addLanguage": "Lisää kieli",
     "backButton": "Takaisin",
     "submitButton": "Lähetä",
-    "nextButton": "Seuraava"
+    "nextButton": "Seuraava",
+    "months": {
+      "January": "Tammikuu",
+      "February": "Helmikuu",
+      "March": "Maaliskuu",
+      "April": "Huhtikuu",
+      "May": "Toukokuu",
+      "June": "Kesäkuu",
+      "July": "Heinäkuu",
+      "August": "Elokuu",
+      "September": "Syyskuu",
+      "October": "Lokakuu",
+      "November": "Marraskuu",
+      "December": "Joulukuu"
+    }
   },
   "SettingsPage": {
     "accountTitle": "Tili",

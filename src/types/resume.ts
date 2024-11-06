@@ -57,6 +57,7 @@ export interface LanguageType {
 
 export interface Resume {
   id: string;
+  name?: string;
   basic: BasicInfoType;
   professional: {
     summary: string;
@@ -175,6 +176,7 @@ export function initialResume(): Resume {
 
   const resume: Resume = {
     id: uuidv4(),
+    name: '',
     basic: basicInfo,
     professional: {
       summary: '',

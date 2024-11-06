@@ -62,6 +62,8 @@ import {
 
 interface ResumeFormProps {
   resumeId: string;
+  resumeName: string;
+  setResumeName: React.Dispatch<React.SetStateAction<string>>;
   resumeInfo: Resume;
   setResumeInfo: React.Dispatch<React.SetStateAction<Resume>>;
   refreshStoredResume: () => void;
@@ -71,6 +73,8 @@ interface ResumeFormProps {
 
 const ResumeForm: React.FC<ResumeFormProps> = ({
   resumeId,
+  resumeName,
+  setResumeName,
   resumeInfo,
   setResumeInfo,
   refreshStoredResume,
@@ -91,6 +95,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const { data: session } = useSession();
   const [profileCreated, setProfileCreated] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
   const [applyJobDescription, setApplyJobDescription] = useState('');
   const [cvFile, setCVFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -290,6 +295,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         method: 'POST',
         body: JSON.stringify({
           id: resumeId,
+          name: resumeName,
           resume: resumeInfo,
           filename: generatedFilename,
         }),
@@ -430,6 +436,20 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
         </PreviewResumeContainer>
       </TemplatePreview>
       <AccordionContainer>
+        <AccordionSection>
+          <AccordionHeader>
+            <AccordionHeaderTitle>
+              {t('resumeNameInputLabel')}
+            </AccordionHeaderTitle>
+          </AccordionHeader>
+          <InputContainer>
+            <TextArea
+              placeholder={t('resumeNamePlaceholder')}
+              value={resumeName}
+              onChange={e => setResumeName(e.target.value)}
+            />
+          </InputContainer>
+        </AccordionSection>
         <AccordionSection>
           <AccordionHeader>
             <AccordionHeaderTitle>{t('jobAd')}</AccordionHeaderTitle>
