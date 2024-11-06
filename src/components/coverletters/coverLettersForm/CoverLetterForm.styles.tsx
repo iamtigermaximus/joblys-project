@@ -296,3 +296,20 @@ export const Spinner = styled.div`
   left: 40%;
   transform: translateX(-40%);
 `;
+
+export const Input = styled.input`
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #f5f5f5;
+  border: none;
+  color: black;
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  width: 100%;
+
+  &:focus {
+    outline: 0.5px solid gray;
+  }
+`;

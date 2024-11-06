@@ -76,7 +76,8 @@
     "delete": "Delete",
     "previewTitle": "Resume",
     "noData": "No profile data available",
-    "deleteMessage": "Resume deleted successfully!"
+    "deleteMessage": "Resume deleted successfully!",
+    "resumeNamePlaceholderPrefix": "Resume"
   },
   "CoverlettersPage": {
     "title": "Cover Letters",
@@ -85,7 +86,8 @@
     "download": "Download",
     "delete": "Delete",
     "previewTitle": "Coverletter",
-    "deleteMessage": "Coverletter deleted successfully!"
+    "deleteMessage": "Coverletter deleted successfully!",
+    "coverletterNamePlaceholderPrefix": "Coverletter"
   },
   "ConfirmationModal": {
     "confirmation": "Are you sure you want to delete this?",
@@ -230,7 +232,8 @@
       "November": "November",
       "December": "December"
     },
-    "enhanceTooltip": "Click the enhance button to improve your job description. Enhance it with more details and relevant keywords for better results."
+    "enhanceTooltip": "Click the enhance button to improve your job description. Enhance it with more details and relevant keywords for better results.",
+    "resumeNameInputLabel": "Filename"
   },
   "CoverletterBuilder": {
     "jobAd": "Job Ad",
@@ -242,7 +245,8 @@
     "generateCoverletter": "Generate a coverletter",
     "successAlert": "You have successfully created a coverletter.",
     "selectResume": " Select a resume",
-    "noResumeSelected": "No resume selected"
+    "noResumeSelected": "No resume selected",
+    "coverletterNameInputLabel": "Filename"
   },
   "ProfileBuilder": {
     "pageTitle": "Please create your profile",

@@ -75,7 +75,8 @@
     "delete": "Poista",
     "previewTitle": "Ansioluettelo",
     "noData": "Profiilitietoja ei ole saatavilla",
-    "deleteMessage": "Ansioluettelo poistettiin onnistuneesti!"
+    "deleteMessage": "Ansioluettelo poistettiin onnistuneesti!",
+    "resumeNamePlaceholderPrefix": "Resume"
   },
   "CoverlettersPage": {
     "title": "Saatekirjeet",
@@ -84,7 +85,8 @@
     "download": "Lataa",
     "delete": "Poista",
     "previewTitle": "Saatekirje",
-    "deleteMessage": "Saatekirje poistettiin onnistuneesti!"
+    "deleteMessage": "Saatekirje poistettiin onnistuneesti!",
+    "coverletterNamePlaceholderPrefix": "Coverletter"
   },
   "ConfirmationModal": {
     "confirmation": "Oletko varma, että haluat poistaa tämän?",
@@ -201,6 +203,7 @@
     "currentRolePlaceholder": "ex. Software Developer",
     "workExperience": "Työkokemus:",
     "jobDescription": "Työkuvaus:",
+    "jobDescriptionPlaceholder": "Työtehtävät ja saavutukset",
     "enhance": "Paranna",
     "remove": "Poista",
     "present": "Nykyinen",
@@ -229,7 +232,8 @@
       "November": "Marraskuu",
       "December": "Joulukuu"
     },
-    "enhanceTooltip": "Napsauta parannuspainiketta parantaaksesi työkokemuksen kuvausta. Lisää yksityiskohtia ja asiaankuuluvia avainsanoja saadaksesi parempia tuloksia."
+    "enhanceTooltip": "Napsauta parannuspainiketta parantaaksesi työkokemuksen kuvausta. Lisää yksityiskohtia ja asiaankuuluvia avainsanoja saadaksesi parempia tuloksia.",
+    "resumeNameInputLabel": "Tiedostonimi"
   },
   "CoverletterBuilder": {
     "jobAd": "Työpaikkailmoitus",
@@ -241,7 +245,8 @@
     "generateCoverletter": "Luo saatekirje",
     "successAlert": "Olet luonut saatekirjeen onnistuneesti.",
     "selectResume": "Valitse ansioluettelo",
-    "noResumeSelected": "Ei ansioluetteloa valittu"
+    "noResumeSelected": "Ei ansioluetteloa valittu",
+    "coverletterNameInputLabel": "Tiedostonimi"
   },
   "ProfileBuilder": {
     "pageTitle": "Luo profiilisi",

@@ -11,6 +11,7 @@ import {
   CoverLetterContent,
   GenerateButton,
   HeaderItem,
+  Input,
   InputContainer,
   PreviewButton,
   PreviewButtonSection,
@@ -236,16 +237,13 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
             </AccordionHeaderTitle>
           </AccordionHeader>
           <InputContainer>
-            <TextArea
-              placeholder={t('coverletterNamePlaceholder')}
+            <Input
+              // placeholder={t('coverletterNamePlaceholder')}
               value={name}
               onChange={e => setName(e.target.value)}
             />
           </InputContainer>
         </AccordionSection>
-      </AccordionContainer>
-
-      <AccordionContainer>
         <AccordionSection>
           <AccordionHeader>
             <AccordionHeaderTitle>{t('jobAd')}</AccordionHeaderTitle>

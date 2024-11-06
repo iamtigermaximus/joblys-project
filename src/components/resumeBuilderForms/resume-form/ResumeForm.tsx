@@ -55,6 +55,7 @@ import { convertProfileToResume, Profile } from '@/types/profile';
 import { IoMdHelpCircleOutline } from 'react-icons/io';
 import { useTranslations } from 'next-intl';
 import Classic from '@/components/templates/resume/classic/Classic';
+import { Input } from '../basic-details/BasicDetailsForm.styles';
 import {
   LoadingMessage,
   LoadingMessageContainer,
@@ -281,7 +282,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   };
 
   const handleSubmitResume = async () => {
-    setIsCreatingResume(true); // Start resume creation process
+    setIsCreatingResume(true);
 
     try {
       const generatedFilename = () => {
@@ -443,8 +444,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </AccordionHeaderTitle>
           </AccordionHeader>
           <InputContainer>
-            <TextArea
-              placeholder={t('resumeNamePlaceholder')}
+            <Input
               value={resumeName}
               onChange={e => setResumeName(e.target.value)}
             />
@@ -473,26 +473,6 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             />
           </InputContainer>
         </AccordionSection>
-        {/* <AccordionSection>
-          <AccordionHeader>
-            <AccordionHeaderTitle>Extracted Job Details</AccordionHeaderTitle>
-          </AccordionHeader>
-          <AccordionContent>
-            {isExtracting ? (
-              <p>Extracting job details...</p>
-            ) : (
-              <div>
-                {extractedJobDetails ? (
-                  <TextArea>
-                    {JSON.stringify(extractedJobDetails, null, 2)}
-                  </TextArea>
-                ) : (
-                  <p>No job details extracted yet.</p>
-                )}
-              </div>
-            )}
-          </AccordionContent>
-        </AccordionSection> */}
 
         <AccordionSection>
           <AccordionHeader>
