@@ -21,22 +21,6 @@ import {
 } from './EducationField.styles';
 import { useTranslations } from 'next-intl';
 
-// Month names
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
 interface EducationFieldProps {
   value: Education[];
   onChange: (value: Education[]) => void;
@@ -101,7 +85,22 @@ const EducationField: React.FC<EducationFieldProps> = ({ value, onChange }) => {
     onChange(updatedEducation);
   };
 
-  const generateMonths = () => monthNames;
+  const generateMonths = () => {
+    return [
+      t('months.January'),
+      t('months.February'),
+      t('months.March'),
+      t('months.April'),
+      t('months.May'),
+      t('months.June'),
+      t('months.July'),
+      t('months.August'),
+      t('months.September'),
+      t('months.October'),
+      t('months.November'),
+      t('months.December'),
+    ];
+  };
 
   const generateYears = () => {
     const currentYear = new Date().getFullYear();

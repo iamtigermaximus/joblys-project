@@ -22,22 +22,6 @@ import {
 } from './WorkExperienceField.styles';
 import { useTranslations } from 'next-intl';
 
-// Month names
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
 interface WorkExperienceFieldProps {
   value: WorkExperience[];
   onChange: (value: WorkExperience[]) => void;
@@ -104,11 +88,29 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
     onChange(updatedExperiences);
   };
 
+  const generateMonths = () => {
+    return [
+      t('months.January'),
+      t('months.February'),
+      t('months.March'),
+      t('months.April'),
+      t('months.May'),
+      t('months.June'),
+      t('months.July'),
+      t('months.August'),
+      t('months.September'),
+      t('months.October'),
+      t('months.November'),
+      t('months.December'),
+    ];
+  };
+
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
     return Array.from({ length: 50 }, (_, index) => currentYear - index);
   };
 
+  const months = generateMonths();
   const years = generateYears();
 
   return (
@@ -168,7 +170,7 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
                       })
                     }
                   >
-                    {monthNames.map(month => (
+                    {months.map(month => (
                       <option key={month} value={month}>
                         {month}
                       </option>
@@ -203,7 +205,7 @@ const WorkExperienceField: React.FC<WorkExperienceFieldProps> = ({
                       })
                     }
                   >
-                    {monthNames.map(month => (
+                    {months.map(month => (
                       <option key={month} value={month}>
                         {month}
                       </option>
