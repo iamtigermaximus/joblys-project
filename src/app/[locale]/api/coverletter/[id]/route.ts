@@ -156,3 +156,54 @@ export async function DELETE(req: NextRequest) {
     { status: 200 },
   );
 }
+
+export async function PUT(req: NextRequest) {
+  const token = await getToken({ req });
+  if (!token) {
+    return NextResponse.json(
+      { body: { message: 'Invalid token' } },
+      { status: 401 },
+    );
+  }
+
+  const coverletterId = req.nextUrl.pathname.split('/').pop();
+  if (!coverletterId) {
+    return NextResponse.json(
+      { body: { message: 'No coverletter ID provided' } },
+      { status: 400 },
+    );
+  }
+
+  const { name, content, jobDescription, resumeId } = await req.json();
+
+  try {
+    const updatedCoverletter = await prisma.coverLetters.update({
+      where: {
+        id: coverletterId,
+        ownerId: token.sub,
+      },
+      data: {
+        name,
+        content,
+        jobDescription,
+        resumeId,
+      },
+    });
+
+    return NextResponse.json(
+      {
+        body: {
+          message: 'Cover letter updated successfully',
+          updatedCoverletter,
+        },
+      },
+      { status: 200 },
+    );
+  } catch (err) {
+    console.error('Error updating cover letter:', err);
+    return NextResponse.json(
+      { body: { message: 'Failed to update cover letter' } },
+      { status: 500 },
+    );
+  }
+}

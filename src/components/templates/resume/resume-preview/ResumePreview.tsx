@@ -20,6 +20,7 @@ import {
   EditModalOverlay,
   Filename,
   FilenameContainer,
+  FilenameInput,
   ListContentItem,
   ListCreateResumeButton,
   ListTimestampItem,
@@ -84,6 +85,53 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
   const [resumeIdToDelete, setResumeIdToDelete] = useState<string | null>(null);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [editingFilenameId, setEditingFilenameId] = useState<string | null>(
+    null,
+  );
+  const [newFilename, setNewFilename] = useState<string>('');
+
+  const handleResumeNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setNewFilename(event.target.value);
+  };
+
+  // save the new name
+  const handleResumeNameBlur = async (id: string) => {
+    if (!newFilename.trim()) return;
+
+    try {
+      const response = await fetch(`/api/cv/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: newFilename }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update resume name');
+      }
+
+      setResumesList(prevResumes =>
+        prevResumes.map(resume =>
+          resume.id === id ? { ...resume, name: newFilename } : resume,
+        ),
+      );
+      setEditingFilenameId(null);
+    } catch (error: any) {
+      console.error('Error updating resume name:', error.message);
+    }
+  };
+
+  const handleResumeNameKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    id: string,
+  ) => {
+    if (event.key === 'Enter') {
+      await handleResumeNameBlur(id);
+    }
+  };
 
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);
@@ -311,7 +359,25 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                   </EditContainer>
                 </ResumeCard>
                 <FilenameContainer>
-                  <Filename>{resume.name}</Filename>
+                  {editingFilenameId === resume.id ? (
+                    <FilenameInput
+                      type="text"
+                      value={newFilename}
+                      onChange={handleResumeNameChange}
+                      onBlur={() => handleResumeNameBlur(resume.id)}
+                      onKeyDown={e => handleResumeNameKeyDown(e, resume.id)}
+                      autoFocus
+                    />
+                  ) : (
+                    <Filename
+                      onClick={() => {
+                        setEditingFilenameId(resume.id);
+                        setNewFilename(resume.name);
+                      }}
+                    >
+                      {resume.name}
+                    </Filename>
+                  )}{' '}
                   {resume.updatedAt && (
                     <Timestamp>
                       Edited {formatTimestamp(resume.updatedAt)}

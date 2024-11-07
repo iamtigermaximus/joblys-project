@@ -25,6 +25,7 @@ import {
   EditModalContent,
   EditModalOverlay,
   Filename,
+  FilenameInput,
   FilenameContainer,
   ListContentItem,
   ListCreateCoverletterButton,
@@ -47,9 +48,9 @@ import { formatDistanceToNow, format, parseISO } from 'date-fns';
 
 import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
 import { useTranslations } from 'next-intl';
-import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
 import ConfirmationModal from '../resume/defaultTemplate/ConfirmationModal';
 import UpgradeModal from '../resume/defaultTemplate/resume-helpers/UpgradeModal';
+import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
 
 interface CoverLetterPreviewProps {
   viewMode: 'list' | 'card';
@@ -75,6 +76,11 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
   const [selectedCoverletter, setSelectedCoverletter] =
     useState<Coverletter | null>(null);
 
+  const [editingFilenameId, setEditingFilenameId] = useState<string | null>(
+    null,
+  );
+  const [newFilename, setNewFilename] = useState<string>('');
+
   useEffect(() => {
     if (Array.isArray(coverLetters)) {
       const sortedCoverLetters = coverLetters
@@ -87,6 +93,49 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
       setCoverLettersList(sortedCoverLetters);
     }
   }, [coverLetters]);
+
+  const handleFilenameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewFilename(event.target.value);
+  };
+
+  const handleFilenameBlur = async (id: string) => {
+    if (!newFilename.trim()) return;
+
+    try {
+      const response = await fetch(`/api/coverletter/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: newFilename }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update filename');
+      }
+
+      // Update the local state immediately to reflect the change in the UI
+      setCoverLettersList(prevCoverLetters =>
+        prevCoverLetters.map(coverLetter =>
+          coverLetter.id === id
+            ? { ...coverLetter, name: newFilename }
+            : coverLetter,
+        ),
+      );
+      setEditingFilenameId(null); // Close the input field
+    } catch (error: any) {
+      console.error('Error updating filename:', error.message);
+    }
+  };
+
+  const handleFilenameKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    id: string,
+  ) => {
+    if (event.key === 'Enter') {
+      await handleFilenameBlur(id); // Save the name when Enter is pressed
+    }
+  };
 
   const sidebarMenuRef = useRef<HTMLDivElement>(null);
 
@@ -305,9 +354,27 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                     </EditContainer>
                   </CoverLetterCard>
                   <FilenameContainer>
-                    <Filename>{coverLetter.name}</Filename>{' '}
-                    {/* <h4>Created At: {formatTimestamp(resume.createdAt)}</h4> */}
-                    {/* <Timestamp>Edited {formatTimestamp(resume.updatedAt)}</Timestamp> */}
+                    {editingFilenameId === coverLetter.id ? (
+                      <FilenameInput
+                        type="text"
+                        value={newFilename}
+                        onChange={handleFilenameChange}
+                        onBlur={() => handleFilenameBlur(coverLetter.id)} // Save on blur
+                        onKeyDown={e =>
+                          handleFilenameKeyDown(e, coverLetter.id)
+                        } // Save on Enter key press
+                        autoFocus
+                      />
+                    ) : (
+                      <Filename
+                        onClick={() => {
+                          setEditingFilenameId(coverLetter.id);
+                          setNewFilename(coverLetter.name);
+                        }}
+                      >
+                        {coverLetter.name}
+                      </Filename>
+                    )}
                     {coverLetter.updatedAt && (
                       <Timestamp>
                         Edited {formatTimestamp(coverLetter.updatedAt)}
@@ -384,10 +451,25 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
             coverLettersList.map(coverLetter => (
               <CoverletterItemContainer key={coverLetter.id}>
                 <FilenameContainer>
-                  <Filename>
-                    Coverletter_
-                    {formatFilenameFromDate(coverLetter.createdAt)}
-                  </Filename>
+                  {editingFilenameId === coverLetter.id ? (
+                    <input
+                      type="text"
+                      value={newFilename}
+                      onChange={handleFilenameChange}
+                      onBlur={() => handleFilenameBlur(coverLetter.id)} // Save on blur
+                      onKeyDown={e => handleFilenameKeyDown(e, coverLetter.id)} // Save on Enter key press
+                      autoFocus
+                    />
+                  ) : (
+                    <Filename
+                      onClick={() => {
+                        setEditingFilenameId(coverLetter.id);
+                        setNewFilename(coverLetter.name);
+                      }}
+                    >
+                      {coverLetter.name}
+                    </Filename>
+                  )}
                   {coverLetter.updatedAt && (
                     <Timestamp>
                       Edited {formatTimestamp(coverLetter.updatedAt)}

@@ -1,3 +1,4 @@
+import DefaultTemplate from '../defaultTemplate/DefaultTemplate';
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../../../utils/layout';
 import colors from '../../../../utils/colors';
@@ -68,6 +69,7 @@ export const Filename = styled.h1`
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 12px;
+  padding-bottom: 2px;
 
   &:hover {
     color: ${colors.purple};
@@ -613,5 +615,34 @@ export const ListContentItem = styled.div`
   &:hover {
     background-color: ${colors.darkPurple};
     color: ${colors.white};
+  }
+`;
+
+export const FilenameInput = styled.input`
+  color: #2e033b;
+  font-weight: bolder;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  border: none;
+  border-bottom: 1px solid #2e033b;
+  background-color: transparent;
+  padding-bottom: 2px;
+
+  &:hover {
+    color: ${colors.purple};
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 14px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 16px;
   }
 `;

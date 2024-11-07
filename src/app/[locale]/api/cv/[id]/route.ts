@@ -152,3 +152,73 @@ export async function DELETE(req: NextRequest) {
     { status: 200 },
   );
 }
+
+export async function PUT(req: NextRequest) {
+  const token = await getToken({ req });
+  if (!token) {
+    console.log('Invalid token');
+    return NextResponse.json(
+      {
+        body: {
+          message: 'Invalid token',
+        },
+      },
+      { status: 401 },
+    );
+  }
+
+  const cvId = req.nextUrl.pathname.split('/').pop();
+  if (!cvId) {
+    console.log('No CV ID provided');
+    return NextResponse.json(
+      {
+        body: {
+          message: 'No CV ID provided',
+        },
+      },
+      { status: 400 },
+    );
+  }
+
+  const { name } = await req.json(); // Extract the new name from the request body
+  if (!name) {
+    console.log('No new name provided');
+    return NextResponse.json(
+      {
+        body: {
+          message: 'No new name provided',
+        },
+      },
+      { status: 400 },
+    );
+  }
+
+  try {
+    const updatedCV = await prisma.structuredCVs.update({
+      where: { id: cvId },
+      data: { name }, // Update the name of the resume
+    });
+
+    console.log('Successfully updated the CV name');
+
+    return NextResponse.json(
+      {
+        body: {
+          message: 'CV name updated successfully',
+          resume: updatedCV, // Optional: Return the updated resume
+        },
+      },
+      { status: 200 },
+    );
+  } catch (err) {
+    console.log(`Error updating CV: ${err}`);
+    return NextResponse.json(
+      {
+        body: {
+          message: 'Internal server error',
+        },
+      },
+      { status: 500 },
+    );
+  }
+}
