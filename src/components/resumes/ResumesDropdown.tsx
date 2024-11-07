@@ -124,6 +124,7 @@ type ResumeData = {
   createdAt: string;
   updatedAt: string;
   resumeInfo: Resume;
+  name?: string;
 };
 
 const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
@@ -146,6 +147,7 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
     const fetchProfileData = async () => {
       try {
         const response = await axios.get('/api/cv');
+        console.log('Response:', response.data);
         const resumes = response.data.body.resumes;
 
         const data: ResumeData[] = resumes.map(
@@ -154,12 +156,14 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
             content: any;
             createdAt: string;
             updatedAt: string;
+            name: string;
           }) => {
             return {
               id: resume.id,
               resumeInfo: resume.content,
               createdAt: resume.createdAt,
               updatedAt: resume.updatedAt,
+              name: resume.name,
             };
           },
         );
@@ -214,13 +218,9 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
           <Option value="">{t('selectResume')}</Option>
           {resumesList &&
             resumesList.map(resume => {
-              // const basicInfo = resume.resumeInfo.basic;
-              // const firstName = basicInfo.firstName || 'Untitled resume';
-              // const lastName = basicInfo.lastName || '';
-              // const filename = `${firstName} ${lastName}`.trim();
-              const filename = `Resume ${formatFilenameFromDate(
-                resume.createdAt,
-              )}`;
+              const filename =
+                resume.name ||
+                `Resume ${formatFilenameFromDate(resume.createdAt)}`;
 
               return (
                 <Option key={resume.id} value={resume.id}>
@@ -252,13 +252,10 @@ const ResumesDropdown: React.FC<ResumesDropdownProps> = ({
           <Option value="">{t('selectResume')}</Option>
           {resumesList &&
             resumesList.map(resume => {
-              // const basicInfo = resume.resumeInfo.basic;
-              // const firstName = basicInfo.firstName || 'Untitled resume';
-              // const lastName = basicInfo.lastName || '';
-              // const filename = `${firstName} ${lastName}`.trim();
-              const filename = `Resume ${formatFilenameFromDate(
-                resume.createdAt,
-              )}`;
+              const filename =
+                resume.name ||
+                `Resume ${formatFilenameFromDate(resume.createdAt)}`;
+
               return (
                 <Option key={resume.id} value={resume.id}>
                   {filename}
