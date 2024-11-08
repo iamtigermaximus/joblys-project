@@ -30,6 +30,7 @@ import { useSession } from 'next-auth/react';
 import ResumesDropdown from '@/components/resumes/ResumesDropdown';
 import { IoMdHelpCircleOutline } from 'react-icons/io';
 import { useTranslations } from 'next-intl';
+import { Coverletter } from '@/types/coverletter';
 import MiniCoverLetterTemplate from '@/components/templates/minicoverletter-template/MiniCoverLetterTemplate';
 
 interface CoverLetterFormProps {
@@ -42,6 +43,7 @@ interface CoverLetterFormProps {
   content: string;
   resumeId: string;
   jobDescription: string;
+  generateCoverletterInitialName: () => string;
 }
 
 const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
@@ -54,6 +56,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   content,
   resumeId: initialResumeId,
   jobDescription: initialJobDescription,
+  generateCoverletterInitialName,
 }) => {
   const t = useTranslations('CoverletterBuilder');
   const [accordionState, setAccordionState] = useState({
@@ -80,6 +83,47 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
   const helpIconRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [isGeneratingCoverletter, setIsGeneratingCoverletter] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newFilename, setNewFilename] = useState<string>('');
+  const [editingFilenameId, setEditingFilenameId] = useState<string | null>(
+    null,
+  );
+  const [coverLetterInfo, setCoverLetterInfo] = useState<any>(null);
+
+  const handleFilenameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewFilename(event.target.value);
+  };
+
+  const handleFilenameBlur = async (id: string) => {
+    if (!newFilename.trim()) return;
+
+    try {
+      const response = await fetch(`/api/coverletter/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: newFilename }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update resume name');
+      }
+
+      setIsEditing(false);
+    } catch (error: any) {
+      console.error('Error updating filename:', error.message);
+    }
+  };
+
+  const handleFilenameKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    id: string,
+  ) => {
+    if (event.key === 'Enter') {
+      await handleFilenameBlur(id);
+    }
+  };
 
   // Toggle tooltip
   const toggleHelpTooltip = () => {
@@ -147,7 +191,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
     });
   };
 
-  const handleSubmitWriteCoverletter = async () => {
+  const handleSubmitWriteCoverletter = async (finalFilename: string) => {
     console.log('submitting coverletter');
     if (!session) {
       setError('You need to be signed in to generate a cover letter.');
@@ -163,6 +207,9 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
     setError(null);
     setIsGeneratingCoverletter(true);
     try {
+      const generatedFilename =
+        finalFilename || generateCoverletterInitialName();
+
       const response = await fetch('/api/coverletterChanges', {
         method: 'POST',
         headers: {
@@ -170,9 +217,10 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
         },
         body: JSON.stringify({
           coverletterId,
-          name,
+          name: generatedFilename,
           jobDescription: applyJobDescription,
           resumeId,
+          filename: generatedFilename,
         }),
       });
 
@@ -194,6 +242,43 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
     } finally {
       setIsLoading(false);
       setIsGeneratingCoverletter(false);
+    }
+  };
+  const handleCoverLetterSubmitLocally = (finalFilename: string) => {
+    try {
+      // Cache the cover letter locally
+      const cachedCoverLetters = JSON.parse(
+        localStorage.getItem('cachedCoverLetters') || '[]',
+      );
+      const updatedCoverLetters = [
+        ...cachedCoverLetters,
+        { ...coverLetterInfo, filename: finalFilename },
+      ];
+      localStorage.setItem(
+        'cachedCoverLetters',
+        JSON.stringify(updatedCoverLetters),
+      );
+
+      setProfileCreated(true);
+      setShowSuccessMessage(true);
+
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
+      console.log('Cover letter data saved locally!', finalFilename);
+    } catch (error) {
+      console.error('Error saving cover letter data:', error);
+    }
+  };
+
+  const handleCoverLetterSubmit = async () => {
+    const finalFilename = newFilename.trim() ? newFilename : coverLetterInfo; // Default to coverLetterName if no filename provided
+    if (session) {
+      // If the user is authenticated, submit to server
+      await handleSubmitWriteCoverletter(finalFilename);
+    } else {
+      // Otherwise, save it locally
+      handleCoverLetterSubmitLocally(finalFilename);
     }
   };
 
@@ -237,11 +322,26 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
             </AccordionHeaderTitle>
           </AccordionHeader>
           <InputContainer>
-            <Input
-              // placeholder={t('coverletterNamePlaceholder')}
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
+            {editingFilenameId === coverletterId ? (
+              <Input
+                type="text"
+                value={newFilename}
+                onChange={handleFilenameChange}
+                onBlur={() => handleFilenameBlur(coverletterId)} // Save on blur
+                onKeyDown={e => handleFilenameKeyDown(e, coverletterId)} // Save on Enter key press
+                autoFocus
+              />
+            ) : (
+              <Input
+                type="text"
+                value={name}
+                onClick={() => {
+                  setEditingFilenameId(coverletterId);
+                  setNewFilename(name);
+                }}
+                readOnly
+              />
+            )}
           </InputContainer>
         </AccordionSection>
         <AccordionSection>
@@ -284,7 +384,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
               {t('preview')}
             </PreviewButton>
             <GenerateButton
-              onClick={handleSubmitWriteCoverletter}
+              onClick={handleCoverLetterSubmit}
               disabled={isGeneratingCoverletter}
               style={{
                 backgroundColor: isGeneratingCoverletter

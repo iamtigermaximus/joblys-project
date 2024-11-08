@@ -73,6 +73,7 @@ const ResumeBuilderPage: FC = () => {
             refreshStoredResume={handleStoredResumeUpdate}
             existingData={existingData}
             setExistingData={setExistingData}
+            generateResumeInitialName={generateResumeInitialName}
           />
         </ResumeFormContainer>
         <ResumeTemplateContainer>

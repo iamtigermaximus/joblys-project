@@ -1,6 +1,12 @@
 'use client';
 
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import BasicDetailsForm from '../basic-details/BasicDetailsForm';
 import ProfessionalDetailsForm from '../professional-details/ProfessionalDetailsForm';
 import EducationalDetailsForm from '../education-details/EducationalDetailsForm';
@@ -49,9 +55,7 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import DownloadPDFButton from '@/components/templates/resume/defaultTemplate/DownloadPDFButton';
 import DefaultTemplate from '@/components/templates/resume/defaultTemplate/DefaultTemplate';
-
 import { convertProfileToResume, Profile } from '@/types/profile';
-
 import { IoMdHelpCircleOutline } from 'react-icons/io';
 import { useTranslations } from 'next-intl';
 import Classic from '@/components/templates/resume/classic/Classic';
@@ -70,6 +74,7 @@ interface ResumeFormProps {
   refreshStoredResume: () => void;
   existingData?: Profile | null;
   setExistingData: React.Dispatch<React.SetStateAction<Profile | null>>;
+  generateResumeInitialName: () => string;
 }
 
 const ResumeForm: React.FC<ResumeFormProps> = ({
@@ -81,6 +86,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   refreshStoredResume,
   existingData,
   setExistingData,
+  generateResumeInitialName,
 }) => {
   const t = useTranslations('ResumeBuilder');
   const [accordionState, setAccordionState] = useState({
@@ -113,6 +119,54 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
   const helpIconRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [isCreatingResume, setIsCreatingResume] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newFilename, setNewFilename] = useState<string>('');
+  const [editingFilenameId, setEditingFilenameId] = useState<string | null>(
+    null,
+  );
+
+  const handleResumeNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setNewFilename(event.target.value);
+  };
+
+  const handleResumeNameBlur = async () => {
+    if (!newFilename.trim()) return;
+
+    try {
+      const response = await fetch(`/api/cv/${resumeId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: newFilename }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update resume name');
+      }
+
+      setIsEditing(false);
+    } catch (error: any) {
+      console.error('Error updating filename:', error.message);
+    }
+  };
+
+  const handleResumeNameKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (event.key === 'Enter') {
+      await handleResumeNameBlur();
+    }
+  };
+
+  // Clean up timeout on component unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimeout) clearTimeout(debounceTimeout);
+    };
+  }, []);
 
   // Toggle tooltip
   const toggleHelpTooltip = () => {
@@ -281,22 +335,18 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     });
   };
 
-  const handleSubmitResume = async () => {
+  const handleSubmitResume = async (finalFilename: string) => {
     setIsCreatingResume(true);
 
     try {
-      const generatedFilename = () => {
-        const firstName = resumeInfo.basic.firstName || 'FirstName';
-        const lastName = resumeInfo.basic.lastName || 'LastName';
-        const filename = `${firstName}_${lastName}_Profile`;
-        return filename;
-      };
+      const generatedFilename = finalFilename || generateResumeInitialName();
+
       console.log('Generated Filename:', generatedFilename);
       const response = await fetch('/api/cvChanges', {
         method: 'POST',
         body: JSON.stringify({
           id: resumeId,
-          name: resumeName,
+          name: generatedFilename,
           resume: resumeInfo,
           filename: generatedFilename,
         }),
@@ -319,13 +369,16 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
     }
   };
 
-  const handleSubmitResumeLocally = () => {
+  const handleSubmitResumeLocally = (finalFilename: string) => {
     try {
       // Cache the resume locally
       const cachedResumes = JSON.parse(
         localStorage.getItem('cachedResumes') || '[]',
       );
-      const updatedResumes = [...cachedResumes, resumeInfo];
+      const updatedResumes = [
+        ...cachedResumes,
+        { ...resumeInfo, filename: finalFilename },
+      ];
       localStorage.setItem('cachedResumes', JSON.stringify(updatedResumes));
 
       setProfileCreated(true);
@@ -334,19 +387,20 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
       setTimeout(() => {
         setShowSuccessMessage(false);
       }, 3000);
-      console.log('Resume data saved locally!');
+      console.log('Resume data saved locally!', finalFilename);
     } catch (error) {
       console.error('Error saving resume data:', error);
     }
   };
 
   const handleSubmit = async () => {
+    const finalFilename = newFilename.trim() ? newFilename : resumeName;
     if (session) {
       // User is authenticated, submit resume to server
-      await handleSubmitResume();
+      await handleSubmitResume(finalFilename);
     } else {
       // User is not authenticated, save resume locally
-      handleSubmitResumeLocally();
+      handleSubmitResumeLocally(finalFilename);
     }
   };
 
@@ -444,10 +498,26 @@ const ResumeForm: React.FC<ResumeFormProps> = ({
             </AccordionHeaderTitle>
           </AccordionHeader>
           <InputContainer>
-            <Input
-              value={resumeName}
-              onChange={e => setResumeName(e.target.value)}
-            />
+            {editingFilenameId === resumeId ? (
+              <Input
+                type="text"
+                value={newFilename}
+                onChange={handleResumeNameChange}
+                onBlur={handleResumeNameBlur}
+                onKeyDown={handleResumeNameKeyDown}
+                autoFocus
+              />
+            ) : (
+              <Input
+                type="text"
+                value={resumeName}
+                onClick={() => {
+                  setEditingFilenameId(resumeId);
+                  setNewFilename(resumeName);
+                }}
+                readOnly
+              />
+            )}
           </InputContainer>
         </AccordionSection>
         <AccordionSection>

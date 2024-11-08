@@ -175,6 +175,7 @@ const CoverLetterBuilderPage: FC = () => {
             content={coverletter}
             resumeId={resumeId}
             jobDescription={jobDescription}
+            generateCoverletterInitialName={generateCoverletterInitialName}
           />
         </ResumeFormContainer>
         <ResumeTemplateContainer>
