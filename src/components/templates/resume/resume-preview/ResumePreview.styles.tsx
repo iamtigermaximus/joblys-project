@@ -124,11 +124,11 @@ export const ResumeContent = styled.div`
   height: 100vh;
 
   @media (min-width: ${bp.sm}) {
-    transform: scale(1);
+    transform: scale(1, 0.45);
   }
 
   @media (min-width: ${bp.md}) {
-    transform: scale(1, 0.4);
+    transform: scale(1, 0.45);
   }
 
   @media (min-width: ${bp.lg}) {
@@ -143,6 +143,7 @@ export const ResumeContent = styled.div`
 export const SidebarResumeContent = styled.div`
   transform: scale(0.95, 0.45);
   transform-origin: left top;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
   @media (min-width: ${bp.xs}) {
     transform: scale(1, 0.7);

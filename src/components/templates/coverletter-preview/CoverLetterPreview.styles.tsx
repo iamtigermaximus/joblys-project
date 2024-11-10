@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { breakpoints as bp } from '@/utils/layout';
 import colors from '@/utils/colors';
+import MiniCoverLetterTemplate from '../minicoverletter-template/MiniCoverLetterTemplate';
 import CoverLetterTemplate from '../coverletter/coverletterTemplate/CoverLetterTemplate';
 
 export const CoverLetterContainer = styled.div`
@@ -80,11 +81,11 @@ export const CoverLetterContent = styled.div`
   height: 100vh;
 
   @media (min-width: ${bp.sm}) {
-    transform: scale(1);
+    transform: scale(1, 0.45);
   }
 
   @media (min-width: ${bp.md}) {
-    transform: scale(1, 0.4);
+    transform: scale(1, 0.45);
   }
 
   @media (min-width: ${bp.lg}) {
