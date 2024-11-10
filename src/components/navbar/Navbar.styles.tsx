@@ -611,3 +611,159 @@ export const StyledOption = styled.option`
     border: 1px solid #520668;
   }
 `;
+
+export const SidebarMenuContainer = styled.div<{ isOpen: boolean }>`
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(100%)')};
+  transition: transform 0.3s ease;
+  z-index: 100;
+
+  @media (min-width: ${bp.md}) {
+    width: 60%;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    width: 40%;
+  }
+`;
+
+export const SidebarHeader = styled.div`
+  background-color: ${colors.purple};
+  color: ${colors.white};
+  height: 6.3vh;
+  border-top: 0.3vh solid #fb5d20;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* gap: 20px; */
+  padding: 20px;
+
+  @media (min-width: ${bp.lg}) {
+    padding: 20px;
+    height: 8.3vh;
+  }
+`;
+
+export const SidebarHeaderItem = styled.div`
+  color: ${colors.white};
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+export const SidebarBackdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+`;
+
+export const SidebarTitleContainer = styled.div`
+  padding: 8px 16px;
+  height: 40px;
+  color: white;
+  background-color: transparent;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+export const SidebarTitle = styled.h1`
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+`;
+
+export const SidebarHeaderClose = styled.div`
+  color: ${colors.white};
+  border: 1px solid white;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+`;
+
+export const SidebarContentContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  gap: 10px;
+  overflow-y: auto;
+  position: relative;
+`;
+
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+  height: 100%;
+  margin-bottom: 50px;
+  width: 100%;
+  color: ${colors.darkPurple};
+  padding: 20px 20px 100px;
+
+  /* @media (min-width: ${bp.md}) {
+    padding: 20px 20px 100px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    padding: 20px 20px 100px;
+  } */
+`;
+
+export const ContentTitleContainer = styled.div`
+  color: ${colors.darkPurple};
+  width: 100%;
+  padding: 20px 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ContentTitle = styled.h1`
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+export const ContentItemContainer = styled.div`
+  width: 100%;
+  height: 160px;
+  border: 1px solid ${colors.blueGray};
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 3px;
+  margin-bottom: 1px;
+`;
+
+export const ContentItemTitle = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 0;
+`;
+
+export const ContentItemSubtexts = styled.div`
+  font-size: 12px;
+`;

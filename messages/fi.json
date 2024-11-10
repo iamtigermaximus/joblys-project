@@ -55,7 +55,22 @@
     "close": "Sulje",
     "login": "Kirjaudu",
     "letters": "Kirjeet",
-    "out": "Ulos"
+    "out": "Ulos",
+    "faq": "Usein kysytyt kysymykset",
+    "qCreateAccount": "Miten luon tilin?",
+    "aCreateAccount": "Jotta voit käyttää kaikkia ominaisuuksia, sinua pyydetään luomaan tili täyttämällä sähköpostiosoitteesi. Sen jälkeen voit luoda salasanan. Voit käyttää näitä tietoja kirjautuaksesi tilillesi.",
+    "qLogin": "Miten kirjaudun sisään?",
+    "aLogin": "Kirjautumalla sisään verkkosivuston oikeassa yläkulmassa pääset tiliisi. Lisäksi, jos sinulla ei ole vielä tiliä, voit rekisteröityä napsauttamalla 'Aloita' -painiketta.",
+    "qImport": "Miten tuon CV:n?",
+    "aImport": "Voit tuoda olemassa olevan CV:n käyttämällä 'Tuo' -painiketta CV- ja profiilirakentajan vasemmassa yläkulmassa. Valitse CV, ja tiedosto kopioituu automaattisesti kenttiin.",
+    "qEdit": "Miten voin muokata CV:täni tai saatekirjettäni?",
+    "aEdit": "Valitse asiakirja, jota haluat muokata 'CV' tai 'Saatekirjeet' -välilehdeltä ja napsauta sitten 'Muokkaa'. Voit muokata sisältöä editorissa. Syöttämiesi tietojen perusteella asiakirjan esikatselu näytetään välittömästi.",
+    "qDownload": "Miten voin ladata CV:ni tai saatekirjeeni?",
+    "aDownload": "Napsauta 'Lataa' editorissa tai tilisi 'CV' tai 'Saatekirjeet' -välilehdeltä. Jos sinulla ei ole vielä tiliä tai et ole vielä kirjautunut sisään, sinun on ensin seurattava ruudulla olevia ohjeita. Sen jälkeen voit ladata asiakirjan PDF-muodossa.",
+    "qDelete": "Miten voin poistaa kohteen?",
+    "aDelete": "Jos haluat poistaa yhden tai useamman kohteen osasta, voit tehdä sen valitsemalla kyseisen kohteen ja napsauttamalla roskakorikuvaketta. Jos haluat poistaa koko osan, sinun on valittava osio ja napsautettava kolmea pistettä, jonka jälkeen 'Poista osio' -vaihtoehto tulee näkyviin.",
+    "qLanguage": "Miten voin vaihtaa kieltä?",
+    "aLanguage": "Kielivaihtoehto valikossa oikeassa yläkulmassa antaa sinun asettaa editorin toiseen kieleen. Asiakirjan teksti käännetään automaattisesti valittuun kieleen. Teksti, jonka täytät laatikoihin, täytyy kääntää itse."
   },
   "DashboardPage": {
     "resumeTitle": "Ansioluettelot",

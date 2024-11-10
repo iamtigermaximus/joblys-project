@@ -56,7 +56,23 @@
     "close": "Close",
     "login": "Log in",
     "letters": "Letters",
-    "out": "Log out"
+    "out": "Log out",
+    "faq": "Frequently asked questions",
+    "qCreateAccount": "How do I create an account?",
+    "aCreateAccount": "In order for you to use all the features, you will be asked to create an account by filling in your email address. After that it is possible to create a password. You can then use these details to log into your account.",
+    "qLogin": "How do I login?",
+    "aLogin": "By logging in via the top right corner on the website, you will get access to your account. Additionally, if you do not have an account yet, you can sign up by clicking the Get Started button.",
+    "qImport": "How do I import a resume?",
+    "aImport": "You can import an existing resume by using the Import button in the top left section of the resume builder and profile builder. Select a resume and the file will automatically be copied into the fields.",
+
+    "qEdit": "How can I edit my resume or cover letter?",
+    "aEdit": "Select the document you wish to edit under the Resumes or Cover letters tab and then click Edit. You can edit the content in the editor. Based on the data you have entered, a preview of the document will be shown immediately.",
+    "qDownload": "How can I download my resume or cover letter?",
+    "aDownload": "Click on download in the editor or in your account under the tab Resumes or Cover letters. In case you do not yet have an account, or you have not yet logged in, you will need to first follow all the steps on the screen. You will then be able to download the document as a pdf.",
+    "qDelete": "How can I delete an item?",
+    "aDelete": "If you want to delete one or more entries within a section, you can do so by selecting the entry in question and clicking on the trash icon. If you want to delete an entire section, you have to select the section and click on the three dots after which the option Delete section will appear.",
+    "qLanguage": "How do I change to another language?",
+    "aLanguage": "The language option in the top right corner of the Menu section allows you to set the editor to another language. The text in the document will then automatically be translated into the newly selected language. The text you fill in in the boxes will need to be translated by you."
   },
   "DashboardPage": {
     "resumeTitle": "Resumes",

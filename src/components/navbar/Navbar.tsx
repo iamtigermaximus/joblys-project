@@ -6,6 +6,9 @@ import {
   BrandContainer,
   BurgerMenu,
   CloseButton,
+  ContentContainer,
+  ContentTitleContainer,
+  ContentTitle,
   LanguageContainer,
   LoginContainer,
   LogoImage,
@@ -26,15 +29,28 @@ import {
   NavbarContainer,
   NavbarIcon,
   NavbarItemsContainer,
+  SidebarBackdrop,
+  SidebarContentContainer,
+  SidebarHeader,
+  SidebarHeaderClose,
+  SidebarHeaderItem,
+  SidebarMenuContainer,
+  SidebarTitle,
+  SidebarTitleContainer,
   StyledOption,
   StyledSelect,
   TopNavbarLoginContainer,
   TopNavbarModalContainer,
   TopUserModal,
   UserModal,
+  ContentItemContainer,
+  ContentItemTitle,
+  ContentItemSubtexts,
 } from './Navbar.styles';
 import { useSession, signOut } from 'next-auth/react';
 import { FaBars, FaTimes, FaUser, FaQuestionCircle } from 'react-icons/fa';
+import { IoCloseSharp } from 'react-icons/io5';
+
 import {
   FaArrowRightFromBracket,
   FaArrowRightToBracket,
@@ -56,6 +72,16 @@ const Navbar = () => {
   const pathname = usePathname();
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const currentLocale = pathname.split('/')[1] || 'en';
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
 
   let userName = session?.user.name;
   if (userName && userName.includes(' ')) {
@@ -82,6 +108,8 @@ const Navbar = () => {
       setActiveMenuItem('resumes');
     } else if (pathname.startsWith(`/${locale}/eazyCV/cover-letters`)) {
       setActiveMenuItem('cover-letters');
+    } else {
+      setActiveMenuItem('');
     }
   }, [pathname, locale]);
 
@@ -101,11 +129,8 @@ const Navbar = () => {
 
   const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const newLocale = e.target.value as string;
-
-    // Keep the path after the language segment (if it exists)
     const pathWithoutLocale = pathname.split('/').slice(2).join('/');
 
-    // Redirect to the new locale, keeping the same path
     router.push(`/${newLocale}/${pathWithoutLocale}`);
   };
 
@@ -166,6 +191,13 @@ const Navbar = () => {
               href={`/${locale}/eazyCV/cover-letters`}
             >
               <MenuItem>{t('coverletters')}</MenuItem>
+            </MenuItemContainer>
+            <MenuItemContainer
+              onClick={toggleSidebar}
+              className={activeMenuItem === 'help' ? 'active' : ''}
+              href="#"
+            >
+              <MenuItem>FAQ</MenuItem>
             </MenuItemContainer>
           </MenuContainer>
           <LoginContainer>
@@ -330,7 +362,7 @@ const Navbar = () => {
 
       <TopNavbarLoginContainer>
         <NavbarIcon>
-          <FaQuestionCircle />
+          <FaQuestionCircle onClick={toggleSidebar} />
         </NavbarIcon>
         <NavbarIcon onClick={toggleUserModal}>
           <FaUser />
@@ -340,6 +372,60 @@ const Navbar = () => {
           <StyledOption value="fi">FI</StyledOption>
         </StyledSelect>
       </TopNavbarLoginContainer>
+      {isSidebarOpen && (
+        <>
+          <SidebarBackdrop onClick={closeSidebar} />
+          <SidebarMenuContainer isOpen>
+            <SidebarHeader>
+              <SidebarHeaderItem>
+                <SidebarTitleContainer>
+                  <SidebarTitle>FAQ</SidebarTitle>
+                </SidebarTitleContainer>
+              </SidebarHeaderItem>
+              <SidebarHeaderClose>
+                <IoCloseSharp onClick={closeSidebar} />
+              </SidebarHeaderClose>
+            </SidebarHeader>
+            <SidebarContentContainer>
+              <ContentTitleContainer>
+                <ContentTitle> {t('faq')}</ContentTitle>
+              </ContentTitleContainer>
+              <ContentContainer>
+                <ContentItemContainer>
+                  <ContentItemTitle>{t('qCreateAccount')}</ContentItemTitle>
+                  <ContentItemSubtexts>
+                    {t('aCreateAccount')}
+                  </ContentItemSubtexts>
+                </ContentItemContainer>
+                <ContentItemContainer>
+                  <ContentItemTitle>{t('qLogin')}</ContentItemTitle>
+                  <ContentItemSubtexts>{t('aLogin')}</ContentItemSubtexts>
+                </ContentItemContainer>
+                <ContentItemContainer>
+                  <ContentItemTitle>{t('qImport')}</ContentItemTitle>
+                  <ContentItemSubtexts>{t('aImport')}</ContentItemSubtexts>
+                </ContentItemContainer>
+                <ContentItemContainer>
+                  <ContentItemTitle>{t('qEdit')}</ContentItemTitle>
+                  <ContentItemSubtexts>{t('aEdit')}</ContentItemSubtexts>
+                </ContentItemContainer>
+                <ContentItemContainer>
+                  <ContentItemTitle>{t('qDownload')}</ContentItemTitle>
+                  <ContentItemSubtexts>{t('aDownload')}</ContentItemSubtexts>
+                </ContentItemContainer>
+                <ContentItemContainer>
+                  <ContentItemTitle>{t('qDelete')}</ContentItemTitle>
+                  <ContentItemSubtexts>{t('aDelete')}</ContentItemSubtexts>
+                </ContentItemContainer>
+                <ContentItemContainer>
+                  <ContentItemTitle>{t('qLanguage')}</ContentItemTitle>
+                  <ContentItemSubtexts>{t('aLanguage')}</ContentItemSubtexts>
+                </ContentItemContainer>
+              </ContentContainer>
+            </SidebarContentContainer>
+          </SidebarMenuContainer>
+        </>
+      )}
     </NavbarContainer>
   );
 };
