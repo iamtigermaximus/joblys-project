@@ -321,6 +321,8 @@ Based on this information, I'd like you to generate a CV summary that:
 Highlights my relevant skills and experience that match the new job description.
 Demonstrates how my current experience positions me for success in the new role.
 Provides a concise and impactful statement that showcases my value proposition.
+Concludes with a complete, well-formed sentence to maintain a clear, professional tone.
+
 
 Please ensure the summary:
 
@@ -328,6 +330,7 @@ Considers and records my most important experiences and skills, such as certific
 Reviews job descriptions for positions I'm interested in and notes the overlapping requirements with my qualifications.
 Includes a two- to three-sentence summary that briefly showcases those skills.
 Starts with a key adjective for myself, uses the active voice, and includes key action words to describe my experience.Use third-person.
+Please keep the summary concise and within the given token limit, ensuring it reads as a complete thought with no incomplete sentences.
 `;
 
 const openAI = new OpenAI({

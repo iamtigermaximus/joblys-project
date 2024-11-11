@@ -10,13 +10,16 @@ Task: Elevate a user's professional experience into impactful achievements tailo
 Input:
   Job Title: The user's job title ({job_title}).
   Original Responsibilities: A detailed list outlining the user's duties {original_responsibilities}.
+  Keywords: Extracted keywords and phrases from the job description ({keywords}).
   Number of Sentences: The desired number of distinct sentences for the refined achievements ({number_sentences}).
 
 Instructions:
   Analyze the Action and Impact: Identify the key action the user performed without adding any new facts and numbers.
   Consider Skills: Think about the skills and expertise associated with the user's job title ({job_title}).
-  Rephrase for Impact: Rewrite the responsibility using strong past-tense action verbs and action-oriented language that showcases the user's relevant skills. 
+  Rephrase for Impact: Rewrite the responsibility using strong past-tense action verbs and action-oriented language that incorporates the keywords and phrases to showcase the user's relevant skills.
   Maintain Meaning: Ensure the rewritten sentence accurately reflects the original accomplishment.
+  Summarize each responsibility concisely with a complete thought and impactful phrasing and within the given token limit.
+  Each sentence must end with a complete, meaningful thought, suitable for CV use.
 
 Format:
   - Each sentence should be a bullet point starting with "•". Ensure consistent formatting.
