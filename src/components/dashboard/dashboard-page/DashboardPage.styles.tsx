@@ -448,6 +448,7 @@ export const SidebarHeaderItem = styled.div`
 export const SidebarResumeContent = styled.div`
   transform: scale(0.95, 0.45);
   transform-origin: left top;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
   @media (min-width: ${bp.xs}) {
     transform: scale(1, 0.7);
@@ -500,12 +501,12 @@ export const SidebarContentContainer = styled.div`
   align-items: center;
   flex: 1;
   gap: 10px;
-  /* overflow-y: auto; */
+  overflow-y: auto;
   position: relative;
 `;
 
 export const ContentContainer = styled.div`
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -513,16 +514,17 @@ export const ContentContainer = styled.div`
   overflow-y: auto;
   height: 100%;
   margin-bottom: 50px;
-  width: 100%;
+  width: 100%; */
+  padding: 10px 20px;
 
   @media (min-width: ${bp.lg}) {
-    scale: 0.7;
-    padding: 20px;
+    /* scale: 0.7;
+    padding: 20px; */
   }
 
   @media (min-width: ${bp.lg}) {
-    scale: 1;
-    padding: 20px;
+    /* scale: 1;
+    padding: 20px; */
   }
 `;
 
