@@ -65,6 +65,11 @@ The cover letter should:
 - Start with a reference to the position being applied for, such as "Re: Frontend Developer".
 - Include a salutation to the hiring manager or the company's name.
 - Start the main body with "I'm interested in the position..." or a similar phrase.
+- In the first paragraph, mention the job title and express interest in the position. Make sure to link this interest to the person's skills and experience.
+- In the second paragraph, describe the person’s relevant skills, experience, and specific examples from their resume that align with the job description (e.g., programming languages, tools, methodologies).
+- Highlight the person's achievements or measurable outcomes that would demonstrate their value for the position.
+- In the third paragraph, explain why the person believes they would be a good fit for the role, referencing the company’s values or mission when possible.
+- Close with an invitation for further discussion, such as expressing interest in an interview.
 - Be divided into clear paragraphs with blank lines between them.
 - Do not include contact information of the applicant.
 - Do not include the date.

@@ -32,6 +32,7 @@ import { IoMdHelpCircleOutline } from 'react-icons/io';
 import { useTranslations } from 'next-intl';
 import { Coverletter } from '@/types/coverletter';
 import MiniCoverLetterTemplate from '@/components/templates/minicoverletter-template/MiniCoverLetterTemplate';
+import CoverLetterTemplate from '@/components/templates/coverletter/coverletterTemplate/CoverLetterTemplate';
 
 interface CoverLetterFormProps {
   coverletterId: string;
@@ -309,7 +310,7 @@ const CoverLetterForm: React.FC<CoverLetterFormProps> = ({
         </TemplatePreviewHeader>
         <PreviewCoverLetterContainer>
           <CoverLetterContent>
-            <MiniCoverLetterTemplate content={content} />
+            <CoverLetterTemplate content={content} isMini={true} />
           </CoverLetterContent>
         </PreviewCoverLetterContainer>
       </TemplatePreview>

@@ -20,15 +20,6 @@ export const Container = styled.div`
   }
 `;
 
-// export const ProfileBuilderContainer = styled.div`
-//   display: flex;
-//   width: 100%;
-//   background-color: white;
-//   flex-direction: column;
-//   height: 100vh;
-//   /* position: fixed; */
-// `;
-
 export const ResumeBuilderContainer = styled.div`
   display: flex;
   width: 100%;
@@ -197,7 +188,7 @@ export const ResumeTemplateContainer = styled.div`
     height: 100vh;
     background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff);
     overflow-y: auto;
-    padding: 50px 20px;
+    padding: 50px;
     -ms-overflow-style: none;
     scrollbar-width: none;
 

@@ -83,34 +83,41 @@ export const TemplatePreview = styled.div`
 `;
 
 export const PreviewResumeContainer = styled.div`
-  margin: auto;
-  /* padding: 10px; */
+  height: 100%;
   display: flex;
-  align-items: center;
+  justify-content: center;
   width: 100%;
-  /* background: linear-gradient(145deg, #ffffff, #f8f7ff, #eae8ff); */
-  /* background-color: pink; */
+  padding: 10px;
 
-  @media (max-width: ${bp.md}) {
-    width: 375px;
+  @media (min-width: ${bp.sm}) {
+    padding: 10px;
   }
 
   @media (min-width: ${bp.md}) {
-    width: 640px;
+    padding: 20px 50px;
+  }
+
+  @media (min-width: ${bp.lg}) {
   }
 `;
 
 export const ResumeContent = styled.div`
+  /* height: 100%; */
+  width: 100%;
   transform: scale(1, 0.3);
   transform-origin: top;
-  width: 100%;
+
+  @media (min-width: ${bp.sm}) {
+    width: 500px;
+    transform: scale(1, 0.4);
+  }
 
   @media (min-width: ${bp.md}) {
-    transform: scale(1);
+    width: 600px;
+    transform: scale(1, 0.5);
   }
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(0.9);
   }
 `;
 
@@ -348,9 +355,7 @@ export const TooltipContainer = styled.div`
   top: 10;
   left: 100;
   transform: translateX(-100%);
-  /* z-index: 100; */
   padding: 10px;
-  /* background-color: ${colors.blueGray}; */
   background-color: #800080;
   color: ${colors.white};
   border-radius: 5px;
@@ -359,12 +364,10 @@ export const TooltipContainer = styled.div`
   font-size: 11px;
 `;
 
-// Styled input for the file upload button
 export const FileUpload = styled.input`
-  display: none; // Hide the original file input
+  display: none;
 `;
 
-// Additional styled component for the label that will act as the button
 export const FileUploadButton = styled.label`
   display: flex;
   justify-content: center;

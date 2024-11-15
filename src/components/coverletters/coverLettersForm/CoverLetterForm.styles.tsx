@@ -76,6 +76,7 @@ export const TemplatePreview = styled.div`
   }
 
   @media (min-width: ${bp.lg}) {
+    display: none;
   }
 `;
 
@@ -232,30 +233,43 @@ export const InputLabel = styled.label`
 `;
 
 export const PreviewCoverLetterContainer = styled.div`
-  margin: auto;
-  padding: 10px;
+  /* padding: 10px;
+  display: flex; */
+  height: 100%;
   display: flex;
-  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
 
-  @media (max-width: ${bp.md}) {
-    width: 375px;
+  @media (min-width: ${bp.sm}) {
+    padding: 10px;
   }
 
   @media (min-width: ${bp.md}) {
-    width: 640px;
+    padding: 20px 50px;
+  }
+
+  @media (min-width: ${bp.lg}) {
   }
 `;
 
 export const CoverLetterContent = styled.div`
-  transform: scale(0.95, 0.45);
+  /* height: 100%; */
+  width: 100%;
+  transform: scale(1, 0.7);
   transform-origin: top;
 
+  @media (min-width: ${bp.sm}) {
+    width: 500px;
+    transform: scale(1, 0.8);
+  }
+
   @media (min-width: ${bp.md}) {
-    transform: scale(1);
+    width: 600px;
+    transform: scale(1, 0.9);
   }
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(0.9);
   }
 `;
 
