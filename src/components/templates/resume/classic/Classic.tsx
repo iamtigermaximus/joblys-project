@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
   additionalLinksContainer: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: 5,
   },
   detailsContentContainer: {
     display: 'flex',
@@ -673,7 +673,7 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo, isMini }) => {
                   }
                   key={link.id}
                 >
-                  <a href={link.url} style={{ textDecoration: 'none' }}>
+                  {/* <a href={link.url} style={{ textDecoration: 'none' }}>
                     <Text
                       style={
                         isMini
@@ -683,7 +683,21 @@ const Classic: FC<ClassicTemplateProps> = ({ resumeInfo, isMini }) => {
                     >
                       {link.url}
                     </Text>
-                  </a>
+                  </a> */}
+                  <Text
+                    style={
+                      isMini
+                        ? styles.miniBasicsItemTitle
+                        : styles.basicsItemTitle
+                    }
+                  >
+                    <a
+                      href={link.url}
+                      style={{ textDecoration: 'none', color: 'black' }}
+                    >
+                      {link.url}
+                    </a>
+                  </Text>
                 </View>
               </View>
             ))}
