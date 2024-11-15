@@ -74,18 +74,18 @@ export const ItemsContainer = styled.h1`
 
 export const CardContainer = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   flex-direction: column;
   max-width: calc(50% - 10px);
   width: 100%;
 
   @media (min-width: ${bp.sm}) {
-    padding: 20px;
+    /* padding: 20px; */
   }
 
   @media (min-width: ${bp.md}) {
-    padding: 20px;
+    /* padding: 20px; */
   }
 
   @media (min-width: ${bp.lg}) {
@@ -260,26 +260,26 @@ export const TimeStampContainer = styled.div`
   }
 `;
 
-export const Filename = styled.div`
-  color: #2e033b;
-  font-weight: bolder;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 11px;
+// export const Filename = styled.div`
+//   color: #2e033b;
+//   font-weight: bolder;
+//   white-space: nowrap;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   font-size: 11px;
 
-  &:hover {
-    color: ${colors.purple};
-  }
+//   &:hover {
+//     color: ${colors.purple};
+//   }
 
-  @media (min-width: ${bp.sm}) {
-    font-size: 14px;
-  }
+//   @media (min-width: ${bp.sm}) {
+//     font-size: 14px;
+//   }
 
-  @media (min-width: ${bp.lg}) {
-    font-size: 16px;
-  }
-`;
+//   @media (min-width: ${bp.lg}) {
+//     font-size: 16px;
+//   }
+// `;
 
 export const Timestamp = styled.div`
   font-size: 10px;
@@ -722,5 +722,65 @@ export const ListContentItem = styled.div`
   &:hover {
     background-color: ${colors.darkPurple};
     color: ${colors.white};
+  }
+`;
+
+export const FilenameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 5px 0;
+`;
+
+export const FilenameInput = styled.input`
+  color: #2e033b;
+  font-weight: bolder;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  border: none;
+  border-bottom: 1px solid #2e033b;
+  background-color: transparent;
+  padding-bottom: 2px;
+  width: 100%;
+
+  &:hover {
+    color: ${colors.purple};
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 14px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 16px;
+  }
+`;
+
+export const Filename = styled.h1`
+  color: #2e033b;
+  font-weight: bolder;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  padding-bottom: 2px;
+  width: 100%;
+
+  &:hover {
+    color: ${colors.purple};
+  }
+
+  @media (min-width: ${bp.sm}) {
+    font-size: 14px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    font-size: 16px;
   }
 `;

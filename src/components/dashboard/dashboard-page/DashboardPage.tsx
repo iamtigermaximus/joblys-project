@@ -47,6 +47,8 @@ import {
   MiniCoverLetter,
   PreviewTitleContainer,
   PreviewTitle,
+  FilenameContainer,
+  FilenameInput,
 } from './DashboardPage.styles';
 import { Resume, initialResume } from '@/types/resume';
 import { Coverletter, initialCoverletter } from '@/types/coverletter';
@@ -96,6 +98,10 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
   >(null);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
   const [error, setError] = useState(null);
+  const [editingFilenameId, setEditingFilenameId] = useState<string | null>(
+    null,
+  );
+  const [newFilename, setNewFilename] = useState<string>('');
 
   console.log('Cover Letters Prop:', coverletters);
 
@@ -353,6 +359,92 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
     }
   };
 
+  const handleFilenameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewFilename(event.target.value);
+  };
+
+  const handleFilenameBlur = async (id: string) => {
+    if (!newFilename.trim()) return;
+
+    try {
+      const response = await fetch(`/api/coverletter/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: newFilename }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update filename');
+      }
+
+      // Update the local state immediately to reflect the change in the UI
+      setCoverLettersList(prevCoverLetters =>
+        prevCoverLetters.map(coverLetter =>
+          coverLetter.id === id
+            ? { ...coverLetter, name: newFilename }
+            : coverLetter,
+        ),
+      );
+      setEditingFilenameId(null); // Close the input field
+    } catch (error: any) {
+      console.error('Error updating filename:', error.message);
+    }
+  };
+
+  const handleFilenameKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    id: string,
+  ) => {
+    if (event.key === 'Enter') {
+      await handleFilenameBlur(id); // Save the name when Enter is pressed
+    }
+  };
+
+  const handleResumeNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setNewFilename(event.target.value);
+  };
+
+  // save the new name
+  const handleResumeNameBlur = async (id: string) => {
+    if (!newFilename.trim()) return;
+
+    try {
+      const response = await fetch(`/api/cv/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: newFilename }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update resume name');
+      }
+
+      setResumesList(prevResumes =>
+        prevResumes.map(resume =>
+          resume.id === id ? { ...resume, name: newFilename } : resume,
+        ),
+      );
+      setEditingFilenameId(null);
+    } catch (error: any) {
+      console.error('Error updating resume name:', error.message);
+    }
+  };
+
+  const handleResumeNameKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    id: string,
+  ) => {
+    if (event.key === 'Enter') {
+      await handleResumeNameBlur(id);
+    }
+  };
+
   return (
     <Container>
       {resumesList && resumesList.length === 0 ? (
@@ -451,12 +543,32 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                           )}
                       </EditContainer>
                     </CardItem>
-                    <TimeStampContainer>
-                      <Filename>{resume.name}</Filename>
-                      <Timestamp>
-                        Edited {formatTimestamp(resume.updatedAt)}
-                      </Timestamp>
-                    </TimeStampContainer>
+                    <FilenameContainer>
+                      {editingFilenameId === resume.id ? (
+                        <FilenameInput
+                          type="text"
+                          value={newFilename}
+                          onChange={handleResumeNameChange}
+                          onBlur={() => handleResumeNameBlur(resume.id)}
+                          onKeyDown={e => handleResumeNameKeyDown(e, resume.id)}
+                          autoFocus
+                        />
+                      ) : (
+                        <Filename
+                          onClick={() => {
+                            setEditingFilenameId(resume.id);
+                            setNewFilename(resume.name);
+                          }}
+                        >
+                          {resume.name}
+                        </Filename>
+                      )}{' '}
+                      {resume.updatedAt && (
+                        <Timestamp>
+                          Edited {formatTimestamp(resume.updatedAt)}
+                        </Timestamp>
+                      )}
+                    </FilenameContainer>
                   </CardContainer>
                   {editModalOpenId === resume.id &&
                     activeElement === 'sidebarMenu' && (
@@ -623,12 +735,32 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                           )}
                       </EditContainer>
                     </CardItem>
-                    <TimeStampContainer>
-                      <Filename>{coverLetter.name}</Filename>
+                    <FilenameContainer>
+                      {editingFilenameId === coverLetter.id ? (
+                        <FilenameInput
+                          type="text"
+                          value={newFilename}
+                          onChange={handleFilenameChange}
+                          onBlur={() => handleFilenameBlur(coverLetter.id)}
+                          onKeyDown={e =>
+                            handleFilenameKeyDown(e, coverLetter.id)
+                          } // Save on Enter key press
+                          autoFocus
+                        />
+                      ) : (
+                        <Filename
+                          onClick={() => {
+                            setEditingFilenameId(coverLetter.id);
+                            setNewFilename(coverLetter.name);
+                          }}
+                        >
+                          {coverLetter.name}
+                        </Filename>
+                      )}{' '}
                       <Timestamp>
                         Edited {formatTimestamp(coverLetter.updatedAt)}
                       </Timestamp>
-                    </TimeStampContainer>
+                    </FilenameContainer>
                   </CardContainer>
                   {editModalOpenId === coverLetter.id &&
                     activeElement === 'sidebarMenu' && (
