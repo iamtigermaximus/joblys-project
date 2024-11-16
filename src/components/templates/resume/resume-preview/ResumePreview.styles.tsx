@@ -1,4 +1,3 @@
-import DefaultTemplate from '../defaultTemplate/DefaultTemplate';
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../../../utils/layout';
 import colors from '../../../../utils/colors';
@@ -23,11 +22,13 @@ export const CardContainer = styled.div`
 
   @media (min-width: ${bp.sm}) {
     max-width: calc(50%-10px);
-    height: 350px;
+    height: 400px;
   }
 
   @media (min-width: ${bp.md}) {
     max-width: calc(33.33% - 15px);
+    width: 250px;
+    height: 350px;
   }
 
   @media (min-width: ${bp.lg}) {
@@ -96,7 +97,7 @@ export const ResumeCard = styled.div<{ isLast?: boolean }>`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   @media (min-width: ${bp.sm}) {
-    height: 300px;
+    height: 400px;
   }
 
   @media (min-width: ${bp.md}) {
@@ -119,12 +120,12 @@ export const ResumeContent = styled.div`
   position: relative;
   top: 0;
   left: 0;
-  transform: scale(1, 0.3);
+  transform: scale(1, 0.4);
   width: 100%;
   height: 100vh;
 
   @media (min-width: ${bp.sm}) {
-    transform: scale(1, 0.45);
+    transform: scale(1, 0.55);
   }
 
   @media (min-width: ${bp.md}) {
@@ -141,12 +142,16 @@ export const ResumeContent = styled.div`
 `;
 
 export const SidebarResumeContent = styled.div`
-  transform: scale(0.95, 0.45);
-  transform-origin: left top;
+  transform: scale(0.85, 0.15);
+  transform-origin: center top;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
   @media (min-width: ${bp.xs}) {
-    transform: scale(1, 0.7);
+    transform: scale(1, 0.3);
+  }
+
+  @media (min-width: ${bp.sm}) {
+    transform: scale(1, 0.5);
   }
 
   @media (min-width: ${bp.md}) {
@@ -175,7 +180,7 @@ export const CreateResumeButton = styled.div`
 
   @media (min-width: ${bp.sm}) {
     max-width: calc(50%-10px);
-    height: 300px;
+    height: 350px;
   }
 
   @media (min-width: ${bp.md}) {
@@ -438,9 +443,10 @@ export const ContentContainer = styled.div`
 
   padding: 10px 20px;
   /* border: 1px solid red; */
+  transform-origin: center top;
+  width: 100%;
 
-  @media (min-width: ${bp.lg}) {
-    /* transform: scale(0.7, 0.8); */
+  @media (min-width: ${bp.sm}) {
   }
 
   @media (min-width: ${bp.lg}) {

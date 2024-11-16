@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { breakpoints as bp } from '@/utils/layout';
 import colors from '@/utils/colors';
-import MiniCoverLetterTemplate from '../minicoverletter-template/MiniCoverLetterTemplate';
 import CoverLetterTemplate from '../coverletter/coverletterTemplate/CoverLetterTemplate';
 
 export const CoverLetterContainer = styled.div`
@@ -53,7 +52,7 @@ export const CoverLetterCard = styled.div<{ isLast?: boolean }>`
   background-color: white;
 
   @media (min-width: ${bp.sm}) {
-    height: 300px;
+    height: 400px;
   }
 
   @media (min-width: ${bp.md}) {
@@ -76,12 +75,12 @@ export const CoverLetterContent = styled.div`
   position: relative;
   top: 0;
   left: 0;
-  transform: scale(1, 0.3);
+  transform: scale(1, 0.4);
   width: 100%;
   height: 100vh;
 
   @media (min-width: ${bp.sm}) {
-    transform: scale(1, 0.45);
+    transform: scale(1, 0.55);
   }
 
   @media (min-width: ${bp.md}) {
@@ -89,11 +88,11 @@ export const CoverLetterContent = styled.div`
   }
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(1, 0.35);
+    transform: scale(1, 0.45);
   }
 
   @media (min-width: ${bp.xl}) {
-    transform: scale(1, 0.3);
+    transform: scale(1, 0.55);
   }
 `;
 export const CreateCoverLetterButton = styled.div`
@@ -117,7 +116,7 @@ export const CreateCoverLetterButton = styled.div`
 
   @media (min-width: ${bp.sm}) {
     max-width: calc(50%-10px);
-    height: 300px;
+    height: 350px;
   }
 
   @media (min-width: ${bp.md}) {
@@ -339,7 +338,7 @@ export const SidebarHeaderClose = styled.div`
 `;
 
 export const SidebarContentContainer = styled.div`
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -351,7 +350,7 @@ export const SidebarContentContainer = styled.div`
 `;
 
 export const ContentContainer = styled.div`
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -359,16 +358,21 @@ export const ContentContainer = styled.div`
   overflow-y: auto;
   height: 100%;
   margin-bottom: 50px;
+  width: 100%; */
+
+  padding: 10px 20px;
+  transform-origin: center top;
   width: 100%;
+  height: 100%;
 
   @media (min-width: ${bp.lg}) {
-    scale: 0.7;
-    padding: 20px;
+    /* scale: 0.7;
+    padding: 20px; */
   }
 
   @media (min-width: ${bp.lg}) {
-    scale: 0.9;
-    padding: 20px;
+    /* scale: 0.9;
+    padding: 20px; */
   }
 `;
 
@@ -546,11 +550,13 @@ export const CardContainer = styled.div`
 
   @media (min-width: ${bp.sm}) {
     max-width: calc(50%-10px);
-    height: 350px;
+    height: 400px;
   }
 
   @media (min-width: ${bp.md}) {
     max-width: calc(33.33% - 15px);
+    width: 250px;
+    height: 350px;
   }
 
   @media (min-width: ${bp.lg}) {
@@ -565,15 +571,20 @@ export const CardContainer = styled.div`
 `;
 
 export const SidebarCoverletterContent = styled.div`
-  transform: scale(0.95, 0.45);
-  transform-origin: left top;
+  transform: scale(0.85, 0.45);
+  transform-origin: center top;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
   @media (min-width: ${bp.xs}) {
-    transform: scale(1, 0.7);
+    transform: scale(1, 0.6);
+  }
+
+  @media (min-width: ${bp.sm}) {
+    transform: scale(0.85, 0.9);
   }
 
   @media (min-width: ${bp.md}) {
-    transform: scale(1, 0.8);
+    transform: scale(1);
   }
 `;
 

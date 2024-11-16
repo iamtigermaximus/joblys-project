@@ -48,9 +48,10 @@ import { formatDistanceToNow, format, parseISO } from 'date-fns';
 
 import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
 import { useTranslations } from 'next-intl';
+import CoverLetterTemplate from '../coverletter/coverletterTemplate/CoverLetterTemplate';
+import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
 import ConfirmationModal from '../resume/defaultTemplate/ConfirmationModal';
 import UpgradeModal from '../resume/defaultTemplate/resume-helpers/UpgradeModal';
-import DownloadCoverLetterButton from '../coverletter/coverletterTemplate/DownloadCoverLetterButton';
 
 interface CoverLetterPreviewProps {
   viewMode: 'list' | 'card';
@@ -289,7 +290,7 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                     isLast={true}
                   >
                     <CoverLetterContent>
-                      <MiniCoverLetter
+                      <CoverLetterTemplate
                         content={coverLetter.content}
                         isMini={true}
                       />
@@ -405,7 +406,9 @@ const CoverLetterPreview: React.FC<CoverLetterPreviewProps> = ({
                         <ContentContainer>
                           {selectedCoverletter && (
                             <SidebarCoverletterContent>
-                              <MiniCoverLetter content={coverLetter.content} />
+                              <CoverLetterTemplate
+                                content={coverLetter.content}
+                              />
                             </SidebarCoverletterContent>
                           )}
                         </ContentContainer>
