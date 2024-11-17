@@ -101,6 +101,7 @@ export const CardItem = styled.div`
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
   background-color: white;
+  padding-top: 10px;
 
   @media (min-width: ${bp.xs}) {
     height: 250px;
@@ -125,7 +126,7 @@ export const CardItem = styled.div`
 export const ResumeContent = styled.div`
   display: flex;
   justify-content: center;
-  transform-origin: left top;
+  transform-origin: center top;
   position: relative;
   top: 0;
   left: 0;
@@ -134,7 +135,7 @@ export const ResumeContent = styled.div`
   transform: scale(1, 0.3);
 
   @media (min-width: ${bp.xs}) {
-    transform: scale(0.9, 0.3);
+    transform: scale(1, 0.25);
   }
 
   @media (min-width: ${bp.sm}) {
@@ -153,27 +154,27 @@ export const ResumeContent = styled.div`
 export const CoverLetterContent = styled.div`
   display: flex;
   justify-content: center;
-  transform-origin: left top;
+  transform-origin: center top;
   position: relative;
   top: 0;
   left: 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transform: scale(1, 0.2);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  transform: scale(1, 0.3);
 
   @media (min-width: ${bp.xs}) {
-    transform: scale(1, 0.25);
+    transform: scale(1, 0.4);
   }
 
   @media (min-width: ${bp.sm}) {
-    transform: scale(1, 0.35);
+    transform: scale(1, 0.45);
   }
 
   @media (min-width: ${bp.md}) {
-    transform: scale(1, 0.35);
+    transform: scale(1, 0.7);
   }
 
   @media (min-width: ${bp.lg}) {
-    transform: scale(1, 0.45);
+    transform: scale(1, 0.75);
   }
 `;
 
@@ -446,9 +447,23 @@ export const SidebarHeaderItem = styled.div`
 `;
 
 export const SidebarResumeContent = styled.div`
+  transform: scale(1, 0.45);
+  transform-origin: left top;
+
+  @media (min-width: ${bp.xs}) {
+    transform: scale(1, 0.7);
+  }
+
+  @media (min-width: ${bp.md}) {
+    transform: scale(1, 0.8);
+  }
+`;
+
+export const SidebarCoverletterContent = styled.div`
   transform: scale(0.95, 0.45);
   transform-origin: left top;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  height: 100vh;
 
   @media (min-width: ${bp.xs}) {
     transform: scale(1, 0.7);
@@ -494,7 +509,7 @@ export const SidebarHeaderClose = styled.div`
 `;
 
 export const SidebarContentContainer = styled.div`
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -503,6 +518,11 @@ export const SidebarContentContainer = styled.div`
   gap: 10px;
   overflow-y: auto;
   position: relative;
+  padding: 10px;
+
+  @media (min-width: ${bp.md}) {
+    padding: 20px;
+  }
 `;
 
 export const ContentContainer = styled.div`
@@ -515,11 +535,15 @@ export const ContentContainer = styled.div`
   height: 100%;
   margin-bottom: 50px;
   width: 100%; */
-  padding: 10px 20px;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
-  @media (min-width: ${bp.lg}) {
+  @media (min-width: ${bp.md}) {
     /* scale: 0.7;
     padding: 20px; */
+    min-height: 700px;
   }
 
   @media (min-width: ${bp.lg}) {

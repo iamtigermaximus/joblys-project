@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { breakpoints as bp } from '@/utils/layout';
 import colors from '@/utils/colors';
+import MiniCoverLetterTemplate from '../minicoverletter-template/MiniCoverLetterTemplate';
 import CoverLetterTemplate from '../coverletter/coverletterTemplate/CoverLetterTemplate';
 
 export const CoverLetterContainer = styled.div`
@@ -41,8 +42,6 @@ export const CoverLetterCard = styled.div<{ isLast?: boolean }>`
   } */
 
   height: 250px;
-  height: 100%;
-  overflow: hidden;
   position: relative;
   cursor: pointer;
   border: 1px solid #ccc;
@@ -267,7 +266,7 @@ export const SidebarMenuContainer = styled.div`
   }
 
   @media (min-width: ${bp.md}) {
-    width: 50%;
+    width: 60%;
   }
 
   @media (min-width: ${bp.lg}) {
@@ -347,32 +346,30 @@ export const SidebarContentContainer = styled.div`
   gap: 10px;
   overflow-y: auto;
   position: relative;
+  padding: 10px 20px;
 `;
 
 export const ContentContainer = styled.div`
-  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  scale: 0.9;
-  overflow-y: auto;
-  height: 100%;
-  margin-bottom: 50px;
-  width: 100%; */
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  height: 500px;
+  padding-top: 20px;
+  /* border: 1px solid red; */
+  margin-bottom: 100px;
 
-  padding: 10px 20px;
-  transform-origin: center top;
-  width: 100%;
-  height: 100%;
+  @media (min-width: ${bp.xs}) {
+    width: 350px;
+  }
+  @media (min-width: ${bp.sm}) {
+  }
 
-  @media (min-width: ${bp.lg}) {
-    /* scale: 0.7;
-    padding: 20px; */
+  @media (min-width: ${bp.md}) {
+    min-width: 350px;
+    max-width: 600px;
   }
 
   @media (min-width: ${bp.lg}) {
-    /* scale: 0.9;
-    padding: 20px; */
+    width: 100%;
+    min-height: 700px;
   }
 `;
 
@@ -571,20 +568,24 @@ export const CardContainer = styled.div`
 `;
 
 export const SidebarCoverletterContent = styled.div`
-  transform: scale(0.85, 0.45);
   transform-origin: center top;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+  /* border: 1px dashed red;
+  height: 400px; */
+  transform: scale(1, 0.5);
 
   @media (min-width: ${bp.xs}) {
-    transform: scale(1, 0.6);
+    transform: scale(1, 0.45);
   }
-
   @media (min-width: ${bp.sm}) {
-    transform: scale(0.85, 0.9);
   }
 
   @media (min-width: ${bp.md}) {
-    transform: scale(1);
+    transform: scale(1, 0.5);
+  }
+
+  @media (min-width: ${bp.lg}) {
+    transform: scale(1, 0.8);
   }
 `;
 

@@ -1,3 +1,4 @@
+import DefaultTemplate from '../defaultTemplate/DefaultTemplate';
 import styled from 'styled-components';
 import { breakpoints as bp } from '../../../../utils/layout';
 import colors from '../../../../utils/colors';
@@ -155,6 +156,9 @@ export const SidebarResumeContent = styled.div`
   }
 
   @media (min-width: ${bp.md}) {
+    transform: scale(1, 0.6);
+  }
+  @media (min-width: ${bp.lg}) {
     transform: scale(1, 0.8);
   }
 `;

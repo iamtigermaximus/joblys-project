@@ -49,6 +49,7 @@ import {
   PreviewTitle,
   FilenameContainer,
   FilenameInput,
+  SidebarCoverletterContent,
 } from './DashboardPage.styles';
 import { Resume, initialResume } from '@/types/resume';
 import { Coverletter, initialCoverletter } from '@/types/coverletter';
@@ -57,6 +58,7 @@ import { v4 as uuidv4 } from 'uuid';
 import DownloadCoverLetterButton from '@/components/templates/coverletter/coverletterTemplate/DownloadCoverLetterButton';
 import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
 import { useTranslations } from 'next-intl';
+import CoverLetterTemplate from '@/components/templates/coverletter/coverletterTemplate/CoverLetterTemplate';
 
 interface DashboardPageProps {
   resumes: {
@@ -680,7 +682,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                       }
                     >
                       <CoverLetterContent>
-                        <MiniCoverLetter
+                        <CoverLetterTemplate
                           content={coverLetter.content}
                           isMini={true}
                         />
@@ -784,11 +786,11 @@ const DashboardPage: React.FC<DashboardPageProps> = ({
                         <SidebarContentContainer>
                           <ContentContainer>
                             {selectedCoverletter && (
-                              <SidebarResumeContent>
-                                <MiniCoverLetter
+                              <SidebarCoverletterContent>
+                                <CoverLetterTemplate
                                   content={coverLetter.content}
                                 />
-                              </SidebarResumeContent>
+                              </SidebarCoverletterContent>
                             )}
                           </ContentContainer>
                         </SidebarContentContainer>

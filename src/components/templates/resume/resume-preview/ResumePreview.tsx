@@ -57,6 +57,7 @@ import { convertProfileToResume } from '@/types/profile';
 import { v4 as uuidv4 } from 'uuid';
 import { formatFilenameFromDate } from '@/components/helpers/formHelpers';
 import { useTranslations } from 'next-intl';
+import Classic from '../classic/Classic';
 
 interface MiniResumeProps {
   resumes: {
@@ -406,7 +407,7 @@ const ResumePreview: React.FC<MiniResumeProps> = ({ resumes, viewMode }) => {
                       <ContentContainer>
                         {selectedResume && (
                           <SidebarResumeContent>
-                            <MiniDefault
+                            <Classic
                               id={selectedResume.id}
                               resumeInfo={selectedResume}
                             />
