@@ -119,7 +119,7 @@ const ProfileProfessional: FC<ProfileProfessionalProps> = ({
       endDate: { month: '', year: '' },
       jobDetails: '',
     };
-    setWorkData(prevData => [...prevData, newExperience]);
+    setWorkData(prevData => [newExperience, ...prevData]);
   };
 
   const handleDeleteExperience = (id: string) => {

@@ -133,7 +133,7 @@ const ProfileEducation: FC<ProfileEducationProps> = ({
       endDate: { month: '', year: '' },
       description: '',
     };
-    setEducationData(prevData => [...prevData, newEducation]);
+    setEducationData(prevData => [newEducation, ...prevData]);
   };
 
   const handleDeleteEducation = (id: string) => {
