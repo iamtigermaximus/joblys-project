@@ -68,7 +68,6 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
     setResumeInfo(prevInfo => ({
       ...prevInfo,
       educational: [
-        ...prevInfo.educational,
         {
           id: newId,
           school: '',
@@ -77,6 +76,7 @@ const EducationalDetailsForm: FC<EducationalDetailsFormProps> = ({
           endDate: { month: 'January', year: currentYear },
           description: '',
         },
+        ...prevInfo.educational,
       ],
     }));
   };
