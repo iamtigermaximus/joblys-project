@@ -177,7 +177,6 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
       professional: {
         ...prevInfo.professional,
         work: [
-          ...prevInfo.professional.work,
           {
             id: newId,
             jobTitle: '',
@@ -186,7 +185,7 @@ const ProfessionalDetailsForm: FC<ProfessionalDetailsFormProps> = ({
             endDate: { month: 'January', year: currentYear },
             jobDetails: '',
           },
-        ],
+          ...prevInfo.professional.work,        ],
       },
     }));
   };
